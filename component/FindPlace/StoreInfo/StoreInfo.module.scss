@@ -1,0 +1,179 @@
+$commonPadding: 15px;
+
+.mainBlock {
+  width: 380px;
+  height: 911px;
+  background-color: white;
+  position: absolute;
+  z-index: 25;
+  box-shadow: 15px 0px 15px -10px rgba(0, 0, 0, 0.2);
+  left: 380px;
+  border-left: 1px solid gray;
+  overflow-y: scroll;
+  @media screen and (max-width: 1023px) {
+    left: 0;
+    z-index: 30;
+    width: 100%;
+    border: none;
+    top: 520px;
+    height: 520px;
+  }
+}
+
+.titleBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.storeName {
+}
+
+.moveList {
+  position: absolute;
+  left: 0;
+  margin-left: 10px;
+}
+.category {
+  color: #a1a1a1;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.buttonBlock {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.infoBlock {
+  padding: $commonPadding;
+}
+
+.infoContentBlock {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.icon {
+  margin-right: 10px;
+  color: #adadad;
+}
+
+.menuListBlock {
+  padding: $commonPadding;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.menuBlock {
+  width: 350px;
+  display: flex;
+  overflow-x: scroll;
+}
+
+.menuImgBlock {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
+.tagListBlock {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.subTitle {
+  margin-right: 250px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #eaeef2;
+  border-radius: 10px;
+  color: #666666;
+  padding: 5px;
+}
+
+.reviewBlock {
+  padding: $commonPadding;
+}
+
+.usericon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: burlywood;
+  margin-right: 10px;
+}
+
+.commentBlock {
+  border-bottom: 1px solid black;
+  padding-top: 10px;
+}
+
+.commentInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tagListBlock {
+  margin-top: 5px;
+}
+
+.commentTag {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.imgBlock {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.imgs {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+.commentContent {
+  margin-bottom: 10px;
+}
+
+.commentTag {
+  font-size: 12px;
+  color: gray;
+}
+
+.contributeButton {
+  width: 65px;
+  height: 30px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.bookmarkIcon {
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+}
+
+.date {
+  color: #a1a1a1;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.noReview {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 600px;
+}

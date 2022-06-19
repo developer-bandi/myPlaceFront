@@ -1,0 +1,49 @@
+@mixin sideBarButton {
+  z-index: 25;
+  display: block;
+  position: absolute;
+  left: 380px;
+  top: 50%;
+  background-color: white;
+  padding: 10px 0 10px 0;
+  height: 50px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  &:hover {
+    background-color: #eaeaea;
+  }
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
+
+.activeFoldButton {
+  z-index: 25;
+  display: block;
+  position: absolute;
+  left: 760px;
+  top: 50%;
+  background-color: white;
+  padding: 10px 0 10px 0;
+  height: 50px;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  &:hover {
+    background-color: #eaeaea;
+  }
+}
+
+.storeInfoUnActive {
+  @include sideBarButton();
+  left: 380px;
+}
+
+.storeInfoActive {
+  @include sideBarButton();
+  left: 760px;
+}
+
+.folded {
+  @include sideBarButton();
+  left: 0;
+}

@@ -1,0 +1,65 @@
+.mainBlock {
+  width: 100%;
+}
+
+.subBlock {
+  width: 800px;
+  margin: auto;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 30px;
+  margin-bottom: 20px;
+  @media screen and (max-width: 767px) {
+    width: 80%;
+    padding: 30px 15px 15px 15px;
+  }
+}
+
+.title {
+  text-align: center;
+  margin: 50px 0 50px 0;
+}
+
+.contentBlock {
+  width: 800px;
+  display: flex;
+  margin-bottom: 20px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+}
+
+.subTitle {
+  margin: 0;
+  margin-bottom: 0.3rem;
+  width: 120px;
+  display: flex;
+  font-size: 18px;
+  font-weight: 400;
+  align-items: center;
+  @media screen and (max-width: 767px) {
+    width: 40%;
+  }
+}
+
+.input {
+  width: 630px;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-bottom: 1px solid black;
+  @media screen and (max-width: 767px) {
+    width: 60%;
+  }
+}
+
+.signupButtonBlock {
+  width: 800px;
+  margin: auto;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 100px;
+  @media screen and (max-width: 767px) {
+    width: 80%;
+  }
+}

@@ -1,0 +1,16 @@
+.button {
+  border-radius: 50%;
+  position: absolute;
+  z-index: 25;
+  background-color: skyblue;
+  width: 80px;
+  height: 80px;
+  bottom: 70px;
+  right: 30px;
+  color: white;
+  font-size: 15px;
+  @media screen and (max-width: 767px) {
+    top: 420px;
+    bottom: 0;
+  }
+}

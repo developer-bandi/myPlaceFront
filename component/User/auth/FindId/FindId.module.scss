@@ -1,0 +1,44 @@
+.mainBlock {
+  width: 100%;
+}
+.title {
+  text-align: center;
+}
+.subBlock {
+  width: 600px;
+  margin: auto;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  padding: 30px;
+  margin-bottom: 100px;
+  @media screen and (max-width: 767px) {
+    width: 80%;
+    margin-bottom: 50px;
+    padding: 30px 15px 30px 15px;
+  }
+}
+
+.inputBlock {
+  margin-bottom: 50px;
+}
+
+.input {
+  width: 450px;
+  height: 40px;
+  border-bottom: 1px solid black;
+  margin-right: 10px;
+  @media screen and (max-width: 767px) {
+    width: 75%;
+  }
+}
+
+.button {
+  width: 70px;
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  @media screen and (max-width: 767px) {
+    width: 20%;
+    font-size: 12px;
+  }
+}

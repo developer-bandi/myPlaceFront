@@ -1,0 +1,73 @@
+.mainBlock {
+  width: 100%;
+  border-bottom: 1px solid #e5e5e5;
+}
+.subBlock {
+  width: 1024px;
+  height: 60px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding: 0 20px 0 20px;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+}
+
+.title {
+  font-size: 25px;
+  font-weight: bold;
+  color: #00aaff;
+}
+
+.navigationBlock {
+  display: flex;
+  margin-left: 40px;
+}
+
+.bottomNavigationBlock {
+  display: flex;
+}
+
+.navigationName {
+  :hover {
+    color: gray;
+  }
+  & + & {
+    margin-left: 20px;
+  }
+}
+
+.userBlock {
+  width: 180px;
+  margin-left: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout {
+  cursor: pointer;
+}
+
+.signin {
+  margin-left: auto;
+  font-weight: 600;
+  color: gray;
+  font-size: 18px;
+}
+
+.myPageNavigationBlock {
+  position: absolute;
+  z-index: 25;
+  top: 50px;
+  right: 10px;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 1px 4px 15px rgb(0 0 0 / 20%);
+  padding: 10px;
+  border-radius: 5px;
+}

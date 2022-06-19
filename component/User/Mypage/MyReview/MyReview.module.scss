@@ -1,0 +1,61 @@
+@import "../../../../lib/styles/globalmixin.scss";
+
+.reviewBlock {
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
+  @media screen and (max-width: 1201px) {
+    width: 100%;
+    padding: 15px;
+  }
+}
+
+.titleBlock {
+  display: flex;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.titleRightBlock {
+  margin-left: auto;
+  display: flex;
+}
+
+.button {
+  padding: 5px;
+  margin-left: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 30px;
+  @include centerSort();
+}
+
+.content {
+  margin-bottom: 10px;
+}
+
+.hashtagListBlock {
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  }
+}
+
+.hashtag {
+  margin-right: 5px;
+  color: gray;
+}
+
+.photoListBlock {
+  display: flex;
+}
+
+.photoBlock {
+  margin-right: 5px;
+}

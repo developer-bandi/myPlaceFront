@@ -1,0 +1,112 @@
+.mainBlock {
+  height: 860px;
+  overflow-y: scroll;
+  @media screen and (max-width: 767px) {
+    height: 450px;
+  }
+}
+
+.categoryListBlock {
+  display: flex;
+  padding-left: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+@mixin category {
+  padding: 5px;
+  border-radius: 10px;
+  color: black;
+  border: 1px solid #e5e5e5;
+  font-size: 17px;
+  margin-right: 10px;
+  padding: 5px 15px 5px 15px;
+  &:hover {
+    background: #87cefa;
+    border: 1px solid #87cefa;
+  }
+}
+
+.category {
+  @include category();
+}
+
+.selectedCategory {
+  @include category();
+  background: #87cefa;
+  border: 1px solid #87cefa;
+}
+
+.inputBlock {
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+.adressInput {
+  width: 290px;
+  height: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.adressButton {
+  width: 50px;
+  height: 30px;
+  background-color: #00aaff;
+  border-radius: 5px;
+  color: white;
+}
+
+.title {
+  padding-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+.hashtagListBlock {
+  padding-left: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@mixin hashtag {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 7px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover {
+    background: #87cefa;
+    border: 1px solid #87cefa;
+    color: white;
+  }
+}
+
+.hashtag {
+  @include hashtag();
+}
+
+.selectedHashtag {
+  @include hashtag();
+  background: #87cefa;
+  border: 1px solid #87cefa;
+  color: white;
+}
+
+.searchbutton {
+  display: block;
+  width: 360px;
+  height: 40px;
+  margin: auto;
+  background-color: #00aaff;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
+}

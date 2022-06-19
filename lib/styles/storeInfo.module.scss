@@ -1,0 +1,173 @@
+.mainBlock {
+  width: 100%;
+}
+
+.subBlock {
+  margin: auto;
+  width: 1000px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 50px 30px 0 30px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  @media screen and (max-width: 1023px) {
+    width: 90%;
+    padding: 20px 10px 0 10px;
+  }
+}
+
+.contentBlock {
+  display: flex;
+  margin-bottom: 40px;
+}
+
+.title {
+  text-align: center;
+  font-size: 40px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.subTitleCenter {
+  margin-right: 10px;
+  font-size: 20px;
+  width: 80px;
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 1023px) {
+    width: 30%;
+  }
+}
+
+.subTitle {
+  margin-right: 10px;
+  font-size: 20px;
+  width: 80px;
+  @media screen and (max-width: 1023px) {
+    width: 30%;
+    margin: 0;
+  }
+}
+
+.input {
+  border-bottom: 1px solid black;
+  width: 860px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  @media screen and (max-width: 1023px) {
+    width: 70%;
+  }
+}
+
+.selectInput {
+  width: 860px;
+  height: 40px;
+  border-radius: 5px;
+  @media screen and (max-width: 1023px) {
+    width: 70%;
+  }
+}
+
+.textarea {
+  border: 1px solid black;
+  width: 860px;
+  height: 100px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 10px;
+  @media screen and (max-width: 1023px) {
+    width: 70%;
+  }
+}
+
+.menuBlock {
+  width: 860px;
+  display: flex;
+  overflow: scroll;
+  @media screen and (max-width: 1023px) {
+    width: 70%;
+  }
+}
+
+.fileButton {
+  background-color: #eaeaea;
+  display: block;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  color: gray;
+  font-weight: bold;
+  font-size: 20px;
+  padding-top: 20px;
+  margin-right: 10px;
+  margin-bottom: 30px;
+  flex: 0 0 auto;
+}
+
+.fileIcon {
+  width: 40px;
+  margin: auto;
+}
+
+.fileCount {
+  width: 50px;
+  margin: auto;
+  font-size: 15px;
+}
+
+.realFileButton {
+  display: none;
+}
+
+.imgBlock {
+  margin-right: 10px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.img {
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.imgDeleteButton {
+  position: absolute;
+  background: black;
+  opacity: 0.7;
+  font-size: 25px;
+  width: 35px;
+  height: 35px;
+  top: 3%;
+  right: 3%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.submitButtonBlock {
+  width: 1000px;
+  margin: auto;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 100px;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+    padding-right: 5%;
+  }
+}
+
+.submitButton {
+  background-color: #39373a;
+  color: white;
+  padding: 10px;
+  width: 150px;
+  height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+}

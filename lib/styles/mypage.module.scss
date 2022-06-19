@@ -1,0 +1,65 @@
+.mainBlock {
+  width: 1200px;
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+  padding-top: 50px;
+  @media screen and (max-width: 1023px) {
+    padding-top: 20px;
+  }
+  @media screen and (max-width: 1201px) {
+    width: 100%;
+  }
+}
+
+.subBlock {
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+
+  min-height: 600px;
+  align-content: flex-start;
+
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 1201px) {
+    width: 100%;
+    min-height: 400px;
+  }
+  @media screen and (min-width: 1201px) {
+    margin-left: 50px;
+    margin-bottom: 0;
+  }
+}
+
+.loading {
+  margin: auto;
+  margin-top: 100px;
+  @media screen and (min-width: 1201px) {
+    margin-top: 50px;
+  }
+}
+
+.error {
+  font-size: 30px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.noResult {
+  font-size: 30px;
+  margin: auto;
+  margin-top: 100px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0 0 30px 0;
+  @media screen and (max-width: 1200px) {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+}

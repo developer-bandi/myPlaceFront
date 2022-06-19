@@ -1,0 +1,208 @@
+@import "../../../lib/styles/globalmixin.scss";
+
+.mainBlock {
+  width: 1000px;
+  margin: auto;
+  padding-top: 50px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    padding-top: 30px;
+  }
+}
+
+.hidden {
+  @include hidden();
+}
+
+.titleBlock {
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 10px;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  @media screen and (max-width: 767px) {
+    padding-left: 10px;
+  }
+}
+
+.titleInfoBlock {
+  display: flex;
+}
+
+.leftBlock {
+  display: flex;
+  @media screen and (max-width: 767px) {
+    padding-left: 10px;
+  }
+}
+
+.nickname {
+  color: #50575e;
+  margin-right: 10px;
+}
+
+.date {
+  color: #c5cec1;
+}
+
+.rightBlock {
+  display: flex;
+  margin-left: auto;
+}
+
+.deletePostButton {
+  width: 70px;
+  margin-left: 10px;
+}
+
+.viewCount {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.content {
+  padding-top: 30px;
+  line-height: 1.5;
+  padding-bottom: 100px;
+  @media screen and (max-width: 767px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.likeCount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #e5e5e5;
+  padding: 20px;
+  width: 90px;
+  height: 50px;
+  border-radius: 5px;
+  margin: auto;
+  margin-bottom: 100px;
+}
+
+.commentBlock {
+  border-bottom: 1px solid #eaeaea;
+  align-items: flex-start;
+  padding: 10px 0 10px 0;
+}
+
+.commentTitle {
+  width: 1000px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+  padding-bottom: 10px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    padding-left: 10px;
+  }
+}
+
+.icon {
+  margin-right: 5px;
+}
+
+.commentUser {
+  font-size: 18px;
+  color: skyblue;
+}
+
+.commentContent {
+  width: 950px;
+  line-height: 1.5;
+  @media screen and (max-width: 767px) {
+    width: 90%;
+  }
+}
+
+.commentDate {
+  font-size: 13px;
+  margin-left: 10px;
+  text-align: right;
+  color: #c5cec1;
+}
+
+.deleteCommentButton {
+  margin-left: 10px;
+  padding: 0;
+}
+
+.commentInputBlock {
+  display: flex;
+  flex-wrap: wrap;
+  height: 140px;
+  border: 2px solid #cecece;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 200px;
+  @media screen and (max-width: 767px) {
+    width: 90%;
+    margin: 0 5% 50px 5%;
+    height: 120px;
+  }
+}
+
+.commentInput {
+  width: 900px;
+  height: 120px;
+  @media screen and (max-width: 767px) {
+    height: 100px;
+    width: 80%;
+  }
+}
+
+.commentSubmitButton {
+  background-color: black;
+  color: white;
+  width: 65px;
+  height: 30px;
+  margin-left: 10px;
+  border-radius: 5px;
+  margin-top: 85px;
+  @media screen and (max-width: 767px) {
+    margin: 0;
+    height: 100px;
+    width: 20%;
+  }
+}
+
+.commentListBlock {
+  margin-bottom: 50px;
+}
+
+.commentInfoBlock {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.photoBlock {
+  position: relative;
+  max-width: 100%;
+  height: auto;
+}
+
+.img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  @media screen and (max-width: 767px) {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.commentListBlock {
+  width: 1000px;
+  @media screen and (max-width: 767px) {
+    width: 90%;
+    margin: 0 5% 50px 5%;
+  }
+}
