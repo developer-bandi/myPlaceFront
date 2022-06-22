@@ -77,7 +77,7 @@ const PostDetail = ({
           return (
             <div className={styles.photoBlock}>
               <img
-                src={`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/imgs/${srcObj.filename}`}
+                src={`${process.env.NEXT_PUBLIC_IMG_URL}/${srcObj.filename}`}
                 className={styles.img}
               />
             </div>

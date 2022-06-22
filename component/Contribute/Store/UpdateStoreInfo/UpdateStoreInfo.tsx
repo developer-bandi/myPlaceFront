@@ -21,7 +21,7 @@ interface AddStoreProps {
 }
 
 const myLoader = ({ src }: { src: string }) => {
-  return `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/imgs/${src}`;
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/${src}`;
 };
 
 const UpdateStoreInfo = ({
