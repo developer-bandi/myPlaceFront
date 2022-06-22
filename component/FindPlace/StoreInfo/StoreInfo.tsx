@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { storeInfoType } from "../../../lib/apitype/search";
 import { useIsMobile } from "../../../lib/customHook/mediaQuery";
+import { setDateLatest } from "../../../lib/commonFn/date";
 
 interface StoreInfoProps {
   store: { content: storeInfoType };
@@ -18,7 +19,7 @@ interface StoreInfoProps {
 }
 
 const myLoader = ({ src }: { src: string }) => {
-  return `http://localhost:8001/imgs/${src}`;
+  return `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/imgs/${src}`;
 };
 
 const StoreInfo = ({
@@ -161,7 +162,9 @@ const StoreInfo = ({
                     <div className={styles.commentBlock} key={review.content}>
                       <div className={styles.commentInfo}>
                         <div className={styles.nickname}>{review.user}</div>
-                        <div className={styles.date}>{review.date}</div>
+                        <div className={styles.date}>
+                          {setDateLatest(review.date)}
+                        </div>
                       </div>
                       <div className={styles.imgBlock}>
                         {review.photos.map((src) => {

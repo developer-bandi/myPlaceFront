@@ -56,17 +56,23 @@ const AddReviewContainer = () => {
     }
   };
 
-  const submit = () => {
+  const submit = async () => {
     if (!user.loginStatus) {
       alert("로그인을 해주세요!");
     } else {
-      if (storeInfo.storeInfo !== undefined && textAreaRef.current !== null) {
-        axiosAddComment(
-          storeInfo.storeInfo.id,
-          textAreaRef.current?.value,
-          selectedHashtagNumber,
-          imgfile
-        );
+      try {
+        if (storeInfo.storeInfo !== undefined && textAreaRef.current !== null) {
+          await axiosAddComment(
+            storeInfo.storeInfo.id,
+            textAreaRef.current?.value,
+            selectedHashtagNumber,
+            imgfile
+          );
+          alert("성공적으로 등록되었습니다");
+          router.push("/findplace");
+        }
+      } catch (error) {
+        alert("에러가 발생하였습니다");
       }
     }
   };

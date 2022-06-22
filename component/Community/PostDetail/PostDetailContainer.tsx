@@ -38,7 +38,7 @@ const PostDetailContainer = ({ serverSideData }: PostDetailContainerProps) => {
       }
     } else {
       alert("로그인 해주세요");
-      router.push("/user/signin");
+      router.push("/user/auth/signin");
     }
   };
 
@@ -66,7 +66,7 @@ const PostDetailContainer = ({ serverSideData }: PostDetailContainerProps) => {
     if (agree) {
       try {
         await axiosDeletePostDetail(PostId, UserId);
-        router.push("/community");
+        router.push("/community/postlist");
       } catch (error) {
         alert("에러가 발생했습니다 다시 시도해보세요");
       }

@@ -11,7 +11,7 @@ import {
 interface MyPageBookMarkProps {
   userBookMark: {
     content?: {
-      id: string;
+      id: number;
       name: string;
       latitude: string;
       longitude: string;
@@ -22,7 +22,7 @@ interface MyPageBookMarkProps {
     error: string | null;
   };
   searchStoreInfo: (
-    id: string,
+    id: number,
     name: string,
     latitude: string,
     longitude: string,
@@ -75,23 +75,23 @@ const MyPageBookMark = ({
           <div className={mypage.subBlock}>
             <h1 className={styles.title}>북마크</h1>
             {userBookMark.content !== undefined &&
-              userBookMark.content.map((data) => {
+              userBookMark.content.map((store) => {
                 return (
                   <div
                     className={styles.bookMarkBlock}
                     onClick={() => {
                       searchStoreInfo(
-                        data.id,
-                        data.name,
-                        data.latitude,
-                        data.longitude,
-                        data.address
+                        store.id,
+                        store.name,
+                        store.latitude,
+                        store.longitude,
+                        store.address
                       );
                     }}
                   >
-                    <div className={styles.name}>{data.name}</div>
-                    <div className={styles.category}>{data.category}</div>
-                    <div className={styles.adress}>{data.address}</div>
+                    <div className={styles.name}>{store.name}</div>
+                    <div className={styles.category}>{store.category}</div>
+                    <div className={styles.adress}>{store.address}</div>
                   </div>
                 );
               })}

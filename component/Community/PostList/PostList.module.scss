@@ -164,6 +164,7 @@
   @include centerSort();
   &:hover {
     background-color: #eaeaea;
+    cursor: pointer;
   }
 }
 

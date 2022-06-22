@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import Footer from "../../../component/Common/Footer/Footer";
 import HeaderContainer from "../../../component/Common/Header/HeaderContainer";
 import PostDetailContainer from "../../../component/Community/PostDetail/PostDetailContainer";
@@ -11,6 +12,7 @@ interface PostDetailPageProps {
 }
 
 const PostDetailPage = ({ serverSideData }: PostDetailPageProps) => {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -25,7 +27,11 @@ const PostDetailPage = ({ serverSideData }: PostDetailPageProps) => {
           property="og:description"
           content={serverSideData.content.substring(0, 160)}
         />
-        <meta name="url" property="og:url" content={window.location.href} />
+        <meta
+          name="url"
+          property="og:url"
+          content={process.env.NEXT_PUBLIC_SERVER_DOMAIN + router.pathname}
+        />
       </Head>
       <HeaderContainer />
       <PostDetailContainer serverSideData={serverSideData} />

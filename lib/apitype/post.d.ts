@@ -5,7 +5,7 @@ export interface postListType {
     title: string;
     content: string;
     viewCount: number;
-    likeCount: number;
+    likelist: number[];
     createdAt: string;
     updatedAt: string;
     UserId: number;

@@ -14,7 +14,7 @@ import MyPageBookMark from "./MyBookMark";
 const MyBookMarkContainer = () => {
   const [bookMarkData, setBookMarkData] = useState<{
     content?: {
-      id: string;
+      id: number;
       name: string;
       latitude: string;
       longitude: string;
@@ -37,7 +37,7 @@ const MyBookMarkContainer = () => {
   }, []);
 
   const searchStoreInfo = (
-    id: string,
+    id: number,
     name: string,
     latitude: string,
     longitude: string,

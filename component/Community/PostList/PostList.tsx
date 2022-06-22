@@ -111,7 +111,7 @@ const PostList = ({
                   </li>
                   <li className={styles.postBottomInfo}>
                     <FcLike className={styles.postIcon} />
-                    {data.likeCount}
+                    {data.likelist.length}
                   </li>
                   <li className={styles.postBottomInfo}>
                     <BiCommentDetail className={styles.postIcon} />

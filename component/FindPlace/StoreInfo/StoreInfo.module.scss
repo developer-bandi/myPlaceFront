@@ -8,7 +8,7 @@ $commonPadding: 15px;
   z-index: 25;
   box-shadow: 15px 0px 15px -10px rgba(0, 0, 0, 0.2);
   left: 380px;
-  border-left: 1px solid gray;
+  border-left: 1px solid #dddddd;
   overflow-y: scroll;
   @media screen and (max-width: 1023px) {
     left: 0;
@@ -104,16 +104,8 @@ $commonPadding: 15px;
   padding: $commonPadding;
 }
 
-.usericon {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: burlywood;
-  margin-right: 10px;
-}
-
 .commentBlock {
-  border-bottom: 1px solid black;
+  border-bottom: 2px solid #f6f8f9;
   padding-top: 10px;
 }
 

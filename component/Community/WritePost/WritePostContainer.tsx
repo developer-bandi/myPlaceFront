@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useCallback, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { axiosPostDetail } from "../../../lib/commonFn/api";
@@ -14,6 +15,7 @@ const WritePostContainer = () => {
   const loginedUser = useSelector(
     (state: RootReducer) => state.userLogin.loginStatus
   );
+  const router = useRouter();
   const [uploadImg, setUploadImg] = useState<string[]>([]);
   const [imgfile, setImgfile] = useState<Blob[]>([]);
 
@@ -27,16 +29,22 @@ const WritePostContainer = () => {
     [uploadImg, imgfile, setUploadImg, setImgfile]
   );
 
-  const submit = () => {
+  const submit = async () => {
     if (!loginedUser) {
       alert("로그인을 해주세요!");
     } else {
       if (contentRef.current !== null && titleRef.current !== null) {
-        axiosPostDetail(
-          titleRef.current.value,
-          contentRef.current.value,
-          imgfile
-        );
+        try {
+          await axiosPostDetail(
+            titleRef.current.value,
+            contentRef.current.value,
+            imgfile
+          );
+          alert("게시글 등록이 완료되었습니다");
+          router.push("/community/postlist");
+        } catch (error) {
+          alert("에러가 발생하였습니다");
+        }
       }
     }
   };

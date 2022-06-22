@@ -130,7 +130,7 @@ const PostListContainer = () => {
       router.push("/community/writepost");
     } else {
       alert("로그인이 필요합니다.");
-      router.push("/user/signin");
+      router.push("/user/auth/signin");
     }
   };
 

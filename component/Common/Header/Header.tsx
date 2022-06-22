@@ -1,7 +1,7 @@
 import styles from "./Header.module.scss";
 import Link from "next/link";
 import { signupState } from "../../../store/reducers/userLogin/userLoginReducer";
-import { useIsTablet } from "../../../lib/customHook/mediaQuery";
+import { useIsLabtop, useIsTablet } from "../../../lib/customHook/mediaQuery";
 import { useState } from "react";
 import MyPageNavigation from "../../User/Mypage/Common/navigation/MyPageNavigation";
 
@@ -13,6 +13,7 @@ interface HeaderProps {
 const Header = ({ loginedUser, userLogout }: HeaderProps) => {
   const isTabletOrMobile = useIsTablet();
   const [subNavigation, setSubnavigation] = useState(false);
+  const isLabtop = useIsLabtop();
   return (
     <header className={styles.mainBlock}>
       <div className={styles.subBlock}>
@@ -41,14 +42,21 @@ const Header = ({ loginedUser, userLogout }: HeaderProps) => {
             >
               로그아웃
             </button>
-            <button
-              className={styles.mypage}
-              onClick={() => {
-                setSubnavigation(!subNavigation);
-              }}
-            >
-              마이페이지
-            </button>
+
+            {isLabtop ? (
+              <button
+                className={styles.mypage}
+                onClick={() => {
+                  setSubnavigation(!subNavigation);
+                }}
+              >
+                마이페이지
+              </button>
+            ) : (
+              <button className={styles.mypage}>
+                <Link href={"/user/mypage/bookmark"}>마이페이지</Link>
+              </button>
+            )}
           </div>
         ) : (
           <button className={styles.signin}>

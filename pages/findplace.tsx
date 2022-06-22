@@ -2,7 +2,8 @@ import type { NextPage } from "next";
 import { Context } from "next-redux-wrapper";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { END } from "redux-saga";
 import Footer from "../component/Common/Footer/Footer";
 import HeaderContainer from "../component/Common/Header/HeaderContainer";
@@ -13,11 +14,16 @@ import SideBarButtonContainer from "../component/FindPlace/SideBarButton/SideBar
 import StoreInfoContainer from "../component/FindPlace/StoreInfo/StoreInfoContainer";
 import { wrapper } from "../store";
 import { getHashtagAll } from "../store/reducers/hashtagAll/hashtagAllReducer";
+import { initializeCondition } from "../store/reducers/hashtagSearchCondition/hashtagSearchConditionReducer";
+import { initializeSearchResult } from "../store/reducers/searchResult/searchResultReducer";
+import { setSearchType } from "../store/reducers/SetSearhType/SearchTypeReducer";
+import { initializeStoreInfo } from "../store/reducers/storeInfo/storeInfoReducer";
 
 const Home: NextPage = () => {
   const [sideBarActive, setSideBarActive] = useState(true);
   const [mapClick, setMapClick] = useState(true);
   const router = useRouter();
+
   return (
     <>
       <Head>

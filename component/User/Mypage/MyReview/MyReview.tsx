@@ -6,7 +6,7 @@ import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import { useIsLabtop } from "../../../../lib/customHook/mediaQuery";
 
 const myLoader = ({ src }: { src: string }) => {
-  return `http://localhost:8001/imgs/${src}`;
+  return `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/imgs/${src}`;
 };
 
 interface MyReviewProps {

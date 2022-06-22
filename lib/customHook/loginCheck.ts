@@ -8,7 +8,7 @@ export const useLogin = () => {
   const router = useRouter();
   useEffect(() => {
     if (!user.loading) {
-      if (!user) {
+      if (!user.loginStatus) {
         alert("로그인을 해주세요!");
         router.push("/user/auth/signin");
       }
