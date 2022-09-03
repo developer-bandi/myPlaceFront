@@ -1,16 +1,15 @@
 .mainBlock {
-  height: 860px;
   overflow-y: scroll;
+  height: calc(100vh - 111px);
+  padding: 20px;
   @media screen and (max-width: 767px) {
-    height: 450px;
+    height: calc(100% - 50px);
   }
 }
 
 .categoryListBlock {
   display: flex;
-  padding-left: 10px;
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin: 15px 0 15px 0;
 }
 
 @mixin category {
@@ -38,16 +37,18 @@
 }
 
 .inputBlock {
-  padding-left: 10px;
-  margin-bottom: 20px;
+  margin: 0 0 20px 0;
 }
 
 .adressInput {
-  width: 290px;
+  width: calc(100% - 60px);
   height: 30px;
   border: 1px solid black;
   border-radius: 5px;
   margin-right: 10px;
+  @media screen and (max-width: 767px) {
+    width: calc(100vw - 10px);
+  }
 }
 
 .adressButton {
@@ -59,15 +60,12 @@
 }
 
 .title {
-  padding-left: 10px;
   font-size: 16px;
   font-weight: bold;
-  margin-bottom: 15px;
-  margin-top: 10px;
+  margin: 10px 0 15px 0;
 }
 
 .hashtagListBlock {
-  padding-left: 10px;
   margin-bottom: 15px;
   display: flex;
   flex-wrap: wrap;
@@ -81,6 +79,9 @@
   margin-bottom: 10px;
   font-size: 16px;
   cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
 }
 
 .hashtag {
@@ -96,12 +97,14 @@
 
 .searchbutton {
   display: block;
-  width: 360px;
+  width: 100%;
   height: 40px;
-  margin: auto;
+  margin: 0 auto 20px auto;
   background-color: #00aaff;
   border-radius: 10px;
   color: white;
   cursor: pointer;
-  margin-bottom: 20px;
+  &:hover {
+    opacity: 0.8;
+  }
 }

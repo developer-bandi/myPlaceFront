@@ -1,41 +1,45 @@
-import { SetStateAction, useEffect, useState } from "react";
-import { AiOutlineLeft } from "react-icons/ai";
-import { storeInfoState } from "../../../store/reducers/storeInfo/storeInfoReducer";
+import {AiOutlineLeft} from "react-icons/ai";
 import styles from "./SideBarButton.module.scss";
 
 interface StoreInfoProps {
-  storeInfo: storeInfoState;
-  setSideBarActive: React.Dispatch<SetStateAction<boolean>>;
-  sideBarActive: boolean;
+  modalStatus: {
+    fold: boolean;
+    storeInfoActive: boolean;
+  };
+  isMobile: boolean;
+  mobileFoldChange: () => void;
+  desktopFoldChange: () => void;
 }
 
 const SideBarButton = ({
-  storeInfo,
-  setSideBarActive,
-  sideBarActive,
+  modalStatus,
+  isMobile,
+  mobileFoldChange,
+  desktopFoldChange,
 }: StoreInfoProps) => {
-  const [status, setStatus] = useState("storeInfoUnActive");
-  useEffect(() => {
-    if (sideBarActive) {
-      if (Object.keys(storeInfo.content).length === 0) {
-        setStatus("storeInfoUnActive");
-      } else {
-        setStatus("storeInfoActive");
-      }
-    } else {
-      setStatus("folded");
-    }
-  }, [sideBarActive, storeInfo]);
-
-  return (
-    <AiOutlineLeft
-      size={25}
-      className={styles[status]}
-      onClick={() => {
-        setSideBarActive(!sideBarActive);
-      }}
-    />
-  );
+  if (isMobile) {
+    return (
+      <button className={styles.mobile} onClick={() => mobileFoldChange()}>
+        정보창 조절
+      </button>
+    );
+  } else {
+    return (
+      <AiOutlineLeft
+        size={25}
+        className={`${styles.button} ${
+          modalStatus.fold
+            ? styles.fold
+            : modalStatus.storeInfoActive
+            ? styles.storeInfoActive
+            : styles.storeInfoUnActive
+        }`}
+        onClick={() => {
+          desktopFoldChange();
+        }}
+      />
+    );
+  }
 };
 
 export default SideBarButton;

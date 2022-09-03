@@ -1,5 +1,6 @@
-import { RefObject } from "react";
+import {RefObject} from "react";
 import styles from "./FindPassword.module.scss";
+import authStyles from "../../../../lib/styles/auth.module.scss";
 
 interface FindPasswordProps {
   randomNumber:
@@ -11,7 +12,7 @@ interface FindPasswordProps {
   emailInputRef: RefObject<HTMLInputElement>;
   randomNumberInputRef: RefObject<HTMLInputElement>;
   sendMail: () => Promise<void>;
-  checkAuthNum: () => Promise<void>;
+  checkAuthNum: () => void;
   authStatus: boolean;
   passwordRef: RefObject<HTMLInputElement>;
   passwordCheckRef: RefObject<HTMLInputElement>;
@@ -29,56 +30,96 @@ const FindPassword = ({
   passwordCheckRef,
   changePassword,
 }: FindPasswordProps) => {
-  return (
-    <main className={styles.mainBlock}>
-      <h1 className={styles.title}>비밀번호 찾기</h1>
-      <div className={styles.subBlock}>
-        <div className={styles.inputBlock}>
-          <input
-            className={styles.input}
-            ref={emailInputRef}
-            placeholder="이메일을 입력하세요"
-          />
-          <button className={styles.button} onClick={sendMail}>
-            메일 전송
-          </button>
-        </div>
-        {randomNumber === undefined ? null : (
-          <div className={styles.inputBlock}>
+  if (randomNumber === undefined && authStatus === false) {
+    return (
+      <main className={`${styles.mainBlock} ${styles.nomal}`}>
+        <div className={authStyles.subBlock}>
+          <h1 className={authStyles.title}>비밀번호 찾기</h1>
+          <div className={authStyles.contentBlock}>
+            <div className={authStyles.subTitle}>이메일</div>
             <input
-              className={styles.input}
+              className={authStyles.input}
+              ref={emailInputRef}
+              placeholder="이메일을 입력하세요"
+              key="email"
+            />
+            <div className={authStyles.submitButtonBlock}>
+              <button
+                className={authStyles.submitButton}
+                onClick={sendMail}
+                data-testid="sendMail"
+              >
+                메일 전송
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  } else if (randomNumber !== undefined && authStatus === false) {
+    return (
+      <main className={`${styles.mainBlock} ${styles.nomal}`}>
+        <div className={authStyles.subBlock}>
+          <h1 className={authStyles.title}>비밀번호 찾기</h1>
+          <div className={authStyles.contentBlock}>
+            <div className={authStyles.subTitle}>인증번호</div>
+            <input
+              className={authStyles.input}
               ref={randomNumberInputRef}
               placeholder="인증번호를 입력하세요"
+              key="randomNumber"
             />
-            <button className={styles.button} onClick={checkAuthNum}>
-              인증 확인
+          </div>
+          <div className={authStyles.submitButtonBlock}>
+            <button
+              className={authStyles.submitButton}
+              onClick={checkAuthNum}
+              data-testid="checkAuthNum"
+            >
+              인증번호 확인
             </button>
           </div>
-        )}
-        {authStatus ? (
-          <>
-            <div className={styles.inputBlock}>
-              <input
-                className={styles.input}
-                ref={passwordRef}
-                placeholder="새 비밀번호를 입력하세요"
-              />
-            </div>
-            <div className={styles.inputBlock}>
-              <input
-                className={styles.input}
-                ref={passwordCheckRef}
-                placeholder="새 비밀번호를 한번더 입력하세요"
-              />
-              <button className={styles.button} onClick={changePassword}>
+        </div>
+      </main>
+    );
+  } else {
+    return (
+      <main className={`${styles.mainBlock} ${styles.changePassword}`}>
+        <div className={authStyles.subBlock}>
+          <h1 className={authStyles.title}>비밀번호 찾기</h1>
+          <div className={authStyles.contentBlock}>
+            <div className={authStyles.subTitle}>비밀번호</div>
+            <input
+              className={authStyles.input}
+              ref={passwordRef}
+              placeholder="새 비밀번호를 입력하세요"
+              type="password"
+              key="newPassword"
+            />
+          </div>
+          <div className={authStyles.contentBlock}>
+            <div className={authStyles.subTitle}>비밀번호 확인</div>
+            <input
+              className={authStyles.input}
+              ref={passwordCheckRef}
+              placeholder="새 비밀번호를 한번더 입력하세요"
+              type="password"
+              key="newPasswordCheck"
+            />
+            <div className={authStyles.submitButtonBlock}>
+              <button
+                className={authStyles.submitButton}
+                onClick={changePassword}
+                data-testid="changePassword"
+              >
                 비밀번호 변경
               </button>
             </div>
-          </>
-        ) : null}
-      </div>
-    </main>
-  );
+          </div>
+        </div>
+      </main>
+    );
+  }
 };
 
 export default FindPassword;

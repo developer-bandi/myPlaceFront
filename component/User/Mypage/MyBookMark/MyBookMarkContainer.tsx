@@ -1,72 +1,40 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { axiosGetMyBookMark } from "../../../../lib/commonFn/api";
-import {
-  setAdress,
-  setKeyword,
-} from "../../../../store/reducers/hashtagSearchCondition/hashtagSearchConditionReducer";
-import { searchStore } from "../../../../store/reducers/searchResult/searchResultReducer";
-import { setSearchType } from "../../../../store/reducers/SetSearhType/SearchTypeReducer";
-import { getStoreInfo } from "../../../../store/reducers/storeInfo/storeInfoReducer";
+import {useIsLabtopOrTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
+import useMoveTargetStore from "../../../../lib/customHook/moveTargetStore";
+import useMypage from "../../../../lib/customHook/mypage";
 import MyPageBookMark from "./MyBookMark";
 
-const MyBookMarkContainer = () => {
-  const [bookMarkData, setBookMarkData] = useState<{
-    content?: {
+export interface bookMarkState {
+  content?: {
+    count: number;
+    rows: {
       id: number;
       name: string;
       latitude: string;
       longitude: string;
       address: string;
       category: string;
+      photo?: string;
+      viewCount: number;
+      bookmark: number;
+      review: number;
     }[];
-    loading: boolean;
-    error: string | null;
-  }>({ loading: true, error: null });
-  const dispatch = useDispatch();
-  const router = useRouter();
-  useEffect(() => {
-    axiosGetMyBookMark()
-      .then((res) => {
-        setBookMarkData({ content: res.data, loading: false, error: null });
-      })
-      .catch((error) => {
-        setBookMarkData({ loading: false, error });
-      });
-  }, []);
-
-  const searchStoreInfo = (
-    id: number,
-    name: string,
-    latitude: string,
-    longitude: string,
-    address: string
-  ) => {
-    dispatch(
-      searchStore({
-        latitude,
-        longitude,
-        searchKeyword: name,
-      })
-    );
-    dispatch(getStoreInfo(id));
-    dispatch(
-      setAdress({
-        adress: address,
-        longitude,
-        latitude,
-      })
-    );
-    dispatch(setKeyword(name));
-    dispatch(setSearchType({ type: "name", hashtag: "search" }));
-    router.push("/findplace");
   };
+  loading: boolean;
+  error: boolean;
+}
+
+const MyBookMarkContainer = () => {
+  const {serverData, changePage, page} = useMypage("bookmark");
+  const {moveTargetStore} = useMoveTargetStore();
+  const isLabtopOrTabletOrMobile = useIsLabtopOrTabletOrMobile();
 
   return (
     <MyPageBookMark
-      userBookMark={bookMarkData}
-      searchStoreInfo={searchStoreInfo}
+      bookMarkState={serverData as bookMarkState}
+      moveTargetStore={moveTargetStore}
+      page={page}
+      changePage={changePage}
+      isLabtopOrTabletOrMobile={isLabtopOrTabletOrMobile}
     ></MyPageBookMark>
   );
 };

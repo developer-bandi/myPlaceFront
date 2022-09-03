@@ -1,14 +1,14 @@
-import { SetStateAction, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "../../../../../store";
+import {useEffect, useRef} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {RootReducer} from "../../../../../store";
 import {
   setCategory,
   addHashTag,
   deleteHashTag,
   setAdress,
-} from "../../../../../store/reducers/hashtagSearchCondition/hashtagSearchConditionReducer";
-import { searchStore } from "../../../../../store/reducers/searchResult/searchResultReducer";
-import { setSearchType } from "../../../../../store/reducers/SetSearhType/SearchTypeReducer";
+} from "../../../../../store/reducers/hashtagSearchCondition/Reducer";
+import {searchStore} from "../../../../../store/reducers/searchResult/Reducer";
+import {setSearchType} from "../../../../../store/reducers/searhType/Reducer";
 import TagSearch from "./TagSearch";
 
 const TagSearchContainer = () => {
@@ -43,7 +43,7 @@ const TagSearchContainer = () => {
 
   const dispatchAddress = () => {
     if (inputRef.current !== null) {
-      dispatch(setAdress({ adress: inputRef.current.value }));
+      dispatch(setAdress({adress: inputRef.current.value}));
     }
   };
 
@@ -55,7 +55,7 @@ const TagSearchContainer = () => {
         selectedHashtag,
       })
     );
-    dispatch(setSearchType({ type: "hashtag", hashtag: "result" }));
+    dispatch(setSearchType({type: "hashtag", hashtag: "result"}));
   };
 
   return (

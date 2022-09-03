@@ -1,12 +1,12 @@
 import styles from "./PostDetail.module.scss";
-import { BiCommentDetail } from "react-icons/bi";
-import { FcLike } from "react-icons/fc";
-import { GrView } from "react-icons/gr";
-import { AiOutlineHeart } from "react-icons/ai";
-import { RefObject } from "react";
-import { signupState } from "../../../store/reducers/userLogin/userLoginReducer";
-import { setDateLatest } from "../../../lib/commonFn/date";
-import { postDetailType } from "../../../lib/apitype/post";
+import {BiCommentDetail} from "react-icons/bi";
+import {FcLike} from "react-icons/fc";
+import {GrView} from "react-icons/gr";
+import {AiOutlineHeart} from "react-icons/ai";
+import {RefObject} from "react";
+import {signupState} from "../../../store/reducers/userLogin/Reducer";
+import {setDateLatest} from "../../../lib/commonFn/date";
+import {postDetailType} from "../../../lib/apitype/post";
 
 interface PostDetailProps {
   serverSideData: postDetailType;
@@ -44,7 +44,6 @@ const PostDetail = ({
 }: PostDetailProps) => {
   return (
     <main className={styles.mainBlock}>
-      <h3 className={styles.hidden}>{serverSideData.title}</h3>
       <div className={styles.titleBlock}>
         <h3 className={styles.title}>{serverSideData.title}</h3>
         <div className={styles.titleInfoBlock}>
@@ -59,12 +58,13 @@ const PostDetail = ({
             </li>
           </ul>
           <div className={styles.rightBlock}>
-            {loginedUser.userInfo.id == serverSideData.UserId ? (
+            {loginedUser.content?.id == serverSideData.UserId ? (
               <button
                 className={styles.deletePostButton}
                 onClick={() =>
                   deletePost(serverSideData.id, serverSideData.UserId)
                 }
+                data-testid="deletePost"
               >
                 삭제하기
               </button>
@@ -73,7 +73,7 @@ const PostDetail = ({
         </div>
       </div>
       <div className={styles.photoListBlock}>
-        {serverSideData.Photos.map((srcObj: { filename: string }) => {
+        {serverSideData.Photos.map((srcObj: {filename: string}) => {
           return (
             <div className={styles.photoBlock}>
               <img
@@ -85,8 +85,12 @@ const PostDetail = ({
         })}
       </div>
       <p className={styles.content}>{serverSideData.content}</p>
-      <button className={styles.likeCount} onClick={deleteOrPostLikecount}>
-        {likelist.indexOf(loginedUser.userInfo.id || -1) !== -1 ? (
+      <button
+        className={styles.likeCount}
+        onClick={deleteOrPostLikecount}
+        data-testid="deleteOrPostLikecount"
+      >
+        {likelist.indexOf(loginedUser.content?.id || -1) !== -1 ? (
           <FcLike className={styles.icon} />
         ) : (
           <AiOutlineHeart className={styles.icon} />
@@ -100,17 +104,18 @@ const PostDetail = ({
       <div className={styles.commentListBlock}>
         {comments.map((comment) => {
           return (
-            <div className={styles.commentBlock}>
+            <div className={styles.commentBlock} key={comment.id}>
               <ul className={styles.commentInfoBlock}>
                 <li className={styles.commentUser}>{comment.User.nickname}</li>
 
                 <li className={styles.commentDate}>
                   {setDateLatest(comment.createdAt)}
                 </li>
-                {loginedUser.userInfo.id == comment.UserId ? (
+                {loginedUser.content?.id == comment.UserId ? (
                   <button
                     className={styles.deleteCommentButton}
                     onClick={() => deleteComment(comment.id, comment.UserId)}
+                    data-testid="deleteComment"
                   >
                     삭제
                   </button>
@@ -123,7 +128,11 @@ const PostDetail = ({
       </div>
       <div className={styles.commentInputBlock}>
         <textarea className={styles.commentInput} ref={textareaRef} />
-        <button className={styles.commentSubmitButton} onClick={postComment}>
+        <button
+          className={styles.commentSubmitButton}
+          onClick={postComment}
+          data-testid="postComment"
+        >
           등록
         </button>
       </div>

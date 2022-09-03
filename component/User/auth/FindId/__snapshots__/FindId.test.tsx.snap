@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FindId Presentational 테스트 이메일 입력단계 1`] = `
+<div>
+  <main
+    class="mainBlock"
+  >
+    <div
+      class="subBlock"
+    >
+      <h1
+        class="title"
+      >
+        아이디 찾기
+      </h1>
+      <div
+        class="contentBlock"
+      >
+        <div
+          class="subTitle"
+        >
+          이메일
+        </div>
+        <input
+          class="input"
+          placeholder="이메일을 입력하세요"
+        />
+        <div
+          class="submitButtonBlock"
+        >
+          <button
+            class="submitButton"
+            data-testid="sendMail"
+          >
+            메일 전송
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+`;
+
+exports[`FindId Presentational 테스트 인증번호 입력단계 1`] = `
+<div>
+  <main
+    class="mainBlock"
+  >
+    <div
+      class="subBlock"
+    >
+      <h1
+        class="title"
+      >
+        아이디 찾기
+      </h1>
+      <div
+        class="contentBlock"
+      >
+        <div
+          class="subTitle"
+        >
+          인증번호
+        </div>
+        <input
+          class="input"
+          placeholder="인증번호를 입력하세요"
+        />
+      </div>
+      <div
+        class="submitButtonBlock"
+      >
+        <button
+          class="submitButton"
+          data-testid="getId"
+        >
+          인증번호 확인
+        </button>
+      </div>
+    </div>
+  </main>
+</div>
+`;

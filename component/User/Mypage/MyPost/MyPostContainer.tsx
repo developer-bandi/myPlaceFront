@@ -1,51 +1,37 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { axiosGetMyPost } from "../../../../lib/commonFn/api";
+import {useIsLabtopOrTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
+import useMypage from "../../../../lib/customHook/mypage";
 import PostList from "./MyPost";
+import useMyPost from "./MyPostHook";
 
 export interface postListcontent {
   id: number;
   title: string;
   content: string;
-  viewCount: string;
-  likeCount: string;
+  nickname: string;
   createdAt: string;
-  updatedAt: string;
-  UserId: string;
-  postlikecount: string[];
-  Comments: string[];
+  viewCount: number;
+  postlikecount: number;
+  comment: number;
+}
+
+export interface postListState {
+  content?: {count: number; rows: postListcontent[]};
+  loading: boolean;
+  error: boolean;
 }
 
 const MyPostContainer = () => {
-  const [postList, setPostList] = useState<{
-    content?: postListcontent[];
-    loading: boolean;
-    error: boolean;
-  }>({ loading: true, error: false });
-  const router = useRouter();
-
-  useEffect(() => {
-    const asyncWrapFn = async () => {
-      try {
-        const axiosPostList = await axiosGetMyPost();
-        setPostList({
-          content: axiosPostList.data,
-          loading: false,
-          error: false,
-        });
-      } catch (error) {
-        setPostList({ loading: false, error: true });
-      }
-    };
-    asyncWrapFn();
-  }, []);
-
-  const movePostDetailPage = (id: number) => {
-    router.push(`/community/postdetail/${id}`);
-  };
-
+  const isLabtopOrTabletOrMobile = useIsLabtopOrTabletOrMobile();
+  const {movePostDetailPage} = useMyPost();
+  const {serverData, changePage, page} = useMypage("post");
   return (
-    <PostList postList={postList} movePostDetailPage={movePostDetailPage} />
+    <PostList
+      postListState={serverData as postListState}
+      movePostDetailPage={movePostDetailPage}
+      page={page}
+      changePage={changePage}
+      isLabtopOrTabletOrMobile={isLabtopOrTabletOrMobile}
+    />
   );
 };
 

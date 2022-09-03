@@ -1,0 +1,280 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MapSideBar Presentational 테스트 hashtag,result 일때 1`] = `
+<div>
+  <aside
+    class="mainBlock fold"
+  >
+    <div
+      class="searchmethodcontainer"
+    >
+      <div
+        class="selectedsearchmethod"
+        data-testid="changeSidebarStatus0"
+      >
+        태그로 검색하기
+      </div>
+      <div
+        class="searchmethod"
+        data-testid="changeSidebarStatus1"
+      >
+        이름으로 검색하기
+      </div>
+    </div>
+    <div
+      class="topBlock"
+    >
+      <div
+        class="titleBlock"
+      >
+        <h2
+          class="title"
+        >
+          검색결과
+        </h2>
+        <button
+          class="movesearch"
+          data-testid="moveSearhPage"
+        >
+          태그 재선택하기
+        </button>
+      </div>
+      <ul
+        class="selecttaglistBlock"
+      >
+        <li
+          class="selecttag"
+        >
+          #
+        </li>
+      </ul>
+    </div>
+    <div
+      class="storeListBlock"
+    >
+      <div
+        class="loading"
+        data-testid="loading"
+      >
+        <span
+          style="box-sizing: border-box; display: inline-block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;"
+        >
+          <span
+            style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"
+          >
+            <img
+              alt=""
+              aria-hidden="true"
+              src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2724%27%20height=%2724%27/%3e"
+              style="display: block; max-width: 100%; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;"
+            />
+          </span>
+          <img
+            alt="loading"
+            data-nimg="intrinsic"
+            decoding="async"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+          />
+          <noscript />
+        </span>
+      </div>
+    </div>
+  </aside>
+</div>
+`;
+
+exports[`MapSideBar Presentational 테스트 hashtag,search 일때 1`] = `
+<div>
+  <aside
+    class="mainBlock fold"
+  >
+    <div
+      class="searchmethodcontainer"
+    >
+      <div
+        class="selectedsearchmethod"
+        data-testid="changeSidebarStatus0"
+      >
+        태그로 검색하기
+      </div>
+      <div
+        class="searchmethod"
+        data-testid="changeSidebarStatus1"
+      >
+        이름으로 검색하기
+      </div>
+    </div>
+    <main
+      class="mainBlock"
+    >
+      <div>
+        <ul
+          class="categoryListBlock"
+        >
+          <li
+            class="category"
+            data-testid="dispatchCategory0"
+          >
+            카페
+          </li>
+          <li
+            class="category"
+            data-testid="dispatchCategory1"
+          >
+            식당
+          </li>
+          <li
+            class="category"
+            data-testid="dispatchCategory2"
+          >
+            주점
+          </li>
+        </ul>
+      </div>
+      <section
+        class="centerPostisionBlock"
+      >
+        <h1
+          class="title"
+        >
+          기준 장소
+        </h1>
+        <div
+          class="inputBlock"
+        >
+          <input
+            class="adressInput"
+          />
+          <button
+            class="adressButton"
+            data-testid="dispatchAddress"
+          >
+            설정
+          </button>
+          <div
+            class="alert"
+          />
+        </div>
+      </section>
+      <section
+        class="tagscontainer"
+      />
+      <button
+        class="searchbutton"
+        data-testid="dispatchSearchStore"
+      >
+        검색하기
+      </button>
+    </main>
+  </aside>
+</div>
+`;
+
+exports[`MapSideBar Presentational 테스트 name,search 일때 1`] = `
+<div>
+  <aside
+    class="mainBlock fold"
+  >
+    <div
+      class="searchmethodcontainer"
+    >
+      <div
+        class="searchmethod"
+        data-testid="changeSidebarStatus0"
+      >
+        태그로 검색하기
+      </div>
+      <div
+        class="selectedsearchmethod"
+        data-testid="changeSidebarStatus1"
+      >
+        이름으로 검색하기
+      </div>
+    </div>
+    <div
+      class="mainBlock"
+    >
+      <h1
+        class="title"
+      >
+        기준 장소
+      </h1>
+      <div
+        class="inputBlock"
+      >
+        <input
+          class="adressInput"
+        />
+        <button
+          class="adressButton"
+          data-testid="dispatchAddress"
+        >
+          설정
+        </button>
+      </div>
+      <h1
+        class="title"
+      >
+        검색 키워드
+      </h1>
+      <div
+        class="searchBlock"
+      >
+        <input
+          class="searchinput"
+        />
+        <button
+          class="searchbutton"
+        >
+          <svg
+            data-testid="dispatchSearchStore"
+            fill="currentColor"
+            height="24"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 1024 1024"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div
+      class="mainBlock"
+      data-testid="loading"
+    >
+      <div
+        class="loading"
+      >
+        <span
+          style="box-sizing: border-box; display: inline-block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;"
+        >
+          <span
+            style="box-sizing: border-box; display: block; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;"
+          >
+            <img
+              alt=""
+              aria-hidden="true"
+              src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2724%27%20height=%2724%27/%3e"
+              style="display: block; max-width: 100%; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px;"
+            />
+          </span>
+          <img
+            alt="loading"
+            data-nimg="intrinsic"
+            decoding="async"
+            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
+          />
+          <noscript />
+        </span>
+      </div>
+    </div>
+  </aside>
+</div>
+`;

@@ -1,12 +1,40 @@
-import type { NextPage } from "next";
+import type {GetStaticProps} from "next";
 import Footer from "../component/Common/Footer/Footer";
-import Banner from "../component/Home/Banner/Banner";
-import HashtagRankContainer from "../component/Home/HashtagRank/HashtagRankContainer";
 import HeaderContainer from "../component/Common/Header/HeaderContainer";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import {useRouter} from "next/router";
+import BannerContainer from "../component/Home/Banner/BannerContainer";
+import StoreRankContainer from "../component/Home/StoreRank/StoreRankContainer";
+import RecentReviewContainer from "../component/Home/RecentReview/RecentReviewContainer";
+import axios from "axios";
+import {setDateYearMonthDayHour} from "../lib/commonFn/date";
 
-const Home: NextPage = () => {
+export interface BannerDataType {
+  backgroundColor: string;
+  title: string;
+  summary: string;
+  router: string;
+  img: string;
+}
+
+export interface storeRankDataType {
+  id: number;
+  name: string;
+  address: string;
+  viewCount: number;
+  bookmark: number;
+  review: number;
+  photo?: string;
+  latitude: string;
+  longitude: string;
+}
+
+interface HomeProps {
+  bannerData: {content?: BannerDataType[]; error: boolean};
+  storeRankData: {content?: storeRankDataType[]; error: boolean};
+  renewTime: string;
+}
+const Home = ({bannerData, storeRankData, renewTime}: HomeProps) => {
   const router = useRouter();
   return (
     <>
@@ -30,11 +58,42 @@ const Home: NextPage = () => {
         />
       </Head>
       <HeaderContainer />
-      <Banner />
-      <HashtagRankContainer />
+      <main>
+        <BannerContainer bannerData={bannerData} />
+        <StoreRankContainer
+          storeRankData={storeRankData}
+          renewTime={renewTime}
+        />
+        <RecentReviewContainer />
+      </main>
       <Footer />
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  try {
+    const res = await axios.all([
+      axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/home/banner`),
+      axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/home/store`),
+    ]);
+    return {
+      props: {
+        bannerData: {content: res[0].data, error: false},
+        storeRankData: {content: res[1].data, error: false},
+        renewTime: setDateYearMonthDayHour(new Date()),
+      },
+      revalidate: 86400,
+    };
+  } catch (err) {
+    return {
+      props: {
+        bannerData: {error: true},
+        storeRankData: {error: true},
+      },
+      revalidate: 3600,
+    };
+  }
 };
 
 export default Home;

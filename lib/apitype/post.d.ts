@@ -33,7 +33,7 @@ export interface postDetailType {
   Photos: {
     filename: string;
   }[];
-  User: { id: number; nickname: string };
+  User: {id: number; nickname: string};
   UserId: number;
   content: string;
   createdAt: string;
@@ -42,4 +42,10 @@ export interface postDetailType {
   title: string;
   updatedAt: string;
   viewCount: number;
+}
+
+export interface postListDataFormType {
+  content?: postListType;
+  loading: boolean;
+  error: boolean;
 }

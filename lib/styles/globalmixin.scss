@@ -8,19 +8,3 @@
   font-size: 25px;
   font-weight: 600;
 }
-
-@mixin hidden {
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-}
-
-@mixin submitButton {
-  background-color: #39373a;
-  color: white;
-  padding: 10px;
-  width: 150px;
-  height: 50px;
-  border-radius: 5px;
-}

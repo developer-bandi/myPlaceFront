@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "../../../../../store";
-import { getStoreInfo } from "../../../../../store/reducers/storeInfo/storeInfoReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {RootReducer} from "../../../../../store";
+import {getStoreInfo} from "../../../../../store/reducers/storeInfo/Reducer";
 import NameSearchResult from "./NameSearchResut";
 
 const NameSearchResultContainer = () => {
-  const searchResult = useSelector((state: RootReducer) => state.SearchResult);
+  const searchResult = useSelector((state: RootReducer) => state.searchResult);
   const dispatch = useDispatch();
   const showStoreInfo = (storeId: number) => {
     dispatch(getStoreInfo(storeId));

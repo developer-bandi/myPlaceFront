@@ -5,12 +5,12 @@
   background-color: skyblue;
   width: 80px;
   height: 80px;
-  top: 860px;
+  bottom: 30px;
   right: 30px;
   color: white;
   font-size: 15px;
   @media screen and (max-width: 767px) {
-    top: 420px;
-    bottom: 0;
+    top: 131px;
+    left: 10px;
   }
 }

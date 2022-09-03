@@ -1,0 +1,347 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PostList Presentational Test 로딩중 1`] = `
+<div>
+  <main
+    class="mainBlock"
+  >
+    <h1
+      class="title"
+    >
+      커뮤니티
+    </h1>
+    <div
+      class="sortBlock"
+    >
+      <ul
+        class="sortList"
+      >
+        <li
+          class="sortName"
+          data-testid="createdAtsortButton"
+        >
+          최신순
+        </li>
+        <li
+          class="sortName"
+          data-testid="likeCountsortButton"
+        >
+          좋아요순
+        </li>
+        <li
+          class="sortName"
+          data-testid="viewCountsortButton"
+        >
+          조회수순
+        </li>
+      </ul>
+      <div
+        class="rightBlock"
+      >
+        <div
+          class="searchBlock"
+        >
+          <button
+            class="searchButton"
+          >
+            <svg
+              fill="currentColor"
+              height="20"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"
+              />
+            </svg>
+          </button>
+          <input
+            class="searchInput"
+          />
+        </div>
+        <button
+          class="initializeSearch"
+        >
+          초기화
+        </button>
+        <button
+          class="writeButton"
+          data-testid="writeButton"
+        >
+          글쓰기
+        </button>
+      </div>
+    </div>
+    <div
+      class="loadingBlock"
+    >
+      <span
+        style="box-sizing: border-box; display: block; overflow: hidden; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px;"
+      >
+        <img
+          alt="searchImg"
+          data-nimg="fill"
+          data-testid="loading"
+          decoding="async"
+          sizes="100vw"
+          src="/_next/image?url=%2FsearchResultLoading.gif&w=3840&q=75"
+          srcset="/_next/image?url=%2FsearchResultLoading.gif&w=640&q=75 640w, /_next/image?url=%2FsearchResultLoading.gif&w=750&q=75 750w, /_next/image?url=%2FsearchResultLoading.gif&w=828&q=75 828w, /_next/image?url=%2FsearchResultLoading.gif&w=1080&q=75 1080w, /_next/image?url=%2FsearchResultLoading.gif&w=1200&q=75 1200w, /_next/image?url=%2FsearchResultLoading.gif&w=1920&q=75 1920w, /_next/image?url=%2FsearchResultLoading.gif&w=2048&q=75 2048w, /_next/image?url=%2FsearchResultLoading.gif&w=3840&q=75 3840w"
+          style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; object-fit: contain;"
+        />
+      </span>
+    </div>
+  </main>
+</div>
+`;
+
+exports[`PostList Presentational Test 에러 발생 1`] = `
+<div>
+  <main
+    class="mainBlock"
+  >
+    <h1>
+      커뮤니티
+    </h1>
+    <p
+      class="message"
+    >
+      서버에 에러가 발생하였습니다
+    </p>
+  </main>
+</div>
+`;
+
+exports[`PostList Presentational Test 정상출력 1`] = `
+<div>
+  <main
+    class="mainBlock"
+  >
+    <h1
+      class="title"
+    >
+      커뮤니티
+    </h1>
+    <div
+      class="sortBlock"
+    >
+      <ul
+        class="sortList"
+      >
+        <li
+          class="sortName"
+          data-testid="createdAtsortButton"
+        >
+          최신순
+        </li>
+        <li
+          class="sortName"
+          data-testid="likeCountsortButton"
+        >
+          좋아요순
+        </li>
+        <li
+          class="sortName"
+          data-testid="viewCountsortButton"
+        >
+          조회수순
+        </li>
+      </ul>
+      <div
+        class="rightBlock"
+      >
+        <div
+          class="searchBlock"
+        >
+          <button
+            class="searchButton"
+            data-testid="searchButton"
+          >
+            <svg
+              fill="currentColor"
+              height="20"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19.023 16.977a35.13 35.13 0 0 1-1.367-1.384c-.372-.378-.596-.653-.596-.653l-2.8-1.337A6.962 6.962 0 0 0 16 9c0-3.859-3.14-7-7-7S2 5.141 2 9s3.14 7 7 7c1.763 0 3.37-.66 4.603-1.739l1.337 2.8s.275.224.653.596c.387.363.896.854 1.384 1.367l1.358 1.392.604.646 2.121-2.121-.646-.604c-.379-.372-.885-.866-1.391-1.36zM9 14c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5z"
+              />
+            </svg>
+          </button>
+          <input
+            class="searchInput"
+          />
+        </div>
+        <button
+          class="initializeSearch"
+          data-testid="initializeButton"
+        >
+          초기화
+        </button>
+        <button
+          class="writeButton"
+          data-testid="writeButton"
+        >
+          글쓰기
+        </button>
+      </div>
+    </div>
+    <div
+      class="postListBlock"
+    >
+      <article
+        class="postBlock"
+        data-testid="articleButton0"
+      >
+        <div
+          class="postTopBlock"
+        >
+          <h3
+            class="postTitle"
+          >
+            testTitle
+          </h3>
+          <div
+            class="postUser"
+          >
+            testNickname
+          </div>
+          <div
+            class="postWritedAt"
+          >
+            testCreatedAt
+          </div>
+        </div>
+        <p
+          class="postContent"
+        >
+          testContent
+        </p>
+        <ul
+          class="postBottomBlock"
+        >
+          <li
+            class="postBottomInfo"
+          >
+            <svg
+              class="postIcon"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12,21 C7,21 1,16 1,12 C1,8 7,3 12,3 C17,3 23,8 23,12 C23,16 17,21 12,21 Z M12,7 C9.23875,7 7,9.23875 7,12 C7,14.76125 9.23875,17 12,17 C14.76125,17 17,14.76125 17,12 C17,9.23875 14.76125,7 12,7 L12,7 Z"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+              />
+            </svg>
+            1
+          </li>
+          <li
+            class="postBottomInfo"
+          >
+            <svg
+              class="postIcon"
+              enable-background="new 0 0 48 48"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              version="1"
+              viewBox="0 0 48 48"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M34,9c-4.2,0-7.9,2.1-10,5.4C21.9,11.1,18.2,9,14,9C7.4,9,2,14.4,2,21c0,11.9,22,24,22,24s22-12,22-24 C46,14.4,40.6,9,34,9z"
+                fill="#F44336"
+              />
+            </svg>
+            1
+          </li>
+          <li
+            class="postBottomInfo"
+          >
+            <svg
+              class="postIcon"
+              fill="currentColor"
+              height="1em"
+              stroke="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7 7h10v2H7zm0 4h7v2H7z"
+              />
+              <path
+                d="M20 2H4c-1.103 0-2 .897-2 2v18l5.333-4H20c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm0 14H6.667L4 18V4h16v12z"
+              />
+            </svg>
+            1
+          </li>
+        </ul>
+      </article>
+    </div>
+    <ul
+      class="pageButtonList margin"
+    >
+      <li>
+        <svg
+          class="pageIcon ban"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            fill="none"
+            points="9 6 15 12 9 18"
+            stroke="#000"
+            stroke-width="2"
+            transform="matrix(-1 0 0 1 24 0)"
+          />
+        </svg>
+      </li>
+      <li
+        class="pageButton selected"
+      >
+        1
+      </li>
+      <li>
+        <svg
+          class="pageIcon ban"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          stroke-width="0"
+          viewBox="0 0 24 24"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <polyline
+            fill="none"
+            points="9 6 15 12 9 18"
+            stroke="#000"
+            stroke-width="2"
+          />
+        </svg>
+      </li>
+    </ul>
+  </main>
+</div>
+`;

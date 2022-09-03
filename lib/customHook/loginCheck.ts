@@ -1,16 +1,18 @@
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootReducer } from "../../store";
+import {useRouter} from "next/router";
+import {useEffect} from "react";
+import {useSelector} from "react-redux";
+import {RootReducer} from "../../store";
 
 export const useLogin = () => {
   const user = useSelector((state: RootReducer) => state.userLogin);
   const router = useRouter();
   useEffect(() => {
     if (!user.loading) {
-      if (!user.loginStatus) {
+      if (user.content === undefined) {
         alert("로그인을 해주세요!");
+        console.log(1);
         router.push("/user/auth/signin");
+        console.log(2);
       }
     }
   }, [user]);

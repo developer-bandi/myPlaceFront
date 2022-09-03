@@ -1,0 +1,243 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MyPageModal Presentational 테스트 모바일 버전이 아닌 경우 1`] = `
+<div>
+  <div
+    class="mainBlock"
+  >
+    <nav
+      class="subBlock"
+    >
+      <ul
+        class="navListBlock"
+      >
+        <li
+          class="titleBlock"
+          data-testid="mobile"
+        >
+          <div
+            class="title"
+          >
+            마이페이지
+          </div>
+          <svg
+            class="closeIcon"
+            data-testid="modalActvieChange"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3,3 L21,21 M3,21 L21,3"
+              fill="none"
+              stroke="#000"
+              stroke-width="2"
+            />
+          </svg>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange0"
+        >
+          <a
+            href="/user/mypage/bookmark"
+          >
+            북마크
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange1"
+        >
+          <a
+            href="/user/mypage/review"
+          >
+            작성 후기
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange2"
+        >
+          <a
+            href="/user/mypage/post"
+          >
+            작성 글
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange3"
+        >
+          <a
+            href="/user/mypage/comment"
+          >
+            작성 댓글
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange4"
+        >
+          <a
+            href="/user/mypage/infosetting"
+          >
+            개인정보관리
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange5"
+        >
+          <a
+            href="/user/mypage/password"
+          >
+            비밀번호 변경
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange6"
+        >
+          <a
+            href="/user/mypage/withdrawal"
+          >
+            회원탈퇴
+          </a>
+        </li>
+        <li
+          class="logout"
+          data-testid="userLogout"
+        >
+          로그아웃
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+`;
+
+exports[`MyPageModal Presentational 테스트 모바일 버전인 경우 1`] = `
+<div>
+  <div
+    class="mainBlock"
+  >
+    <nav
+      class="subBlock"
+    >
+      <ul
+        class="navListBlock"
+      >
+        <li
+          class="titleBlock"
+          data-testid="mobile"
+        >
+          <div
+            class="title"
+          >
+            마이페이지
+          </div>
+          <svg
+            class="closeIcon"
+            data-testid="modalActvieChange"
+            fill="currentColor"
+            height="1em"
+            stroke="currentColor"
+            stroke-width="0"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3,3 L21,21 M3,21 L21,3"
+              fill="none"
+              stroke="#000"
+              stroke-width="2"
+            />
+          </svg>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange0"
+        >
+          <a
+            href="/user/mypage/bookmark"
+          >
+            북마크
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange1"
+        >
+          <a
+            href="/user/mypage/review"
+          >
+            작성 후기
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange2"
+        >
+          <a
+            href="/user/mypage/post"
+          >
+            작성 글
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange3"
+        >
+          <a
+            href="/user/mypage/comment"
+          >
+            작성 댓글
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange4"
+        >
+          <a
+            href="/user/mypage/infosetting"
+          >
+            개인정보관리
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange5"
+        >
+          <a
+            href="/user/mypage/password"
+          >
+            비밀번호 변경
+          </a>
+        </li>
+        <li
+          class="nav"
+          data-testid="modalActvieChange6"
+        >
+          <a
+            href="/user/mypage/withdrawal"
+          >
+            회원탈퇴
+          </a>
+        </li>
+        <li
+          class="logout"
+          data-testid="userLogout"
+        >
+          로그아웃
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>
+`;

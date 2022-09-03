@@ -1,25 +1,23 @@
 .mainBlock {
-  width: 100%;
-}
-.title {
-  text-align: center;
-}
-.subBlock {
-  width: 600px;
-  margin: auto;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-  padding: 30px;
-  margin-bottom: 100px;
-  @media screen and (max-width: 767px) {
-    width: 80%;
-    margin-bottom: 50px;
-    padding: 30px 15px 30px 15px;
+  width: 400px;
+  margin: 80px auto 80px auto;
+
+  @media screen and (min-height: 553px) {
+    height: calc(100vh - 342px);
+    display: flex;
+    align-items: baseline;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: calc(100% - 80px);
+    margin: 80px 40px 80px 40px;
   }
 }
 
 .inputBlock {
-  margin-bottom: 50px;
+  & + & {
+    margin-top: 30px;
+  }
 }
 
 .input {
@@ -28,7 +26,7 @@
   border-bottom: 1px solid black;
   margin-right: 10px;
   @media screen and (max-width: 767px) {
-    width: 75%;
+    width: 70%;
   }
 }
 
@@ -38,7 +36,7 @@
   border: 1px solid gray;
   border-radius: 5px;
   @media screen and (max-width: 767px) {
-    width: 20%;
+    width: 25%;
     font-size: 12px;
   }
 }

@@ -1,15 +1,16 @@
-import { SearchResultType } from "../../../../../../lib/apitype/search";
+import React from "react";
+import {SearchResultType} from "../../../../../../lib/apitype/search";
 import styles from "./StoreBox.module.scss";
 
 interface StoreBoxProps {
-  searchResult: SearchResultType[];
+  searchResult: SearchResultType[] | undefined;
   showStoreInfo: (storeId: number) => void;
 }
 
-const StoreBox = ({ searchResult, showStoreInfo }: StoreBoxProps) => {
+const StoreBox = ({searchResult, showStoreInfo}: StoreBoxProps) => {
   return (
     <>
-      {searchResult.map((storeInfo) => {
+      {searchResult?.map((storeInfo) => {
         return (
           <div
             key={storeInfo.name}

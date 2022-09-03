@@ -1,0 +1,101 @@
+import {
+  act,
+  fireEvent,
+  render,
+  renderHook,
+  screen,
+} from "@testing-library/react";
+import {Provider} from "react-redux";
+import useMapSideBar from "./MapSideBarHook";
+import configureMockStore from "redux-mock-store";
+import MapSideBar from "./MapSideBar";
+const mockStore = configureMockStore()({
+  searchResult: {loading: true},
+  searchType: {},
+  hashtagAll: {},
+  hashtagSearchCondition: {adress: {}, hashtag: []},
+});
+const wrapper = ({children}: any) => (
+  <Provider store={mockStore}>{children}</Provider>
+);
+describe("MapSideBar Hook 테스트", () => {
+  it("changeSidebarStatus 함수 테스트", () => {
+    window.confirm = jest.fn(() => true);
+    const {result} = renderHook(() => useMapSideBar(), {
+      wrapper,
+    });
+    act(() => {
+      result.current.changeSidebarStatus("hashtag");
+    });
+    expect(mockStore.getActions()[0]).toEqual({
+      payload: undefined,
+      type: "hashtagSearchCondition/initializeCondition",
+    });
+    expect(mockStore.getActions()[1]).toEqual({
+      payload: undefined,
+      type: "searchResult/initializeSearchResult",
+    });
+    expect(mockStore.getActions()[2]).toEqual({
+      payload: undefined,
+      type: "storeInfo/initializeStoreInfo",
+    });
+    expect(mockStore.getActions()[3]).toEqual({
+      payload: {
+        hashtag: "search",
+        type: "hashtag",
+      },
+      type: "searchType/setSearchType",
+    });
+  });
+});
+
+describe("MapSideBar Presentational 테스트", () => {
+  it("hashtag,search 일때", () => {
+    const changeSidebarStatusMock = jest.fn();
+    const utils = render(
+      <MapSideBar
+        changeSidebarStatus={changeSidebarStatusMock}
+        searchType={{type: "hashtag", hashtag: "search"}}
+        modalStatus={{
+          desktop: {fold: false, storeInfoActive: false},
+          mobile: {fold: true},
+        }}
+      ></MapSideBar>,
+      {wrapper}
+    );
+    expect(utils.container).toMatchSnapshot();
+    fireEvent.click(screen.getByTestId("changeSidebarStatus0"));
+    fireEvent.click(screen.getByTestId("changeSidebarStatus1"));
+    expect(changeSidebarStatusMock).toBeCalledTimes(2);
+  });
+  it("hashtag,result 일때", () => {
+    const changeSidebarStatusMock = jest.fn();
+    const utils = render(
+      <MapSideBar
+        changeSidebarStatus={changeSidebarStatusMock}
+        searchType={{type: "hashtag", hashtag: "result"}}
+        modalStatus={{
+          desktop: {fold: false, storeInfoActive: false},
+          mobile: {fold: true},
+        }}
+      ></MapSideBar>,
+      {wrapper}
+    );
+    expect(utils.container).toMatchSnapshot();
+  });
+  it("name,search 일때", () => {
+    const changeSidebarStatusMock = jest.fn();
+    const utils = render(
+      <MapSideBar
+        changeSidebarStatus={changeSidebarStatusMock}
+        searchType={{type: "name", hashtag: "result"}}
+        modalStatus={{
+          desktop: {fold: false, storeInfoActive: false},
+          mobile: {fold: true},
+        }}
+      ></MapSideBar>,
+      {wrapper}
+    );
+    expect(utils.container).toMatchSnapshot();
+  });
+});
