@@ -16,6 +16,9 @@
   color: white;
   padding: 5px;
   background-color: skyblue;
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .title {
@@ -47,9 +50,9 @@
 }
 
 .storeListBlock {
-  height: 750px;
   overflow-y: scroll;
+  height: calc(100vh - 222.5px);
   @media screen and (max-width: 767px) {
-    height: 350px;
+    height: calc(100% - 161.5px);
   }
 }

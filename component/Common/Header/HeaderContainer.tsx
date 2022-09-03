@@ -1,26 +1,19 @@
-import React, { useEffect, useLayoutEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootReducer } from "../../../store";
-import {
-  checkSignin,
-  logout,
-} from "../../../store/reducers/userLogin/userLoginReducer";
+import {useIsMobile} from "../../../lib/customHook/mediaQuery";
 import Header from "./Header";
+import useHeader from "./HeaderHook";
 
 const HeaderContainer = () => {
-  const dispatch = useDispatch();
-  const loginedUser = useSelector((state: RootReducer) => state.userLogin);
-  useEffect(() => {
-    if (!loginedUser.loginStatus) {
-      dispatch(checkSignin());
-    }
-  }, []);
+  const {loginedUser, modalActvieChange, modalActive} = useHeader();
+  const isMobile = useIsMobile();
 
-  const userLogout = () => {
-    dispatch(logout());
-  };
-
-  return <Header loginedUser={loginedUser} userLogout={userLogout} />;
+  return (
+    <Header
+      loginedUser={loginedUser}
+      modalActvieChange={modalActvieChange}
+      modalActive={modalActive}
+      isMobile={isMobile}
+    />
+  );
 };
 
-export default React.memo(HeaderContainer);
+export default HeaderContainer;

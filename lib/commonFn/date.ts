@@ -18,3 +18,7 @@ export const setDateLatest = (dateData: string) => {
 export const setDateYearMonthDay = (dateData: string) => {
   return dateData.split("T")[0];
 };
+
+export const setDateYearMonthDayHour = (dateData: Date) => {
+  return `${dateData.getMonth()}월 ${dateData.getDate()}일 ${dateData.getHours()}:${dateData.getMinutes()}`;
+};

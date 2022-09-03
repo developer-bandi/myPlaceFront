@@ -1,80 +1,53 @@
 @import "./globalmixin.scss";
 
 .mainBlock {
-  width: 100%;
-}
-
-.subBlock {
-  margin: auto;
-  width: 1000px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 30px;
-  border-top: 2px solid black;
-  border-bottom: 2px solid black;
-  @media screen and (max-width: 1023px) {
-    width: 90%;
+  width: 800px;
+  margin: 50px auto 50px auto;
+  min-height: calc(100vh - 282px);
+  @media screen and (max-width: 840px) {
+    width: calc(100% - 60px);
   }
 }
 
 .title {
   text-align: center;
   font-size: 40px;
-  margin: 50px 0 50px 0;
-}
-
-.subTitle {
-  margin-bottom: 10px;
-  font-size: 20px;
-  width: 100px;
-  @media screen and (max-width: 1023px) {
-    width: 100%;
+  margin: 0px 0px 30px 0px;
+  @media screen and (max-width: 840px) {
+    font-size: 30px;
   }
 }
 
 .name {
-  display: block;
   width: 100%;
-  height: 60px;
   font-size: 30px;
-  padding-top: 10px;
   text-align: center;
+  margin: 0px 0px 10px 0px;
 }
 
 .address {
-  display: block;
   width: 100%;
-  height: 20px;
+  color: #757171;
   text-align: center;
-  margin-bottom: 40px;
-}
-
-.contentBlock {
-  display: flex;
-  margin-bottom: 30px;
-  @media screen and (max-width: 1023px) {
-    width: 100%;
-    display: block;
-  }
+  margin: 0px 0px 20px 0px;
 }
 
 .reviewInput {
-  width: 840px;
+  width: 100%;
   height: 200px;
   font-size: 15px;
   margin-bottom: 20px;
-  padding: 10px;
-  border: 1px solid #e1e1e1;
+  padding: 15px;
+  line-height: 1.5;
+  border-radius: 5px;
+  border: 1px solid #d1d5db;
   &:focus {
-    outline: none;
-  }
-  @media screen and (max-width: 1023px) {
-    width: 100%;
+    border: 1px solid black;
   }
 }
 
 .fileButton {
-  background-color: #eaeaea;
+  border: 1px solid #eaeaea;
   display: block;
   width: 100px;
   height: 100px;
@@ -138,15 +111,13 @@
 }
 
 .imgListBlock {
+  width: 100%;
   display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  width: 740px;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  @media screen and (max-width: 1023px) {
-    width: 90%;
-  }
+  overflow: scroll;
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #d1d5db;
+  margin: 0px 0px 30px 0px;
+  border-radius: 5px;
 }
 
 .imgBlock {
@@ -161,11 +132,27 @@
   margin-right: 10px;
 }
 
+.taglistTitle {
+  width: 100%;
+  text-align: center;
+  margin: 0px 0px 20px 0px;
+}
+
+.taglistBoxBlock {
+  width: 100%;
+  padding: 10px 10px 10px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+  margin: 0px 0px 20px 0px;
+}
+
 .tagTitle {
   font-weight: 600;
   margin-bottom: 10px;
 }
+
 .taglistBlock {
+  width: 100%;
   margin-bottom: 10px;
 }
 
@@ -180,8 +167,22 @@
   }
 }
 
+.submitButtonBlock {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .submitButton {
-  @include submitButton();
+  color: white;
+  padding: 10px;
+  height: 40px;
+  background-color: #00aaff;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .imgDeleteButton {

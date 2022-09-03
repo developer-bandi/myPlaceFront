@@ -1,34 +1,36 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { all, fork } from "redux-saga/effects";
-import hashtagRankReducer from "./hashtagRank/hashtagRankReducer";
-import hashtagAllReducer from "./hashtagAll/hashtagAllReducer";
-import hashtagSearchConditionReducer from "./hashtagSearchCondition/hashtagSearchConditionReducer";
-import userLoginReducer from "./userLogin/userLoginReducer";
-import searchResultReducer from "./searchResult/searchResultReducer";
-import { hashtagAllSaga } from "./hashtagAll/hashtagAllSaga";
-import { hashtagRankSaga } from "./hashtagRank/hashtagRankSaga";
-import { userLoginSaga, userLogoutSaga } from "./userLogin/userLoginSaga";
-import { searchResultSaga } from "./searchResult/searchResultSaga";
-import { storeInfoSaga } from "./storeInfo/storeInfoSaga";
-import storeInfoReducer from "./storeInfo/storeInfoReducer";
-import AddStorePositionReducer from "./AddStoreAdress/AddStorePositionReducer";
-import SearchTypeReducer from "./SetSearhType/SearchTypeReducer";
+import {combineReducers} from "@reduxjs/toolkit";
+import {all, fork} from "redux-saga/effects";
+import hashtagAllReducer from "./hashtagAll/Reducer";
+import hashtagSearchConditionReducer from "./hashtagSearchCondition/Reducer";
+import userLoginReducer from "./userLogin/Reducer";
+import searchResultReducer from "./searchResult/Reducer";
+import {hashtagAllSaga} from "./hashtagAll/Saga";
+import {userLoginSaga, userLogoutSaga} from "./userLogin/Saga";
+import {searchResultSaga} from "./searchResult/Saga";
+import {storeInfoSaga} from "./storeInfo/Saga";
+import storeInfoReducer from "./storeInfo/Reducer";
+import AddStorePositionReducer from "./AddStorePosition/Reducer";
+import SearchTypeReducer from "./searhType/Reducer";
+import mypageModalReducer from "./mypageModal/Reducer";
+import searchModalReducer from "./searchModal/Reducer";
+import mapClickReducer from "./mapClick/Reducer";
 
 export const rootReducer = combineReducers({
-  hashtagRank: hashtagRankReducer,
   hashtagAll: hashtagAllReducer,
   hashtagSearchCondition: hashtagSearchConditionReducer,
   userLogin: userLoginReducer,
-  SearchResult: searchResultReducer,
+  searchResult: searchResultReducer,
   storeInfo: storeInfoReducer,
   addStorePosition: AddStorePositionReducer,
-  SearchType: SearchTypeReducer,
+  searchType: SearchTypeReducer,
+  mypageModal: mypageModalReducer,
+  searchModal: searchModalReducer,
+  mapClick: mapClickReducer,
 });
 
 export function* rootSaga() {
   yield all([
     fork(hashtagAllSaga),
-    fork(hashtagRankSaga),
     fork(userLoginSaga),
     fork(userLogoutSaga),
     fork(searchResultSaga),

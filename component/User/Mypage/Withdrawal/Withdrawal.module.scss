@@ -1,12 +1,3 @@
-.centerBlock {
-  width: 800px;
-  margin: 50px auto 0 auto;
-  @media screen and (max-width: 1023px) {
-    width: 90%;
-    margin: 0 auto 0 auto;
-  }
-}
-
 .subTitle {
   font-size: 25px;
   margin-bottom: 10px;
@@ -19,21 +10,23 @@
 
 .buttonBlock {
   display: flex;
-  margin-top: 60px;
+  margin-top: 30px;
 }
 
-.agreeButton {
-  width: 380px;
+.button {
+  width: 480px;
   height: 50px;
   border-radius: 5px;
-  border: 1px solid #dddfe4;
-  margin-right: 40px;
-}
-
-.disagreeButton {
-  width: 380px;
-  height: 50px;
-  background-color: #dddfe4;
-  color: white;
-  border-radius: 5px;
+  cursor: pointer;
+  @media screen and (max-width: 1200px) {
+    width: calc((100vw - 80px) / 2);
+  }
+  &.agree {
+    border: 1px solid #dddfe4;
+    margin-right: 40px;
+  }
+  &.disagree {
+    background-color: #dddfe4;
+    color: white;
+  }
 }

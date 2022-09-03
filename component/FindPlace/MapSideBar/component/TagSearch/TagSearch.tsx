@@ -1,12 +1,14 @@
-import { forwardRef, RefObject, SetStateAction } from "react";
+import React, {forwardRef, RefObject, SetStateAction} from "react";
 import styles from "./TagSearch.module.scss";
 
 interface TagSearchProps {
-  hashtag: {
-    [index: string]: {
-      [index: string]: [string, number, number][];
-    };
-  };
+  hashtag:
+    | {
+        [index: string]: {
+          [index: string]: [string, number, number][];
+        };
+      }
+    | undefined;
   selectedHashtag: string[];
   selectedCategory: string;
   dispatchCategory: (category: string) => void;
@@ -42,6 +44,7 @@ const TagSearch = ({
                 onClick={() => {
                   dispatchCategory(data);
                 }}
+                data-testid={`dispatchCategory${index}`}
               >
                 {data}
               </li>
@@ -49,7 +52,10 @@ const TagSearch = ({
           })}
         </ul>
       </div>
-      <section className={styles.centerPostisionBlock}>
+      <section
+        className={styles.centerPostisionBlock}
+        key={"centerPostisionBlock"}
+      >
         <h1 className={styles.title}>기준 장소</h1>
         <div className={styles.inputBlock}>
           <input className={styles.adressInput} ref={inputRef} />
@@ -58,6 +64,7 @@ const TagSearch = ({
             onClick={() => {
               dispatchAddress();
             }}
+            data-testid="dispatchAddress"
           >
             설정
           </button>
@@ -65,12 +72,16 @@ const TagSearch = ({
         </div>
       </section>
       <section className={styles.tagscontainer} key={"tagscontainer"}>
-        {Object.keys(hashtag[selectedCategory]).map((data, index: number) => {
+        {Object.keys(
+          hashtag !== undefined ? hashtag[selectedCategory] : {}
+        ).map((subject, index: number) => {
           return (
-            <>
-              <div className={styles.title}>{data}</div>
+            <React.Fragment key={subject}>
+              <div className={styles.title}>{subject}</div>
               <ul className={styles.hashtagListBlock} key={index}>
-                {hashtag[selectedCategory][data].map((data) => {
+                {(hashtag !== undefined ? hashtag[selectedCategory] : {})[
+                  subject
+                ].map((data, index) => {
                   return (
                     <li
                       className={
@@ -82,13 +93,14 @@ const TagSearch = ({
                       onClick={() => {
                         dispatchHashtag(data[0]);
                       }}
+                      data-testid={`dispatchHashtag${index}`}
                     >
                       #{data[0]}
                     </li>
                   );
                 })}
               </ul>
-            </>
+            </React.Fragment>
           );
         })}
       </section>
@@ -97,6 +109,7 @@ const TagSearch = ({
         onClick={() => {
           dispatchSearchStore();
         }}
+        data-testid="dispatchSearchStore"
       >
         검색하기
       </button>

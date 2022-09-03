@@ -1,22 +1,40 @@
 @import "../../../../lib/styles/globalmixin.scss";
 
 .reviewBlock {
-  padding: 10px;
+  padding: 15px 0px 15px 0px;
   border-bottom: 1px solid #e5e5e5;
   @media screen and (max-width: 1201px) {
     width: 100%;
-    padding: 15px;
   }
 }
 
 .titleBlock {
   display: flex;
+  align-items: center;
+  margin: 0px 0px 10px 0px;
+}
+
+.titleLeftBlock {
+  display: flex;
+  overflow-x: scroll;
+  @media screen and (max-width: 1201px) {
+    width: calc(100vw - 167px);
+  }
+}
+
+.date {
+  color: #d1d1d1;
+  font-size: 14px;
+  margin: 0px 0px 0px 10px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 10px;
+  white-space: nowrap;
 }
 
 .titleRightBlock {
@@ -31,28 +49,43 @@
   border-radius: 5px;
   height: 30px;
   @include centerSort();
+  cursor: pointer;
+  &:hover {
+    opacity: 0.5;
+  }
 }
 
 .content {
   margin-bottom: 10px;
+  color: #666;
+  font-size: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: pre-wrap;
+  line-height: 1.5;
 }
 
-.hashtagListBlock {
+.hashtagList {
   width: 1000px;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 10px;
   @media screen and (max-width: 1023px) {
     width: 100%;
   }
 }
 
 .hashtag {
-  margin-right: 5px;
-  color: gray;
+  margin: 0px 10px 0px 0px;
+  color: #888;
+  font-size: 13px;
+  border-radius: 20px;
+  border: 1px solid #e1e2e3;
+  padding: 5px 10px 5px 10px;
 }
 
-.photoListBlock {
+.photoList {
   display: flex;
 }
 

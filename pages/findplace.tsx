@@ -1,29 +1,19 @@
-import type { NextPage } from "next";
-import { Context } from "next-redux-wrapper";
+import type {NextPage} from "next";
+import {Context} from "next-redux-wrapper";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { END } from "redux-saga";
-import Footer from "../component/Common/Footer/Footer";
+import {useRouter} from "next/router";
+import {END} from "redux-saga";
 import HeaderContainer from "../component/Common/Header/HeaderContainer";
 import MapContainer from "../component/FindPlace/Map/MapContainer";
-import MapClickButton from "../component/FindPlace/MapClickButton/MapClickButton";
+import MapClickButtonContainer from "../component/FindPlace/MapClickButton/MapClickContainer";
 import MapSideBarContainer from "../component/FindPlace/MapSideBar/MapSideBarContainer";
 import SideBarButtonContainer from "../component/FindPlace/SideBarButton/SideBarContainer";
 import StoreInfoContainer from "../component/FindPlace/StoreInfo/StoreInfoContainer";
-import { wrapper } from "../store";
-import { getHashtagAll } from "../store/reducers/hashtagAll/hashtagAllReducer";
-import { initializeCondition } from "../store/reducers/hashtagSearchCondition/hashtagSearchConditionReducer";
-import { initializeSearchResult } from "../store/reducers/searchResult/searchResultReducer";
-import { setSearchType } from "../store/reducers/SetSearhType/SearchTypeReducer";
-import { initializeStoreInfo } from "../store/reducers/storeInfo/storeInfoReducer";
+import {wrapper} from "../store";
+import {getHashtagAll} from "../store/reducers/hashtagAll/Reducer";
 
 const Home: NextPage = () => {
-  const [sideBarActive, setSideBarActive] = useState(true);
-  const [mapClick, setMapClick] = useState(true);
   const router = useRouter();
-
   return (
     <>
       <Head>
@@ -41,19 +31,11 @@ const Home: NextPage = () => {
         />
       </Head>
       <HeaderContainer />
-      {sideBarActive ? (
-        <>
-          <MapSideBarContainer setMapClick={setMapClick} />
-          <StoreInfoContainer />
-        </>
-      ) : null}
-      <SideBarButtonContainer
-        setSideBarActive={setSideBarActive}
-        sideBarActive={sideBarActive}
-      />
-      {mapClick ? null : <MapClickButton setMapClick={setMapClick} />}
-      <MapContainer mapClick={mapClick} setMapClick={setMapClick} />
-      <Footer />
+      <MapSideBarContainer />
+      <StoreInfoContainer />
+      <SideBarButtonContainer />
+      <MapClickButtonContainer />
+      <MapContainer />
     </>
   );
 };
@@ -65,7 +47,7 @@ export const getStaticProps = wrapper.getStaticProps(
 
     await store.sagaTask?.toPromise();
 
-    return { props: {} };
+    return {props: {}};
   }
 );
 

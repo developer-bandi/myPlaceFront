@@ -1,40 +1,70 @@
 .mainBlock {
-  position: relative;
   width: 100%;
-  height: 600px;
+  height: 300px;
+  &.purple {
+    background-color: #446eff;
+  }
+  &.green {
+    background-color: #00c471;
+  }
+  &.blue {
+    background-color: #086394;
+  }
+  &.gray {
+    background-color: #c8c8c8;
+  }
+}
+
+.subBlock {
+  display: flex;
+  justify-content: space-between;
+  width: 1200px;
+  height: 300px;
+  margin: 0px auto 0px auto;
+  @media screen and (max-width: 1200px) {
+    padding: 0px 0px 0px 20px;
+    width: 100%;
+  }
   @media screen and (max-width: 767px) {
-    height: 500px;
-  }
-  @media screen and (max-width: 1023px) {
-    height: 300px;
-  }
-}
-
-.text {
-  height: 50px;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  color: white;
-  font-size: 40px;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-  white-space: nowrap;
-  @media screen and (max-width: 1023px) {
-    font-size: 20px;
+    padding: 0px 0px 0px 0px;
+    position: relative;
+    justify-content: center;
+    align-items: baseline;
   }
 }
 
-.pagemove {
-  position: absolute;
-  top: 60%;
-  left: 50%;
+.infoBlock {
+  padding: 60px 0px 0px 0px;
+  white-space: pre-line;
+}
+
+.title {
   color: white;
-  transform: translate(-50%, -50%);
-  background: black;
-  padding: 10px;
-  border-radius: 10px;
-  &:hover {
-    background: gray;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0px 0px 20px 0px;
+  @media screen and (max-width: 767px) {
+    padding: 0px 0px 0px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 0;
+    left: 20px;
   }
+}
+
+.summary {
+  color: white;
+  font-size: 15px;
+  line-height: 1.7;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
+}
+
+.error {
+  text-align: center;
+  font-size: 30px;
+  margin: 50px 0 200px 0;
 }

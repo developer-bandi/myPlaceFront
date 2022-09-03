@@ -1,0 +1,43 @@
+@import "../../../lib/styles/globalmixin.scss";
+
+.pageButtonList {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  &.margin {
+    margin: 40px 0px 0px 0px;
+  }
+  @media screen and (max-width: 767px) {
+    margin: 20px auto 0px auto;
+  }
+}
+
+.pageButton {
+  width: 27px;
+  height: 27px;
+  font-size: 12px;
+  border: 1px solid #dbdbdb;
+  border-radius: 5px;
+  margin-left: 8px;
+  cursor: pointer;
+  @include centerSort();
+  &:hover {
+    border: 1px solid #a0a0a0;
+  }
+  &.selected {
+    background-color: #00aaff;
+    border: 1px solid #00aaff;
+    color: white;
+  }
+}
+
+.pageIcon {
+  width: 27px;
+  height: 27px;
+  font-size: 12px;
+  cursor: pointer;
+  &.ban {
+    cursor: not-allowed;
+    opacity: 0.2;
+  }
+}

@@ -1,33 +1,28 @@
 .mainBlock {
-  width: 500px;
-  margin: auto;
-  margin-top: 50px;
-
-  @media screen and (max-width: 767px) {
-    width: 100%;
-    margin-top: 20px;
+  width: 400px;
+  margin: 80px auto 80px auto;
+  @media screen and (min-height: 880px) {
+    height: calc(100vh - 342px);
+    display: flex;
+    align-items: baseline;
+  }
+  @media screen and (max-width: 500px) {
+    width: calc(100% - 80px);
+    margin: 80px 40px 80px 40px;
   }
 }
 
-.title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 30px;
-}
-
 .naverBlock {
-  width: 500px;
-  height: 65px;
+  width: 400px;
+  height: 40px;
   background: #03c75a;
-  border-radius: 12px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   cursor: pointer;
   margin-bottom: 20px;
-  @media screen and (max-width: 767px) {
-    width: 80%;
-    margin: auto;
-    margin-bottom: 20px;
+  @media screen and (max-width: 500px) {
+    width: 100%;
   }
 }
 
@@ -39,7 +34,7 @@
 .naverLogo {
   color: white;
   font-weight: 900;
-  font-size: 30px;
+  font-size: 20px;
   display: flex;
   align-items: center;
   margin-right: 10px;
@@ -47,24 +42,23 @@
 
 .naverText {
   color: white;
-  font-size: 20px;
+  font-size: 15px;
   text-align: center;
   display: flex;
   align-items: center;
 }
 
 .kakaoBlock {
-  width: 500px;
-  height: 65px;
+  width: 400px;
+  height: 40px;
   background: #fee500;
-  border-radius: 12px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
   cursor: pointer;
-  @media screen and (max-width: 767px) {
-    width: 80%;
-    margin: auto;
+  @media screen and (max-width: 500px) {
+    width: 100%;
   }
 }
 
@@ -74,29 +68,17 @@
 }
 
 .kakaoLogo {
-  width: 30px;
-  height: 65px;
-  object-fit: cover;
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
 }
 
 .kakaoText {
   color: #000000;
-  font-size: 20px;
-  text-align: center;
+  font-size: 15px;
   display: flex;
   align-items: center;
   margin-left: 10px;
-}
-
-.notice {
-  width: 500px;
-  text-align: center;
-  color: red;
-  margin: auto;
-  margin-top: 25px;
-  @media screen and (max-width: 767px) {
-    width: 80%;
-  }
 }
 
 .divisionBlock {
@@ -107,12 +89,12 @@
 }
 
 .divisionBar {
-  width: 200px;
+  width: 170px;
   border: none;
   height: 1px;
   background-color: #e3e3e3;
-  @media screen and (max-width: 767px) {
-    width: 100px;
+  @media screen and (max-width: 500px) {
+    width: calc((100% - 50px) / 2);
   }
 }
 
@@ -121,60 +103,27 @@
   color: #b5b5b5;
 }
 
-.infoInput {
-  height: 3rem;
-  width: 500px;
-  display: block;
-  margin-bottom: 15px;
-  border: none;
-  border-bottom: 1px solid black;
-  font-size: 20px;
-  padding: 0;
-  @media screen and (max-width: 767px) {
-    width: 80%;
-    margin: auto;
-    margin-bottom: 15px;
-  }
-}
-
-.loginButton {
-  height: 65px;
-  width: 500px;
-  display: block;
-  margin-bottom: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #39373a;
-  border-radius: 12px;
-  border: none;
-  color: white;
-  &:hover {
-    opacity: 0.8;
-    cursor: pointer;
-  }
-  font-size: 20px;
-  margin-top: 2rem;
-  @media screen and (max-width: 767px) {
-    width: 80%;
-    margin: auto;
-  }
+.buttonBlock {
+  margin: 50px 0px 0px 0px;
 }
 
 .bottomBlock {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 30px 0px 0px 0px;
+  color: #666f7e;
+  font-size: 15px;
+  @media screen and (max-width: 500px) {
+    font-size: 14px;
+  }
 }
 
 .bottomLink {
-  padding: 0 1rem 0 1rem;
   cursor: pointer;
   & + & {
-    border-left: 1px solid black;
+    margin: 0px 0px 0px 15px;
   }
-  margin-bottom: 90px;
-  @media screen and (max-width: 767px) {
-    margin-bottom: 50px;
+  :hover {
+    opacity: 0.5;
   }
 }

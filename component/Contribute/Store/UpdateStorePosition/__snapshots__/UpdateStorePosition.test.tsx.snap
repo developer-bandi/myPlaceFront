@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div>
+  <div
+    class="mainBlock"
+  >
+    <h1
+      class="title"
+    >
+      장소 수정
+    </h1>
+    <div
+      class="map"
+      style="width: 800px; height: 800px;"
+    />
+    <div
+      class="addressBlock"
+    >
+      <input
+        class="addressInput"
+      />
+      <button
+        class="addressButton"
+        data-testid="changeAddress"
+      >
+        주소 설정
+      </button>
+    </div>
+    <div
+      class="submitButtonBlock"
+    >
+      <button
+        class="submitButton"
+        data-testid="changePosition"
+      >
+        이 위치로 장소 수정
+      </button>
+    </div>
+  </div>
+</div>
+`;

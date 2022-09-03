@@ -1,19 +1,22 @@
 import styles from "./Header.module.scss";
 import Link from "next/link";
-import { signupState } from "../../../store/reducers/userLogin/userLoginReducer";
-import { useIsLabtop, useIsTablet } from "../../../lib/customHook/mediaQuery";
-import { useState } from "react";
-import MyPageNavigation from "../../User/Mypage/Common/navigation/MyPageNavigation";
+import {signupState} from "../../../store/reducers/userLogin/Reducer";
+import MyPageModalContainer from "../MyPageModal/MyPageModalContainer";
+import {BiUserCircle} from "react-icons/bi";
 
 interface HeaderProps {
   loginedUser: signupState;
-  userLogout: () => void;
+  modalActvieChange: () => void;
+  modalActive: boolean;
+  isMobile: boolean;
 }
 
-const Header = ({ loginedUser, userLogout }: HeaderProps) => {
-  const isTabletOrMobile = useIsTablet();
-  const [subNavigation, setSubnavigation] = useState(false);
-  const isLabtop = useIsLabtop();
+const Header = ({
+  loginedUser,
+  modalActvieChange,
+  modalActive,
+  isMobile,
+}: HeaderProps) => {
   return (
     <header className={styles.mainBlock}>
       <div className={styles.subBlock}>
@@ -21,76 +24,72 @@ const Header = ({ loginedUser, userLogout }: HeaderProps) => {
           <Link href="/">MyPlace</Link>
         </div>
         <ul className={styles.navigationBlock}>
-          {isTabletOrMobile
+          {isMobile
             ? null
-            : menulist.map((data: string, index: number) => {
+            : menuList.map((menuObj) => {
                 return (
-                  <li key={data} className={styles.navigationName}>
-                    <Link href={menuadress[index]}>{data}</Link>
+                  <li key={menuObj.name} className={styles.navigationName}>
+                    <Link href={menuObj.router}>{menuObj.name}</Link>
                   </li>
                 );
               })}
         </ul>
-        {loginedUser.loginStatus ? (
-          <div className={styles.userBlock}>
-            <p className={styles.userInfo}>{loginedUser.userInfo.nickname}</p>
+        {loginedUser.content ? (
+          <div className={styles.userBlock} data-testid="login">
+            <p className={styles.userInfo}>
+              {loginedUser.content.nickname}님 반갑습니다
+            </p>
             <button
+              className={styles.mypage}
               onClick={() => {
-                userLogout();
+                modalActvieChange();
               }}
-              className={styles.logout}
+              data-testid="modalActvieChange"
             >
-              로그아웃
+              <BiUserCircle size={25} />
             </button>
-
-            {isLabtop ? (
-              <button
-                className={styles.mypage}
-                onClick={() => {
-                  setSubnavigation(!subNavigation);
-                }}
-              >
-                마이페이지
-              </button>
-            ) : (
-              <button className={styles.mypage}>
-                <Link href={"/user/mypage/bookmark"}>마이페이지</Link>
-              </button>
-            )}
           </div>
         ) : (
-          <button className={styles.signin}>
+          <button className={styles.signin} data-testid="logout">
             <Link href={"/user/auth/signin"}>로그인/회원가입</Link>
           </button>
         )}
       </div>
-      {isTabletOrMobile ? (
-        <div className={styles.subBlock}>
+      {isMobile ? (
+        <div className={styles.subBlock} data-testid="mobile">
           <ul className={styles.bottomNavigationBlock}>
-            {menulist.map((data: string, index: number) => {
+            {menuList.map((menuObj) => {
               return (
-                <li key={data} className={styles.navigationName}>
-                  <Link href={menuadress[index]}>{data}</Link>
+                <li key={menuObj.name} className={styles.navigationName}>
+                  <Link href={menuObj.router}>{menuObj.name}</Link>
                 </li>
               );
             })}
           </ul>
         </div>
       ) : null}
-      {subNavigation ? (
-        <div className={styles.myPageNavigationBlock}>
-          <MyPageNavigation />
+      {modalActive ? (
+        <div className={styles.myPageNavigationBlock} data-testid="mypageModal">
+          <MyPageModalContainer />
         </div>
       ) : null}
     </header>
   );
 };
 
-const menulist = ["장소찾기", "커뮤니티", "기여하기"];
-const menuadress = [
-  "/findplace",
-  "/community/postlist",
-  "/contribute/addstoreposition",
+const menuList = [
+  {
+    name: "장소찾기",
+    router: "/findplace",
+  },
+  {
+    name: "커뮤니티",
+    router: "/community",
+  },
+  {
+    name: "기여하기",
+    router: "/contribute",
+  },
 ];
 
 export default Header;

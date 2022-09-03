@@ -1,67 +1,75 @@
-@import "./globalmixin.scss";
-
 .mainBlock {
-  width: 100%;
+  width: 800px;
+  margin: 50px auto 50px auto;
+  min-height: calc(100vh - 282px);
+  @media screen and (max-width: 840px) {
+    width: calc(100% - 60px);
+  }
 }
 
 .title {
   text-align: center;
-  margin: 50px 0 50px 0;
-}
-
-.subBlock {
-  margin: auto;
-  width: 1000px;
-  height: 1150px;
-  margin-bottom: 20px;
-  background-color: white;
-  padding: 30px;
-  border-bottom: 2px solid black;
-  border-top: 2px solid black;
-  @media screen and (max-width: 1023px) {
-    width: 90%;
-    height: inherit;
+  font-size: 40px;
+  margin: 0px 0px 30px 0px;
+  @media screen and (max-width: 840px) {
+    font-size: 30px;
   }
 }
 
-.subTitle {
-  margin-bottom: 20px;
+.map {
+  border-radius: 10px;
 }
+
 .addressBlock {
-  margin: 20px 0 50px 0;
+  width: 100%;
+  margin: 20px 0 20px 0;
+  @media screen and (max-width: 1023px) {
+    margin: 20px 0 20px 0;
+  }
 }
+
 .addressInput {
   z-index: 1;
-  width: 850px;
+  width: 710px;
   height: 40px;
   background-color: #eaeaea;
   margin-top: 10px;
-  @media screen and (max-width: 1023px) {
-    width: 70%;
+  padding: 10px 10px 10px 10px;
+  @media screen and (max-width: 840px) {
+    width: calc(100% - 80px);
   }
 }
 
 .addressButton {
   width: 70px;
   height: 40px;
-  background-color: #00aaff;
+  background-color: #39373a;
   border-radius: 5px;
   color: white;
-  margin-left: 20px;
-}
-
-.submitButtonBlock {
-  width: 1000px;
-  margin: auto;
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 100px;
-  @media screen and (max-width: 1023px) {
-    width: 100%;
-    padding-right: 5%;
+  margin: 0px 0px 0px 20px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+  @media screen and (max-width: 840px) {
+    margin: 0px 0px 0px 10px;
   }
 }
 
+.submitButtonBlock {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .submitButton {
-  @include submitButton();
+  width: 100%;
+  color: white;
+  height: 40px;
+  background-color: #00aaff;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 }

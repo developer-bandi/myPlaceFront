@@ -1,52 +1,34 @@
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { axiosGetMyComment } from "../../../../lib/commonFn/api";
+import {useIsLabtopOrTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
+import useMypage from "../../../../lib/customHook/mypage";
 import MyComment from "./MyComment";
+import useMyComment from "./MyCommentHook";
 
-export interface commentContent {
-  id: number;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  PostId: number;
-  UserId: number;
-  Post: {
-    id: number;
+export interface commentListState {
+  content?: {
+    count: number;
+    rows: {
+      id: number;
+      content: string;
+      createdAt: string;
+      PostId: number;
+      nickname: string;
+    }[];
   };
+  loading: boolean;
+  error: boolean;
 }
 
 const MyCommentContainer = () => {
-  const [commentList, setCommentList] = useState<{
-    content?: commentContent[];
-    loading: boolean;
-    error: boolean;
-  }>({ loading: true, error: false });
-  const router = useRouter();
-
-  useEffect(() => {
-    const asyncWrapFn = async () => {
-      try {
-        const axiosComment = await axiosGetMyComment();
-        setCommentList({
-          content: axiosComment.data,
-          loading: false,
-          error: false,
-        });
-      } catch (error) {
-        setCommentList({ loading: false, error: true });
-      }
-    };
-    asyncWrapFn();
-  }, []);
-
-  const movePostDetailPage = (id: number) => {
-    router.push(`/community/postdetail/${id}`);
-  };
-
+  const {movePostDetailPage} = useMyComment();
+  const isLabtopOrTabletOrMobile = useIsLabtopOrTabletOrMobile();
+  const {serverData, changePage, page} = useMypage("comment");
   return (
     <MyComment
-      commentList={commentList}
+      commentListState={serverData as commentListState}
       movePostDetailPage={movePostDetailPage}
+      page={page}
+      changePage={changePage}
+      isLabtopOrTabletOrMobile={isLabtopOrTabletOrMobile}
     />
   );
 };

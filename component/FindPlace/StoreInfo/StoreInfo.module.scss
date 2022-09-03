@@ -2,7 +2,7 @@ $commonPadding: 15px;
 
 .mainBlock {
   width: 380px;
-  height: 911px;
+  height: calc(100vh - 61px);
   background-color: white;
   position: absolute;
   z-index: 25;
@@ -10,13 +10,18 @@ $commonPadding: 15px;
   left: 380px;
   border-left: 1px solid #dddddd;
   overflow-y: scroll;
-  @media screen and (max-width: 1023px) {
-    left: 0;
-    z-index: 30;
+  @media screen and (max-width: 767px) {
     width: 100%;
-    border: none;
-    top: 520px;
-    height: 520px;
+    left: 0;
+    z-index: 26;
+    &.fold {
+      top: calc(((100vh - 121px) / 2) + 121px);
+      height: calc((100vh - 121px) / 2);
+    }
+    &.full {
+      top: 121px;
+      height: calc(100vh - 121px);
+    }
   }
 }
 
@@ -94,10 +99,14 @@ $commonPadding: 15px;
 .tag {
   margin-right: 5px;
   margin-bottom: 5px;
-  border: 1px solid #eaeef2;
+  border: 1px solid #f0f0f2;
   border-radius: 10px;
   color: #666666;
   padding: 5px;
+}
+
+.tagCount {
+  margin: 0px 0px 0px 5px;
 }
 
 .reviewBlock {
@@ -137,6 +146,10 @@ $commonPadding: 15px;
 
 .commentContent {
   margin-bottom: 10px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #424242;
 }
 
 .commentTag {
@@ -168,4 +181,21 @@ $commonPadding: 15px;
   text-align: center;
   font-size: 20px;
   font-weight: 600px;
+}
+
+.nickname {
+  font-weight: 600;
+}
+
+.loadingBlock {
+  position: relative;
+  width: 380px;
+  height: calc(100vh - 61px);
+}
+
+.error {
+  position: relative;
+  width: 380px;
+  height: calc(100vh - 61px);
+  font-size: 25px;
 }

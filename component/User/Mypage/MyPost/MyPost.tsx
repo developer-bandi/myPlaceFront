@@ -3,25 +3,32 @@ import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import styles from "./MyPost.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
-import { postListcontent } from "./MyPostContainer";
-import { setDateYearMonthDay } from "../../../../lib/commonFn/date";
-import { useIsLabtop } from "../../../../lib/customHook/mediaQuery";
+import {setDateYearMonthDay} from "../../../../lib/commonFn/date";
+import {postListState} from "./MyPostHook";
+import {GrView} from "react-icons/gr";
+import {FaRegComment} from "react-icons/fa";
+import {BiLike} from "react-icons/bi";
+import PageNation from "../../../Common/PageNation/PageNation";
 
 interface PostListProps {
-  postList: {
-    content?: postListcontent[] | undefined;
-    loading: boolean;
-    error: boolean;
-  };
+  postListState: postListState;
   movePostDetailPage: (id: number) => void;
+  page: number;
+  changePage: (page: number) => Promise<void>;
+  isLabtopOrTabletOrMobile: boolean;
 }
 
-const MyPost = ({ postList, movePostDetailPage }: PostListProps) => {
-  const isLabtop = useIsLabtop();
-  if (postList.loading) {
+const MyPost = ({
+  postListState,
+  movePostDetailPage,
+  page,
+  changePage,
+  isLabtopOrTabletOrMobile,
+}: PostListProps) => {
+  if (postListState.loading) {
     return (
-      <div className={mypage.mainBlock}>
-        {isLabtop ? null : <MyPageNavigation />}
+      <div className={mypage.mainBlock} data-testid="loading">
+        {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
         <div className={mypage.subBlock}>
           <h1 className={mypage.title}>작성 포스트</h1>
           <div className={mypage.loading}>
@@ -31,20 +38,20 @@ const MyPost = ({ postList, movePostDetailPage }: PostListProps) => {
       </div>
     );
   } else {
-    if (postList.content === undefined && postList.error !== null) {
+    if (postListState.content === undefined && postListState.error !== null) {
       return (
-        <div className={mypage.mainBlock}>
-          {isLabtop ? null : <MyPageNavigation />}
+        <div className={mypage.mainBlock} data-testid="error">
+          {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 포스트</h1>
             <div className={mypage.error}>에러발생</div>
           </div>
         </div>
       );
-    } else if (postList.content?.length === 0) {
+    } else if (postListState.content?.count === 0) {
       return (
-        <div className={mypage.mainBlock}>
-          {isLabtop ? null : <MyPageNavigation />}
+        <div className={mypage.mainBlock} data-testid="noResult">
+          {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 포스트</h1>
             <div className={mypage.noResult}>포스트 없음</div>
@@ -53,37 +60,44 @@ const MyPost = ({ postList, movePostDetailPage }: PostListProps) => {
       );
     } else {
       return (
-        <div className={mypage.mainBlock}>
-          {isLabtop ? null : <MyPageNavigation />}
+        <div className={mypage.mainBlock} data-testid="result">
+          {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 포스트</h1>
-            <div className={styles.infoBlock}>
-              <div className={styles.index}>순번</div>
-              <div className={styles.title}>제목</div>
-              <div className={styles.comment}>댓글</div>
-              <div className={styles.like}>좋아요</div>
-              <div className={styles.view}>조회수</div>
-              <div className={styles.date}>날짜</div>
-            </div>
-            {postList.content?.map((data, index) => {
+            {postListState.content?.rows.map((post, index) => {
               return (
                 <div
                   className={styles.postBlock}
-                  onClick={() => movePostDetailPage(data.id)}
+                  onClick={() => movePostDetailPage(post.id)}
+                  key={post.id}
                 >
-                  <div className={styles.index}>{index}</div>
-                  <div className={styles.title}>{data.title}</div>
-                  <div className={styles.comment}>{data.Comments.length}</div>
-                  <div className={styles.like}>{data.postlikecount.length}</div>
-                  <div className={styles.view}>{data.viewCount}</div>
-                  <div className={styles.date}>
-                    {isLabtop
-                      ? setDateYearMonthDay(data.createdAt).substring(5, 10)
-                      : setDateYearMonthDay(data.createdAt)}
+                  <div className={styles.topBlock}>
+                    <div className={styles.user}>{post.nickname}</div>
+                    <div className={styles.date}>
+                      {setDateYearMonthDay(post.createdAt)}
+                    </div>
+                  </div>
+                  <div className={styles.title}>{post.title}</div>
+                  <p className={styles.content}>{post.content}</p>
+                  <div className={styles.bottomBlock}>
+                    <FaRegComment size="20" className={styles.bottomIcon} />
+                    <div className={styles.bottomInfo}>{post.comment}</div>
+                    <BiLike size="20" className={styles.bottomIcon} />
+                    <div className={styles.bottomInfo}>
+                      {post.postlikecount}
+                    </div>
+                    <GrView size="20" className={styles.bottomIcon} />
+                    <div className={styles.bottomInfo}>{post.viewCount}</div>
                   </div>
                 </div>
               );
             })}
+            <PageNation
+              page={page}
+              changePage={changePage}
+              totalCount={postListState.content?.count as number}
+              addStyle={"margin"}
+            />
           </div>
         </div>
       );

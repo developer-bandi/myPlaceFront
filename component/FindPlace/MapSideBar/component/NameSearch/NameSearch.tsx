@@ -1,6 +1,6 @@
 import styles from "./NameSearch.module.scss";
-import { AiOutlineSearch } from "react-icons/ai";
-import { RefObject } from "react";
+import {AiOutlineSearch} from "react-icons/ai";
+import {RefObject} from "react";
 
 interface NameSearchProps {
   dispatchAddress: () => void;
@@ -25,6 +25,7 @@ const NameSearch = ({
           onClick={() => {
             dispatchAddress();
           }}
+          data-testid="dispatchAddress"
         >
           설정
         </button>
@@ -38,6 +39,7 @@ const NameSearch = ({
             onClick={() => {
               dispatchSearchStore();
             }}
+            data-testid="dispatchSearchStore"
           />
         </button>
       </div>

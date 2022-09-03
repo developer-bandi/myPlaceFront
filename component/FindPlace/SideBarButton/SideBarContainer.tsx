@@ -1,23 +1,32 @@
-import { SetStateAction } from "react";
-import { useSelector } from "react-redux";
-import { RootReducer } from "../../../store";
+import {useDispatch} from "react-redux";
+import {useSelector} from "react-redux";
+import {useIsMobile} from "../../../lib/customHook/mediaQuery";
+import {RootReducer} from "../../../store";
+import {
+  changeDesktopFold,
+  changeMobileFold,
+} from "../../../store/reducers/searchModal/Reducer";
 import SideBarButton from "./SideBarButton";
 
-interface SideBarButtonContainerProps {
-  setSideBarActive: React.Dispatch<SetStateAction<boolean>>;
-  sideBarActive: boolean;
-}
+const SideBarButtonContainer = () => {
+  const modalStatus = useSelector(
+    (state: RootReducer) => state.searchModal.desktop
+  );
+  const dispatch = useDispatch();
+  const mobileFoldChange = () => {
+    dispatch(changeMobileFold());
+  };
+  const desktopFoldChange = () => {
+    dispatch(changeDesktopFold());
+  };
+  const isMobile = useIsMobile();
 
-const SideBarButtonContainer = ({
-  setSideBarActive,
-  sideBarActive,
-}: SideBarButtonContainerProps) => {
-  const storeInfo = useSelector((state: RootReducer) => state.storeInfo);
   return (
     <SideBarButton
-      storeInfo={storeInfo}
-      setSideBarActive={setSideBarActive}
-      sideBarActive={sideBarActive}
+      modalStatus={modalStatus}
+      isMobile={isMobile}
+      mobileFoldChange={mobileFoldChange}
+      desktopFoldChange={desktopFoldChange}
     ></SideBarButton>
   );
 };
