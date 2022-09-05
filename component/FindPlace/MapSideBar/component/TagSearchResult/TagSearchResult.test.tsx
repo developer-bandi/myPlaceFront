@@ -105,7 +105,7 @@ describe("TagSearchResult Presentational 테스트", () => {
     const utils = render(
       <TagSearchResult
         moveSearhPage={moveSearhPageMock}
-        searchResult={{loading: false, error: false}}
+        searchResult={{content: [], loading: false, error: false}}
         searchCondition={{
           category: "testCategory",
           adress: {

@@ -52,7 +52,7 @@ const TagSearchResult = ({
           <p className={styles.ectStatus} data-testid="error">
             에러가 발생하였습니다
           </p>
-        ) : searchResult.content === undefined ? (
+        ) : searchResult.content?.length === 0 ? (
           <p className={styles.ectStatus} data-testid="noResult">
             검색결과가 없습니다
           </p>
