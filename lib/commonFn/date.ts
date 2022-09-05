@@ -20,5 +20,8 @@ export const setDateYearMonthDay = (dateData: string) => {
 };
 
 export const setDateYearMonthDayHour = (dateData: Date) => {
-  return `${dateData.getMonth()}월 ${dateData.getDate()}일 ${dateData.getHours()}:${dateData.getMinutes()}`;
+  const fixDate = new Date(dateData.getTime() + 32400000);
+  return `${
+    fixDate.getMonth() + 1
+  }월 ${fixDate.getDate()}일 ${fixDate.getHours()}:${fixDate.getMinutes()}`;
 };
