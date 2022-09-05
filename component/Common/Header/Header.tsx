@@ -84,7 +84,7 @@ const menuList = [
   },
   {
     name: "커뮤니티",
-    router: "/community",
+    router: "/community/postlist",
   },
   {
     name: "기여하기",
