@@ -22,10 +22,20 @@ describe("NameSearchResult Presentational 테스트", () => {
     expect(utils.container).toMatchSnapshot();
     screen.getByTestId("error");
   });
-  it("컨텐츠 없음", () => {
+  it("검색하기전", () => {
     const utils = render(
       <NameSearchResult
         searchResult={{loading: false, error: false}}
+        showStoreInfo={jest.fn()}
+      ></NameSearchResult>
+    );
+    expect(utils.container).toMatchSnapshot();
+    screen.getByTestId("start");
+  });
+  it("컨텐츠 없음", () => {
+    const utils = render(
+      <NameSearchResult
+        searchResult={{content: [], loading: false, error: false}}
         showStoreInfo={jest.fn()}
       ></NameSearchResult>
     );

@@ -1,5 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`NameSearchResult Presentational 테스트 검색하기전 1`] = `
+<div>
+  <div
+    class="mainBlock"
+    data-testid="start"
+  >
+    <p
+      class="ectStatus"
+    >
+      원하는 장소를 검색해보세요
+    </p>
+  </div>
+</div>
+`;
+
 exports[`NameSearchResult Presentational 테스트 로딩중 1`] = `
 <div>
   <div

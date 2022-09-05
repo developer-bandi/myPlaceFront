@@ -26,6 +26,12 @@ const NameSearchResult = ({searchResult, showStoreInfo}: NameSearchResult) => {
     );
   } else if (searchResult.content === undefined) {
     return (
+      <div className={styles.mainBlock} data-testid="start">
+        <p className={styles.ectStatus}>원하는 장소를 검색해보세요</p>
+      </div>
+    );
+  } else if (searchResult.content.length === 0) {
+    return (
       <div className={styles.mainBlock} data-testid="noResult">
         <p className={styles.ectStatus}>검색결과가 없습니다</p>
       </div>
