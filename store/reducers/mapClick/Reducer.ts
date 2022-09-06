@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
 
 export interface mapClickState {
@@ -17,6 +17,9 @@ const mapClickSlice = createSlice({
     setActive(state) {
       state.active = !state.active;
     },
+    setTrue(state) {
+      state.active = true;
+    },
   },
 
   extraReducers: {
@@ -26,6 +29,6 @@ const mapClickSlice = createSlice({
   },
 });
 
-export const {setActive} = mapClickSlice.actions;
+export const {setActive, setTrue} = mapClickSlice.actions;
 
 export default mapClickSlice.reducer;
