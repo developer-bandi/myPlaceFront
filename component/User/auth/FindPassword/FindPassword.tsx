@@ -11,12 +11,12 @@ interface FindPasswordProps {
     | undefined;
   emailInputRef: RefObject<HTMLInputElement>;
   randomNumberInputRef: RefObject<HTMLInputElement>;
-  sendMail: () => Promise<void>;
-  checkAuthNum: () => void;
+  sendMail: (e: {key?: string; type: string}) => Promise<void>;
+  checkAuthNum: (e: {key?: string; type: string}) => void;
   authStatus: boolean;
   passwordRef: RefObject<HTMLInputElement>;
   passwordCheckRef: RefObject<HTMLInputElement>;
-  changePassword: () => Promise<void>;
+  changePassword: (e: {key?: string; type: string}) => Promise<void>;
 }
 
 const FindPassword = ({

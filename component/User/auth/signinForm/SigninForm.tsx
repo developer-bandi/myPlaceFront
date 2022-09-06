@@ -6,7 +6,7 @@ import Link from "next/link";
 import {RefObject} from "react";
 
 interface SignInForm {
-  checkLogin: () => Promise<void>;
+  checkLogin: (e: {key?: string; type: string}) => Promise<void>;
   idInputRef: RefObject<HTMLInputElement>;
   passwordInputRef: RefObject<HTMLInputElement>;
 }

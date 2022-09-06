@@ -2,7 +2,7 @@ import {RefObject} from "react";
 import styles from "./SignupForm.module.scss";
 import authStyles from "../../../../lib/styles/auth.module.scss";
 interface SignUpFormProps {
-  signup: () => Promise<void>;
+  signup: (e: {key?: string; type: string}) => Promise<void>;
   idInputRef: RefObject<HTMLInputElement>;
   passwordInputRef: RefObject<HTMLInputElement>;
   passwordCheckInputRef: RefObject<HTMLInputElement>;

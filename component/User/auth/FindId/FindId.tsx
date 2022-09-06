@@ -11,8 +11,8 @@ interface FindIdProps {
     | undefined;
   emailInputRef: RefObject<HTMLInputElement>;
   randomNumberInputRef: RefObject<HTMLInputElement>;
-  sendMail: () => Promise<void>;
-  getId: () => Promise<void>;
+  sendMail: (e: {key?: string; type: string}) => Promise<void>;
+  getId: (e: {key?: string; type: string}) => Promise<void>;
 }
 
 const FindId = ({
