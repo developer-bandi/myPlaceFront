@@ -42,6 +42,8 @@ const FindPassword = ({
               ref={emailInputRef}
               placeholder="이메일을 입력하세요"
               key="email"
+              onKeyPress={sendMail}
+              data-testid="email"
             />
             <div className={authStyles.submitButtonBlock}>
               <button
@@ -68,6 +70,8 @@ const FindPassword = ({
               ref={randomNumberInputRef}
               placeholder="인증번호를 입력하세요"
               key="randomNumber"
+              onKeyPress={checkAuthNum}
+              data-testid="randomNumber"
             />
           </div>
           <div className={authStyles.submitButtonBlock}>
@@ -95,6 +99,8 @@ const FindPassword = ({
               placeholder="새 비밀번호를 입력하세요"
               type="password"
               key="newPassword"
+              onKeyPress={changePassword}
+              data-testid="newPassword"
             />
           </div>
           <div className={authStyles.contentBlock}>
@@ -105,6 +111,8 @@ const FindPassword = ({
               placeholder="새 비밀번호를 한번더 입력하세요"
               type="password"
               key="newPasswordCheck"
+              onKeyPress={changePassword}
+              data-testid="newPasswordCheck"
             />
             <div className={authStyles.submitButtonBlock}>
               <button

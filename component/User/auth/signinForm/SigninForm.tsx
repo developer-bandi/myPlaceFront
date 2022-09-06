@@ -49,7 +49,12 @@ const SignInForm = ({checkLogin, idInputRef, passwordInputRef}: SignInForm) => {
         </div>
         <div className={authStyles.contentBlock}>
           <div className={authStyles.subTitle}>아이디</div>
-          <input className={authStyles.input} ref={idInputRef} />
+          <input
+            className={authStyles.input}
+            ref={idInputRef}
+            onKeyPress={checkLogin}
+            data-testid="id"
+          />
         </div>
         <div className={authStyles.contentBlock}>
           <div className={authStyles.subTitle}>비밀번호</div>
@@ -57,14 +62,14 @@ const SignInForm = ({checkLogin, idInputRef, passwordInputRef}: SignInForm) => {
             className={authStyles.input}
             type="password"
             ref={passwordInputRef}
+            onKeyPress={checkLogin}
+            data-testid="password"
           />
         </div>
         <div className={authStyles.submitButtonBlock}>
           <button
             className={authStyles.submitButton}
-            onClick={() => {
-              checkLogin();
-            }}
+            onClick={checkLogin}
             data-testid="checklogin"
           >
             로그인하기

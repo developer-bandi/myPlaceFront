@@ -39,9 +39,13 @@ describe("FindId Presentational 테스트", () => {
         getId={jest.fn()}
       />
     );
-    expect(utils.container).toMatchSnapshot();
+    fireEvent.keyPress(screen.getByTestId("email"), {
+      key: "enter",
+      keyCode: 13,
+    });
     fireEvent.click(screen.getByTestId("sendMail"));
-    expect(sendMailMock).toBeCalled();
+    expect(utils.container).toMatchSnapshot();
+    expect(sendMailMock).toBeCalledTimes(2);
   });
   it("인증번호 입력단계", () => {
     const getIdMock = jest.fn();
@@ -54,9 +58,13 @@ describe("FindId Presentational 테스트", () => {
         getId={getIdMock}
       />
     );
-    expect(utils.container).toMatchSnapshot();
+    fireEvent.keyPress(screen.getByTestId("randomNumber"), {
+      key: "enter",
+      keyCode: 13,
+    });
     fireEvent.click(screen.getByTestId("getId"));
-    expect(getIdMock).toBeCalled();
+    expect(utils.container).toMatchSnapshot();
+    expect(getIdMock).toBeCalledTimes(2);
   });
 });
 
@@ -72,7 +80,7 @@ describe("FindId Hook 테스트", () => {
       );
       const {result} = renderHook(() => useFindIdHook());
       await act(async () => {
-        await result.current.sendMail();
+        await result.current.sendMail({type: "click"});
       });
       expect(alertMock.mock.calls[0][0]).toBe("이메일이 존재하지 않습니다");
     });
@@ -86,7 +94,7 @@ describe("FindId Hook 테스트", () => {
       );
       const {result} = renderHook(() => useFindIdHook());
       await act(async () => {
-        await result.current.sendMail();
+        await result.current.sendMail({type: "click"});
       });
       expect(result.current.randomNumber).toStrictEqual({
         id: "testId",
@@ -104,7 +112,7 @@ describe("FindId Hook 테스트", () => {
       );
       const {result} = renderHook(() => useFindIdHook());
       await act(async () => {
-        await result.current.sendMail();
+        await result.current.sendMail({type: "click"});
       });
       expect(alertMock.mock.calls[2][0]).toBe("오류가 발생하였습니다");
     });
@@ -125,7 +133,7 @@ describe("FindId Hook 테스트", () => {
           number: "testNumber",
         });
       });
-      result.current.getId();
+      result.current.getId({type: "click"});
       expect(alertMock.mock.calls[3][0]).toBe("아이디는testId입니다");
       expect(mockRouter.push).toBeCalledWith("/user/auth/signin");
     });
@@ -143,7 +151,7 @@ describe("FindId Hook 테스트", () => {
           number: "testNumber",
         });
       });
-      result.current.getId();
+      result.current.getId({type: "click"});
       expect(alertMock.mock.calls[4][0]).toBe("인증번호가 일치하지 않습니다");
     });
   });

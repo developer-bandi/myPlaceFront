@@ -40,9 +40,15 @@ describe("SigninForm Presentational 테스트", () => {
         passwordInputRef={{current: null}}
       />
     );
-    expect(utils.container).toMatchSnapshot();
+
+    fireEvent.keyPress(screen.getByTestId("id"), {key: "enter", keyCode: 13});
+    fireEvent.keyPress(screen.getByTestId("password"), {
+      key: "enter",
+      keyCode: 13,
+    });
     fireEvent.click(screen.getByTestId("checklogin"));
-    expect(checkLoginMock).toBeCalled();
+    expect(utils.container).toMatchSnapshot();
+    expect(checkLoginMock).toBeCalledTimes(3);
   });
 });
 
@@ -58,7 +64,7 @@ describe("SigninForm Hook 테스트", () => {
       );
       const {result} = renderHook(() => useSigninForm());
       await act(async () => {
-        await result.current.checkLogin();
+        await result.current.checkLogin({type: "click"});
       });
       expect(alertMock.mock.calls[0][0]).toBe(
         "비밀번호 혹은 아이디를 잘못입력하였습니다"
@@ -74,7 +80,7 @@ describe("SigninForm Hook 테스트", () => {
       );
       const {result} = renderHook(() => useSigninForm());
       await act(async () => {
-        await result.current.checkLogin();
+        await result.current.checkLogin({type: "click"});
       });
       expect(alertMock.mock.calls[1][0]).toBe("로그인에 성공하였습니다!");
       expect(mockRouter.push).toBeCalledWith("/");
@@ -89,7 +95,7 @@ describe("SigninForm Hook 테스트", () => {
       );
       const {result} = renderHook(() => useSigninForm());
       await act(async () => {
-        await result.current.checkLogin();
+        await result.current.checkLogin({type: "click"});
       });
       expect(alertMock.mock.calls[2][0]).toBe("서버에 에러가 발생하였습니다");
     });

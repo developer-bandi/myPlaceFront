@@ -23,6 +23,7 @@ exports[`FindId Presentational 테스트 이메일 입력단계 1`] = `
         </div>
         <input
           class="input"
+          data-testid="email"
           placeholder="이메일을 입력하세요"
         />
         <div
@@ -64,6 +65,7 @@ exports[`FindId Presentational 테스트 인증번호 입력단계 1`] = `
         </div>
         <input
           class="input"
+          data-testid="randomNumber"
           placeholder="인증번호를 입력하세요"
         />
       </div>

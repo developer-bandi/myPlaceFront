@@ -34,6 +34,8 @@ const FindId = ({
               ref={emailInputRef}
               placeholder="이메일을 입력하세요"
               key="email"
+              onKeyPress={sendMail}
+              data-testid="email"
             />
             <div className={authStyles.submitButtonBlock}>
               <button
@@ -60,6 +62,8 @@ const FindId = ({
               ref={randomNumberInputRef}
               placeholder="인증번호를 입력하세요"
               key="randomNumber"
+              onKeyPress={getId}
+              data-testid="randomNumber"
             />
           </div>
           <div className={authStyles.submitButtonBlock}>

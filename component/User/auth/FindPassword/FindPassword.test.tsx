@@ -44,8 +44,9 @@ describe("FindPassword Presentational 테스트", () => {
         changePassword={jest.fn()}
       />
     );
-    expect(utils.container).toMatchSnapshot();
+    fireEvent.keyPress(screen.getByTestId("email"));
     fireEvent.click(screen.getByTestId("sendMail"));
+    expect(utils.container).toMatchSnapshot();
     expect(sendMailMock).toBeCalled();
   });
 
@@ -65,6 +66,7 @@ describe("FindPassword Presentational 테스트", () => {
       />
     );
     expect(utils.container).toMatchSnapshot();
+    fireEvent.keyPress(screen.getByTestId("randomNumber"));
     fireEvent.click(screen.getByTestId("checkAuthNum"));
     expect(checkAuthNumMock).toBeCalled();
   });
@@ -84,8 +86,10 @@ describe("FindPassword Presentational 테스트", () => {
         changePassword={changePasswordMock}
       />
     );
-    expect(utils.container).toMatchSnapshot();
+    fireEvent.keyPress(screen.getByTestId("newPassword"));
+    fireEvent.keyPress(screen.getByTestId("newPasswordCheck"));
     fireEvent.click(screen.getByTestId("changePassword"));
+    expect(utils.container).toMatchSnapshot();
     expect(changePasswordMock).toBeCalled();
   });
 });
@@ -102,7 +106,7 @@ describe("FindPassword Hook 테스트", () => {
       );
       const {result} = renderHook(() => useFindPassword());
       await act(async () => {
-        await result.current.sendMail();
+        await result.current.sendMail({type: "click"});
       });
       expect(alertMock.mock.calls[0][0]).toBe("이메일이 존재하지 않습니다");
     });
@@ -117,7 +121,7 @@ describe("FindPassword Hook 테스트", () => {
       );
       const {result} = renderHook(() => useFindPassword());
       await act(async () => {
-        await result.current.sendMail();
+        await result.current.sendMail({type: "click"});
       });
       expect(result.current.randomNumber).toStrictEqual({
         id: "testId",
@@ -137,7 +141,7 @@ describe("FindPassword Hook 테스트", () => {
       );
       const {result} = renderHook(() => useFindPassword());
       await act(async () => {
-        await result.current.sendMail();
+        await result.current.sendMail({type: "click"});
       });
       expect(alertMock.mock.calls[2][0]).toBe("오류가 발생하였습니다");
     });
@@ -159,7 +163,7 @@ describe("FindPassword Hook 테스트", () => {
         });
       });
       act(() => {
-        result.current.checkAuthNum();
+        result.current.checkAuthNum({type: "click"});
       });
 
       expect(alertMock.mock.calls[3][0]).toBe("인증되었습니다");
@@ -180,7 +184,7 @@ describe("FindPassword Hook 테스트", () => {
         });
       });
       act(() => {
-        result.current.checkAuthNum();
+        result.current.checkAuthNum({type: "click"});
       });
       expect(alertMock.mock.calls[4][0]).toBe("인증번호가 일치하지 않습니다");
     });
@@ -204,7 +208,7 @@ describe("FindPassword Hook 테스트", () => {
         result.current.emailInputRef;
       });
       await act(async () => {
-        await result.current.changePassword();
+        await result.current.changePassword({type: "click"});
       });
 
       expect(alertMock.mock.calls[5][0]).toBe(
@@ -227,7 +231,7 @@ describe("FindPassword Hook 테스트", () => {
         result.current.setAuthStatus(true);
       });
       await act(async () => {
-        await result.current.changePassword();
+        await result.current.changePassword({type: "click"});
       });
       expect(alertMock.mock.calls[6][0]).toBe(
         "두 비밀번호가 일치하지 않습니다"
@@ -254,7 +258,7 @@ describe("FindPassword Hook 테스트", () => {
         result.current.setAuthStatus(true);
       });
       await act(async () => {
-        await result.current.changePassword();
+        await result.current.changePassword({type: "click"});
       });
       expect(alertMock.mock.calls[7][0]).toBe("변경되었습니다");
       expect(mockRouter.push).toBeCalledWith("/user/auth/signin");
@@ -277,7 +281,7 @@ describe("FindPassword Hook 테스트", () => {
         result.current.setAuthStatus(true);
       });
       await act(async () => {
-        await result.current.changePassword();
+        await result.current.changePassword({type: "click"});
       });
       expect(alertMock.mock.calls[8][0]).toBe("에러가 발생하였습니다");
     });

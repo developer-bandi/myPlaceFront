@@ -44,9 +44,29 @@ describe("SignupForm Presentational 테스트", () => {
         emailInputRef={{current: null}}
       />
     );
-    expect(utils.container).toMatchSnapshot();
+    fireEvent.keyPress(screen.getByTestId("id"), {
+      key: "enter",
+      keyCode: 13,
+    });
+    fireEvent.keyPress(screen.getByTestId("password"), {
+      key: "enter",
+      keyCode: 13,
+    });
+    fireEvent.keyPress(screen.getByTestId("passwordCheck"), {
+      key: "enter",
+      keyCode: 13,
+    });
+    fireEvent.keyPress(screen.getByTestId("nickname"), {
+      key: "enter",
+      keyCode: 13,
+    });
+    fireEvent.keyPress(screen.getByTestId("email"), {
+      key: "enter",
+      keyCode: 13,
+    });
     fireEvent.click(screen.getByTestId("signup"));
-    expect(signupMock).toBeCalled();
+    expect(utils.container).toMatchSnapshot();
+    expect(signupMock).toBeCalledTimes(6);
   });
 });
 
@@ -56,7 +76,7 @@ describe("SignupForm Hook 테스트", () => {
       jest.spyOn(newReact, "useRef").mockReturnValue({current: {value: ""}});
       const {result} = renderHook(() => useSignupForm());
       await act(async () => {
-        await result.current.signup();
+        await result.current.signup({type: "click"});
       });
       expect(alertMock.mock.calls[0][0]).toBe("아이디를 정확히 입력하세요");
     });
@@ -68,7 +88,7 @@ describe("SignupForm Hook 테스트", () => {
         .mockReturnValueOnce({current: {value: "test"}});
       const {result} = renderHook(() => useSignupForm());
       await act(async () => {
-        await result.current.signup();
+        await result.current.signup({type: "click"});
       });
       expect(alertMock.mock.calls[1][0]).toBe("비밀번호를 정확히 입력하세요");
     });
@@ -82,7 +102,7 @@ describe("SignupForm Hook 테스트", () => {
         .mockReturnValueOnce({current: {value: "test2"}});
       const {result} = renderHook(() => useSignupForm());
       await act(async () => {
-        await result.current.signup();
+        await result.current.signup({type: "click"});
       });
       expect(alertMock.mock.calls[2][0]).toBe(
         "확인 비밀번호가 일치하지 않습니다 다시 입력해주세요"
@@ -98,7 +118,7 @@ describe("SignupForm Hook 테스트", () => {
         .mockReturnValueOnce({current: {value: "test"}});
       const {result} = renderHook(() => useSignupForm());
       await act(async () => {
-        await result.current.signup();
+        await result.current.signup({type: "click"});
       });
       expect(alertMock.mock.calls[3][0]).toBe("닉네임을 정확하게 입력하세요");
     });
@@ -113,7 +133,7 @@ describe("SignupForm Hook 테스트", () => {
         .mockReturnValueOnce({current: {value: "test"}});
       const {result} = renderHook(() => useSignupForm());
       await act(async () => {
-        await result.current.signup();
+        await result.current.signup({type: "click"});
       });
       expect(alertMock.mock.calls[4][0]).toBe(
         "이메일의 형태가 정확하지 않습니다"
@@ -137,7 +157,7 @@ describe("SignupForm Hook 테스트", () => {
       );
       const {result} = renderHook(() => useSignupForm());
       await act(async () => {
-        await result.current.signup();
+        await result.current.signup({type: "click"});
       });
       expect(alertMock.mock.calls[5][0]).toBe("아이디 중복");
     });
@@ -159,7 +179,7 @@ describe("SignupForm Hook 테스트", () => {
       );
       const {result} = renderHook(() => useSignupForm());
       await act(async () => {
-        await result.current.signup();
+        await result.current.signup({type: "click"});
       });
       expect(alertMock.mock.calls[6][0]).toBe("회원가입에 성공하였습니다.");
       expect(mockRouter.push).toBeCalledWith("/user/auth/signin");
@@ -182,7 +202,7 @@ describe("SignupForm Hook 테스트", () => {
       );
       const {result} = renderHook(() => useSignupForm());
       await act(async () => {
-        await result.current.signup();
+        await result.current.signup({type: "click"});
       });
       expect(alertMock.mock.calls[7][0]).toBe("서버에 에러가 발생하였습니다");
     });

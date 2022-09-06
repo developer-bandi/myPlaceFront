@@ -50,4 +50,8 @@
   @media screen and (max-width: 500px) {
     width: 100%;
   }
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
 }

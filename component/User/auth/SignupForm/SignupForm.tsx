@@ -28,6 +28,8 @@ const SignupForm = ({
             className={authStyles.input}
             placeholder="아이디를 10자리 미만으로 기입하세요"
             ref={idInputRef}
+            onKeyPress={signup}
+            data-testid="id"
           />
         </div>
         <div className={authStyles.contentBlock}>
@@ -37,6 +39,8 @@ const SignupForm = ({
             placeholder="비밀번호를 10자리 미만으로 기입하세요"
             ref={passwordInputRef}
             type="password"
+            onKeyPress={signup}
+            data-testid="password"
           />
         </div>
         <div className={authStyles.contentBlock}>
@@ -46,6 +50,8 @@ const SignupForm = ({
             placeholder="위와 동일한 비밀번호를 입력하세요"
             ref={passwordCheckInputRef}
             type="password"
+            onKeyPress={signup}
+            data-testid="passwordCheck"
           />
         </div>
         <div className={authStyles.contentBlock}>
@@ -54,6 +60,8 @@ const SignupForm = ({
             className={authStyles.input}
             placeholder="닉네임을 5자리 미만으로 기입하세요"
             ref={nicknameInputRef}
+            onKeyPress={signup}
+            data-testid="nickname"
           />
         </div>
         <div className={authStyles.contentBlock}>
@@ -62,14 +70,14 @@ const SignupForm = ({
             className={authStyles.input}
             placeholder="유효한 이메일을 입력하세요"
             ref={emailInputRef}
+            onKeyPress={signup}
+            data-testid="email"
           />
         </div>
         <div className={authStyles.submitButtonBlock}>
           <button
             className={authStyles.submitButton}
-            onClick={() => {
-              signup();
-            }}
+            onClick={signup}
             data-testid="signup"
           >
             회원가입
