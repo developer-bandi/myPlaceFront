@@ -25,6 +25,12 @@ $commonPadding: 15px;
   }
 }
 
+.mainImgBlock {
+  position: relative;
+  width: 100%;
+  height: 150px;
+}
+
 .titleBlock {
   display: flex;
   justify-content: center;

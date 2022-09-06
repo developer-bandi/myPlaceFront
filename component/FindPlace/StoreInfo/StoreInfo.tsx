@@ -72,6 +72,16 @@ const StoreInfo = ({
         }`}
         data-testid="result"
       >
+        {store.content.mainPhoto !== undefined ? (
+          <div className={styles.mainImgBlock}>
+            <Image
+              loader={myLoader}
+              src={`/${store.content.mainPhoto}`}
+              layout="fill"
+              object-fit="cover"
+            />
+          </div>
+        ) : null}
         <div className={styles.titleBlock}>
           {isMobile ? (
             <button
@@ -158,7 +168,6 @@ const StoreInfo = ({
                         <Image
                           loader={myLoader}
                           src={`/${src}`}
-                          className={styles.menuImg}
                           width="105px"
                           height="105px"
                         />

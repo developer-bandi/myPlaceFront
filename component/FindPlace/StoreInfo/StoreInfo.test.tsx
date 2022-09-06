@@ -48,7 +48,10 @@ describe("StoreInfo Presentational 테스트", () => {
         postBookMark={jest.fn()}
         deleteBookMark={jest.fn()}
         deleteStoreTab={jest.fn()}
-        modalStatus={false}
+        modalStatus={{
+          desktop: {fold: false, storeInfoActive: false},
+          mobile: {fold: true},
+        }}
         isMobile={false}
       />
     );
@@ -62,7 +65,10 @@ describe("StoreInfo Presentational 테스트", () => {
         postBookMark={jest.fn()}
         deleteBookMark={jest.fn()}
         deleteStoreTab={jest.fn()}
-        modalStatus={false}
+        modalStatus={{
+          desktop: {fold: false, storeInfoActive: false},
+          mobile: {fold: true},
+        }}
         isMobile={false}
       />
     );
@@ -76,7 +82,10 @@ describe("StoreInfo Presentational 테스트", () => {
         postBookMark={jest.fn()}
         deleteBookMark={jest.fn()}
         deleteStoreTab={jest.fn()}
-        modalStatus={false}
+        modalStatus={{
+          desktop: {fold: false, storeInfoActive: false},
+          mobile: {fold: true},
+        }}
         isMobile={false}
       />
     );
@@ -92,7 +101,10 @@ describe("StoreInfo Presentational 테스트", () => {
         postBookMark={postBookMarkMock}
         deleteBookMark={jest.fn()}
         deleteStoreTab={deleteBookMarkMock}
-        modalStatus={false}
+        modalStatus={{
+          desktop: {fold: false, storeInfoActive: false},
+          mobile: {fold: true},
+        }}
         isMobile={true}
       />
     );
