@@ -60,6 +60,7 @@
 
 .menuBlock {
   width: 100%;
+  height: 120px;
   display: flex;
   overflow: scroll;
   padding: 10px 10px 10px 10px;
@@ -87,8 +88,7 @@
 }
 
 .fileCount {
-  width: 50px;
-  margin: auto;
+  text-align: center;
   font-size: 15px;
 }
 

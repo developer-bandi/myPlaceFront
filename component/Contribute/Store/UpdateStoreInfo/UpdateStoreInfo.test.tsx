@@ -27,36 +27,54 @@ const mockRouter = {
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
 
 describe("AddStoreInfo Presentational 테스트", () => {
-  const addImgMock = jest.fn();
-  const deleteExistImgMock = jest.fn();
-  const deleteUploadImgMock = jest.fn();
+  const addMenuImgMock = jest.fn();
+  const deleteExistMenuImgMock = jest.fn();
+  const deleteMenuImgMock = jest.fn();
+  const addMainImgMock = jest.fn();
+  const deleteExistMainImgMock = jest.fn();
+  const deleteMainImgMock = jest.fn();
   const submitMock = jest.fn();
   const utils = render(
     <UpdateStoreInfo
       existInfo={{}}
-      addImg={addImgMock}
-      deleteExistImg={deleteExistImgMock}
-      deleteUploadImg={deleteUploadImgMock}
-      uploadImg={["/uploadTest"]}
+      addMenuImg={addMenuImgMock}
+      deleteExistMenuImg={deleteExistMenuImgMock}
+      deleteMenuImg={deleteMenuImgMock}
+      uploadMenuImg={["/menu"]}
+      addMainImg={addMainImgMock}
+      deleteExistMainImg={deleteExistMainImgMock}
+      deleteMainImg={deleteMainImgMock}
+      uploadMainImg={["/main"]}
+      existMenuImg={["/existmenu"]}
+      existMainImg={"/existmain"}
       storeNameInputRef={{current: null}}
       categorySelectRef={{current: null}}
       telRef={{current: null}}
       openninghourTextareaRef={{current: null}}
       submit={submitMock}
-      existImg={["/existTest"]}
     />
   );
-  expect(utils.container).toMatchSnapshot();
-  fireEvent.click(screen.getByTestId("deleteExistImg0"));
-  fireEvent.click(screen.getByTestId("deleteUploadImg0"));
-  fireEvent.click(screen.getByTestId("submit"));
-  fireEvent.change(screen.getByTestId("addImg"), {
+
+  fireEvent.change(screen.getByTestId("addMainImg"), {
     target: {value: ""},
   });
-  expect(addImgMock).toBeCalled();
-  expect(deleteExistImgMock).toBeCalled();
-  expect(deleteUploadImgMock).toBeCalled();
-  expect(submitMock).toBeCalled();
+  fireEvent.click(screen.getByTestId("deleteExistMainImg"));
+  fireEvent.click(screen.getByTestId("deleteMainImg0"));
+  fireEvent.change(screen.getByTestId("addMenuImg"), {
+    target: {value: ""},
+  });
+  fireEvent.click(screen.getByTestId("deleteExistMenuImg0"));
+  fireEvent.click(screen.getByTestId("deleteMenuImg0"));
+  fireEvent.click(screen.getByTestId("submit"));
+
+  expect(utils.container).toMatchSnapshot();
+  expect(addMenuImgMock).toBeCalledTimes(1);
+  expect(deleteExistMenuImgMock).toBeCalledTimes(1);
+  expect(deleteMenuImgMock).toBeCalledTimes(1);
+  expect(addMainImgMock).toBeCalledTimes(1);
+  expect(deleteExistMainImgMock).toBeCalledTimes(1);
+  expect(deleteMainImgMock).toBeCalledTimes(1);
+  expect(submitMock).toBeCalledTimes(1);
 });
 
 describe("UpdateStoreInfo Hook 테스트", () => {

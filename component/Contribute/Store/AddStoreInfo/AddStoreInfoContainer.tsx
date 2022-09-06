@@ -4,9 +4,12 @@ import useAddStoreInfo from "./AddStoreInfoHook";
 const AddStoreInfoContainer = () => {
   const {
     position,
-    addImg,
-    deleteImg,
-    uploadImg,
+    addMenuImg,
+    deleteMenuImg,
+    uploadMenuImg,
+    addMainImg,
+    deleteMainImg,
+    uploadMainImg,
     storeNameInputRef,
     categorySelectRef,
     telRef,
@@ -17,9 +20,12 @@ const AddStoreInfoContainer = () => {
   return (
     <AddStoreInfo
       address={position.address}
-      addImg={addImg}
-      deleteImg={deleteImg}
-      uploadImg={uploadImg}
+      addMenuImg={addMenuImg}
+      deleteMenuImg={deleteMenuImg}
+      uploadMenuImg={uploadMenuImg}
+      addMainImg={addMainImg}
+      deleteMainImg={deleteMainImg}
+      uploadMainImg={uploadMainImg}
       storeNameInputRef={storeNameInputRef}
       categorySelectRef={categorySelectRef}
       telRef={telRef}

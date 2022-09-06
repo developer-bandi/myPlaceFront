@@ -6,9 +6,12 @@ import {ImCross} from "react-icons/im";
 
 interface AddStoreProps {
   address: string;
-  addImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  deleteImg: (deleteindex: number) => void;
-  uploadImg: string[];
+  addMenuImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  deleteMenuImg: (deleteindex: number) => void;
+  uploadMenuImg: string[];
+  addMainImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  deleteMainImg: (deleteindex: number) => void;
+  uploadMainImg: string[];
   storeNameInputRef: RefObject<HTMLInputElement>;
   categorySelectRef: RefObject<HTMLSelectElement>;
   telRef: RefObject<HTMLInputElement>;
@@ -18,9 +21,12 @@ interface AddStoreProps {
 
 const AddStoreInfo = ({
   address,
-  addImg,
-  deleteImg,
-  uploadImg,
+  addMenuImg,
+  deleteMenuImg,
+  uploadMenuImg,
+  addMainImg,
+  deleteMainImg,
+  uploadMainImg,
   storeNameInputRef,
   categorySelectRef,
   telRef,
@@ -61,25 +67,25 @@ const AddStoreInfo = ({
         ref={openninghourTextareaRef}
       />
       <ul className={storeInfo.menuBlock}>
-        <label htmlFor="fileimg" className={storeInfo.fileButton}>
-          <div className={storeInfo.imgButtonTitle}>메뉴판 추가</div>
+        <label htmlFor="mainimg" className={storeInfo.fileButton}>
+          <div className={storeInfo.imgButtonTitle}>대표사진 추가</div>
           <div className={storeInfo.fileIcon}>
             <AiOutlinePicture size="40" />
           </div>
           <div
             className={storeInfo.fileCount}
-          >{`(${uploadImg.length}/10)`}</div>
+          >{`(${uploadMainImg.length}/1)`}</div>
         </label>
         <input
           type="file"
           accept="image/*"
-          id="fileimg"
+          id="mainimg"
           multiple
-          onChange={addImg}
+          onChange={addMainImg}
           className={storeInfo.realFileButton}
-          data-testid="addImg"
+          data-testid="addMainImg"
         />
-        {uploadImg.map((img, index) => {
+        {uploadMainImg.map((img, index) => {
           return (
             <li className={storeInfo.imgBlock} key={index}>
               <Image
@@ -90,10 +96,54 @@ const AddStoreInfo = ({
               ></Image>
               <div
                 onClick={(e) => {
-                  deleteImg(index);
+                  deleteMainImg(index);
                 }}
                 className={storeInfo.imgDeleteButton}
-                data-testid={`deleteImg${index}`}
+                data-testid={`deleteMainImg${index}`}
+              >
+                <ImCross
+                  size={20}
+                  style={{color: "white", opacity: "1"}}
+                ></ImCross>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <ul className={storeInfo.menuBlock}>
+        <label htmlFor="menuimg" className={storeInfo.fileButton}>
+          <div className={storeInfo.imgButtonTitle}>메뉴판 추가</div>
+          <div className={storeInfo.fileIcon}>
+            <AiOutlinePicture size="40" />
+          </div>
+          <div
+            className={storeInfo.fileCount}
+          >{`(${uploadMenuImg.length}/10)`}</div>
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          id="menuimg"
+          multiple
+          onChange={addMenuImg}
+          className={storeInfo.realFileButton}
+          data-testid="addMenuImg"
+        />
+        {uploadMenuImg.map((img, index) => {
+          return (
+            <li className={storeInfo.imgBlock} key={index}>
+              <Image
+                src={img}
+                width={"100px"}
+                height={"100px"}
+                className={storeInfo.img}
+              ></Image>
+              <div
+                onClick={(e) => {
+                  deleteMenuImg(index);
+                }}
+                className={storeInfo.imgDeleteButton}
+                data-testid={`deleteMenuImg${index}`}
               >
                 <ImCross
                   size={20}

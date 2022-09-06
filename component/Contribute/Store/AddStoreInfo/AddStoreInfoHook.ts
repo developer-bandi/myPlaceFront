@@ -14,16 +14,50 @@ const useAddStoreInfo = () => {
   const categorySelectRef = useRef<HTMLSelectElement>(null);
   const telRef = useRef<HTMLInputElement>(null);
   const openninghourTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const [uploadImg, setUploadImg] = useState<string[]>([]);
-  const [imgfile, setImgfile] = useState<Blob[]>([]);
-  const addImg = useCallback(
-    addImgWrapper(10, uploadImg, imgfile, setUploadImg, setImgfile),
-    [uploadImg, imgfile, setUploadImg, setImgfile]
+  const [uploadMenuImg, setUploadMenuImg] = useState<string[]>([]);
+  const [menuImgfile, setMenuImgfile] = useState<Blob[]>([]);
+  const [uploadMainImg, setUploadMainImg] = useState<string[]>([]);
+  const [mainImgfile, setMainImgfile] = useState<Blob[]>([]);
+  const addMenuImg = useCallback(
+    addImgWrapper(
+      10,
+      uploadMenuImg,
+      menuImgfile,
+      setUploadMenuImg,
+      setMenuImgfile
+    ),
+    [uploadMenuImg, menuImgfile, setUploadMenuImg, setMenuImgfile]
   );
 
-  const deleteImg = useCallback(
-    deleteUploadImgWrapper(uploadImg, imgfile, setUploadImg, setImgfile),
-    [uploadImg, imgfile, setUploadImg, setImgfile]
+  const deleteMenuImg = useCallback(
+    deleteUploadImgWrapper(
+      uploadMenuImg,
+      menuImgfile,
+      setUploadMenuImg,
+      setMenuImgfile
+    ),
+    [uploadMenuImg, menuImgfile, setUploadMenuImg, setMenuImgfile]
+  );
+
+  const addMainImg = useCallback(
+    addImgWrapper(
+      1,
+      uploadMainImg,
+      mainImgfile,
+      setUploadMainImg,
+      setMainImgfile
+    ),
+    [uploadMainImg, mainImgfile, setUploadMainImg, setMainImgfile]
+  );
+
+  const deleteMainImg = useCallback(
+    deleteUploadImgWrapper(
+      uploadMainImg,
+      mainImgfile,
+      setUploadMainImg,
+      setMainImgfile
+    ),
+    [uploadMainImg, mainImgfile, setUploadMainImg, setMainImgfile]
   );
   const router = useRouter();
 
@@ -55,7 +89,8 @@ const useAddStoreInfo = () => {
             position.latitude,
             position.longitude,
             categorySelectRef.current.value,
-            imgfile
+            mainImgfile,
+            menuImgfile
           );
           alert("성공적으로 등록되었습니다");
           router.push("/");
@@ -67,9 +102,12 @@ const useAddStoreInfo = () => {
   };
   return {
     position,
-    addImg,
-    deleteImg,
-    uploadImg,
+    addMenuImg,
+    deleteMenuImg,
+    uploadMenuImg,
+    addMainImg,
+    deleteMainImg,
+    uploadMainImg,
     storeNameInputRef,
     categorySelectRef,
     telRef,

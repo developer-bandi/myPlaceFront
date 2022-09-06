@@ -22,6 +22,7 @@ export interface storeInfoType {
     [index: string]: number;
   };
   Menus?: string[];
+  mainPhoto?: string;
 }
 
 export interface SearchResultType {

@@ -1,4 +1,4 @@
-import React, { SetStateAction } from "react";
+import React, {SetStateAction} from "react";
 
 export const addImgWrapper = (
   maxNumber: number,
@@ -9,10 +9,8 @@ export const addImgWrapper = (
 ) => {
   return (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
-      if (e.target.files.length >= maxNumber + 1) {
-        alert(
-          `파일 개수가 ${maxNumber + 1}개 이상입니다 사진개수를 줄여주세요`
-        );
+      if (e.target.files.length + uploadImg.length >= maxNumber + 1) {
+        alert("파일 최대갯수를 초과하였습니다 삭제후 추가해주세요");
       } else {
         const imgs: string[] = [...uploadImg];
         const imgsfile: Blob[] = [...imgfile];
@@ -30,9 +28,6 @@ export const addImgWrapper = (
               imgs.push(reader.result as string);
               if (e.target.files !== null)
                 if (i === e.target.files.length - 1) {
-                  if (imgs.length >= maxNumber + 1) {
-                    imgs.splice(0, imgs.length - maxNumber);
-                  }
                   setUploadImg(imgs);
                   if (sizeUpper) {
                     alert("사이즈 초과된 사진이 있습니다");
@@ -40,9 +35,6 @@ export const addImgWrapper = (
                 }
             }
           };
-        }
-        if (imgsfile.length >= maxNumber + 1) {
-          imgsfile.splice(0, imgsfile.length - maxNumber);
         }
         setImgfile(imgsfile);
       }

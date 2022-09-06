@@ -109,7 +109,8 @@ export const axiosAddStore = (
   latitude: string,
   longitude: string,
   category: string,
-  imgs: Blob[]
+  mainImg: Blob[],
+  menuImg: Blob[]
 ) => {
   const formData = new FormData();
   formData.append("name", name);
@@ -117,9 +118,13 @@ export const axiosAddStore = (
   formData.append("latitude", latitude);
   formData.append("longitude", longitude);
   formData.append("category", category);
-  for (let i = 0; i < imgs.length; i++) {
-    formData.append("imgs[]", imgs[i]);
+  for (let i = 0; i < mainImg.length; i++) {
+    formData.append("mainImg[]", mainImg[i]);
   }
+  for (let i = 0; i < menuImg.length; i++) {
+    formData.append("menuImg[]", menuImg[i]);
+  }
+
   if (typeof tel === "string") {
     formData.append("tel", tel);
   }
@@ -179,16 +184,22 @@ export const axiosUpdateStoreInfo = (
   tel: string | undefined,
   openingHours: string | undefined,
   category: string,
-  imgs: Blob[],
+  mainImg: Blob[],
+  menuImg: Blob[],
   deletedImg: string[]
 ) => {
+  console.log(mainImg);
+  console.log(menuImg);
+  console.log(deletedImg);
   const formData = new FormData();
   formData.append("id", String(id));
   formData.append("name", name);
   formData.append("category", category);
-
-  for (let i = 0; i < imgs.length; i++) {
-    formData.append("imgs[]", imgs[i]);
+  for (let i = 0; i < mainImg.length; i++) {
+    formData.append("mainImg[]", mainImg[i]);
+  }
+  for (let i = 0; i < menuImg.length; i++) {
+    formData.append("menuImg[]", menuImg[i]);
   }
   for (let i = 0; i < deletedImg.length; i++) {
     formData.append("deletedImg[]", deletedImg[i]);

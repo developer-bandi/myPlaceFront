@@ -15,10 +15,15 @@ const useUpdateStoreInfo = () => {
   const existInfo = useSelector(
     (state: RootReducer) => state.storeInfo.content
   );
-  const [uploadImg, setUploadImg] = useState<string[]>([]);
-  const [imgfile, setImgfile] = useState<Blob[]>([]);
-  const [existImg, setExistImg] = useState<string[] | undefined>(
+  const [uploadMenuImg, setUploadMenuImg] = useState<string[]>([]);
+  const [menuImgfile, setMenuImgfile] = useState<Blob[]>([]);
+  const [existMenuImg, setExistMenuImg] = useState<string[] | undefined>(
     () => existInfo?.Menus
+  );
+  const [uploadMainImg, setUploadMainImg] = useState<string[]>([]);
+  const [mainImgFile, setMainImgFile] = useState<Blob[]>([]);
+  const [existMainImg, setExistMainImg] = useState<string | undefined>(
+    () => existInfo?.mainPhoto
   );
   const storeNameInputRef = useRef<HTMLInputElement>(null);
   const categorySelectRef = useRef<HTMLSelectElement>(null);
@@ -27,19 +32,56 @@ const useUpdateStoreInfo = () => {
   const router = useRouter();
   const dispatch = useDispatch();
 
-  const addImg = useCallback(
-    addImgWrapper(10, uploadImg, imgfile, setUploadImg, setImgfile),
-    [existImg, imgfile, setUploadImg, setImgfile]
-  );
-  const deleteUploadImg = useCallback(
-    deleteUploadImgWrapper(uploadImg, imgfile, setUploadImg, setImgfile),
-    [uploadImg, imgfile, setUploadImg, setImgfile]
+  const addMenuImg = useCallback(
+    addImgWrapper(
+      10 - (existMenuImg === undefined ? 0 : existMenuImg.length),
+      uploadMenuImg,
+      menuImgfile,
+      setUploadMenuImg,
+      setMenuImgfile
+    ),
+    [existMenuImg, uploadMenuImg, menuImgfile, setUploadMenuImg, setMenuImgfile]
   );
 
-  const deleteExistImg = useCallback(
-    deleteExistImgWrapper(existImg, setExistImg),
-    [existImg, setExistImg]
+  const deleteMenuImg = useCallback(
+    deleteUploadImgWrapper(
+      uploadMenuImg,
+      menuImgfile,
+      setUploadMenuImg,
+      setMenuImgfile
+    ),
+    [uploadMenuImg, menuImgfile, setUploadMenuImg, setMenuImgfile]
   );
+
+  const deleteExistMenuImg = useCallback(
+    deleteExistImgWrapper(existMenuImg, setExistMenuImg),
+    [existMenuImg, setExistMenuImg]
+  );
+
+  const addMainImg = useCallback(
+    addImgWrapper(
+      1 - (existMainImg === undefined ? 0 : existMainImg.length),
+      uploadMainImg,
+      mainImgFile,
+      setUploadMainImg,
+      setMainImgFile
+    ),
+    [existMainImg, uploadMainImg, mainImgFile, setUploadMainImg, setMainImgFile]
+  );
+  const deleteMainImg = useCallback(
+    deleteUploadImgWrapper(
+      uploadMainImg,
+      mainImgFile,
+      setUploadMainImg,
+      setMainImgFile
+    ),
+    [uploadMainImg, mainImgFile, setUploadMainImg, setMainImgFile]
+  );
+
+  const deleteExistMainImg = () => {
+    setExistMainImg(undefined);
+  };
+
   useEffect(() => {
     if (
       storeNameInputRef.current !== null &&
@@ -77,11 +119,17 @@ const useUpdateStoreInfo = () => {
             let deletedImg: string[] = [];
             if (existInfo.Menus !== undefined) {
               deletedImg = existInfo.Menus.filter((data) => {
-                if (existImg?.indexOf(data) === -1) {
+                if (existMenuImg?.indexOf(data) === -1) {
                   return true;
                 }
                 return false;
               });
+            }
+            if (
+              existInfo.mainPhoto !== undefined &&
+              existMainImg === undefined
+            ) {
+              deletedImg.push(existInfo.mainPhoto);
             }
             await axiosUpdateStoreInfo(
               existInfo.storeInfo.id,
@@ -89,7 +137,8 @@ const useUpdateStoreInfo = () => {
               telRef.current.value,
               openninghourTextareaRef.current.value,
               categorySelectRef.current.value,
-              imgfile,
+              mainImgFile,
+              menuImgfile,
               deletedImg
             );
             dispatch(getStoreInfo(existInfo.storeInfo.id));
@@ -104,16 +153,21 @@ const useUpdateStoreInfo = () => {
   };
   return {
     existInfo,
-    addImg,
-    deleteExistImg,
-    deleteUploadImg,
-    uploadImg,
+    addMenuImg,
+    deleteExistMenuImg,
+    deleteMenuImg,
+    uploadMenuImg,
+    addMainImg,
+    deleteExistMainImg,
+    deleteMainImg,
+    uploadMainImg,
     storeNameInputRef,
     categorySelectRef,
     telRef,
     openninghourTextareaRef,
     submit,
-    existImg,
+    existMenuImg,
+    existMainImg,
   };
 };
 
