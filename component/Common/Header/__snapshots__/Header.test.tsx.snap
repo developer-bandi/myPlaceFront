@@ -51,7 +51,7 @@ exports[`Header Presentational 테스트 반응형 테스트 모바일인 경우
           class="navigationName"
         >
           <a
-            href="/community"
+            href="/community/postlist"
           >
             커뮤니티
           </a>
@@ -122,7 +122,7 @@ exports[`Header Presentational 테스트 상황 테스트 로그인 안했을경
           class="navigationName"
         >
           <a
-            href="/community"
+            href="/community/postlist"
           >
             커뮤니티
           </a>
@@ -193,7 +193,7 @@ exports[`Header Presentational 테스트 상황 테스트 로그인 하고 마�
           class="navigationName"
         >
           <a
-            href="/community"
+            href="/community/postlist"
           >
             커뮤니티
           </a>
@@ -379,7 +379,7 @@ exports[`Header Presentational 테스트 상황 테스트 로그인 했을 경�
           class="navigationName"
         >
           <a
-            href="/community"
+            href="/community/postlist"
           >
             커뮤니티
           </a>
