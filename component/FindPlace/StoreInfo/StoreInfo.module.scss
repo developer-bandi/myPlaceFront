@@ -205,3 +205,8 @@ $commonPadding: 15px;
   height: calc(100vh - 61px);
   font-size: 25px;
 }
+
+.openingHours {
+  white-space: pre-wrap;
+  line-height: 1.5;
+}

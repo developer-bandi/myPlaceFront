@@ -153,7 +153,9 @@ const StoreInfo = ({
             store.content.storeInfo.openingHours === null ? (
               <p>정보없음</p>
             ) : (
-              <pre>{store.content.storeInfo.openingHours}</pre>
+              <p className={styles.openingHours}>
+                {store.content.storeInfo.openingHours}
+              </p>
             )}
           </div>
         </div>
