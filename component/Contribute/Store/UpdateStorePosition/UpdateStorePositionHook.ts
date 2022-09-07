@@ -5,15 +5,19 @@ import {axiosUpdateStorePosition} from "../../../../lib/commonFn/api";
 import {RootReducer} from "../../../../store";
 import {setPosition} from "../../../../store/reducers/AddStorePosition/Reducer";
 import {getStoreInfo} from "../../../../store/reducers/storeInfo/Reducer";
-
+declare global {
+  interface Window {
+    kakao: any;
+  }
+}
 const useUpdateStorePosition = () => {
   const mapref = useRef<HTMLDivElement>(null);
   const addressInputRef = useRef<HTMLInputElement>(null);
   const [makedmap, setMakedMap] = useState<any>();
   const [marker, setMarker] = useState<any>();
   const [loading, setLoading] = useState<boolean>();
-  const [latitude, setLatitude] = useState<string>();
-  const [longitude, setLongitude] = useState<string>();
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
   const [address, setAddress] = useState<string>();
 
   const dispatch = useDispatch();
@@ -175,14 +179,17 @@ const useUpdateStorePosition = () => {
   };
 
   const changePosition = async () => {
+    console.log(typeof id, typeof latitude, typeof longitude, typeof address);
     if (
       typeof id === "string" &&
-      typeof latitude === "string" &&
-      typeof longitude === "string" &&
+      latitude !== "" &&
+      longitude !== "" &&
       typeof address === "string"
     ) {
       try {
+        console.log("test111");
         await axiosUpdateStorePosition(id, latitude, longitude, address);
+        console.log("test");
         dispatch(getStoreInfo(Number(id)));
         alert("정상적으로 수정되었습니다");
         router.push("/findplace");
