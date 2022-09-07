@@ -19,11 +19,9 @@ const ChoiceButton = () => {
           먼저 위치를 등록한후, 장소에 대한 정보를 추가해보세요
         </p>
         <div className={styles.buttonBlock}>
-          <button className={styles.button}>
-            <Link className={styles.button} href="/contribute/addstoreposition">
-              장소 등록하러 이동하기
-            </Link>
-          </button>
+          <Link className={styles.button} href="/contribute/addstoreposition">
+            <button className={styles.button}>장소 등록하러 이동하기</button>
+          </Link>
         </div>
       </div>
       <div className={styles.subBlock}>
@@ -40,9 +38,9 @@ const ChoiceButton = () => {
           먼저 장소를 검색한후, 후기를 추가해 보세요
         </p>
         <div className={styles.buttonBlock}>
-          <button className={styles.button}>
-            <Link href="/findplace">후기 등록하러 이동하기</Link>
-          </button>
+          <Link href="/findplace">
+            <button className={styles.button}>후기 등록하러 이동하기</button>
+          </Link>
         </div>
       </div>
     </div>
