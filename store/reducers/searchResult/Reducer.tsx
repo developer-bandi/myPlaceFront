@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { HYDRATE } from "next-redux-wrapper";
-import { SearchResultType, storeInfoType } from "../../../lib/apitype/search";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {HYDRATE} from "next-redux-wrapper";
+import {SearchResultType, storeInfoType} from "../../../lib/apitype/search";
 
 export interface SearchResultState {
   content?: SearchResultType[];
@@ -28,6 +28,7 @@ const SearchResultSlice = createSlice({
       }>
     ) {
       state.loading = true;
+      state.content = undefined;
     },
 
     searchStoreSuccess(state, action: PayloadAction<SearchResultType[]>) {

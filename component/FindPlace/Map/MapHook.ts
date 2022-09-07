@@ -213,15 +213,13 @@ const useMap = () => {
   //사이드바에 주소가 입력될 경우 지도에 마커를 표시하는 함수
 
   useEffect(() => {
-    if (
-      searchResult !== undefined &&
-      searchResult.length === 0 &&
-      searchMarker.length !== 0
-    ) {
+    if (searchResult === undefined && searchMarker.length !== 0) {
       searchMarker.map((data: any) => {
         data.setMap(null);
       });
     }
+    //검색결과가 초기화 될때 지도에 표기된 마커를 삭제
+
     if (searchResult !== undefined && searchResult.length !== 0 && loading) {
       const markers: unknown[] = [];
 
