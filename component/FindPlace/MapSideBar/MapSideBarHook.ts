@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducer} from "../../../store";
 import {initializeCondition} from "../../../store/reducers/hashtagSearchCondition/Reducer";
 import {setTrue} from "../../../store/reducers/mapClick/Reducer";
+import {changeDesktopStoreInfoActive} from "../../../store/reducers/searchModal/Reducer";
 import {initializeSearchResult} from "../../../store/reducers/searchResult/Reducer";
 import {setSearchType} from "../../../store/reducers/searhType/Reducer";
 import {initializeStoreInfo} from "../../../store/reducers/storeInfo/Reducer";
@@ -18,6 +19,7 @@ const useMapSideBar = () => {
       dispatch(initializeStoreInfo());
       dispatch(setSearchType({type: status, hashtag: "search"}));
       dispatch(setTrue());
+      dispatch(changeDesktopStoreInfoActive(false));
     }
   };
 
