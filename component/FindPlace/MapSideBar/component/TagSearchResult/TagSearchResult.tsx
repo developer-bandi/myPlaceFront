@@ -1,7 +1,7 @@
 import styles from "./TagSearchResult.module.scss";
 import searchResultLoading from "../../../../../public/searchResultLoading.gif";
 import StoreBox from "../Common/NameSearchResult/StoreBox";
-import {hashtagSearchConditionState} from "../../../../../store/reducers/hashtagSearchCondition/Reducer";
+import {hashtagSearchConditionState} from "../../../../../store/reducers/searchCondition/Reducer";
 import {SearchResultState} from "../../../../../store/reducers/searchResult/Reducer";
 import Image from "next/image";
 
@@ -32,15 +32,16 @@ const TagSearchResult = ({
           </button>
         </div>
         <ul className={styles.selecttaglistBlock}>
-          {[searchCondition.category, ...searchCondition.hashtag].map(
-            (data: string, index) => {
-              return (
-                <li className={styles.selecttag} key={index}>
-                  #{data}
-                </li>
-              );
-            }
-          )}
+          {[
+            searchCondition.category,
+            ...(searchCondition.hashtag as string[]),
+          ].map((hashtag, index) => {
+            return (
+              <li className={styles.selecttag} key={index}>
+                #{hashtag}
+              </li>
+            );
+          })}
         </ul>
       </div>
       <div className={styles.storeListBlock}>

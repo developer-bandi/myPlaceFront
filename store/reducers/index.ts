@@ -1,7 +1,7 @@
 import {combineReducers} from "@reduxjs/toolkit";
 import {all, fork} from "redux-saga/effects";
 import hashtagAllReducer from "./hashtagAll/Reducer";
-import hashtagSearchConditionReducer from "./hashtagSearchCondition/Reducer";
+import searchConditionReducer from "./searchCondition/Reducer";
 import userLoginReducer from "./userLogin/Reducer";
 import searchResultReducer from "./searchResult/Reducer";
 import {hashtagAllSaga} from "./hashtagAll/Saga";
@@ -12,12 +12,12 @@ import storeInfoReducer from "./storeInfo/Reducer";
 import AddStorePositionReducer from "./AddStorePosition/Reducer";
 import SearchTypeReducer from "./searhType/Reducer";
 import mypageModalReducer from "./mypageModal/Reducer";
-import searchModalReducer from "./searchModal/Reducer";
-import mapClickReducer from "./mapClick/Reducer";
+import searchModalReducer from "./sideBarFold/Reducer";
+import standardMarkerReducer from "./standardMarker/Reducer";
 
 export const rootReducer = combineReducers({
   hashtagAll: hashtagAllReducer,
-  hashtagSearchCondition: hashtagSearchConditionReducer,
+  searchCondition: searchConditionReducer,
   userLogin: userLoginReducer,
   searchResult: searchResultReducer,
   storeInfo: storeInfoReducer,
@@ -25,7 +25,7 @@ export const rootReducer = combineReducers({
   searchType: SearchTypeReducer,
   mypageModal: mypageModalReducer,
   searchModal: searchModalReducer,
-  mapClick: mapClickReducer,
+  standardMarker: standardMarkerReducer,
 });
 
 export function* rootSaga() {

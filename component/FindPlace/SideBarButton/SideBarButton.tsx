@@ -3,8 +3,8 @@ import styles from "./SideBarButton.module.scss";
 
 interface StoreInfoProps {
   modalStatus: {
-    fold: boolean;
-    storeInfoActive: boolean;
+    search: boolean;
+    storeInfo: boolean;
   };
   isMobile: boolean;
   mobileFoldChange: () => void;
@@ -28,9 +28,9 @@ const SideBarButton = ({
       <AiOutlineLeft
         size={25}
         className={`${styles.button} ${
-          modalStatus.fold
+          modalStatus.search
             ? styles.fold
-            : modalStatus.storeInfoActive
+            : modalStatus.storeInfo
             ? styles.storeInfoActive
             : styles.storeInfoUnActive
         }`}

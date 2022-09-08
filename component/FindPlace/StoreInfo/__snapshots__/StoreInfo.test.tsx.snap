@@ -32,7 +32,7 @@ exports[`StoreInfo Presentational 테스트 스토어가 로딩중인 경우 1`]
 exports[`StoreInfo Presentational 테스트 에러가 발생한 경우 1`] = `
 <div>
   <section
-    class="mainBlock fold"
+    class="mainBlock full"
     data-testid="error"
   >
     <div
@@ -197,9 +197,11 @@ exports[`StoreInfo Presentational 테스트 정상적으로 출력하는 경우 
             />
           </svg>
         </div>
-        <pre>
+        <p
+          class="openingHours"
+        >
           testOpeningHour
-        </pre>
+        </p>
       </div>
     </div>
     <div

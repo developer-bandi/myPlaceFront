@@ -13,8 +13,14 @@ import * as React from "react";
 import NameSearch from "./NameSearch";
 
 const mockStore = configureMockStore()({
-  hashtagSearchCondition: {
-    adress: {content: "testAdress"},
+  searchCondition: {
+    position: {
+      address: "testAddress",
+      longitude: "testLongitude",
+      latitude: "testLatitude",
+    },
+    category: "testCategory",
+    hashtag: ["testHashtag"],
     keyword: "testKeyword",
   },
 });
@@ -32,7 +38,7 @@ describe("NameSearch Hook 테스트", () => {
       wrapper,
     });
     expect(result.current.addressInputRef).toEqual({
-      current: {value: "testAdress"},
+      current: {value: "testAddress"},
     });
     expect(result.current.searchKeywordInputRef).toEqual({
       current: {value: "testKeyword"},
@@ -51,9 +57,9 @@ describe("NameSearch Hook 테스트", () => {
     });
     expect(mockStore.getActions()[0]).toEqual({
       payload: {
-        adress: "testAdress",
+        address: "testAddress",
       },
-      type: "hashtagSearchCondition/setAdress",
+      type: "searchCondition/setPosition",
     });
   });
   it("dispatchSearchStore함수 테스트", () => {
@@ -69,9 +75,9 @@ describe("NameSearch Hook 테스트", () => {
     });
     expect(mockStore.getActions()[1]).toEqual({
       payload: {
-        adress: "testAdress",
+        address: "testAddress",
       },
-      type: "hashtagSearchCondition/setAdress",
+      type: "searchCondition/setPosition",
     });
   });
 });

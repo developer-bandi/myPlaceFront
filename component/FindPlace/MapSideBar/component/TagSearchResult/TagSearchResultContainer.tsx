@@ -1,22 +1,9 @@
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducer} from "../../../../../store";
-import {setSearchType} from "../../../../../store/reducers/searhType/Reducer";
-import {getStoreInfo} from "../../../../../store/reducers/storeInfo/Reducer";
 import TagSearchResult from "./TagSearchResult";
+import useTagSearchResult from "./TagSearchResultHook";
 
 const TagSearchResultContainer = () => {
-  const searchResult = useSelector((state: RootReducer) => state.searchResult);
-  const searchCondition = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition
-  );
-  const dispatch = useDispatch();
-  const showStoreInfo = (storeId: number) => {
-    dispatch(getStoreInfo(storeId));
-  };
-
-  const moveSearhPage = () => {
-    dispatch(setSearchType({type: "hashtag", hashtag: "search"}));
-  };
+  const {moveSearhPage, searchResult, searchCondition, showStoreInfo} =
+    useTagSearchResult();
 
   return (
     <TagSearchResult

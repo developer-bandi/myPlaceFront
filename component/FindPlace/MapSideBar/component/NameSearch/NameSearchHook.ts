@@ -1,43 +1,50 @@
 import {useEffect, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducer} from "../../../../../store";
-import {setAdress} from "../../../../../store/reducers/hashtagSearchCondition/Reducer";
+import {setPosition} from "../../../../../store/reducers/searchCondition/Reducer";
 import {searchStore} from "../../../../../store/reducers/searchResult/Reducer";
 
 const useNameSearch = () => {
   const dispatch = useDispatch();
   const searchKeywordInputRef = useRef<HTMLInputElement>(null);
   const addressInputRef = useRef<HTMLInputElement>(null);
-  const settedAdress = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition.adress
+  const settedPosition = useSelector(
+    (state: RootReducer) => state.searchCondition.position
   );
   const settedKeyWord = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition.keyword
+    (state: RootReducer) => state.searchCondition.keyword
   );
 
   useEffect(() => {
-    if (addressInputRef.current !== null)
-      addressInputRef.current.value = settedAdress.content;
-  }, [settedAdress]);
+    if (
+      addressInputRef.current !== null &&
+      settedPosition.address !== undefined
+    )
+      addressInputRef.current.value = settedPosition.address;
+  }, [settedPosition.address]);
 
   useEffect(() => {
-    if (searchKeywordInputRef.current !== null) {
+    if (searchKeywordInputRef.current !== null && settedKeyWord !== undefined) {
       searchKeywordInputRef.current.value = settedKeyWord;
     }
   }, []);
 
   const dispatchAddress = () => {
     if (addressInputRef.current !== null) {
-      dispatch(setAdress({adress: addressInputRef.current.value}));
+      dispatch(setPosition({address: addressInputRef.current.value}));
     }
   };
 
   const dispatchSearchStore = () => {
-    if (searchKeywordInputRef.current !== null) {
+    if (
+      searchKeywordInputRef.current !== null &&
+      settedPosition.latitude !== undefined &&
+      settedPosition.longitude !== undefined
+    ) {
       dispatch(
         searchStore({
-          latitude: settedAdress.latitude,
-          longitude: settedAdress.longitude,
+          latitude: settedPosition.latitude,
+          longitude: settedPosition.longitude,
           searchKeyword: searchKeywordInputRef.current.value,
         })
       );

@@ -3,9 +3,9 @@ import {useSelector} from "react-redux";
 import {useIsMobile} from "../../../lib/customHook/mediaQuery";
 import {RootReducer} from "../../../store";
 import {
-  changeDesktopFold,
-  changeMobileFold,
-} from "../../../store/reducers/searchModal/Reducer";
+  setDesktopSearch,
+  setMobileSearchStoreInfo,
+} from "../../../store/reducers/sideBarFold/Reducer";
 import SideBarButton from "./SideBarButton";
 
 const SideBarButtonContainer = () => {
@@ -14,10 +14,10 @@ const SideBarButtonContainer = () => {
   );
   const dispatch = useDispatch();
   const mobileFoldChange = () => {
-    dispatch(changeMobileFold());
+    dispatch(setMobileSearchStoreInfo());
   };
   const desktopFoldChange = () => {
-    dispatch(changeDesktopFold());
+    dispatch(setDesktopSearch());
   };
   const isMobile = useIsMobile();
 

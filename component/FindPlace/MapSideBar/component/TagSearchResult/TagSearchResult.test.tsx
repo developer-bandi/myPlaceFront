@@ -41,10 +41,7 @@ describe("TagSearchResult Hook 테스트", () => {
       result.current.moveSearhPage();
     });
     expect(mockStore.getActions()[1]).toEqual({
-      payload: {
-        hashtag: "search",
-        type: "hashtag",
-      },
+      payload: "hashtagSearch",
       type: "searchType/setSearchType",
     });
   });
@@ -60,9 +57,8 @@ describe("TagSearchResult Presentational 테스트", () => {
         searchResult={{loading: true, error: false}}
         searchCondition={{
           category: "testCategory",
-          adress: {
-            content: "testAddress",
-            mapClick: true,
+          position: {
+            address: "testAddress",
             longitude: "testLongitude",
             latitude: "testLatitude",
           },
@@ -84,9 +80,8 @@ describe("TagSearchResult Presentational 테스트", () => {
         searchResult={{loading: false, error: true}}
         searchCondition={{
           category: "testCategory",
-          adress: {
-            content: "testAddress",
-            mapClick: true,
+          position: {
+            address: "testAddress",
             longitude: "testLongitude",
             latitude: "testLatitude",
           },
@@ -108,9 +103,8 @@ describe("TagSearchResult Presentational 테스트", () => {
         searchResult={{content: [], loading: false, error: false}}
         searchCondition={{
           category: "testCategory",
-          adress: {
-            content: "testAddress",
-            mapClick: true,
+          position: {
+            address: "testAddress",
             longitude: "testLongitude",
             latitude: "testLatitude",
           },
@@ -148,9 +142,8 @@ describe("TagSearchResult Presentational 테스트", () => {
         }}
         searchCondition={{
           category: "testCategory",
-          adress: {
-            content: "testAddress",
-            mapClick: true,
+          position: {
+            address: "testAddress",
             longitude: "testLongitude",
             latitude: "testLatitude",
           },

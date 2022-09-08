@@ -1,9 +1,9 @@
 import {useRouter} from "next/router";
 import {useDispatch} from "react-redux";
 import {
-  setAdress,
+  setPosition,
   setKeyword,
-} from "../../store/reducers/hashtagSearchCondition/Reducer";
+} from "../../store/reducers/searchCondition/Reducer";
 import {searchStore} from "../../store/reducers/searchResult/Reducer";
 import {setSearchType} from "../../store/reducers/searhType/Reducer";
 import {getStoreInfo} from "../../store/reducers/storeInfo/Reducer";
@@ -27,14 +27,14 @@ const useMoveTargetStore = () => {
     );
     dispatch(getStoreInfo(id));
     dispatch(
-      setAdress({
-        adress: address,
+      setPosition({
+        address,
         longitude,
         latitude,
       })
     );
     dispatch(setKeyword(name));
-    dispatch(setSearchType({type: "name", hashtag: "search"}));
+    dispatch(setSearchType("keywordSearch"));
     router.push("/findplace");
   };
   return {moveTargetStore};

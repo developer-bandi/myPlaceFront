@@ -1,11 +1,11 @@
-import React, {useEffect, useState, useRef, SetStateAction} from "react";
+import {useEffect, useState, useRef} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducer} from "../../../store";
+import {setPosition} from "../../../store/reducers/searchCondition/Reducer";
 import {
-  setAdress,
-  setMarkerClickStatus,
-} from "../../../store/reducers/hashtagSearchCondition/Reducer";
-import {setActive} from "../../../store/reducers/mapClick/Reducer";
+  setClicked,
+  setClickPossible,
+} from "../../../store/reducers/standardMarker/Reducer";
 import {getStoreInfo} from "../../../store/reducers/storeInfo/Reducer";
 
 declare global {
@@ -16,23 +16,19 @@ declare global {
 
 const useMap = () => {
   const settedAdress = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition.adress.content
-  );
-  const clicked = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition.adress.mapClick
+    (state: RootReducer) => state.searchCondition.position.address
   );
   const searchResult = useSelector(
     (state: RootReducer) => state.searchResult.content
   );
-  const mapClick = useSelector((state: RootReducer) => state.mapClick.active);
-  const mapRef = useRef<HTMLDivElement>(null);
-  const dispatch = useDispatch();
-
-  // 지도 앱이 next.js ssr 규칙을 따르지 않아 useEffect 사용
+  const {clickPossible, clicked} = useSelector(
+    (state: RootReducer) => state.standardMarker
+  );
   const [loading, setLoading] = useState(false);
-  const [makedmap, setMakedMap] = useState<any>();
-  const [newmarker, setnewmarker] = useState<any>();
-  const [searchMarker, setSearchMarker] = useState<any>([]);
+  const [mapObj, setMapObj] = useState<any>();
+  const [standardMarker, setStandardMarker] = useState<any>();
+  const [searchResultMarker, setSearchResultMarker] = useState<any>([]);
+  const mapRef = useRef<HTMLDivElement>(null);
   const clickHandeler = useRef<
     (mouseEvent: {
       latLng: {
@@ -43,41 +39,36 @@ const useMap = () => {
       };
     }) => void
   >();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const mapScript = document.createElement("script");
     mapScript.type = "text/javascript";
     mapScript.async = true;
     mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAOMAP_KEY}&autoload=false&libraries=services,clusterer`;
-
-    // 헤더에 스크립트 파일을 삽입
     document.head.appendChild(mapScript);
     const onLoadMap = () => {
       window.kakao.maps.load(() => {
-        // 지도를 표시할 div
         const options = {
-          //  지도의 중심좌표 및 기본확대수준
           center: new window.kakao.maps.LatLng(
             35.23139384418825,
             129.086333411491
           ),
           level: 3,
         };
-        // div와 옵션으로 지도 생성
         const map = new window.kakao.maps.Map(mapRef.current, options);
-        // 줌 컨트롤
         const zoomControl = new window.kakao.maps.ZoomControl();
-        var marker = new window.kakao.maps.Marker();
+        const marker = new window.kakao.maps.Marker();
         map.addControl(zoomControl, window.kakao.maps.ControlPosition.TOPRIGHT);
         setLoading(true);
-        setMakedMap(map);
-        setnewmarker(marker);
+        setMapObj(map);
+        setStandardMarker(marker);
       });
     };
     mapScript.addEventListener("load", onLoadMap);
     return () => mapScript.removeEventListener("load", onLoadMap);
   }, []);
-  //처음 지도와 확대축소버튼을 로드하는 로직
+  //지도와 확대축소버튼을 로드하는 로직
 
   useEffect(() => {
     if (loading) {
@@ -90,7 +81,6 @@ const useMap = () => {
         };
       }) => {
         const geocoder = new window.kakao.maps.services.Geocoder();
-
         const searchDetailAddrFromCoords = (
           coords: {getLng: () => void; getLat: () => void},
           callback: (
@@ -101,7 +91,6 @@ const useMap = () => {
             status: string
           ) => void
         ) => {
-          // 좌표로 법정동 상세 주소 정보를 요청합니다
           geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
         };
         searchDetailAddrFromCoords(
@@ -114,28 +103,18 @@ const useMap = () => {
             status: string
           ) {
             if (status === window.kakao.maps.services.Status.OK) {
-              // 마커를 클릭한 위치에 표시합니다
-              newmarker.setPosition(mouseEvent.latLng);
-              newmarker.setMap(makedmap);
-
-              dispatch(setMarkerClickStatus(true));
-              if (result[0].road_address) {
-                dispatch(
-                  setAdress({
-                    adress: result[0].road_address.address_name,
-                    latitude: mouseEvent.latLng.Ma,
-                    longitude: mouseEvent.latLng.La,
-                  })
-                );
-              } else {
-                dispatch(
-                  setAdress({
-                    adress: result[0].address.address_name,
-                    latitude: mouseEvent.latLng.Ma,
-                    longitude: mouseEvent.latLng.La,
-                  })
-                );
-              }
+              standardMarker.setPosition(mouseEvent.latLng);
+              standardMarker.setMap(mapObj);
+              dispatch(setClicked(true));
+              dispatch(
+                setPosition({
+                  address: result[0].road_address
+                    ? result[0].road_address.address_name
+                    : result[0].address.address_name,
+                  latitude: mouseEvent.latLng.Ma,
+                  longitude: mouseEvent.latLng.La,
+                })
+              );
             }
           }
         );
@@ -146,29 +125,29 @@ const useMap = () => {
 
   useEffect(() => {
     if (loading) {
-      if (mapClick) {
+      if (clickPossible) {
         window.kakao.maps.event.addListener(
-          makedmap,
+          mapObj,
           "click",
           clickHandeler.current
         );
       } else {
         window.kakao.maps.event.removeListener(
-          makedmap,
+          mapObj,
           "click",
           clickHandeler.current
         );
       }
     }
-  }, [loading, mapClick]);
+  }, [loading, clickPossible]);
   //지도 클릭을 활성화 하는지 여부에 따라서 이벤트를 등록 혹은 삭제하는 로직
 
   useEffect(() => {
-    if (settedAdress == "" && newmarker !== undefined) {
-      newmarker.setMap(null);
+    if (settedAdress === undefined && standardMarker !== undefined) {
+      standardMarker.setMap(null);
     } else {
       if (!clicked) {
-        if (settedAdress !== "" && loading) {
+        if (settedAdress !== undefined && loading) {
           const geocoder = new window.kakao.maps.services.Geocoder();
           geocoder.addressSearch(
             settedAdress,
@@ -185,11 +164,11 @@ const useMap = () => {
                   result[0].y,
                   result[0].x
                 );
-                newmarker.setPosition(coords);
-                newmarker.setMap(makedmap);
-                makedmap.setCenter(coords);
+                standardMarker.setPosition(coords);
+                standardMarker.setMap(mapObj);
+                mapObj.setCenter(coords);
                 dispatch(
-                  setAdress({
+                  setPosition({
                     latitude: result[0].y,
                     longitude: result[0].x,
                   })
@@ -198,7 +177,7 @@ const useMap = () => {
                 status === window.kakao.maps.services.Status.ZERO_RESULT
               ) {
                 alert("주소를 정확하게 입력해주세요");
-                dispatch(setAdress({adress: ""}));
+                dispatch(setPosition({address: ""}));
               } else {
                 alert("서버에 에러가 발생하였습니다");
               }
@@ -206,15 +185,15 @@ const useMap = () => {
           );
         }
       } else {
-        dispatch(setMarkerClickStatus(false));
+        dispatch(setClicked(false));
       }
     }
   }, [settedAdress, loading]);
   //사이드바에 주소가 입력될 경우 지도에 마커를 표시하는 함수
 
   useEffect(() => {
-    if (searchResult === undefined && searchMarker.length !== 0) {
-      searchMarker.map((data: any) => {
+    if (searchResult === undefined && searchResultMarker.length !== 0) {
+      searchResultMarker.map((data: any) => {
         data.setMap(null);
       });
     }
@@ -252,27 +231,27 @@ const useMap = () => {
           content: content,
         });
 
-        marker.setMap(makedmap);
+        marker.setMap(mapObj);
         markers.push(marker);
       };
 
       for (let i = 0; i < searchResult.length; i++) {
         displayMarker(searchResult[i]);
       }
-      setSearchMarker(markers);
-      dispatch(setActive());
+      setSearchResultMarker(markers);
+      dispatch(setClickPossible(false));
     }
   }, [searchResult, loading]);
   //검색 결과를 지도에 표시하는 로직
 
   return {
     mapRef,
-    setnewmarker,
+    setStandardMarker,
     setLoading,
-    setMakedMap,
-    setSearchMarker,
-    mapClick,
-    searchMarker,
+    setMapObj,
+    setSearchResultMarker,
+    clickPossible,
+    searchResultMarker,
     clickHandeler,
   };
 };

@@ -13,7 +13,7 @@ const mockStore = configureMockStore()({
   searchResult: {loading: true},
   searchType: {},
   hashtagAll: {},
-  hashtagSearchCondition: {adress: {}, hashtag: []},
+  searchCondition: {position: {}, hashtag: []},
 });
 const wrapper = ({children}: any) => (
   <Provider store={mockStore}>{children}</Provider>
@@ -25,11 +25,11 @@ describe("MapSideBar Hook 테스트", () => {
       wrapper,
     });
     act(() => {
-      result.current.changeSidebarStatus("hashtag");
+      result.current.changeSidebarStatus("hashtagSearch");
     });
     expect(mockStore.getActions()[0]).toEqual({
       payload: undefined,
-      type: "hashtagSearchCondition/initializeCondition",
+      type: "searchCondition/initializeHashtag",
     });
     expect(mockStore.getActions()[1]).toEqual({
       payload: undefined,
@@ -40,10 +40,7 @@ describe("MapSideBar Hook 테스트", () => {
       type: "storeInfo/initializeStoreInfo",
     });
     expect(mockStore.getActions()[3]).toEqual({
-      payload: {
-        hashtag: "search",
-        type: "hashtag",
-      },
+      payload: "hashtagSearch",
       type: "searchType/setSearchType",
     });
   });
@@ -55,17 +52,17 @@ describe("MapSideBar Presentational 테스트", () => {
     const utils = render(
       <MapSideBar
         changeSidebarStatus={changeSidebarStatusMock}
-        searchType={{type: "hashtag", hashtag: "search"}}
+        searchType={"hashtagSearch"}
         modalStatus={{
-          desktop: {fold: false, storeInfoActive: false},
-          mobile: {fold: true},
+          desktop: {search: false, storeInfo: false},
+          mobile: {searchStoreInfo: true},
         }}
       ></MapSideBar>,
       {wrapper}
     );
     expect(utils.container).toMatchSnapshot();
-    fireEvent.click(screen.getByTestId("changeSidebarStatus0"));
-    fireEvent.click(screen.getByTestId("changeSidebarStatus1"));
+    fireEvent.click(screen.getByTestId("changeSidebarStatushashtag"));
+    fireEvent.click(screen.getByTestId("changeSidebarStatuskeyword"));
     expect(changeSidebarStatusMock).toBeCalledTimes(2);
   });
   it("hashtag,result 일때", () => {
@@ -73,10 +70,10 @@ describe("MapSideBar Presentational 테스트", () => {
     const utils = render(
       <MapSideBar
         changeSidebarStatus={changeSidebarStatusMock}
-        searchType={{type: "hashtag", hashtag: "result"}}
+        searchType={"hashtagSearch"}
         modalStatus={{
-          desktop: {fold: false, storeInfoActive: false},
-          mobile: {fold: true},
+          desktop: {search: false, storeInfo: false},
+          mobile: {searchStoreInfo: true},
         }}
       ></MapSideBar>,
       {wrapper}
@@ -88,10 +85,10 @@ describe("MapSideBar Presentational 테스트", () => {
     const utils = render(
       <MapSideBar
         changeSidebarStatus={changeSidebarStatusMock}
-        searchType={{type: "name", hashtag: "result"}}
+        searchType={"hashtagSearch"}
         modalStatus={{
-          desktop: {fold: false, storeInfoActive: false},
-          mobile: {fold: true},
+          desktop: {search: false, storeInfo: false},
+          mobile: {searchStoreInfo: true},
         }}
       ></MapSideBar>,
       {wrapper}

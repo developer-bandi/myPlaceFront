@@ -1,17 +1,20 @@
 import styles from "./MapClickButton.module.scss";
 
 interface MapClickButtonProps {
-  changeActive: () => void;
+  changeClickPossible: () => void;
   clickActive: boolean;
 }
 
-const MapClickButton = ({changeActive, clickActive}: MapClickButtonProps) => {
+const MapClickButton = ({
+  changeClickPossible,
+  clickActive,
+}: MapClickButtonProps) => {
   if (!clickActive) {
     return (
       <button
         className={styles.button}
         onClick={() => {
-          changeActive();
+          changeClickPossible();
         }}
       >
         지도 클릭 활성화

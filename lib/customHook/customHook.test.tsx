@@ -1,6 +1,5 @@
 import {act, renderHook, waitFor} from "@testing-library/react";
 import axios from "axios";
-import {resolveObjectURL} from "buffer";
 import {useRouter} from "next/router";
 import {Provider} from "react-redux";
 import configureMockStore from "redux-mock-store";
@@ -74,18 +73,18 @@ describe("useMoveTargetStore Hook 테스트", () => {
     });
     expect(storeMock.getActions()[2]).toEqual({
       payload: {
-        adress: "testAddress",
+        address: "testAddress",
         latitude: "testLatitude",
         longitude: "testLongitude",
       },
-      type: "hashtagSearchCondition/setAdress",
+      type: "searchCondition/setPosition",
     });
     expect(storeMock.getActions()[3]).toEqual({
       payload: "testName",
-      type: "hashtagSearchCondition/setKeyword",
+      type: "searchCondition/setKeyword",
     });
     expect(storeMock.getActions()[4]).toEqual({
-      payload: {hashtag: "search", type: "name"},
+      payload: "keywordSearch",
       type: "searchType/setSearchType",
     });
     expect(routerMock.push).toBeCalledWith("/findplace");

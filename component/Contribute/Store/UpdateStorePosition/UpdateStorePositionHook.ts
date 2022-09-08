@@ -179,7 +179,6 @@ const useUpdateStorePosition = () => {
   };
 
   const changePosition = async () => {
-    console.log(typeof id, typeof latitude, typeof longitude, typeof address);
     if (
       typeof id === "string" &&
       latitude !== "" &&
@@ -187,9 +186,7 @@ const useUpdateStorePosition = () => {
       typeof address === "string"
     ) {
       try {
-        console.log("test111");
         await axiosUpdateStorePosition(id, latitude, longitude, address);
-        console.log("test");
         dispatch(getStoreInfo(Number(id)));
         alert("정상적으로 수정되었습니다");
         router.push("/findplace");

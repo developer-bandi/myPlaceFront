@@ -1,37 +1,24 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { HYDRATE } from "next-redux-wrapper";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {HYDRATE} from "next-redux-wrapper";
 
-export interface SearchTypeState {
-  type: string;
-  hashtag: string;
-}
+const initialState = {type: "hashtagSearch"};
 
-const initialState: SearchTypeState = {
-  type: "hashtag",
-  hashtag: "search",
-};
-
-const SearchTypeSlice = createSlice({
+const searchTypeSlice = createSlice({
   name: "searchType",
   initialState,
-
   reducers: {
-    setSearchType(
-      state,
-      action: PayloadAction<{ type: string; hashtag: string }>
-    ) {
-      state.type = action.payload.type;
-      state.hashtag = action.payload.hashtag;
+    setSearchType(state, action: PayloadAction<string>) {
+      state.type = action.payload;
     },
   },
 
   extraReducers: {
-    [HYDRATE]: (state, action) => {
+    [HYDRATE]: (state) => {
       return state;
     },
   },
 });
 
-export const { setSearchType } = SearchTypeSlice.actions;
+export const {setSearchType} = searchTypeSlice.actions;
 
-export default SearchTypeSlice.reducer;
+export default searchTypeSlice.reducer;

@@ -188,9 +188,6 @@ export const axiosUpdateStoreInfo = (
   menuImg: Blob[],
   deletedImg: string[]
 ) => {
-  console.log(mainImg);
-  console.log(menuImg);
-  console.log(deletedImg);
   const formData = new FormData();
   formData.append("id", String(id));
   formData.append("name", name);

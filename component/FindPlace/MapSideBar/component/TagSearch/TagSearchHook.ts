@@ -5,8 +5,8 @@ import {
   setCategory,
   addHashTag,
   deleteHashTag,
-  setAdress,
-} from "../../../../../store/reducers/hashtagSearchCondition/Reducer";
+  setPosition,
+} from "../../../../../store/reducers/searchCondition/Reducer";
 import {searchStore} from "../../../../../store/reducers/searchResult/Reducer";
 import {setSearchType} from "../../../../../store/reducers/searhType/Reducer";
 
@@ -15,22 +15,22 @@ const useTagSearch = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const hashtag = useSelector((state: RootReducer) => state.hashtagAll.content);
   const selectedHashtag = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition.hashtag
+    (state: RootReducer) => state.searchCondition.hashtag
   );
   const selectedCategory = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition.category
+    (state: RootReducer) => state.searchCondition.category
   );
-  const settedAdress = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition.adress
+  const settedPosition = useSelector(
+    (state: RootReducer) => state.searchCondition.position
   );
 
   useEffect(() => {
-    if (inputRef.current !== null)
-      inputRef.current.value = settedAdress.content;
-  }, [settedAdress]);
+    if (inputRef.current !== null && settedPosition.address !== undefined)
+      inputRef.current.value = settedPosition.address;
+  }, [settedPosition.address]);
 
   const dispatchHashtag = (hashtag: string) => {
-    if (selectedHashtag.indexOf(hashtag) == -1) {
+    if (selectedHashtag?.indexOf(hashtag) == -1) {
       dispatch(addHashTag(hashtag));
     } else {
       dispatch(deleteHashTag(hashtag));
@@ -43,19 +43,24 @@ const useTagSearch = () => {
 
   const dispatchAddress = () => {
     if (inputRef.current !== null) {
-      dispatch(setAdress({adress: inputRef.current.value}));
+      dispatch(setPosition({address: inputRef.current.value}));
     }
   };
 
   const dispatchSearchStore = () => {
-    dispatch(
-      searchStore({
-        latitude: settedAdress.latitude,
-        longitude: settedAdress.longitude,
-        selectedHashtag,
-      })
-    );
-    dispatch(setSearchType({type: "hashtag", hashtag: "result"}));
+    if (
+      settedPosition.latitude !== undefined &&
+      settedPosition.longitude !== undefined
+    ) {
+      dispatch(
+        searchStore({
+          latitude: settedPosition.latitude,
+          longitude: settedPosition.longitude,
+          selectedHashtag,
+        })
+      );
+      dispatch(setSearchType("hashtagResult"));
+    }
   };
 
   return {

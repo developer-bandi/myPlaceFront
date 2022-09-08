@@ -1,19 +1,22 @@
 import {useDispatch} from "react-redux";
 import {useSelector} from "react-redux";
 import {RootReducer} from "../../../store";
-import {setActive} from "../../../store/reducers/mapClick/Reducer";
+import {setClickPossible} from "../../../store/reducers/standardMarker/Reducer";
 import MapClickButton from "./MapClickButton";
 
 const MapClickButtonContainer = () => {
   const clickActive = useSelector(
-    (state: RootReducer) => state.mapClick.active
+    (state: RootReducer) => state.standardMarker.clickPossible
   );
   const dispatch = useDispatch();
-  const changeActive = () => {
-    dispatch(setActive());
+  const changeClickPossible = () => {
+    dispatch(setClickPossible(true));
   };
   return (
-    <MapClickButton changeActive={changeActive} clickActive={clickActive} />
+    <MapClickButton
+      changeClickPossible={changeClickPossible}
+      clickActive={clickActive}
+    />
   );
 };
 

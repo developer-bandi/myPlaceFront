@@ -13,14 +13,15 @@ import * as React from "react";
 import TagSearch from "./TagSearch";
 
 const mockStore = configureMockStore()({
-  hashtagSearchCondition: {
-    adress: {
-      content: "testAdress",
-      latitude: "testLatitude",
+  searchCondition: {
+    position: {
+      address: "testAddress",
       longitude: "testLongitude",
+      latitude: "testLatitude",
     },
-    keyword: "testKeyword",
+    category: "testCategory",
     hashtag: ["testHashtag"],
+    keyword: "testKeyword",
   },
   hashtagAll: {},
 });
@@ -35,7 +36,7 @@ describe("TagSearch Hook 테스트", () => {
     const {result} = renderHook(() => useTagSearch(), {
       wrapper,
     });
-    expect(result.current.inputRef.current).toEqual({value: "testAdress"});
+    expect(result.current.inputRef.current).toEqual({value: "testAddress"});
   });
   describe("dispatchHashtag 함수 테스트", () => {
     it("추가하는 경우", () => {
@@ -47,7 +48,7 @@ describe("TagSearch Hook 테스트", () => {
       });
       expect(mockStore.getActions()[0]).toEqual({
         payload: "testHashtag2",
-        type: "hashtagSearchCondition/addHashTag",
+        type: "searchCondition/addHashTag",
       });
     });
     it("삭제하는 경우", () => {
@@ -59,7 +60,7 @@ describe("TagSearch Hook 테스트", () => {
       });
       expect(mockStore.getActions()[1]).toEqual({
         payload: "testHashtag",
-        type: "hashtagSearchCondition/deleteHashTag",
+        type: "searchCondition/deleteHashTag",
       });
     });
   });
@@ -72,7 +73,7 @@ describe("TagSearch Hook 테스트", () => {
     });
     expect(mockStore.getActions()[2]).toEqual({
       payload: "testCategory",
-      type: "hashtagSearchCondition/setCategory",
+      type: "searchCondition/setCategory",
     });
   });
   it("dispatchAddress 함수 테스트", () => {
@@ -87,9 +88,9 @@ describe("TagSearch Hook 테스트", () => {
     });
     expect(mockStore.getActions()[3]).toEqual({
       payload: {
-        adress: "testAdress",
+        address: "testAddress",
       },
-      type: "hashtagSearchCondition/setAdress",
+      type: "searchCondition/setPosition",
     });
   });
   it("dispatchSearchStore 함수 테스트", () => {
@@ -108,10 +109,7 @@ describe("TagSearch Hook 테스트", () => {
       type: "searchResult/searchStore",
     });
     expect(mockStore.getActions()[5]).toEqual({
-      payload: {
-        hashtag: "result",
-        type: "hashtag",
-      },
+      payload: "hashtagResult",
       type: "searchType/setSearchType",
     });
   });

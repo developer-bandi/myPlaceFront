@@ -3,13 +3,12 @@ import TagSearchContainer from "./component/TagSearch/TagSearchContainer";
 import TagSearchResultContainer from "./component/TagSearchResult/TagSearchResultContainer";
 import NameSearchContainer from "./component/NameSearch/NameSearchContainer";
 import NameSearchResultContainer from "./component/NameSearchResult/NameSearchResultContainer";
-import {SearchTypeState} from "../../../store/reducers/searhType/Reducer";
-import {SearchModalState} from "../../../store/reducers/searchModal/Reducer";
+import {SideBarFoldState} from "../../../store/reducers/sideBarFold/Reducer";
 
 interface MapSearchSideBarProps {
   changeSidebarStatus: (status: string) => void;
-  searchType: SearchTypeState;
-  modalStatus: SearchModalState;
+  searchType: string;
+  modalStatus: SideBarFoldState;
 }
 
 const MapSideBar = ({
@@ -17,53 +16,51 @@ const MapSideBar = ({
   searchType,
   modalStatus,
 }: MapSearchSideBarProps) => {
-  if (modalStatus.desktop.fold) {
+  if (modalStatus.desktop.search) {
     return null;
   } else {
     return (
-      <aside
+      <div
         className={`${styles.mainBlock} ${
-          modalStatus.mobile.fold ? styles.fold : styles.full
+          modalStatus.mobile.searchStoreInfo ? styles.fold : styles.full
         }`}
       >
         <div className={styles.searchmethodcontainer}>
-          {searchmethodArr.map((data: string, index: number) => {
+          {[
+            {en: "hashtag", kr: "해시태그로 검색하기"},
+            {en: "keyword", kr: "키워드로 검색하기"},
+          ].map((type) => {
             return (
               <div
                 className={
-                  searchType.type === data
+                  searchType.indexOf(type.en) !== -1
                     ? styles.selectedsearchmethod
                     : styles.searchmethod
                 }
                 onClick={() => {
-                  changeSidebarStatus(data);
+                  changeSidebarStatus(`${type.en}Search`);
                 }}
-                key={data}
-                data-testid={`changeSidebarStatus${index}`}
+                key={type.kr}
+                data-testid={`changeSidebarStatus${type.en}`}
               >
-                {searchmethodKrArr[index]}
+                {type.kr}
               </div>
             );
           })}
         </div>
-        {searchType.type === "hashtag" ? (
-          searchType.hashtag === "search" ? (
-            <TagSearchContainer />
-          ) : (
-            <TagSearchResultContainer />
-          )
+        {searchType === "hashtagSearch" ? (
+          <TagSearchContainer />
+        ) : searchType === "hashtagResult" ? (
+          <TagSearchResultContainer />
         ) : (
           <>
             <NameSearchContainer />
             <NameSearchResultContainer />
           </>
         )}
-      </aside>
+      </div>
     );
   }
 };
-
-const searchmethodArr = ["hashtag", "name"];
-const searchmethodKrArr = ["태그로 검색하기", "이름으로 검색하기"];
 
 export default MapSideBar;

@@ -23,40 +23,85 @@ const mockRouter = {
 };
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
 
-describe("AddStorePosition Hook 테스트", () => {
+describe("Map Hook 테스트", () => {
   let mockStore = "noContentnotClick";
   const mockedStore: {[index: string]: any} = {
     noContentnotClick: configureMockStore()({
-      hashtagSearchCondition: {
-        adress: {content: "", mapClick: false},
+      searchCondition: {
+        position: {
+          longitude: "testLongitude",
+          latitude: "testLatitude",
+        },
+        category: "testCategory",
+        hashtag: ["testHashtag"],
+        keyword: "testKeyword",
       },
       searchResult: {content: ""},
-      mapClick: {active: true},
+      standardMarker: {
+        clickPossible: true,
+        clicked: true,
+      },
     }),
     ContentnotClick: configureMockStore()({
-      hashtagSearchCondition: {
-        adress: {content: "test", mapClick: false},
+      searchCondition: {
+        position: {
+          address: "testAddress",
+          longitude: "testLongitude",
+          latitude: "testLatitude",
+        },
+        category: "testCategory",
+        hashtag: ["testHashtag"],
+        keyword: "testKeyword",
       },
       searchResult: {content: ""},
-      mapClick: {active: true},
+      standardMarker: {
+        clickPossible: true,
+        clicked: false,
+      },
     }),
     ContentClick: configureMockStore()({
-      hashtagSearchCondition: {
-        adress: {content: "test", mapClick: true},
+      searchCondition: {
+        position: {
+          address: "testAddress",
+          longitude: "testLongitude",
+          latitude: "testLatitude",
+        },
+        category: "testCategory",
+        hashtag: ["testHashtag"],
+        keyword: "testKeyword",
       },
       searchResult: {content: ""},
-      mapClick: {active: true},
+      standardMarker: {
+        clickPossible: true,
+        clicked: true,
+      },
     }),
     resultZero: configureMockStore()({
-      hashtagSearchCondition: {
-        adress: {content: "test", mapClick: true},
+      searchCondition: {
+        position: {
+          longitude: "testLongitude",
+          latitude: "testLatitude",
+        },
+        category: "testCategory",
+        hashtag: ["testHashtag"],
+        keyword: "testKeyword",
       },
-      searchResult: {content: []},
-      mapClick: {active: true},
+      searchResult: {},
+      standardMarker: {
+        clickPossible: true,
+        clicked: false,
+      },
     }),
     resultnotZero: configureMockStore()({
-      hashtagSearchCondition: {
-        adress: {content: "test", mapClick: true},
+      searchCondition: {
+        position: {
+          address: "testAddress",
+          longitude: "testLongitude",
+          latitude: "testLatitude",
+        },
+        category: "testCategory",
+        hashtag: ["testHashtag"],
+        keyword: "testKeyword",
       },
       searchResult: {
         content: [
@@ -73,7 +118,10 @@ describe("AddStorePosition Hook 테스트", () => {
           },
         ],
       },
-      mapClick: {active: true},
+      standardMarker: {
+        clickPossible: true,
+        clicked: false,
+      },
     }),
   };
   const wrapper = ({children}: any) => (
@@ -151,7 +199,7 @@ describe("AddStorePosition Hook 테스트", () => {
         wrapper,
       });
       act(() => {
-        result.current.setnewmarker({
+        result.current.setStandardMarker({
           setPosition: setPositionMock,
           setMap: setMapMock,
         });
@@ -197,13 +245,13 @@ describe("AddStorePosition Hook 테스트", () => {
         wrapper,
       });
       act(() => {
-        result.current.setnewmarker({
+        result.current.setStandardMarker({
           setPosition: setPositionMock,
           setMap: setMapMock,
         });
       });
       act(() => {
-        result.current.setMakedMap({
+        result.current.setMapObj({
           setCenter: setCenterMock,
         });
       });
@@ -212,7 +260,7 @@ describe("AddStorePosition Hook 테스트", () => {
         result.current.setLoading(true);
       });
       expect(mockedStore.ContentnotClick.getActions()[0]).toStrictEqual({
-        type: "hashtagSearchCondition/setAdress",
+        type: "searchCondition/setPosition",
         payload: {
           latitude: "testy",
           longitude: "testx",
@@ -250,7 +298,6 @@ describe("AddStorePosition Hook 테스트", () => {
       };
       window.kakao = kakao as any;
       window.alert = jest.fn();
-      const setMapClickMock = jest.fn();
       const {result} = renderHook(() => useMap(), {
         wrapper,
       });
@@ -259,9 +306,9 @@ describe("AddStorePosition Hook 테스트", () => {
       });
       expect(window.alert).toBeCalledWith("주소를 정확하게 입력해주세요");
       expect(mockedStore.ContentnotClick.getActions()[1]).toStrictEqual({
-        type: "hashtagSearchCondition/setAdress",
+        type: "searchCondition/setPosition",
         payload: {
-          adress: "",
+          address: "",
         },
       });
     });
@@ -293,7 +340,6 @@ describe("AddStorePosition Hook 테스트", () => {
       };
       window.kakao = kakao as any;
       window.alert = jest.fn();
-      const setMapClickMock = jest.fn();
       const {result} = renderHook(() => useMap(), {
         wrapper,
       });
@@ -307,7 +353,6 @@ describe("AddStorePosition Hook 테스트", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({current: {value: "test"}});
-      const setMapClickMock = jest.fn();
       const {result} = renderHook(() => useMap(), {
         wrapper,
       });
@@ -316,7 +361,7 @@ describe("AddStorePosition Hook 테스트", () => {
       });
       expect(mockedStore.ContentClick.getActions()[0]).toEqual({
         payload: false,
-        type: "hashtagSearchCondition/setMarkerClickStatus",
+        type: "standardMarker/setClicked",
       });
     });
   });
@@ -350,13 +395,12 @@ describe("AddStorePosition Hook 테스트", () => {
       };
       window.kakao = kakao as any;
       window.alert = jest.fn();
-      const setMapClickMock = jest.fn();
       const setMapMock = jest.fn();
       const {result} = renderHook(() => useMap(), {
         wrapper,
       });
       act(() => {
-        result.current.setSearchMarker([
+        result.current.setSearchResultMarker([
           {
             setMap: setMapMock,
           },
@@ -407,7 +451,7 @@ describe("AddStorePosition Hook 테스트", () => {
         wrapper,
       });
       act(() => {
-        result.current.setSearchMarker([
+        result.current.setSearchResultMarker([
           {
             setMap: setMapMock,
           },
@@ -418,7 +462,7 @@ describe("AddStorePosition Hook 테스트", () => {
       });
       await waitFor(() => {
         expect(markerSetMapMock).toBeCalledTimes(1);
-        expect(result.current.searchMarker).toEqual([
+        expect(result.current.searchResultMarker).toEqual([
           {setMap: markerSetMapMock},
         ]);
       });

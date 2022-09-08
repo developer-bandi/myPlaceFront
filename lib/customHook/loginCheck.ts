@@ -10,9 +10,7 @@ export const useLogin = () => {
     if (!user.loading) {
       if (user.content === undefined) {
         alert("로그인을 해주세요!");
-        console.log(1);
         router.push("/user/auth/signin");
-        console.log(2);
       }
     }
   }, [user]);

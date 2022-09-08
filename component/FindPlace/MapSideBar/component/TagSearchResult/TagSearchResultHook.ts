@@ -6,7 +6,7 @@ import {getStoreInfo} from "../../../../../store/reducers/storeInfo/Reducer";
 const useTagSearchResult = () => {
   const searchResult = useSelector((state: RootReducer) => state.searchResult);
   const searchCondition = useSelector(
-    (state: RootReducer) => state.hashtagSearchCondition
+    (state: RootReducer) => state.searchCondition
   );
   const dispatch = useDispatch();
   const showStoreInfo = (storeId: number) => {
@@ -14,7 +14,7 @@ const useTagSearchResult = () => {
   };
 
   const moveSearhPage = () => {
-    dispatch(setSearchType({type: "hashtag", hashtag: "search"}));
+    dispatch(setSearchType("hashtagSearch"));
   };
 
   return {

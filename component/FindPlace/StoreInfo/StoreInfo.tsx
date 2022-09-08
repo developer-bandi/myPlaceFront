@@ -9,14 +9,14 @@ import Image from "next/image";
 import Link from "next/link";
 import {setDateLatest} from "../../../lib/commonFn/date";
 import {storeInfoState} from "../../../store/reducers/storeInfo/Reducer";
-import {SearchModalState} from "../../../store/reducers/searchModal/Reducer";
+import {SideBarFoldState} from "../../../store/reducers/sideBarFold/Reducer";
 
 interface StoreInfoProps {
   store: storeInfoState;
   postBookMark: (StoreId: number) => Promise<void>;
   deleteBookMark: (StoreId: number) => Promise<void>;
   deleteStoreTab: () => void;
-  modalStatus: SearchModalState;
+  modalStatus: SideBarFoldState;
   isMobile: boolean;
 }
 
@@ -36,7 +36,7 @@ const StoreInfo = ({
     return (
       <section
         className={`${styles.mainBlock} ${
-          modalStatus.mobile.fold ? styles.fold : styles.full
+          modalStatus.mobile.searchStoreInfo ? styles.fold : styles.full
         }`}
         data-testid="error"
       >
@@ -62,7 +62,7 @@ const StoreInfo = ({
         </div>
       </section>
     );
-  } else if (store.content === undefined || modalStatus.desktop.fold) {
+  } else if (store.content === undefined || modalStatus.desktop.search) {
     return null;
   } else if (store.content?.storeInfo !== undefined) {
     return (
