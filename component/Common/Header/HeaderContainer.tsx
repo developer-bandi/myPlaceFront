@@ -3,15 +3,23 @@ import Header from "./Header";
 import useHeader from "./HeaderHook";
 
 const HeaderContainer = () => {
-  const {loginedUser, modalActvieChange, modalActive} = useHeader();
+  const {
+    loginedUser,
+    changePageModal,
+    changeNoticeModal,
+    isNotice,
+    modalStatus,
+  } = useHeader();
   const isMobile = useIsMobile();
 
   return (
     <Header
       loginedUser={loginedUser}
-      modalActvieChange={modalActvieChange}
-      modalActive={modalActive}
+      changePageModal={changePageModal}
+      changeNoticeModal={changeNoticeModal}
+      isNotice={isNotice}
       isMobile={isMobile}
+      modalStatus={modalStatus}
     />
   );
 };

@@ -412,3 +412,13 @@ export const axiosPostPassword = (email: string, newPassword: string) => {
     newPassword,
   });
 };
+
+export const axiosGetNotice = () => {
+  return axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/notice`);
+};
+
+export const axiosUpdateNotice = (noticeId: number) => {
+  return axios.patch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/notice`, {
+    noticeId,
+  });
+};

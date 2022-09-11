@@ -11,7 +11,7 @@ import {storeInfoSaga} from "./storeInfo/Saga";
 import storeInfoReducer from "./storeInfo/Reducer";
 import AddStorePositionReducer from "./AddStorePosition/Reducer";
 import SearchTypeReducer from "./searhType/Reducer";
-import mypageModalReducer from "./mypageModal/Reducer";
+import modalStatusReducer from "./modalStatus/Reducer";
 import searchModalReducer from "./sideBarFold/Reducer";
 import standardMarkerReducer from "./standardMarker/Reducer";
 
@@ -23,7 +23,7 @@ export const rootReducer = combineReducers({
   storeInfo: storeInfoReducer,
   addStorePosition: AddStorePositionReducer,
   searchType: SearchTypeReducer,
-  mypageModal: mypageModalReducer,
+  modalStatus: modalStatusReducer,
   searchModal: searchModalReducer,
   standardMarker: standardMarkerReducer,
 });

@@ -40,7 +40,7 @@
 }
 
 .userBlock {
-  width: 180px;
+  width: 250px;
   margin: 0 0 0 auto;
   display: flex;
   justify-content: flex-end;
@@ -60,4 +60,28 @@
   border: 1px solid #00aaff;
   border-radius: 50px;
   padding: 7px 15px 7px 15px;
+}
+.notice {
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    svg {
+      fill: #00aaff;
+    }
+  }
+}
+
+.dot {
+  left: 12px;
+  top: -7px;
+  position: absolute;
+  color: red;
+}
+
+.mypage {
+  &:hover {
+    svg {
+      fill: #00aaff;
+    }
+  }
 }

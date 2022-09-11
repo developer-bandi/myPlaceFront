@@ -9,8 +9,12 @@ export const setDateLatest = (dateData: string) => {
     newDate = `${Math.floor(timeDiff)}분전`;
   } else if (timeDiff < 1440) {
     newDate = `${Math.floor(timeDiff / 60)}시간 전`;
+  } else if (timeDiff < 43200) {
+    newDate = `${Math.floor(timeDiff / 1440)}일 전`;
+  } else if (timeDiff < 525600) {
+    newDate = `${Math.floor(timeDiff / 43200)}달 전`;
   } else {
-    newDate = dateData.split("T")[0];
+    newDate = `${Math.floor(timeDiff / 525600)}년 전`;
   }
   return newDate;
 };

@@ -1,20 +1,29 @@
 import styles from "./Header.module.scss";
 import Link from "next/link";
 import {signupState} from "../../../store/reducers/userLogin/Reducer";
-import MyPageModalContainer from "../MyPageModal/MyPageModalContainer";
 import {BiUserCircle} from "react-icons/bi";
+import {BsBell} from "react-icons/bs";
+import {VscBell, VscBellDot} from "react-icons/vsc";
+import {GoPrimitiveDot} from "react-icons/go";
+import NoticeContainer from "../Notion/NotionContainer";
+import {mypageModalState} from "../../../store/reducers/modalStatus/Reducer";
+import MyPageModalContainer from "../MyPageModal/MyPageModalContainer";
 
 interface HeaderProps {
   loginedUser: signupState;
-  modalActvieChange: () => void;
-  modalActive: boolean;
+  changePageModal: () => void;
+  changeNoticeModal: () => void;
+  isNotice: boolean;
+  modalStatus: mypageModalState;
   isMobile: boolean;
 }
 
 const Header = ({
   loginedUser,
-  modalActvieChange,
-  modalActive,
+  changePageModal,
+  changeNoticeModal,
+  isNotice,
+  modalStatus,
   isMobile,
 }: HeaderProps) => {
   return (
@@ -40,9 +49,21 @@ const Header = ({
               {loginedUser.content.nickname}님 반갑습니다
             </p>
             <button
+              className={styles.notice}
+              onClick={() => {
+                changeNoticeModal();
+              }}
+              data-testid="modalActvieChange"
+            >
+              <VscBell size={25} />
+              {isNotice ? (
+                <GoPrimitiveDot size={25} className={styles.dot} />
+              ) : null}
+            </button>
+            <button
               className={styles.mypage}
               onClick={() => {
-                modalActvieChange();
+                changePageModal();
               }}
               data-testid="modalActvieChange"
             >
@@ -68,11 +89,8 @@ const Header = ({
           </ul>
         </div>
       ) : null}
-      {modalActive ? (
-        <div className={styles.myPageNavigationBlock} data-testid="mypageModal">
-          <MyPageModalContainer />
-        </div>
-      ) : null}
+      {modalStatus.mypage ? <MyPageModalContainer /> : null}
+      {modalStatus.notice ? <NoticeContainer /> : null}
     </header>
   );
 };

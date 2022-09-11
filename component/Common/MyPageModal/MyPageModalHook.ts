@@ -1,16 +1,15 @@
 import {useDispatch} from "react-redux";
-
-import {setActive} from "../../../store/reducers/mypageModal/Reducer";
+import {setMypage} from "../../../store/reducers/modalStatus/Reducer";
 import {logout} from "../../../store/reducers/userLogin/Reducer";
 
 const useMyPageModal = () => {
   const dispatch = useDispatch();
   const userLogout = () => {
     dispatch(logout());
-    dispatch(setActive());
+    dispatch(setMypage());
   };
   const modalActvieChange = () => {
-    dispatch(setActive());
+    dispatch(setMypage());
   };
 
   return {
