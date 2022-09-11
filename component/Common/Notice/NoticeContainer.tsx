@@ -1,11 +1,9 @@
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
-import {useSelector} from "react-redux";
 import {axiosGetNotice, axiosUpdateNotice} from "../../../lib/commonFn/api";
-import {RootReducer} from "../../../store";
 import {setNotice} from "../../../store/reducers/modalStatus/Reducer";
-import Notion from "./Notion";
+import Notion from "./Notice";
 
 export interface noticeListContent {
   id: number;
@@ -30,6 +28,7 @@ const NoticeContainer = () => {
   });
   const router = useRouter();
   const dispatch = useDispatch();
+
   useEffect(() => {
     const asyncWrapFn = async () => {
       try {
@@ -57,10 +56,12 @@ const NoticeContainer = () => {
       alert("에러가 발생하였습니다");
     }
   };
+
   const movePost = (postId: number) => {
     router.push(`/community/postdetail/${postId}`);
     dispatch(setNotice());
   };
+
   return (
     <Notion
       noticeList={noticeList}

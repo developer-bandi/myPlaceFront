@@ -5,7 +5,7 @@ import {BiUserCircle} from "react-icons/bi";
 import {BsBell} from "react-icons/bs";
 import {VscBell, VscBellDot} from "react-icons/vsc";
 import {GoPrimitiveDot} from "react-icons/go";
-import NoticeContainer from "../Notion/NotionContainer";
+import NoticeContainer from "../Notice/NoticeContainer";
 import {mypageModalState} from "../../../store/reducers/modalStatus/Reducer";
 import MyPageModalContainer from "../MyPageModal/MyPageModalContainer";
 

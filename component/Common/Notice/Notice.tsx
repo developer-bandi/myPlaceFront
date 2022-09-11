@@ -1,10 +1,9 @@
-import {noticeListState} from "./NotionContainer";
-import styles from "./Notion.module.scss";
+import {noticeListState} from "./NoticeContainer";
+import styles from "./Notice.module.scss";
 import {GoPrimitiveDot} from "react-icons/go";
 import {setDateLatest} from "../../../lib/commonFn/date";
 import Image from "next/image";
 import loadingImg from "../../../public/searchResultLoading.gif";
-import e from "cors";
 
 interface NoticeProps {
   noticeList: noticeListState;
@@ -12,7 +11,7 @@ interface NoticeProps {
   movePost: (postId: number) => void;
 }
 
-const Notion = ({noticeList, checkNotice, movePost}: NoticeProps) => {
+const Notice = ({noticeList, checkNotice, movePost}: NoticeProps) => {
   if (noticeList.loading) {
     return (
       <div className={styles.mainBlock}>
@@ -97,4 +96,4 @@ const Notion = ({noticeList, checkNotice, movePost}: NoticeProps) => {
   }
 };
 
-export default Notion;
+export default Notice;
