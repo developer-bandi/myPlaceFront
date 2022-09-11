@@ -1,7 +1,9 @@
 import PostList from "./PostList";
-import usePostList from "./PostListHook";
-
-const PostListContainer = () => {
+import usePostList, {postListContent} from "./PostListHook";
+interface PostListContainerProps {
+  serverSideData: postListContent;
+}
+const PostListContainer = ({serverSideData}: PostListContainerProps) => {
   const {
     page,
     postList,
@@ -13,7 +15,7 @@ const PostListContainer = () => {
     initializeSearch,
     moveWritePage,
     movePostDetailPage,
-  } = usePostList();
+  } = usePostList(serverSideData);
 
   return (
     <PostList

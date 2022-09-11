@@ -6,13 +6,13 @@ import Image from "next/image";
 import loadingImg from "../../../public/searchResultLoading.gif";
 
 interface NoticeProps {
-  noticeList: noticeListState;
+  serverData: noticeListState;
   checkNotice: (noticeId: number, postId: number) => Promise<void>;
   movePost: (postId: number) => void;
 }
 
-const Notice = ({noticeList, checkNotice, movePost}: NoticeProps) => {
-  if (noticeList.loading) {
+const Notice = ({serverData, checkNotice, movePost}: NoticeProps) => {
+  if (serverData.loading) {
     return (
       <div className={styles.mainBlock}>
         <div className={styles.subBlock}>
@@ -22,7 +22,7 @@ const Notice = ({noticeList, checkNotice, movePost}: NoticeProps) => {
         </div>
       </div>
     );
-  } else if (noticeList.error) {
+  } else if (serverData.error) {
     return (
       <div className={styles.mainBlock}>
         <div className={styles.subBlock}>
@@ -30,7 +30,7 @@ const Notice = ({noticeList, checkNotice, movePost}: NoticeProps) => {
         </div>
       </div>
     );
-  } else if (noticeList.content?.length === 0) {
+  } else if (serverData.content?.length === 0) {
     return (
       <div className={styles.mainBlock}>
         <div className={styles.subBlock}>
@@ -46,7 +46,7 @@ const Notice = ({noticeList, checkNotice, movePost}: NoticeProps) => {
             읽지 않은 알림
             <span className={styles.count}>
               {
-                noticeList.content?.filter((notion) => {
+                serverData.content?.filter((notion) => {
                   if (notion.check) {
                     return false;
                   } else {
@@ -57,7 +57,7 @@ const Notice = ({noticeList, checkNotice, movePost}: NoticeProps) => {
             </span>
             개
           </div>
-          {noticeList.content?.map((notion) => {
+          {serverData.content?.map((notion) => {
             return (
               <div
                 className={`${styles.noticeBlock} ${

@@ -27,36 +27,20 @@ export interface postListState {
   error: boolean;
 }
 
-const usePostList = () => {
+const usePostList = (serverSideData: postListContent) => {
+  const loginedUser = useSelector(
+    (state: RootReducer) => state.userLogin.content
+  );
   const [keyword, setKeyword] = useState<string>("");
   const [selectedSort, setSelectedSort] = useState<string>("createdAt");
   const [postList, setPostList] = useState<postListState>({
-    loading: true,
+    content: serverSideData,
+    loading: false,
     error: false,
   });
   const [page, setPage] = useState(1);
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const login = useSelector((state: RootReducer) => state.userLogin.content);
-
-  useEffect(() => {
-    const asyncWrapFn = async () => {
-      try {
-        const axiosPostList = await axiosGetPostList(1, "createdAt");
-        setPostList({
-          content: axiosPostList.data,
-          loading: false,
-          error: false,
-        });
-      } catch (e) {
-        setPostList({
-          loading: false,
-          error: true,
-        });
-      }
-    };
-    asyncWrapFn();
-  }, []);
 
   useEffect(() => {
     window.scrollTo({
@@ -155,7 +139,7 @@ const usePostList = () => {
   };
 
   const moveWritePage = () => {
-    if (login) {
+    if (loginedUser) {
       router.push("/community/writepost");
     } else {
       alert("로그인이 필요합니다.");

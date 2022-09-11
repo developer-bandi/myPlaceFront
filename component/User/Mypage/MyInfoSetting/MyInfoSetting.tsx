@@ -5,27 +5,23 @@ import mypage from "../../../../lib/styles/mypage.module.scss";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import Image from "next/image";
 import {setDateYearMonthDay} from "../../../../lib/commonFn/date";
-import {userInfoContent} from "./MyInfoSettingHook";
 import Link from "next/link";
+import {userInfoDataState} from "./MyInfoSettingContainer";
 
 interface PostListProps {
-  userInfo: {
-    content?: userInfoContent | undefined;
-    loading: boolean;
-    error: boolean;
-  };
+  serverData: userInfoDataState;
   changeNickname: () => Promise<void>;
   nicknameInputRef: RefObject<HTMLInputElement>;
   isLabtopOrTabletOrMobile: boolean;
 }
 
 const MyInfoSetting = ({
-  userInfo,
+  serverData,
   changeNickname,
   nicknameInputRef,
   isLabtopOrTabletOrMobile,
 }: PostListProps) => {
-  if (userInfo.loading) {
+  if (serverData.loading) {
     return (
       <div className={mypage.mainBlock} data-testid="loading">
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
@@ -37,7 +33,7 @@ const MyInfoSetting = ({
         </div>
       </div>
     );
-  } else if (userInfo.error) {
+  } else if (serverData.error) {
     return (
       <div className={mypage.mainBlock} data-testid="error">
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
@@ -56,9 +52,9 @@ const MyInfoSetting = ({
           <div className={styles.infoBlock}>
             <div className={styles.subTitle}>소셜</div>
             <div className={styles.content}>
-              {userInfo.content !== undefined
+              {serverData.content !== undefined
                 ? {kakao: "카카오", naver: "네이버", local: "연결안됨"}[
-                    userInfo.content.provider
+                    serverData.content.provider
                   ]
                 : null}
             </div>
@@ -66,20 +62,20 @@ const MyInfoSetting = ({
           <div className={styles.infoBlock}>
             <div className={styles.subTitle}>아이디</div>
             <div className={styles.content}>
-              {userInfo.content?.localId || ""}
+              {serverData.content?.localId || ""}
             </div>
           </div>
           <div className={styles.infoBlock}>
             <div className={styles.subTitle}>이메일</div>
             <div className={styles.content}>
-              {userInfo.content !== undefined && userInfo.content.email}
+              {serverData.content !== undefined && serverData.content.email}
             </div>
           </div>
           <div className={styles.infoBlock}>
             <div className={styles.subTitle}>생성일자</div>
             <div className={styles.content}>
-              {userInfo.content !== undefined &&
-                setDateYearMonthDay(userInfo.content.createdAt)}
+              {serverData.content !== undefined &&
+                setDateYearMonthDay(serverData.content.createdAt)}
             </div>
           </div>
           <div className={styles.infoBlock}>
@@ -97,7 +93,7 @@ const MyInfoSetting = ({
           <div className={styles.infoBlock}>
             <div className={styles.subTitle}>비밀번호</div>
             <div className={styles.content}>
-              {userInfo.content?.provider === "local" ? (
+              {serverData.content?.provider === "local" ? (
                 <button className={styles.passwordChangeButton}>
                   <Link href="/user/auth/findpassword">
                     비밀번호 재설정하러 이동하기

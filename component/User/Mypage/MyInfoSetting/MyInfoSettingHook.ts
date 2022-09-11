@@ -1,48 +1,17 @@
 import {useEffect, useRef, useState} from "react";
-import {
-  axiosGetMyInfo,
-  axiosPatchMyNickname,
-} from "../../../../lib/commonFn/api";
+import {axiosPatchMyNickname} from "../../../../lib/commonFn/api";
 import {useIsLabtopOrTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
+import {userInfoDataState} from "./MyInfoSettingContainer";
 
-export interface userInfoContent {
-  localId: string;
-  nickname: string;
-  provider: string;
-  createdAt: string;
-  email: string;
-}
-
-const useMyInfoSetting = () => {
-  const [userInfo, setUserInfo] = useState<{
-    content?: userInfoContent;
-    loading: boolean;
-    error: boolean;
-  }>({loading: true, error: false});
+const useMyInfoSetting = (serverData: userInfoDataState) => {
   const nicknameInputRef = useRef<HTMLInputElement>(null);
   const isLabtopOrTabletOrMobile = useIsLabtopOrTabletOrMobile();
 
   useEffect(() => {
-    const asyncWrapFn = async () => {
-      try {
-        const axiosUserInfo = await axiosGetMyInfo();
-        setUserInfo({
-          content: axiosUserInfo.data,
-          loading: false,
-          error: false,
-        });
-      } catch (error) {
-        setUserInfo({loading: false, error: true});
-      }
-    };
-    asyncWrapFn();
-  }, []);
-
-  useEffect(() => {
-    if (nicknameInputRef.current !== null && userInfo.content) {
-      nicknameInputRef.current.value = userInfo.content.nickname;
+    if (nicknameInputRef.current !== null && serverData.content) {
+      nicknameInputRef.current.value = serverData.content.nickname;
     }
-  }, [userInfo]);
+  }, [serverData]);
 
   const changeNickname = async () => {
     try {
@@ -56,7 +25,7 @@ const useMyInfoSetting = () => {
     }
   };
 
-  return {userInfo, changeNickname, nicknameInputRef, isLabtopOrTabletOrMobile};
+  return {changeNickname, nicknameInputRef, isLabtopOrTabletOrMobile};
 };
 
 export default useMyInfoSetting;

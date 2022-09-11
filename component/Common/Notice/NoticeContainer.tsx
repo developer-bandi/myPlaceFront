@@ -1,9 +1,7 @@
-import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
-import {useDispatch} from "react-redux";
-import {axiosGetNotice, axiosUpdateNotice} from "../../../lib/commonFn/api";
-import {setNotice} from "../../../store/reducers/modalStatus/Reducer";
+import {axiosGetNotice} from "../../../lib/commonFn/api";
+import useGetServerData from "../../../lib/customHook/getData";
 import Notion from "./Notice";
+import useNotice from "./NoticeHook";
 
 export interface noticeListContent {
   id: number;
@@ -22,49 +20,12 @@ export interface noticeListState {
 }
 
 const NoticeContainer = () => {
-  const [noticeList, setNoticeList] = useState<noticeListState>({
-    loading: true,
-    error: false,
-  });
-  const router = useRouter();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    const asyncWrapFn = async () => {
-      try {
-        const axiosNoticeList = await axiosGetNotice();
-        setNoticeList({
-          content: axiosNoticeList.data,
-          loading: false,
-          error: false,
-        });
-      } catch (e) {
-        setNoticeList({
-          loading: false,
-          error: true,
-        });
-      }
-    };
-    asyncWrapFn();
-  }, []);
-  const checkNotice = async (noticeId: number, postId: number) => {
-    try {
-      await axiosUpdateNotice(noticeId);
-      router.push(`/community/postdetail/${postId}`);
-      dispatch(setNotice());
-    } catch (error) {
-      alert("에러가 발생하였습니다");
-    }
-  };
-
-  const movePost = (postId: number) => {
-    router.push(`/community/postdetail/${postId}`);
-    dispatch(setNotice());
-  };
+  const {serverData} = useGetServerData(axiosGetNotice);
+  const {checkNotice, movePost} = useNotice();
 
   return (
     <Notion
-      noticeList={noticeList}
+      serverData={serverData as noticeListState}
       checkNotice={checkNotice}
       movePost={movePost}
     />

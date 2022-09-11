@@ -1,13 +1,32 @@
+import {axiosGetRecentReview} from "../../../lib/commonFn/api";
+import useGetServerData from "../../../lib/customHook/getData";
 import useMoveTargetStore from "../../../lib/customHook/moveTargetStore";
 import RecentReview from "./RecentReview";
-import useRecentReview from "./RecentReviewHook";
+
+export interface recentReviewData {
+  id: number;
+  content: string;
+  createdAt: string;
+  storeName: string;
+  storeAddress: string;
+  storeLatitude: string;
+  storeLongitude: string;
+  nickname: string;
+  hashtag: string[];
+}
+
+export interface reviewRecentState {
+  content?: {count: number; rows: recentReviewData[]};
+  loading: boolean;
+  error: boolean;
+}
 
 const RecentReviewContainer = () => {
-  const {recentReviewData} = useRecentReview();
+  const {serverData} = useGetServerData(axiosGetRecentReview);
   const {moveTargetStore} = useMoveTargetStore();
   return (
     <RecentReview
-      recentReviewData={recentReviewData}
+      serverData={serverData as reviewRecentState}
       moveTargetStore={moveTargetStore}
     />
   );

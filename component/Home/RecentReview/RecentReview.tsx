@@ -1,9 +1,9 @@
-import {reviewRecentState} from "./RecentReviewHook";
 import styles from "./RecentReview.module.scss";
 import {setDateLatest} from "../../../lib/commonFn/date";
+import {reviewRecentState} from "./RecentReviewContainer";
 
 interface RecentReviewProps {
-  recentReviewData: reviewRecentState;
+  serverData: reviewRecentState;
   moveTargetStore: (
     id: number,
     name: string,
@@ -13,11 +13,8 @@ interface RecentReviewProps {
   ) => void;
 }
 
-const RecentReview = ({
-  recentReviewData,
-  moveTargetStore,
-}: RecentReviewProps) => {
-  if (recentReviewData.loading) {
+const RecentReview = ({serverData, moveTargetStore}: RecentReviewProps) => {
+  if (serverData.loading) {
     return (
       <section className={styles.mainBlock} data-testid="loading">
         <div className={styles.subBlock}>
@@ -48,22 +45,20 @@ const RecentReview = ({
         </div>
       </section>
     );
-  } else if (recentReviewData.error) {
+  } else if (serverData.error) {
     return (
       <section className={styles.mainBlock} data-testid="error">
         <p className={styles.error}>에러가 발생하였습니다</p>
       </section>
     );
-  } else if (recentReviewData.content !== undefined) {
+  } else if (serverData.content !== undefined) {
     return (
       <section className={styles.mainBlock} data-testid="result">
         <div className={styles.subBlock}>
           <div className={styles.leftBlock}>
             <h3 className={styles.title}>
               현재
-              <span className={styles.color}>
-                {recentReviewData.content.count}
-              </span>
+              <span className={styles.color}>{serverData.content.count}</span>
               개의
               <br /> 리뷰가 등록되어 있습니다.
             </h3>
@@ -75,7 +70,7 @@ const RecentReview = ({
             </p>
           </div>
           <div className={styles.reviewList}>
-            {recentReviewData.content.rows.map((review, index) => {
+            {serverData.content.rows.map((review, index) => {
               return (
                 <div className={styles.reviewBlock} key={review.id}>
                   <div className={styles.headBlock}>

@@ -2,10 +2,9 @@ import styles from "./Header.module.scss";
 import Link from "next/link";
 import {signupState} from "../../../store/reducers/userLogin/Reducer";
 import {BiUserCircle} from "react-icons/bi";
-import {BsBell} from "react-icons/bs";
-import {VscBell, VscBellDot} from "react-icons/vsc";
+import {VscBell} from "react-icons/vsc";
 import {GoPrimitiveDot} from "react-icons/go";
-import NoticeContainer from "../Notice/NoticeContainer";
+import NoticeContainer, {noticeListState} from "../Notice/NoticeContainer";
 import {mypageModalState} from "../../../store/reducers/modalStatus/Reducer";
 import MyPageModalContainer from "../MyPageModal/MyPageModalContainer";
 
@@ -13,7 +12,7 @@ interface HeaderProps {
   loginedUser: signupState;
   changePageModal: () => void;
   changeNoticeModal: () => void;
-  isNotice: boolean;
+  serverData: noticeListState;
   modalStatus: mypageModalState;
   isMobile: boolean;
 }
@@ -22,7 +21,7 @@ const Header = ({
   loginedUser,
   changePageModal,
   changeNoticeModal,
-  isNotice,
+  serverData,
   modalStatus,
   isMobile,
 }: HeaderProps) => {
@@ -56,7 +55,14 @@ const Header = ({
               data-testid="modalActvieChange"
             >
               <VscBell size={25} />
-              {isNotice ? (
+              {serverData.content !== undefined &&
+              serverData.content?.filter((data: {check: boolean}) => {
+                if (data.check) {
+                  return false;
+                } else {
+                  return true;
+                }
+              }).length >= 1 ? (
                 <GoPrimitiveDot size={25} className={styles.dot} />
               ) : null}
             </button>
