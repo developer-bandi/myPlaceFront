@@ -19,6 +19,7 @@ const UpdateStoreInfoContainer = () => {
     telRef,
     openninghourTextareaRef,
     submit,
+    loading,
   } = useUpdateStoreInfo();
 
   return (
@@ -39,6 +40,7 @@ const UpdateStoreInfoContainer = () => {
       telRef={telRef}
       openninghourTextareaRef={openninghourTextareaRef}
       submit={submit}
+      loading={loading}
     />
   );
 };

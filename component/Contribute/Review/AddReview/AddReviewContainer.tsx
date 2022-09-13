@@ -12,6 +12,7 @@ const AddReviewContainer = () => {
     deleteImg,
     textAreaRef,
     submit,
+    loading,
   } = useAddReview();
 
   return (
@@ -25,6 +26,7 @@ const AddReviewContainer = () => {
       deleteImg={deleteImg}
       textAreaRef={textAreaRef}
       submit={submit}
+      loading={loading}
     ></AddReview>
   );
 };

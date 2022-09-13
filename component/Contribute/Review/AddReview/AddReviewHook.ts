@@ -23,6 +23,8 @@ const useAddReview = () => {
   );
   const [uploadImg, setUploadImg] = useState<string[]>([]);
   const [imgfile, setImgfile] = useState<Blob[]>([]);
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
   useEffect(() => {
@@ -70,6 +72,7 @@ const useAddReview = () => {
           storeInfo.storeInfo !== undefined &&
           textAreaRef.current !== null
         ) {
+          setLoading(true);
           await axiosAddComment(
             storeInfo.storeInfo.id,
             textAreaRef.current.value,
@@ -77,10 +80,12 @@ const useAddReview = () => {
             imgfile
           );
           dispatch(getStoreInfo(storeInfo.storeInfo.id));
+          setLoading(false);
           alert("성공적으로 등록되었습니다");
           router.push("/findplace");
         }
       } catch (error) {
+        setLoading(false);
         alert("에러가 발생하였습니다");
       }
     }
@@ -99,6 +104,7 @@ const useAddReview = () => {
     selectedHashtagNumber,
     setSelectedHashtag,
     setSelectedHashtagNumber,
+    loading,
   };
 };
 

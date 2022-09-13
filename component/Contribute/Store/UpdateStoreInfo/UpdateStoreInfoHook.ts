@@ -25,6 +25,7 @@ const useUpdateStoreInfo = () => {
   const [existMainImg, setExistMainImg] = useState<string | undefined>(
     () => existInfo?.mainPhoto
   );
+  const [loading, setLoading] = useState(false);
   const storeNameInputRef = useRef<HTMLInputElement>(null);
   const categorySelectRef = useRef<HTMLSelectElement>(null);
   const telRef = useRef<HTMLInputElement>(null);
@@ -131,6 +132,7 @@ const useUpdateStoreInfo = () => {
             ) {
               deletedImg.push(existInfo.mainPhoto);
             }
+            setLoading(true);
             await axiosUpdateStoreInfo(
               existInfo.storeInfo.id,
               storeNameInputRef.current.value,
@@ -142,9 +144,11 @@ const useUpdateStoreInfo = () => {
               deletedImg
             );
             dispatch(getStoreInfo(existInfo.storeInfo.id));
+            setLoading(false);
             alert("정상적으로 수정되었습니다");
             router.push("/findplace");
           } catch (e) {
+            setLoading(false);
             alert("에러가 발생하였습니다");
           }
         }
@@ -168,6 +172,7 @@ const useUpdateStoreInfo = () => {
     submit,
     existMenuImg,
     existMainImg,
+    loading,
   };
 };
 

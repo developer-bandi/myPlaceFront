@@ -26,9 +26,10 @@ interface CommentAddContainer {
   deleteUploadImg: (deleteindex: number) => void;
   error: boolean;
   loading: boolean;
+  uploadLoading: boolean;
 }
 const myLoader = ({src}: {src: string}) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/${src}`;
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_200,h_200${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
 const UpdateReview = ({
   storeInfo,
@@ -44,6 +45,7 @@ const UpdateReview = ({
   deleteUploadImg,
   loading,
   error,
+  uploadLoading,
 }: CommentAddContainer) => {
   if (loading) {
     return (
@@ -180,6 +182,11 @@ const UpdateReview = ({
             리뷰 수정하기
           </button>
         </div>
+        {uploadLoading ? (
+          <div className={storeReview.test}>
+            <div className={storeReview.testContent}>업로드중입니다</div>
+          </div>
+        ) : null}
       </main>
     );
   }

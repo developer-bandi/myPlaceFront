@@ -17,6 +17,7 @@ interface AddStoreProps {
   telRef: RefObject<HTMLInputElement>;
   openninghourTextareaRef: RefObject<HTMLTextAreaElement>;
   submit: () => void;
+  loading: boolean;
 }
 
 const AddStoreInfo = ({
@@ -32,6 +33,7 @@ const AddStoreInfo = ({
   telRef,
   openninghourTextareaRef,
   submit,
+  loading,
 }: AddStoreProps) => {
   return (
     <main className={storeInfo.mainBlock}>
@@ -163,6 +165,11 @@ const AddStoreInfo = ({
           등록
         </button>
       </div>
+      {loading ? (
+        <div className={storeInfo.test}>
+          <div className={storeInfo.testContent}>업로드중입니다</div>
+        </div>
+      ) : null}
     </main>
   );
 };

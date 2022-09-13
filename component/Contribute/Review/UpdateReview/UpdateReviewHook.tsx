@@ -29,6 +29,8 @@ const useUpdateReview = () => {
   const [imgfile, setImgfile] = useState<Blob[]>([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [uploadLoading, setUploadLoading] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
   const addImg = useCallback(
@@ -107,6 +109,7 @@ const useUpdateReview = () => {
 
       try {
         if (textAreaRef.current !== null) {
+          setUploadLoading(true);
           await axiosPatchMyReview(
             deleteHashtag,
             addHashtag,
@@ -115,10 +118,12 @@ const useUpdateReview = () => {
             router.query.id as string,
             textAreaRef.current.value
           );
+          setUploadLoading(false);
           alert("정상적으로 수정되었습니다");
           router.push("/user/mypage/review");
         }
       } catch (error) {
+        setUploadLoading(false);
         alert("에러가 발생하였습니다");
       }
     }
@@ -141,6 +146,7 @@ const useUpdateReview = () => {
     existInfo,
     setSelectedHashtag,
     setExistInfo,
+    uploadLoading,
   };
 };
 

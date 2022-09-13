@@ -18,6 +18,7 @@ const useAddStoreInfo = () => {
   const [menuImgfile, setMenuImgfile] = useState<Blob[]>([]);
   const [uploadMainImg, setUploadMainImg] = useState<string[]>([]);
   const [mainImgfile, setMainImgfile] = useState<Blob[]>([]);
+  const [loading, setLoading] = useState(false);
   const addMenuImg = useCallback(
     addImgWrapper(
       10,
@@ -81,6 +82,7 @@ const useAddStoreInfo = () => {
         alert("카테고리를 선택해 주세요");
       } else {
         try {
+          setLoading(true);
           await axiosAddStore(
             storeNameInputRef.current.value,
             telRef.current.value,
@@ -92,9 +94,11 @@ const useAddStoreInfo = () => {
             mainImgfile,
             menuImgfile
           );
+          setLoading(false);
           alert("성공적으로 등록되었습니다");
           router.push("/");
         } catch (e) {
+          setLoading(false);
           alert("에러가 발생하였습니다");
         }
       }
@@ -113,6 +117,7 @@ const useAddStoreInfo = () => {
     telRef,
     openninghourTextareaRef,
     submit,
+    loading,
   };
 };
 

@@ -16,6 +16,7 @@ interface CommentAddContainer {
   deleteImg: (index: number) => void;
   textAreaRef: RefObject<HTMLTextAreaElement>;
   submit: () => void;
+  loading: boolean;
 }
 
 const AddReview = ({
@@ -28,6 +29,7 @@ const AddReview = ({
   deleteImg,
   textAreaRef,
   submit,
+  loading,
 }: CommentAddContainer) => {
   if (storeInfo?.storeInfo !== undefined) {
     return (
@@ -132,6 +134,11 @@ const AddReview = ({
             리뷰 등록하기
           </button>
         </div>
+        {loading ? (
+          <div className={storeReview.test}>
+            <div className={storeReview.testContent}>업로드중입니다</div>
+          </div>
+        ) : null}
       </main>
     );
   } else {

@@ -16,6 +16,7 @@ const UpdateReviewContainer = () => {
     deleteUploadImg,
     error,
     loading,
+    uploadLoading,
   } = useUpdateReview();
 
   return (
@@ -33,6 +34,7 @@ const UpdateReviewContainer = () => {
       deleteUploadImg={deleteUploadImg}
       error={error}
       loading={loading}
+      uploadLoading={uploadLoading}
     ></UpdateReview>
   );
 };

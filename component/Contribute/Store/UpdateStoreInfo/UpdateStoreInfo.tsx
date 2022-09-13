@@ -22,10 +22,11 @@ interface AddStoreProps {
   telRef: RefObject<HTMLInputElement>;
   openninghourTextareaRef: RefObject<HTMLTextAreaElement>;
   submit: () => void;
+  loading: boolean;
 }
 
 const myLoader = ({src}: {src: string}) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/${src}`;
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_200,h_200${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
 
 const UpdateStoreInfo = ({
@@ -45,6 +46,7 @@ const UpdateStoreInfo = ({
   telRef,
   openninghourTextareaRef,
   submit,
+  loading,
 }: AddStoreProps) => {
   return (
     <main className={storeInfo.mainBlock}>
@@ -224,6 +226,11 @@ const UpdateStoreInfo = ({
           수정하기
         </button>
       </div>
+      {loading ? (
+        <div className={storeInfo.test}>
+          <div className={storeInfo.testContent}>업로드중입니다</div>
+        </div>
+      ) : null}
     </main>
   );
 };

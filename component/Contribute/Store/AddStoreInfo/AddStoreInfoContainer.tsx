@@ -15,6 +15,7 @@ const AddStoreInfoContainer = () => {
     telRef,
     openninghourTextareaRef,
     submit,
+    loading,
   } = useAddStoreInfo();
 
   return (
@@ -31,6 +32,7 @@ const AddStoreInfoContainer = () => {
       telRef={telRef}
       openninghourTextareaRef={openninghourTextareaRef}
       submit={submit}
+      loading={loading}
     />
   );
 };
