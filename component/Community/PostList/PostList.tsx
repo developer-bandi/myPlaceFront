@@ -64,13 +64,18 @@ const PostList = ({
           </ul>
           <div className={styles.rightBlock}>
             <div className={styles.searchBlock}>
-              <button className={styles.searchButton} onClick={searchPost}>
+              <button
+                className={styles.searchButton}
+                onClick={searchPost}
+                aria-label="searchButton"
+              >
                 <BiSearchAlt2 size={"20"} />
               </button>
               <input
                 className={styles.searchInput}
                 ref={searchRef}
                 onKeyPress={searchPost}
+                aria-label="searchInput"
               />
             </div>
             <button
@@ -138,13 +143,18 @@ const PostList = ({
           </ul>
           <div className={styles.rightBlock}>
             <div className={styles.searchBlock}>
-              <button className={styles.searchButton} onClick={searchPost}>
+              <button
+                className={styles.searchButton}
+                onClick={searchPost}
+                aria-label="searchButton"
+              >
                 <BiSearchAlt2 size={"20"} />
               </button>
               <input
                 className={styles.searchInput}
                 ref={searchRef}
                 onKeyPress={searchPost}
+                aria-label="searchInput"
               />
             </div>
             <button
@@ -200,6 +210,7 @@ const PostList = ({
                 className={styles.searchButton}
                 onClick={searchPost}
                 data-testid="searchButton"
+                aria-label="searchButton"
               >
                 <BiSearchAlt2 size={"20"} />
               </button>
@@ -207,6 +218,7 @@ const PostList = ({
                 className={styles.searchInput}
                 ref={searchRef}
                 onKeyPress={searchPost}
+                aria-label="searchInput"
               />
             </div>
             <button
@@ -237,7 +249,7 @@ const PostList = ({
                   key={index}
                 >
                   <div className={styles.postTopBlock}>
-                    <h3 className={styles.postTitle}>{post.title}</h3>
+                    <h2 className={styles.postTitle}>{post.title}</h2>
                     <div className={styles.postUser}>{post.nickname}</div>
                     <div className={styles.postWritedAt}>
                       {setDateLatest(post.createdAt)}

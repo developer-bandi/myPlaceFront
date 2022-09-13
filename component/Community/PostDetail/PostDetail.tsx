@@ -7,6 +7,7 @@ import {RefObject} from "react";
 import {signupState} from "../../../store/reducers/userLogin/Reducer";
 import {setDateLatest} from "../../../lib/commonFn/date";
 import {postDetailType} from "../../../lib/apitype/post";
+import Image from "next/image";
 
 interface PostDetailProps {
   serverSideData: postDetailType;
@@ -30,6 +31,10 @@ interface PostDetailProps {
   deleteComment: (CommentId: number, UserId: number) => Promise<void>;
   deletePost: (PostId: number, UserId: number) => Promise<void>;
 }
+
+const myLoader = ({src}: {src: string}) => {
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_1000,h_1000${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
+};
 
 const PostDetail = ({
   serverSideData,
@@ -76,9 +81,11 @@ const PostDetail = ({
         {serverSideData.Photos.map((srcObj: {filename: string}) => {
           return (
             <div className={styles.photoBlock}>
-              <img
-                src={`${process.env.NEXT_PUBLIC_IMG_URL}/${srcObj.filename}`}
-                className={styles.img}
+              <Image
+                loader={myLoader}
+                src={`/${srcObj.filename}`}
+                alt="searchImg"
+                layout="fill"
               />
             </div>
           );
@@ -127,7 +134,11 @@ const PostDetail = ({
         })}
       </div>
       <div className={styles.commentInputBlock}>
-        <textarea className={styles.commentInput} ref={textareaRef} />
+        <textarea
+          className={styles.commentInput}
+          ref={textareaRef}
+          aria-label="commentTextarea"
+        />
         <button
           className={styles.commentSubmitButton}
           onClick={postComment}

@@ -53,6 +53,7 @@ const Header = ({
                 changeNoticeModal();
               }}
               data-testid="modalActvieChange"
+              aria-label="notice"
             >
               <VscBell size={25} />
               {serverData.content !== undefined &&
@@ -72,6 +73,7 @@ const Header = ({
                 changePageModal();
               }}
               data-testid="modalActvieChange"
+              aria-label="mypage"
             >
               <BiUserCircle size={25} />
             </button>

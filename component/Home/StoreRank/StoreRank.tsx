@@ -17,7 +17,7 @@ interface StoreRankState {
 }
 
 const myLoader = ({src}: {src: string}) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/${src}`;
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_440,h_300${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
 
 const StoreRank = ({
@@ -66,22 +66,20 @@ const StoreRank = ({
                         key={storeData.id}
                       >
                         {storeData.photo !== undefined ? (
-                          <Image
-                            loader={myLoader}
-                            src={`/${storeData.photo}`}
-                            alt="searchImg"
-                            width="220px"
-                            height="150px"
-                            priority={true}
-                          />
+                          <div className={styles.image}>
+                            <Image
+                              loader={myLoader}
+                              src={`/${storeData.photo}`}
+                              alt="searchImg"
+                              layout="fill"
+                            />
+                          </div>
                         ) : (
                           <div className={styles.image}>
                             <Image
                               src={`/107.svg`}
                               alt="searchImg"
-                              width="220px"
-                              height="150px"
-                              priority={true}
+                              layout="fill"
                             />
                           </div>
                         )}

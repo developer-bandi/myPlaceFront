@@ -23,9 +23,8 @@ interface MyBookMarkProps {
 }
 
 const myLoader = ({src}: {src: string}) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/${src}`;
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_600,h_400${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
-
 const MyBookMark = ({
   bookMarkState,
   moveTargetStore,
@@ -103,7 +102,6 @@ const MyBookMark = ({
                           src={`/${storeData.photo}`}
                           alt="searchImg"
                           layout="fill"
-                          priority={true}
                         />
                       </div>
                     ) : (

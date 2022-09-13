@@ -9,7 +9,7 @@ interface BannerProps {
 }
 
 const myLoader = ({src}: {src: string}) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/${src}`;
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_800,h_500${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
 
 const Banner = ({carouselNumber, bannerData}: BannerProps) => {

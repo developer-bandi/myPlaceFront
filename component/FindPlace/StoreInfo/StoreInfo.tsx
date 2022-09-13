@@ -20,8 +20,12 @@ interface StoreInfoProps {
   isMobile: boolean;
 }
 
-const myLoader = ({src}: {src: string}) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/${src}`;
+const mainLoader = ({src}: {src: string}) => {
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_740,h_300${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
+};
+
+const miniLoader = ({src}: {src: string}) => {
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_200,h_200${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
 
 const StoreInfo = ({
@@ -75,7 +79,7 @@ const StoreInfo = ({
         {store.content.mainPhoto !== undefined ? (
           <div className={styles.mainImgBlock}>
             <Image
-              loader={myLoader}
+              loader={mainLoader}
               src={`/${store.content.mainPhoto}`}
               layout="fill"
               object-fit="cover"
@@ -168,7 +172,7 @@ const StoreInfo = ({
                     return (
                       <div className={styles.menuImgBlock}>
                         <Image
-                          loader={myLoader}
+                          loader={miniLoader}
                           src={`/${src}`}
                           width="105px"
                           height="105px"
@@ -228,7 +232,7 @@ const StoreInfo = ({
                           return (
                             <div className={styles.imgs}>
                               <Image
-                                loader={myLoader}
+                                loader={miniLoader}
                                 src={`/${src}`}
                                 width="100px"
                                 height="100px"
