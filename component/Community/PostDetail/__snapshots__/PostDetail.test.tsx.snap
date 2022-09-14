@@ -27,7 +27,7 @@ exports[` 1`] = `
           <li
             class="date"
           >
-            test
+            NaN년 전
           </li>
           <li
             class="viewCount"
@@ -133,7 +133,7 @@ exports[` 1`] = `
           <li
             class="commentDate"
           >
-            test
+            NaN년 전
           </li>
           <button
             class="deleteCommentButton"
@@ -153,6 +153,7 @@ exports[` 1`] = `
       class="commentInputBlock"
     >
       <textarea
+        aria-label="commentTextarea"
         class="commentInput"
       />
       <button

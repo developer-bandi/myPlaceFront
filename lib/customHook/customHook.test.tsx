@@ -21,7 +21,7 @@ const routerMock = {
 const axiosMock = axios as jest.Mocked<typeof axios>;
 
 describe("loginCheck Hook 테스트", () => {
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider
       store={configureMockStore()({
         userLogin: {loading: false, error: false},
@@ -44,7 +44,7 @@ describe("useMoveTargetStore Hook 테스트", () => {
   const storeMock = configureMockStore()({
     userLogin: {loading: false, error: false},
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider store={storeMock}>{children}</Provider>
   );
   window.alert = jest.fn();
@@ -92,7 +92,7 @@ describe("useMoveTargetStore Hook 테스트", () => {
 });
 
 describe("mypage Hook 테스트", () => {
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider
       store={configureMockStore()({
         userLogin: {loading: false, error: false},

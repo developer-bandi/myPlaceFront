@@ -52,6 +52,7 @@ describe("AddStoreInfo Presentational 테스트", () => {
       telRef={{current: null}}
       openninghourTextareaRef={{current: null}}
       submit={submitMock}
+      loading={false}
     />
   );
 
@@ -96,7 +97,7 @@ describe("UpdateStoreInfo Hook 테스트", () => {
       content: {},
     },
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider store={blank ? storeInfoBlankMockStore : storeInfoMockStore}>
       {children}
     </Provider>

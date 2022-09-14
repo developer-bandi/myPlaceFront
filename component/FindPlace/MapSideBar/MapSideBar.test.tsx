@@ -15,7 +15,7 @@ const mockStore = configureMockStore()({
   hashtagAll: {},
   searchCondition: {position: {}, hashtag: []},
 });
-const wrapper = ({children}: any) => (
+const wrapper = ({children}: {children: React.ReactNode}) => (
   <Provider store={mockStore}>{children}</Provider>
 );
 describe("MapSideBar Hook 테스트", () => {

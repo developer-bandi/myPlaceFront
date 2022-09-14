@@ -121,7 +121,7 @@ exports[`myComment Presentational test 노트북 사이즈 이하일 경우 정�
           <div
             class="date"
           >
-            test
+            NaN년 전
           </div>
         </div>
         <p
@@ -644,7 +644,7 @@ exports[`myComment Presentational test 데스크톱 일 경우 정상 출력 1`]
           <div
             class="date"
           >
-            test
+            NaN년 전
           </div>
         </div>
         <p

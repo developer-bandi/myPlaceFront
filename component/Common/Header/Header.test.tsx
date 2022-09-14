@@ -9,6 +9,7 @@ import {Provider} from "react-redux";
 import Header from "./Header";
 import configureMockStore from "redux-mock-store";
 import useHeader from "./HeaderHook";
+import React, {ReactNode} from "react";
 
 describe("Header Presentational 테스트", () => {
   const loginMock = {
@@ -22,35 +23,61 @@ describe("Header Presentational 테스트", () => {
     error: false,
   };
 
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: ReactNode}) => (
     <Provider store={configureMockStore()({})}>{children}</Provider>
   );
 
   describe("상황 테스트", () => {
     it("로그인 했을 경우", () => {
-      const modalActvieChangeMockFn = jest.fn();
+      const changePageModalMock = jest.fn();
+      const changeNoticeModalMock = jest.fn();
       const utils = render(
         <Header
           loginedUser={loginMock}
-          modalActvieChange={modalActvieChangeMockFn}
-          modalActive={false}
-          isMobile={true}
+          changePageModal={changePageModalMock}
+          changeNoticeModal={changeNoticeModalMock}
+          serverData={{
+            content: [
+              {
+                id: 1,
+                content: "testContent",
+                check: true,
+                createdAt: "testCreatedAt",
+                updatedAt: "testUpdatedAt",
+                PostId: 1,
+                UserId: 1,
+              },
+            ],
+            loading: true,
+            error: false,
+          }}
+          modalStatus={{
+            mypage: false,
+            notice: false,
+          }}
+          isMobile={false}
         />,
         {wrapper}
       );
-      fireEvent.click(screen.getByTestId("modalActvieChange"));
-      screen.getByTestId("login");
+      fireEvent.click(screen.getByTestId("changePageModal"));
+      fireEvent.click(screen.getByTestId("changeNoticeModal"));
       expect(utils.container).toMatchSnapshot();
-      expect(modalActvieChangeMockFn).toBeCalledTimes(1);
+      expect(changePageModalMock).toBeCalledTimes(1);
+      expect(changeNoticeModalMock).toBeCalledTimes(1);
     });
 
     it("로그인 안했을경우", () => {
       const utils = render(
         <Header
           loginedUser={logoutMock}
-          modalActvieChange={jest.fn()}
-          modalActive={false}
-          isMobile={true}
+          changePageModal={jest.fn()}
+          changeNoticeModal={jest.fn()}
+          serverData={{loading: true, error: false}}
+          modalStatus={{
+            mypage: false,
+            notice: false,
+          }}
+          isMobile={false}
         />,
         {wrapper}
       );
@@ -61,16 +88,38 @@ describe("Header Presentational 테스트", () => {
     it("로그인 하고 마이페이지 창을 열였을 경우", () => {
       const utils = render(
         <Header
-          loginedUser={logoutMock}
-          modalActvieChange={jest.fn()}
-          modalActive={true}
-          isMobile={true}
+          loginedUser={loginMock}
+          changePageModal={jest.fn()}
+          changeNoticeModal={jest.fn()}
+          serverData={{loading: true, error: false}}
+          modalStatus={{
+            mypage: true,
+            notice: false,
+          }}
+          isMobile={false}
         />,
         {wrapper}
       );
-      screen.getByTestId("mypageModal");
       expect(utils.container).toMatchSnapshot();
     });
+  });
+
+  it("로그인 하고 알림창을 열었을 경우", () => {
+    const utils = render(
+      <Header
+        loginedUser={loginMock}
+        changePageModal={jest.fn()}
+        changeNoticeModal={jest.fn()}
+        serverData={{loading: true, error: false}}
+        modalStatus={{
+          mypage: false,
+          notice: true,
+        }}
+        isMobile={false}
+      />,
+      {wrapper}
+    );
+    expect(utils.container).toMatchSnapshot();
   });
 
   describe("반응형 테스트", () => {
@@ -78,10 +127,16 @@ describe("Header Presentational 테스트", () => {
       const utils = render(
         <Header
           loginedUser={logoutMock}
-          modalActvieChange={jest.fn()}
-          modalActive={false}
+          changePageModal={jest.fn()}
+          changeNoticeModal={jest.fn()}
+          serverData={{loading: true, error: false}}
+          modalStatus={{
+            mypage: false,
+            notice: true,
+          }}
           isMobile={true}
-        />
+        />,
+        {wrapper}
       );
       screen.getByTestId("mobile");
       expect(utils.container).toMatchSnapshot();
@@ -99,7 +154,7 @@ describe("Header Hook 테스트", () => {
       active: false,
     },
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: ReactNode}) => (
     <Provider store={mockStore}>{children}</Provider>
   );
 
@@ -111,14 +166,33 @@ describe("Header Hook 테스트", () => {
     });
   });
 
-  it("modalActvieChange 함수 테스트", () => {
+  it("changePageModal 함수 테스트", () => {
     const {result} = renderHook(() => useHeader(), {wrapper});
     act(() => {
-      result.current.modalActvieChange();
+      result.current.changePageModal();
     });
     expect(mockStore.getActions()[2]).toEqual({
       payload: undefined,
-      type: "mypageModal/setActive",
+      type: "modalStatus/setMypage",
+    });
+    expect(mockStore.getActions()[3]).toEqual({
+      payload: false,
+      type: "modalStatus/setNotice",
+    });
+  });
+  it("changeNoticeModal 함수 테스트", () => {
+    const {result} = renderHook(() => useHeader(), {wrapper});
+    act(() => {
+      result.current.changeNoticeModal();
+    });
+
+    expect(mockStore.getActions()[5]).toEqual({
+      payload: undefined,
+      type: "modalStatus/setNotice",
+    });
+    expect(mockStore.getActions()[6]).toEqual({
+      payload: false,
+      type: "modalStatus/setMypage",
     });
   });
 });

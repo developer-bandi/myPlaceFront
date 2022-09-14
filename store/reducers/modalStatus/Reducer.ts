@@ -1,12 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {HYDRATE} from "next-redux-wrapper";
 
-export interface mypageModalState {
+export interface modalStatusState {
   mypage: boolean;
   notice: boolean;
 }
 
-const initialState: mypageModalState = {
+const initialState: modalStatusState = {
   mypage: false,
   notice: false,
 };

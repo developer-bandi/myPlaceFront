@@ -46,6 +46,7 @@ describe("AddStoreInfo Presentational 테스트", () => {
       telRef={{current: null}}
       openninghourTextareaRef={{current: null}}
       submit={submitMock}
+      loading={false}
     />
   );
   expect(utils.container).toMatchSnapshot();
@@ -75,7 +76,7 @@ describe("AddStoreInfo Hook 테스트", () => {
       latitude: "",
     },
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider store={StorePositionMockStore}>{children}</Provider>
   );
   it("useEffect 테스트", () => {

@@ -13,6 +13,7 @@ import usePostList from "./PostListHook";
 import configureMockStore from "redux-mock-store";
 import {useRouter} from "next/router";
 import PostList from "./PostList";
+import {ReactNode} from "react";
 
 jest.mock("axios");
 jest.mock("next/router", () => ({
@@ -127,49 +128,12 @@ describe("PostList Hook test", () => {
       error: false,
     },
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: ReactNode}) => (
     <Provider store={loginStatus ? loginMockStore : logoutMockStore}>
       {children}
     </Provider>
   );
   window.scrollTo = jest.fn();
-  describe("useEffect 내의 api 받아오기 검증", () => {
-    it("정상적으로 받아온 경우", async () => {
-      axiosMock.get.mockImplementation(() =>
-        Promise.resolve({status: 200, data: postListMock})
-      );
-      const {result} = renderHook(() => usePostList(), {
-        wrapper,
-        initialProps: {
-          login: false,
-        },
-      });
-      await waitFor(() => {
-        expect(result.current.postList).toStrictEqual({
-          content: postListMock,
-          loading: false,
-          error: false,
-        });
-      });
-    });
-    it("에러가 발생한 경우", async () => {
-      axiosMock.get.mockImplementation(() =>
-        Promise.reject({status: 500, data: "에러발생"})
-      );
-      const {result} = renderHook(() => usePostList(), {
-        wrapper,
-        initialProps: {
-          login: false,
-        },
-      });
-      await waitFor(() => {
-        expect(result.current.postList).toStrictEqual({
-          loading: false,
-          error: true,
-        });
-      });
-    });
-  });
 
   describe("changeSort 함수 검증", () => {
     describe("정상적으로 받아온 경우", () => {
@@ -177,7 +141,7 @@ describe("PostList Hook test", () => {
         axiosMock.get.mockImplementation(() =>
           Promise.resolve({status: 200, data: postListMock})
         );
-        const {result} = renderHook(() => usePostList(), {
+        const {result} = renderHook(() => usePostList(postListMock), {
           wrapper,
           initialProps: {
             login: false,
@@ -195,7 +159,7 @@ describe("PostList Hook test", () => {
           error: false,
         });
         expect(result.current.selectedSort).toBe("likeCount");
-        expect(axiosMock.get.mock.calls[3][0]).toBe(
+        expect(axiosMock.get.mock.calls[0][0]).toBe(
           `${
             process.env.NEXT_PUBLIC_SERVER_DOMAIN
           }/post/search?keyword=${"test"}&page=${1}&order=${"likeCount"}`
@@ -206,7 +170,7 @@ describe("PostList Hook test", () => {
         axiosMock.get.mockImplementation(() =>
           Promise.resolve({status: 200, data: postListMock})
         );
-        const {result} = renderHook(() => usePostList(), {
+        const {result} = renderHook(() => usePostList(postListMock), {
           wrapper,
           initialProps: {
             login: false,
@@ -221,7 +185,7 @@ describe("PostList Hook test", () => {
           error: false,
         });
         expect(result.current.selectedSort).toBe("likeCount");
-        expect(axiosMock.get.mock.calls[5][0]).toBe(
+        expect(axiosMock.get.mock.calls[1][0]).toBe(
           `${
             process.env.NEXT_PUBLIC_SERVER_DOMAIN
           }/post/list?page=${1}&order=${"likeCount"}`
@@ -233,7 +197,7 @@ describe("PostList Hook test", () => {
       axiosMock.get.mockImplementation(() =>
         Promise.reject({status: 500, data: "에러발생"})
       );
-      const {result} = renderHook(() => usePostList(), {
+      const {result} = renderHook(() => usePostList(postListMock), {
         wrapper,
         initialProps: {
           login: false,
@@ -254,7 +218,7 @@ describe("PostList Hook test", () => {
         axiosMock.get.mockImplementation(() =>
           Promise.resolve({status: 200, data: postListMock})
         );
-        const {result} = renderHook(() => usePostList(), {
+        const {result} = renderHook(() => usePostList(postListMock), {
           wrapper,
           initialProps: {
             login: false,
@@ -272,7 +236,7 @@ describe("PostList Hook test", () => {
           error: false,
         });
         expect(result.current.selectedSort).toBe("createdAt");
-        expect(axiosMock.get.mock.calls[9][0]).toBe(
+        expect(axiosMock.get.mock.calls[3][0]).toBe(
           `${
             process.env.NEXT_PUBLIC_SERVER_DOMAIN
           }/post/search?keyword=${"test"}&page=${2}&order=${"createdAt"}`
@@ -283,7 +247,7 @@ describe("PostList Hook test", () => {
         axiosMock.get.mockImplementation(() =>
           Promise.resolve({status: 200, data: postListMock})
         );
-        const {result} = renderHook(() => usePostList(), {
+        const {result} = renderHook(() => usePostList(postListMock), {
           wrapper,
           initialProps: {
             login: false,
@@ -298,7 +262,7 @@ describe("PostList Hook test", () => {
           error: false,
         });
         expect(result.current.selectedSort).toBe("createdAt");
-        expect(axiosMock.get.mock.calls[11][0]).toBe(
+        expect(axiosMock.get.mock.calls[4][0]).toBe(
           `${
             process.env.NEXT_PUBLIC_SERVER_DOMAIN
           }/post/list?page=${2}&order=${"createdAt"}`
@@ -310,7 +274,7 @@ describe("PostList Hook test", () => {
       axiosMock.get.mockImplementation(() =>
         Promise.reject({status: 500, data: "에러발생"})
       );
-      const {result} = renderHook(() => usePostList(), {
+      const {result} = renderHook(() => usePostList(postListMock), {
         wrapper,
         initialProps: {
           login: false,
@@ -325,12 +289,13 @@ describe("PostList Hook test", () => {
       });
     });
   });
+
   describe("searchPost 함수 검증", () => {
     it("클릭하여 정상적으로 받아온 경우", async () => {
       axiosMock.get.mockImplementation(() =>
         Promise.resolve({status: 200, data: postListMock})
       );
-      const {result} = renderHook(() => usePostList(), {
+      const {result} = renderHook(() => usePostList(postListMock), {
         wrapper,
         initialProps: {
           login: false,
@@ -355,7 +320,7 @@ describe("PostList Hook test", () => {
       axiosMock.get.mockImplementation(() =>
         Promise.resolve({status: 200, data: postListMock})
       );
-      const {result} = renderHook(() => usePostList(), {
+      const {result} = renderHook(() => usePostList(postListMock), {
         wrapper,
         initialProps: {
           login: false,
@@ -380,7 +345,7 @@ describe("PostList Hook test", () => {
       axiosMock.get.mockImplementation(() =>
         Promise.reject({status: 500, data: "에러발생"})
       );
-      const {result} = renderHook(() => usePostList(), {
+      const {result} = renderHook(() => usePostList(postListMock), {
         wrapper,
       });
       act(() => {
@@ -395,14 +360,15 @@ describe("PostList Hook test", () => {
       });
     });
   });
+
   describe("moveWritePage 함수 검증", () => {
     const mockRouter = {
-      push: jest.fn(), // the component uses `router.push` only
+      push: jest.fn(),
     };
     (useRouter as jest.Mock).mockReturnValue(mockRouter);
     it("로그인 한 경우", async () => {
       loginStatus = true;
-      const {result} = renderHook(() => usePostList(), {
+      const {result} = renderHook(() => usePostList(postListMock), {
         wrapper,
       });
       act(() => {
@@ -412,10 +378,11 @@ describe("PostList Hook test", () => {
         expect(mockRouter.push.mock.calls[0][0]).toBe("/community/writepost");
       });
     });
+
     it("로그인 하지 않은 경우", async () => {
       loginStatus = false;
       window.alert = jest.fn();
-      const {result} = renderHook(() => usePostList(), {
+      const {result} = renderHook(() => usePostList(postListMock), {
         wrapper,
       });
 

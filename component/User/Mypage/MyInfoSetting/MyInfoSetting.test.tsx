@@ -29,7 +29,7 @@ describe("MyInfoSetting Presentational Test", () => {
     it("로딩중", () => {
       const utils = render(
         <MyInfoSetting
-          userInfo={{loading: true, error: false}}
+          serverData={{loading: true, error: false}}
           changeNickname={jest.fn()}
           nicknameInputRef={{current: null}}
           isLabtopOrTabletOrMobile={false}
@@ -41,7 +41,7 @@ describe("MyInfoSetting Presentational Test", () => {
     it("에러발생", () => {
       const utils = render(
         <MyInfoSetting
-          userInfo={{loading: false, error: true}}
+          serverData={{loading: false, error: true}}
           changeNickname={jest.fn()}
           nicknameInputRef={{current: null}}
           isLabtopOrTabletOrMobile={false}
@@ -53,7 +53,7 @@ describe("MyInfoSetting Presentational Test", () => {
     it("정상 출력", () => {
       const utils = render(
         <MyInfoSetting
-          userInfo={{content: mockedUserInfo, loading: false, error: false}}
+          serverData={{content: mockedUserInfo, loading: false, error: false}}
           changeNickname={jest.fn()}
           nicknameInputRef={{current: null}}
           isLabtopOrTabletOrMobile={false}
@@ -67,7 +67,7 @@ describe("MyInfoSetting Presentational Test", () => {
     it("로딩중", () => {
       const utils = render(
         <MyInfoSetting
-          userInfo={{loading: true, error: false}}
+          serverData={{loading: true, error: false}}
           changeNickname={jest.fn()}
           nicknameInputRef={{current: null}}
           isLabtopOrTabletOrMobile={true}
@@ -79,7 +79,7 @@ describe("MyInfoSetting Presentational Test", () => {
     it("에러발생", () => {
       const utils = render(
         <MyInfoSetting
-          userInfo={{loading: false, error: true}}
+          serverData={{loading: false, error: true}}
           changeNickname={jest.fn()}
           nicknameInputRef={{current: null}}
           isLabtopOrTabletOrMobile={true}
@@ -91,7 +91,7 @@ describe("MyInfoSetting Presentational Test", () => {
     it("정상 출력", () => {
       const utils = render(
         <MyInfoSetting
-          userInfo={{content: mockedUserInfo, loading: false, error: false}}
+          serverData={{content: mockedUserInfo, loading: false, error: false}}
           changeNickname={jest.fn()}
           nicknameInputRef={{current: null}}
           isLabtopOrTabletOrMobile={true}
@@ -104,49 +104,11 @@ describe("MyInfoSetting Presentational Test", () => {
 });
 
 describe("MyInfoSetting Hook 테스트", () => {
-  describe("데이터를 받아오는 useEffect 테스트", () => {
-    it("정상적으로 데이터를 받아온 경우", async () => {
-      mockedAxios.get.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: mockedUserInfo,
-        })
-      );
-      jest.spyOn(newReact, "useRef").mockReturnValue({current: {value: ""}});
-      const {result} = renderHook(() => useMyInfoSetting());
-      waitFor(() => {
-        expect(result.current.userInfo).toStrictEqual({
-          content: mockedUserInfo,
-          loading: false,
-          error: false,
-        });
-        expect(result.current.nicknameInputRef.current).toBe("testNickname");
-      });
-    });
-
-    it("에러가 발생한 경우", async () => {
-      jest.spyOn(newReact, "useRef").mockReturnValue({current: {value: ""}});
-      mockedAxios.get.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "error",
-        })
-      );
-
-      const {result} = renderHook(() => useMyInfoSetting(), {});
-
-      waitFor(() => {
-        expect(result.current.userInfo).toStrictEqual({
-          loading: false,
-          error: true,
-        });
-      });
-    });
-  });
-
   describe("changeNickname 함수 테스트", () => {
     it("정상적으로 변경되는 경우", async () => {
-      jest.spyOn(newReact, "useRef").mockReturnValue({current: {value: ""}});
+      jest
+        .spyOn(newReact, "useRef")
+        .mockReturnValueOnce({current: {value: ""}});
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
       mockedAxios.patch.mockImplementation(() =>
@@ -155,13 +117,22 @@ describe("MyInfoSetting Hook 테스트", () => {
           data: mockedUserInfo,
         })
       );
-      const {result} = renderHook(() => useMyInfoSetting());
+      const {result} = renderHook(() =>
+        useMyInfoSetting({
+          content: mockedUserInfo,
+          loading: false,
+          error: false,
+        })
+      );
       await act(async () => {
         await result.current.changeNickname();
       });
       expect(window.alert).toBeCalledWith("수정되었습니다");
     });
     it("에러가 발생한 경우", async () => {
+      jest
+        .spyOn(newReact, "useRef")
+        .mockReturnValueOnce({current: {value: ""}});
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
       mockedAxios.patch.mockImplementation(() =>
@@ -170,7 +141,13 @@ describe("MyInfoSetting Hook 테스트", () => {
           data: "data",
         })
       );
-      const {result} = renderHook(() => useMyInfoSetting());
+      const {result} = renderHook(() =>
+        useMyInfoSetting({
+          content: mockedUserInfo,
+          loading: false,
+          error: false,
+        })
+      );
       await act(async () => {
         await result.current.changeNickname();
       });

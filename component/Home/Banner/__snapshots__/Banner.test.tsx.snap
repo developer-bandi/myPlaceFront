@@ -43,8 +43,8 @@ exports[`Banner Presentational 테스트 0번 배너 렌더링 1`] = `
             alt="searchImg"
             data-nimg="intrinsic"
             decoding="async"
-            src="undefined//slide/slide0_jlhmsf.svg"
-            srcset="undefined//slide/slide0_jlhmsf.svg 1x, undefined//slide/slide0_jlhmsf.svg 2x"
+            src="undefined/w_800,h_500undefined//slide/slide0_jlhmsf.svg"
+            srcset="undefined/w_800,h_500undefined//slide/slide0_jlhmsf.svg 1x, undefined/w_800,h_500undefined//slide/slide0_jlhmsf.svg 2x"
             style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
           />
         </span>
@@ -97,8 +97,8 @@ exports[`Banner Presentational 테스트 1번 배너 렌더링 1`] = `
             alt="searchImg"
             data-nimg="intrinsic"
             decoding="async"
-            src="undefined//slide/slide1_ysk06a.svg"
-            srcset="undefined//slide/slide1_ysk06a.svg 1x, undefined//slide/slide1_ysk06a.svg 2x"
+            src="undefined/w_800,h_500undefined//slide/slide1_ysk06a.svg"
+            srcset="undefined/w_800,h_500undefined//slide/slide1_ysk06a.svg 1x, undefined/w_800,h_500undefined//slide/slide1_ysk06a.svg 2x"
             style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
           />
         </span>
@@ -151,8 +151,8 @@ exports[`Banner Presentational 테스트 2번 배너 렌더링 1`] = `
             alt="searchImg"
             data-nimg="intrinsic"
             decoding="async"
-            src="undefined//slide/slide2_jckgbi.svg"
-            srcset="undefined//slide/slide2_jckgbi.svg 1x, undefined//slide/slide2_jckgbi.svg 2x"
+            src="undefined/w_800,h_500undefined//slide/slide2_jckgbi.svg"
+            srcset="undefined/w_800,h_500undefined//slide/slide2_jckgbi.svg 1x, undefined/w_800,h_500undefined//slide/slide2_jckgbi.svg 2x"
             style="position: absolute; top: 0px; left: 0px; bottom: 0px; right: 0px; box-sizing: border-box; padding: 0px; margin: auto; display: block; width: 0px; height: 0px; min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%;"
           />
         </span>

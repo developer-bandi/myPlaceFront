@@ -60,6 +60,7 @@ describe("AddReview Presentational 테스트", () => {
       deleteImg={deleteImgMock}
       textAreaRef={{current: null}}
       submit={submitMock}
+      loading={false}
     />
   );
   expect(utils.container).toMatchSnapshot();
@@ -92,7 +93,7 @@ describe("AddReview Hook 테스트", () => {
     },
     userLogin: {content: "test"},
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider store={flag ? blankMockStore : submitMockStore}>
       {children}
     </Provider>

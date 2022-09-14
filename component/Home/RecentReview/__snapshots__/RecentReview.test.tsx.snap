@@ -165,7 +165,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -204,7 +204,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -243,7 +243,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -282,7 +282,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -321,7 +321,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -360,7 +360,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -399,7 +399,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -438,7 +438,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -477,7 +477,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4
@@ -516,7 +516,7 @@ exports[`RecentReview Presentational 테스트 정상 출력 1`] = `
             <p
               class="time"
             >
-              testCreatedAt
+              NaN년 전
             </p>
           </div>
           <h4

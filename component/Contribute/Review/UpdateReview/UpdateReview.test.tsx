@@ -59,6 +59,7 @@ describe("AddStoreInfo Presentational 테스트", () => {
       deleteUploadImg={deleteUploadImgMock}
       error={false}
       loading={false}
+      uploadLoading={false}
     />
   );
   expect(utils.container).toMatchSnapshot();
@@ -80,7 +81,7 @@ describe("UpdateReview Hook 테스트", () => {
   const storeInfoMockStore = configureMockStore()({
     hashtagAll: {},
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider store={storeInfoMockStore}>{children}</Provider>
   );
   describe("데이터를 받아오는 useEffect 테스트", () => {

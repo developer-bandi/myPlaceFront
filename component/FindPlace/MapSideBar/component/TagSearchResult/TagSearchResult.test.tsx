@@ -16,7 +16,7 @@ const mockStore = configureMockStore()({
   searchResult: {},
   hashtagSearchCondition: {},
 });
-const wrapper = ({children}: any) => (
+const wrapper = ({children}: {children: React.ReactNode}) => (
   <Provider store={mockStore}>{children}</Provider>
 );
 

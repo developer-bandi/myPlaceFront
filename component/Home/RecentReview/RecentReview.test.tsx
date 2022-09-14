@@ -1,18 +1,6 @@
-import {
-  fireEvent,
-  render,
-  renderHook,
-  screen,
-  waitFor,
-} from "@testing-library/react";
-import configureMockStore from "redux-mock-store";
-import {Provider} from "react-redux";
-import axios from "axios";
-import useRecentReview from "./RecentReviewHook";
+import {fireEvent, render, screen} from "@testing-library/react";
 import RecentReview from "./RecentReview";
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 const recentReviewMock = {
   count: 15,
   rows: new Array(10).fill(0).map((data, index) => {
@@ -30,59 +18,11 @@ const recentReviewMock = {
   }),
 };
 
-describe("RecentReview Hook 테스트", () => {
-  const mockStore = configureMockStore()({});
-  const wrapper = ({children}: any) => (
-    <Provider store={mockStore}>{children}</Provider>
-  );
-  describe("데이터 로드 useEffect test", () => {
-    it("정상적으로 받아오는 경우", () => {
-      mockedAxios.get.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: recentReviewMock,
-        })
-      );
-
-      const {result} = renderHook(() => useRecentReview(), {
-        wrapper,
-      });
-
-      waitFor(() => {
-        expect(result.current.recentReviewData).toStrictEqual({
-          content: recentReviewMock,
-          loading: false,
-          error: false,
-        });
-      });
-    });
-
-    it("에러가 발생한 경우", () => {
-      mockedAxios.get.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "error",
-        })
-      );
-      const {result} = renderHook(() => useRecentReview(), {
-        wrapper,
-      });
-
-      waitFor(() => {
-        expect(result.current.recentReviewData).toStrictEqual({
-          loading: false,
-          error: true,
-        });
-      });
-    });
-  });
-});
-
 describe("RecentReview Presentational 테스트", () => {
   it("로딩중", () => {
     const utils = render(
       <RecentReview
-        recentReviewData={{loading: true, error: false}}
+        serverData={{loading: true, error: false}}
         moveTargetStore={jest.fn()}
       />
     );
@@ -92,7 +32,7 @@ describe("RecentReview Presentational 테스트", () => {
   it("에러발생", () => {
     const utils = render(
       <RecentReview
-        recentReviewData={{loading: false, error: true}}
+        serverData={{loading: false, error: true}}
         moveTargetStore={jest.fn()}
       />
     );
@@ -103,7 +43,7 @@ describe("RecentReview Presentational 테스트", () => {
     const moveTargetStoreMock = jest.fn();
     const utils = render(
       <RecentReview
-        recentReviewData={{
+        serverData={{
           content: recentReviewMock,
           loading: false,
           error: false,

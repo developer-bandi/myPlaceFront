@@ -26,7 +26,7 @@ const commentListStateMock = {
 
 describe("myComment Hook test", () => {
   const store = configureMockStore()({});
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider store={store}>{children}</Provider>
   );
   describe("searchStoreInfo 함수 test", () => {

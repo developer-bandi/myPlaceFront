@@ -5,7 +5,6 @@ import {userInfoDataState} from "./MyInfoSettingContainer";
 
 const useMyInfoSetting = (serverData: userInfoDataState) => {
   const nicknameInputRef = useRef<HTMLInputElement>(null);
-  const isLabtopOrTabletOrMobile = useIsLabtopOrTabletOrMobile();
 
   useEffect(() => {
     if (nicknameInputRef.current !== null && serverData.content) {
@@ -25,7 +24,7 @@ const useMyInfoSetting = (serverData: userInfoDataState) => {
     }
   };
 
-  return {changeNickname, nicknameInputRef, isLabtopOrTabletOrMobile};
+  return {changeNickname, nicknameInputRef};
 };
 
 export default useMyInfoSetting;

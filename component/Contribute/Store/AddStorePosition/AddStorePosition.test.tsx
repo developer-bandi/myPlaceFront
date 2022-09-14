@@ -58,7 +58,7 @@ describe("AddStorePosition Hook 테스트", () => {
       latitude: "testLatitude",
     },
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider
       store={infoBlank ? StorePositionMockStore : SettedStorePositionMockStore}
     >
@@ -75,7 +75,7 @@ describe("AddStorePosition Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "ok");
                 },
               };
@@ -126,7 +126,7 @@ describe("AddStorePosition Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "zero_result");
                 },
               };
@@ -181,7 +181,7 @@ describe("AddStorePosition Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "error");
                 },
               };

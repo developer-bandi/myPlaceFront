@@ -8,7 +8,7 @@ import {
 } from "@testing-library/react";
 import axios from "axios";
 import {useRouter} from "next/router";
-import React from "react";
+import React, {ReactNode} from "react";
 import {Provider} from "react-redux";
 import configureMockStore from "redux-mock-store";
 import WritePost from "./WritePost";
@@ -39,7 +39,7 @@ describe("writePost Hook test", () => {
         error: false,
       },
     });
-    const wrapper = ({children}: any) => (
+    const wrapper = ({children}: {children: ReactNode}) => (
       <Provider store={loginStatus ? loginStoreMock : logoutStoreMock}>
         {children}
       </Provider>

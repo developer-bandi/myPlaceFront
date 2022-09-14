@@ -5,7 +5,7 @@ import {BiUserCircle} from "react-icons/bi";
 import {VscBell} from "react-icons/vsc";
 import {GoPrimitiveDot} from "react-icons/go";
 import NoticeContainer, {noticeListState} from "../Notice/NoticeContainer";
-import {mypageModalState} from "../../../store/reducers/modalStatus/Reducer";
+import {modalStatusState} from "../../../store/reducers/modalStatus/Reducer";
 import MyPageModalContainer from "../MyPageModal/MyPageModalContainer";
 
 interface HeaderProps {
@@ -13,7 +13,7 @@ interface HeaderProps {
   changePageModal: () => void;
   changeNoticeModal: () => void;
   serverData: noticeListState;
-  modalStatus: mypageModalState;
+  modalStatus: modalStatusState;
   isMobile: boolean;
 }
 
@@ -52,7 +52,7 @@ const Header = ({
               onClick={() => {
                 changeNoticeModal();
               }}
-              data-testid="modalActvieChange"
+              data-testid="changeNoticeModal"
               aria-label="notice"
             >
               <VscBell size={25} />
@@ -72,7 +72,7 @@ const Header = ({
               onClick={() => {
                 changePageModal();
               }}
-              data-testid="modalActvieChange"
+              data-testid="changePageModal"
               aria-label="mypage"
             >
               <BiUserCircle size={25} />

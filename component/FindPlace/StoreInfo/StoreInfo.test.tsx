@@ -49,8 +49,8 @@ describe("StoreInfo Presentational 테스트", () => {
         deleteBookMark={jest.fn()}
         deleteStoreTab={jest.fn()}
         modalStatus={{
-          desktop: {fold: false, storeInfoActive: false},
-          mobile: {fold: true},
+          desktop: {search: false, storeInfo: false},
+          mobile: {searchStoreInfo: true},
         }}
         isMobile={false}
       />
@@ -66,8 +66,8 @@ describe("StoreInfo Presentational 테스트", () => {
         deleteBookMark={jest.fn()}
         deleteStoreTab={jest.fn()}
         modalStatus={{
-          desktop: {fold: false, storeInfoActive: false},
-          mobile: {fold: true},
+          desktop: {search: false, storeInfo: false},
+          mobile: {searchStoreInfo: true},
         }}
         isMobile={false}
       />
@@ -83,8 +83,8 @@ describe("StoreInfo Presentational 테스트", () => {
         deleteBookMark={jest.fn()}
         deleteStoreTab={jest.fn()}
         modalStatus={{
-          desktop: {fold: false, storeInfoActive: false},
-          mobile: {fold: true},
+          desktop: {search: false, storeInfo: false},
+          mobile: {searchStoreInfo: true},
         }}
         isMobile={false}
       />
@@ -102,8 +102,8 @@ describe("StoreInfo Presentational 테스트", () => {
         deleteBookMark={jest.fn()}
         deleteStoreTab={deleteBookMarkMock}
         modalStatus={{
-          desktop: {fold: false, storeInfoActive: false},
-          mobile: {fold: true},
+          desktop: {search: false, storeInfo: false},
+          mobile: {searchStoreInfo: true},
         }}
         isMobile={true}
       />
@@ -123,14 +123,14 @@ describe("StoreInfo Hook 테스트", () => {
   const notLoginMockStore = mockStore({
     userLogin: {},
     storeInfo: {},
-    searchModal: {mobile: {fold: true}},
+    modalStatus: {mobile: {searchStoreInfo: true}},
   });
   const loginMockStore = configureMockStore()({
     userLogin: {content: {id: 1, nickname: "testNickname"}},
     storeInfo: {},
-    searchModal: {mobile: {fold: true}},
+    modalStatus: {mobile: {searchStoreInfo: true}},
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider store={login ? loginMockStore : notLoginMockStore}>
       {children}
     </Provider>

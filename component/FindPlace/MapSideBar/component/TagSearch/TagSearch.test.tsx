@@ -25,7 +25,7 @@ const mockStore = configureMockStore()({
   },
   hashtagAll: {},
 });
-const wrapper = ({children}: any) => (
+const wrapper = ({children}: {children: React.ReactNode}) => (
   <Provider store={mockStore}>{children}</Provider>
 );
 describe("TagSearch Hook 테스트", () => {

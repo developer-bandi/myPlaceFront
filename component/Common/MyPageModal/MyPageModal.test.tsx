@@ -9,6 +9,7 @@ import {Provider} from "react-redux";
 import MyPageModal from "./MyPageModal";
 import configureMockStore from "redux-mock-store";
 import useMyPageModal from "./MyPageModalHook";
+import {ReactNode} from "react";
 
 describe("MyPageModal Presentational 테스트", () => {
   it("모바일 버전인 경우", () => {
@@ -44,7 +45,7 @@ describe("MyPageModal Presentational 테스트", () => {
 
 describe("Header Hook 테스트", () => {
   const mockStore = configureMockStore()({});
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: ReactNode}) => (
     <Provider store={mockStore}>{children}</Provider>
   );
 
@@ -66,7 +67,7 @@ describe("Header Hook 테스트", () => {
     });
     expect(mockStore.getActions()[1]).toEqual({
       payload: undefined,
-      type: "mypageModal/setActive",
+      type: "modalStatus/setMypage",
     });
   });
 });

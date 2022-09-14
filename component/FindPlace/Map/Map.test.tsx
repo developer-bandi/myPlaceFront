@@ -124,7 +124,7 @@ describe("Map Hook 테스트", () => {
       },
     }),
   };
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: React.ReactNode}) => (
     <Provider store={mockedStore[mockStore]}>{children}</Provider>
   );
   describe("핸들러 함수를 ref에 추가하는 useEffect", () => {
@@ -137,7 +137,7 @@ describe("Map Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "ok");
                 },
                 coord2Address: jest.fn(),
@@ -175,7 +175,7 @@ describe("Map Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "ok");
                 },
               };
@@ -219,7 +219,7 @@ describe("Map Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "ok");
                 },
               };
@@ -279,7 +279,7 @@ describe("Map Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "zero_result");
                 },
               };
@@ -321,7 +321,7 @@ describe("Map Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "error");
                 },
               };
@@ -376,7 +376,7 @@ describe("Map Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "error");
                 },
               };
@@ -423,7 +423,7 @@ describe("Map Hook 테스트", () => {
           services: {
             Geocoder: jest.fn(() => {
               return {
-                addressSearch: (input: any, callback: any) => {
+                addressSearch: (input: string, callback: Function) => {
                   callback([{x: "testx", y: "testy"}], "error");
                 },
               };

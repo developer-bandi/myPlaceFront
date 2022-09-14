@@ -7,7 +7,7 @@ import {
 } from "@testing-library/react";
 import axios from "axios";
 import {useRouter} from "next/router";
-import React from "react";
+import React, {ReactNode} from "react";
 import {Provider} from "react-redux";
 import configureMockStore from "redux-mock-store";
 import {postDetailType} from "../../../lib/apitype/post";
@@ -98,7 +98,7 @@ describe("postDetail Hook 테스트", () => {
       error: false,
     },
   });
-  const wrapper = ({children}: any) => (
+  const wrapper = ({children}: {children: ReactNode}) => (
     <Provider store={loginStatus ? loginMockStore : logoutMockStore}>
       {children}
     </Provider>

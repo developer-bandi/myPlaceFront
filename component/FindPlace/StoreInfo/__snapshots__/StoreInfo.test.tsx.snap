@@ -32,7 +32,7 @@ exports[`StoreInfo Presentational 테스트 스토어가 로딩중인 경우 1`]
 exports[`StoreInfo Presentational 테스트 에러가 발생한 경우 1`] = `
 <div>
   <section
-    class="mainBlock full"
+    class="mainBlock fold"
     data-testid="error"
   >
     <div

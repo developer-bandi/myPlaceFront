@@ -24,7 +24,7 @@ const mockStore = configureMockStore()({
     keyword: "testKeyword",
   },
 });
-const wrapper = ({children}: any) => (
+const wrapper = ({children}: {children: React.ReactNode}) => (
   <Provider store={mockStore}>{children}</Provider>
 );
 
