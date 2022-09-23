@@ -129,6 +129,7 @@ const MyReview = ({
               changePage={changePage}
               totalCount={reviewListState.content?.count as number}
               addStyle={"margin"}
+              unit={20}
             />
           </div>
         </div>

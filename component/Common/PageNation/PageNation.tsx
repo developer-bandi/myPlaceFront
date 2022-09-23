@@ -6,6 +6,7 @@ interface PageNationProps {
   changePage: (page: number) => Promise<void>;
   totalCount: number;
   addStyle?: string;
+  unit:number
 }
 
 const PageNation = ({
@@ -13,7 +14,9 @@ const PageNation = ({
   changePage,
   totalCount,
   addStyle,
+  unit
 }: PageNationProps) => {
+  console.log(page,changePage,totalCount,addStyle)
   return (
     <ul
       className={`${styles.pageButtonList} ${
@@ -38,25 +41,7 @@ const PageNation = ({
           </GrFormPrevious>
         </li>
       )}
-      {Math.ceil(page / 5) * 2 * 5 <= totalCount
-        ? [1, 2, 3, 4, 5].map((pageNumber) => {
-            return (
-              <li
-                className={`${styles.pageButton} ${
-                  Math.floor(page / 5) * 5 + pageNumber === page
-                    ? styles.selected
-                    : null
-                }`}
-                onClick={() => {
-                  changePage(Math.floor(page / 5) * 5 + pageNumber);
-                }}
-                key={pageNumber}
-              >
-                {Math.floor(page / 5) * 5 + pageNumber}
-              </li>
-            );
-          })
-        : new Array(Math.ceil((totalCount - Math.floor(page / 5) * 2 * 5) / 2))
+      {new Array(Math.min(Math.ceil((totalCount - Math.floor(page / 5) * unit * 5)/unit),5))
             .fill(0)
             .map((data, index) => {
               return (

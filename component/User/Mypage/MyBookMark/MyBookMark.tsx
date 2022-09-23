@@ -137,6 +137,7 @@ const MyBookMark = ({
               page={page}
               changePage={changePage}
               totalCount={bookMarkState.content?.count as number}
+              unit={24}
             />
           </div>
         </div>

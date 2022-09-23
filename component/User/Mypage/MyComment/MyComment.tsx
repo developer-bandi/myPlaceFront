@@ -86,6 +86,7 @@ const MyComment = ({
               changePage={changePage}
               totalCount={commentListState.content?.count as number}
               addStyle={"margin"}
+              unit={20}
             />
           </div>
         </div>

@@ -279,6 +279,7 @@ const PostList = ({
           changePage={changePage}
           totalCount={postList.content?.count as number}
           addStyle={"margin"}
+          unit={10}
         />
       </main>
     );

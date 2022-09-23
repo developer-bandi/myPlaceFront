@@ -38,7 +38,7 @@ const PostListPage = ({serverSideData}: PostListPageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await axiosGetPostList(1, "createdAt");
-
+  console.log(res.data)
   return {props: {serverSideData: res.data}};
 };
 
