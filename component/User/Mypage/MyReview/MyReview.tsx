@@ -8,7 +8,7 @@ import PageNation from "../../../Common/PageNation/PageNation";
 import {ReviewListState} from "./MyReviewContainer";
 
 const myLoader = ({src}: {src: string}) => {
-  return `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/imgs/${src}`;
+  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_200,h_200${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
 
 interface MyReviewProps {
