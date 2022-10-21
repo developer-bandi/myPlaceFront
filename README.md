@@ -1,4 +1,4 @@
-<p style="font-size:50px; margin:10px 0 20px 0;">MyPlace</p>
+<div style="font-size:50px; margin:10px 0 20px 0;">MyPlace</div>
 <p>사용기술 : next-js, redux,redux-toolkit, redux-saga, scss,typescript, jest, testing-library</p>
 <p style="margin:0 0 20px 0;">웹사이트 : <a href="https://movieinfoservice.netlify.app/">https://my-place-front-eosin.vercel.app</a></p>
 
