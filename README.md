@@ -2,6 +2,7 @@
 
 <p>사용기술 : next-js, redux,redux-toolkit, redux-saga, scss,typescript, jest, testing-library</p>
 <p style="margin:0 0 20px 0;">웹사이트 : <a href="https://movieinfoservice.netlify.app/">https://my-place-front-eosin.vercel.app</a></p>
+<p>(소셜 로그인은 관리자만 사용가능하며 서버가 sleep 상태 이므로 30초정도를 기다려야합니다)</p>
 
 ## 1.프로젝트 소개
 
