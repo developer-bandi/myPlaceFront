@@ -1095,26 +1095,6 @@ exports[`MyBookMark Presentational 테스트 노트북사이즈 이하일 경우
         >
           1
         </li>
-        <li
-          class="pageButton null"
-        >
-          2
-        </li>
-        <li
-          class="pageButton null"
-        >
-          3
-        </li>
-        <li
-          class="pageButton null"
-        >
-          4
-        </li>
-        <li
-          class="pageButton null"
-        >
-          5
-        </li>
         <li>
           <svg
             class="pageIcon ban"
@@ -2574,26 +2554,6 @@ exports[`MyBookMark Presentational 테스트 데스크톱 일 경우 정상 출�
           class="pageButton selected"
         >
           1
-        </li>
-        <li
-          class="pageButton null"
-        >
-          2
-        </li>
-        <li
-          class="pageButton null"
-        >
-          3
-        </li>
-        <li
-          class="pageButton null"
-        >
-          4
-        </li>
-        <li
-          class="pageButton null"
-        >
-          5
         </li>
         <li>
           <svg

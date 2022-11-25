@@ -5,15 +5,15 @@ import {
   renderHook,
   screen,
 } from "@testing-library/react";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import Header from "./Header";
 import configureMockStore from "redux-mock-store";
 import useHeader from "./HeaderHook";
-import React, {ReactNode} from "react";
+import React, { ReactNode } from "react";
 
 describe("Header Presentational 테스트", () => {
   const loginMock = {
-    content: {id: 1, nickname: "test"},
+    content: { id: 1, nickname: "test" },
     loading: false,
     error: false,
   };
@@ -23,7 +23,7 @@ describe("Header Presentational 테스트", () => {
     error: false,
   };
 
-  const wrapper = ({children}: {children: ReactNode}) => (
+  const wrapper = ({ children }: { children: ReactNode }) => (
     <Provider store={configureMockStore()({})}>{children}</Provider>
   );
 
@@ -57,7 +57,7 @@ describe("Header Presentational 테스트", () => {
           }}
           isMobile={false}
         />,
-        {wrapper}
+        { wrapper }
       );
       fireEvent.click(screen.getByTestId("changePageModal"));
       fireEvent.click(screen.getByTestId("changeNoticeModal"));
@@ -72,14 +72,14 @@ describe("Header Presentational 테스트", () => {
           loginedUser={logoutMock}
           changePageModal={jest.fn()}
           changeNoticeModal={jest.fn()}
-          serverData={{loading: true, error: false}}
+          serverData={{ loading: true, error: false }}
           modalStatus={{
             mypage: false,
             notice: false,
           }}
           isMobile={false}
         />,
-        {wrapper}
+        { wrapper }
       );
       screen.getByTestId("logout");
       expect(utils.container).toMatchSnapshot();
@@ -91,14 +91,14 @@ describe("Header Presentational 테스트", () => {
           loginedUser={loginMock}
           changePageModal={jest.fn()}
           changeNoticeModal={jest.fn()}
-          serverData={{loading: true, error: false}}
+          serverData={{ loading: true, error: false }}
           modalStatus={{
             mypage: true,
             notice: false,
           }}
           isMobile={false}
         />,
-        {wrapper}
+        { wrapper }
       );
       expect(utils.container).toMatchSnapshot();
     });
@@ -110,14 +110,14 @@ describe("Header Presentational 테스트", () => {
         loginedUser={loginMock}
         changePageModal={jest.fn()}
         changeNoticeModal={jest.fn()}
-        serverData={{loading: true, error: false}}
+        serverData={{ loading: true, error: false }}
         modalStatus={{
           mypage: false,
           notice: true,
         }}
         isMobile={false}
       />,
-      {wrapper}
+      { wrapper }
     );
     expect(utils.container).toMatchSnapshot();
   });
@@ -129,14 +129,14 @@ describe("Header Presentational 테스트", () => {
           loginedUser={logoutMock}
           changePageModal={jest.fn()}
           changeNoticeModal={jest.fn()}
-          serverData={{loading: true, error: false}}
+          serverData={{ loading: true, error: false }}
           modalStatus={{
             mypage: false,
             notice: true,
           }}
           isMobile={true}
         />,
-        {wrapper}
+        { wrapper }
       );
       screen.getByTestId("mobile");
       expect(utils.container).toMatchSnapshot();
@@ -154,12 +154,12 @@ describe("Header Hook 테스트", () => {
       active: false,
     },
   });
-  const wrapper = ({children}: {children: ReactNode}) => (
+  const wrapper = ({ children }: { children: ReactNode }) => (
     <Provider store={mockStore}>{children}</Provider>
   );
 
   it("로그인 체크하는 useEffect 테스트", () => {
-    renderHook(() => useHeader(), {wrapper});
+    renderHook(() => useHeader(), { wrapper });
     expect(mockStore.getActions()[0]).toEqual({
       payload: undefined,
       type: "userLogin/checkSignin",
@@ -167,7 +167,7 @@ describe("Header Hook 테스트", () => {
   });
 
   it("changePageModal 함수 테스트", () => {
-    const {result} = renderHook(() => useHeader(), {wrapper});
+    const { result } = renderHook(() => useHeader(), { wrapper });
     act(() => {
       result.current.changePageModal();
     });
@@ -181,7 +181,7 @@ describe("Header Hook 테스트", () => {
     });
   });
   it("changeNoticeModal 함수 테스트", () => {
-    const {result} = renderHook(() => useHeader(), {wrapper});
+    const { result } = renderHook(() => useHeader(), { wrapper });
     act(() => {
       result.current.changeNoticeModal();
     });
