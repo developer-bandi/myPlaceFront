@@ -42,7 +42,9 @@ const PageNation = ({
       )}
       {new Array(
         Math.min(
-          Math.ceil((totalCount - Math.floor(page / 5) * unit * 5) / unit),
+          Math.ceil(
+            (totalCount - Math.floor((page - 1) / 5) * unit * 5) / unit
+          ),
           5
         )
       )
@@ -51,7 +53,7 @@ const PageNation = ({
           return (
             <li
               className={`${styles.pageButton} ${
-                Math.floor(page / 5) * 5 + index + 1 === page
+                Math.floor((page - 1) / 5) * 5 + index + 1 === page
                   ? styles.selected
                   : null
               }`}
@@ -60,7 +62,7 @@ const PageNation = ({
               }}
               key={index}
             >
-              {Math.floor(page / 5) * 5 + index + 1}
+              {Math.floor((page - 1) / 5) * 5 + index + 1}
             </li>
           );
         })}
