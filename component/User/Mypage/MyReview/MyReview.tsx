@@ -3,11 +3,11 @@ import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import styles from "./MyReview.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
-import {setDateYearMonthDay} from "../../../../lib/commonFn/date";
-import PageNation from "../../../Common/PageNation/PageNation";
-import {ReviewListState} from "./MyReviewContainer";
+import { setDateYearMonthDay } from "../../../../lib/commonFn/date";
+import { ReviewListState } from "./MyReviewContainer";
+import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
 
-const myLoader = ({src}: {src: string}) => {
+const myLoader = ({ src }: { src: string }) => {
   return `${process.env.NEXT_PUBLIC_IMG_URL}/w_200,h_200${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
 
@@ -124,12 +124,13 @@ const MyReview = ({
                   </div>
                 );
               })}
-            <PageNation
+            <PageNationContainer
               page={page}
               changePage={changePage}
-              totalCount={reviewListState.content?.count as number}
+              totalAmount={reviewListState.content?.count as number}
               addStyle={"margin"}
-              unit={20}
+              contentUnit={20}
+              pageUnit={5}
             />
           </div>
         </div>

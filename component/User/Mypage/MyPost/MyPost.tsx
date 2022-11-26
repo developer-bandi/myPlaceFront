@@ -3,12 +3,12 @@ import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import styles from "./MyPost.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
-import {setDateYearMonthDay} from "../../../../lib/commonFn/date";
-import {postListState} from "./MyPostHook";
-import {GrView} from "react-icons/gr";
-import {FaRegComment} from "react-icons/fa";
-import {BiLike} from "react-icons/bi";
-import PageNation from "../../../Common/PageNation/PageNation";
+import { setDateYearMonthDay } from "../../../../lib/commonFn/date";
+import { postListState } from "./MyPostHook";
+import { GrView } from "react-icons/gr";
+import { FaRegComment } from "react-icons/fa";
+import { BiLike } from "react-icons/bi";
+import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
 
 interface PostListProps {
   postListState: postListState;
@@ -92,12 +92,13 @@ const MyPost = ({
                 </div>
               );
             })}
-            <PageNation
+            <PageNationContainer
               page={page}
               changePage={changePage}
-              totalCount={postListState.content?.count as number}
+              totalAmount={postListState.content?.count as number}
               addStyle={"margin"}
-              unit={20}
+              contentUnit={20}
+              pageUnit={5}
             />
           </div>
         </div>

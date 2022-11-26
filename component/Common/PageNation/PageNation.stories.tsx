@@ -25,7 +25,6 @@ const Template: ComponentStory<typeof PageNation> = (arg) => {
         new Promise((resolve) => {
           action("changePage")();
           setPage(page);
-          console.log(page);
           resolve();
         })
       }
@@ -33,23 +32,45 @@ const Template: ComponentStory<typeof PageNation> = (arg) => {
   );
 };
 
-export const beforePageSetBan = Template.bind({});
-beforePageSetBan.args = {
-  page: 5,
-  totalCount: 100,
-  unit: 10,
-};
-
-export const afterPageSetBan = Template.bind({});
-afterPageSetBan.args = {
-  page: 6,
-  totalCount: 100,
-  unit: 10,
+export const smallPageSet = Template.bind({});
+smallPageSet.args = {
+  page: 1,
+  totalAmount: 30,
+  contentUnit: 10,
+  pageUnit: 5,
+  allowPrevPageSet: () => false,
+  makePages: () => [1, 2, 3],
+  allowNextPageSet: () => false,
 };
 
 export const generalPageSet = Template.bind({});
 generalPageSet.args = {
   page: 6,
-  totalCount: 150,
-  unit: 10,
+  totalAmount: 150,
+  contentUnit: 10,
+  pageUnit: 5,
+  allowPrevPageSet: ({ page }: { page: number }) => {
+    if (page > 5) return true;
+    return false;
+  },
+  makePrevSetPage: ({ page }: { page: number }) => {
+    if (page <= 10) return 1;
+    if (page <= 15) return 6;
+    return 0;
+  },
+  makePages: ({ page }: { page: number }) => {
+    if (page <= 5) return [1, 2, 3, 4, 5];
+    if (page <= 10) return [6, 7, 8, 9, 10];
+    if (page <= 15) return [11, 12, 13, 14, 15];
+    return [];
+  },
+  allowNextPageSet: ({ page }: { page: number }) => {
+    if (page <= 10) return true;
+    return false;
+  },
+  makeNextSetPage: ({ page }: { page: number }) => {
+    if (page <= 5) return 6;
+    if (page <= 10) return 11;
+    return 0;
+  },
 };

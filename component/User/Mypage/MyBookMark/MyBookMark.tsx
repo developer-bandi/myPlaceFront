@@ -3,10 +3,10 @@ import mypage from "../../../../lib/styles/mypage.module.scss";
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import Image from "next/image";
-import {GrView} from "react-icons/gr";
-import {BiBookmark, BiCommentDetail} from "react-icons/bi";
-import PageNation from "../../../Common/PageNation/PageNation";
-import {bookMarkState} from "./MyBookMarkContainer";
+import { GrView } from "react-icons/gr";
+import { BiBookmark, BiCommentDetail } from "react-icons/bi";
+import { bookMarkState } from "./MyBookMarkContainer";
+import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
 
 interface MyBookMarkProps {
   bookMarkState: bookMarkState;
@@ -22,7 +22,7 @@ interface MyBookMarkProps {
   isLabtopOrTabletOrMobile: boolean;
 }
 
-const myLoader = ({src}: {src: string}) => {
+const myLoader = ({ src }: { src: string }) => {
   return `${process.env.NEXT_PUBLIC_IMG_URL}/w_600,h_400${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
 const MyBookMark = ({
@@ -133,11 +133,12 @@ const MyBookMark = ({
                   </div>
                 );
               })}
-            <PageNation
+            <PageNationContainer
               page={page}
               changePage={changePage}
-              totalCount={bookMarkState.content?.count as number}
-              unit={24}
+              totalAmount={bookMarkState.content?.count as number}
+              contentUnit={24}
+              pageUnit={5}
             />
           </div>
         </div>

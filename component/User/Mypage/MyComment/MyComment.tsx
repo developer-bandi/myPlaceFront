@@ -3,9 +3,9 @@ import styles from "./MyComment.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import Image from "next/image";
-import {commentListState} from "./MyCommentContainer";
-import PageNation from "../../../Common/PageNation/PageNation";
-import {setDateLatest} from "../../../../lib/commonFn/date";
+import { commentListState } from "./MyCommentContainer";
+import { setDateLatest } from "../../../../lib/commonFn/date";
+import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
 
 interface PostListProps {
   commentListState: commentListState;
@@ -81,12 +81,13 @@ const MyComment = ({
                 </div>
               );
             })}
-            <PageNation
+            <PageNationContainer
               page={page}
               changePage={changePage}
-              totalCount={commentListState.content?.count as number}
+              totalAmount={commentListState.content?.count as number}
               addStyle={"margin"}
-              unit={20}
+              contentUnit={20}
+              pageUnit={5}
             />
           </div>
         </div>

@@ -1,20 +1,65 @@
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import styles from "./PageNation.module.scss";
+import { PageNationContainerProps } from "./PageNationContainer";
 
-interface PageNationProps {
-  page: number;
-  changePage: (page: number) => Promise<void>;
-  totalCount: number;
-  addStyle?: string;
-  unit: number;
+interface PageNationProps extends PageNationContainerProps {
+  allowPrevPageSet: ({
+    page,
+    pageUnit,
+  }: {
+    page: number;
+    pageUnit: number;
+  }) => boolean;
+  makePrevSetPage: ({
+    page,
+    pageUnit,
+  }: {
+    page: number;
+    pageUnit: number;
+  }) => number;
+  makePages: ({
+    page,
+    totalAmount,
+    contentUnit,
+    pageUnit,
+  }: {
+    page: number;
+    totalAmount: number;
+    contentUnit: number;
+    pageUnit: number;
+  }) => number[];
+  allowNextPageSet: ({
+    page,
+    totalAmount,
+    contentUnit,
+    pageUnit,
+  }: {
+    page: number;
+    totalAmount: number;
+    contentUnit: number;
+    pageUnit: number;
+  }) => boolean;
+  makeNextSetPage: ({
+    page,
+    pageUnit,
+  }: {
+    page: number;
+    pageUnit: number;
+  }) => number;
 }
 
 const PageNation = ({
   page,
   changePage,
-  totalCount,
+  totalAmount,
   addStyle,
-  unit,
+  pageUnit,
+  contentUnit,
+  allowPrevPageSet,
+  makePrevSetPage,
+  makePages,
+  allowNextPageSet,
+  makeNextSetPage,
 }: PageNationProps) => {
   return (
     <ul
@@ -22,68 +67,43 @@ const PageNation = ({
         addStyle !== undefined ? styles[addStyle] : null
       }`}
     >
-      {page > 5 ? (
-        <li key={"prev"}>
-          <GrFormPrevious
-            className={styles.pageIcon}
+      <li key={"prev"}>
+        <GrFormPrevious
+          className={`${styles.pageIcon} ${page > 5 ? "" : styles.ban}`}
+          onClick={() => {
+            if (allowPrevPageSet({ page, pageUnit }))
+              changePage(makePrevSetPage({ page, pageUnit }));
+          }}
+        />
+      </li>
+      {makePages({ page, totalAmount, contentUnit, pageUnit }).map((cur) => {
+        return (
+          <li
+            className={`${styles.pageButton} ${
+              cur === page ? styles.selected : ""
+            }`}
             onClick={() => {
-              changePage((Math.floor(page / 5) - 1) * 5 + 1);
+              changePage(cur);
             }}
+            key={cur}
           >
-            이전
-          </GrFormPrevious>
-        </li>
-      ) : (
-        <li key={"prev"}>
-          <GrFormPrevious className={`${styles.pageIcon} ${styles.ban}`}>
-            이전
-          </GrFormPrevious>
-        </li>
-      )}
-      {new Array(
-        Math.min(
-          Math.ceil(
-            (totalCount - Math.floor((page - 1) / 5) * unit * 5) / unit
-          ),
-          5
-        )
-      )
-        .fill(0)
-        .map((data, index) => {
-          return (
-            <li
-              className={`${styles.pageButton} ${
-                Math.floor((page - 1) / 5) * 5 + index + 1 === page
-                  ? styles.selected
-                  : null
-              }`}
-              onClick={() => {
-                changePage(Math.floor(page / 5) * 5 + index + 1);
-              }}
-              key={index}
-            >
-              {Math.floor((page - 1) / 5) * 5 + index + 1}
-            </li>
-          );
-        })}
-      {Math.ceil(page / 5) * unit * 5 < totalCount ? (
-        <li key={"next"}>
-          <GrFormNext
-            className={styles.pageIcon}
-            onClick={() => {
-              changePage(Math.ceil(page / 5) * 5 + 1);
-            }}
-          >
-            이후
-          </GrFormNext>
-        </li>
-      ) : (
-        <li key={"next"}>
-          <GrFormNext className={`${styles.pageIcon} ${styles.ban}`}>
-            이후
-          </GrFormNext>
-        </li>
-      )}
+            {cur}
+          </li>
+        );
+      })}
+      <li key={"next"}>
+        <GrFormNext
+          className={`${styles.pageIcon} ${
+            allowNextPageSet({ page, totalAmount, contentUnit, pageUnit })
+              ? ""
+              : styles.ban
+          }`}
+          onClick={() => {
+            if (allowNextPageSet({ page, totalAmount, contentUnit, pageUnit }))
+              changePage(makeNextSetPage({ page, pageUnit }));
+          }}
+        />
+      </li>
     </ul>
   );
 };
