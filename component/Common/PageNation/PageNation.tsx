@@ -1,4 +1,4 @@
-import {GrFormNext, GrFormPrevious} from "react-icons/gr";
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import styles from "./PageNation.module.scss";
 
 interface PageNationProps {
@@ -6,7 +6,7 @@ interface PageNationProps {
   changePage: (page: number) => Promise<void>;
   totalCount: number;
   addStyle?: string;
-  unit:number
+  unit: number;
 }
 
 const PageNation = ({
@@ -14,9 +14,8 @@ const PageNation = ({
   changePage,
   totalCount,
   addStyle,
-  unit
+  unit,
 }: PageNationProps) => {
-  console.log(page,changePage,totalCount,addStyle)
   return (
     <ul
       className={`${styles.pageButtonList} ${
@@ -41,26 +40,31 @@ const PageNation = ({
           </GrFormPrevious>
         </li>
       )}
-      {new Array(Math.min(Math.ceil((totalCount - Math.floor(page / 5) * unit * 5)/unit),5))
-            .fill(0)
-            .map((data, index) => {
-              return (
-                <li
-                  className={`${styles.pageButton} ${
-                    Math.floor(page / 5) * 5 + index + 1 === page
-                      ? styles.selected
-                      : null
-                  }`}
-                  onClick={() => {
-                    changePage(Math.floor(page / 5) * 5 + index + 1);
-                  }}
-                  key={index}
-                >
-                  {Math.floor(page / 5) * 5 + index + 1}
-                </li>
-              );
-            })}
-      {Math.ceil(page / 5) * 2 * 5 < totalCount ? (
+      {new Array(
+        Math.min(
+          Math.ceil((totalCount - Math.floor(page / 5) * unit * 5) / unit),
+          5
+        )
+      )
+        .fill(0)
+        .map((data, index) => {
+          return (
+            <li
+              className={`${styles.pageButton} ${
+                Math.floor(page / 5) * 5 + index + 1 === page
+                  ? styles.selected
+                  : null
+              }`}
+              onClick={() => {
+                changePage(Math.floor(page / 5) * 5 + index + 1);
+              }}
+              key={index}
+            >
+              {Math.floor(page / 5) * 5 + index + 1}
+            </li>
+          );
+        })}
+      {Math.ceil(page / 5) * unit * 5 < totalCount ? (
         <li key={"next"}>
           <GrFormNext
             className={styles.pageIcon}
