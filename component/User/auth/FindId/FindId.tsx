@@ -1,6 +1,7 @@
 import { RefObject } from "react";
 import styles from "./FindId.module.scss";
 import authStyles from "../../../../lib/styles/auth.module.scss";
+import Body from "./Body/Body";
 
 interface FindIdProps {
   randomNumber:
@@ -27,21 +28,14 @@ const FindId = ({
       <main className={styles.mainBlock}>
         <div className={authStyles.subBlock}>
           <h1 className={authStyles.title}>아이디 찾기</h1>
-          <div className={authStyles.contentBlock}>
-            <div className={authStyles.subTitle}>이메일</div>
-            <input
-              className={authStyles.input}
-              ref={emailInputRef}
-              placeholder="이메일을 입력하세요"
-              key="email"
-              onKeyPress={sendMail}
-            />
-            <div className={authStyles.submitButtonBlock}>
-              <button className={authStyles.submitButton} onClick={sendMail}>
-                메일 전송
-              </button>
-            </div>
-          </div>
+          <Body
+            subTitle={"이메일"}
+            inputRef={emailInputRef}
+            placeHolder={"이메일을 입력하세요"}
+            key={"email"}
+            buttonChildren={"메일전송"}
+            eventHandler={sendMail}
+          />
         </div>
       </main>
     );
@@ -50,21 +44,14 @@ const FindId = ({
       <main className={styles.mainBlock}>
         <div className={authStyles.subBlock}>
           <h1 className={authStyles.title}>아이디 찾기</h1>
-          <div className={authStyles.contentBlock}>
-            <div className={authStyles.subTitle}>인증번호</div>
-            <input
-              className={authStyles.input}
-              ref={randomNumberInputRef}
-              placeholder="인증번호를 입력하세요"
-              key="randomNumber"
-              onKeyPress={getId}
-            />
-          </div>
-          <div className={authStyles.submitButtonBlock}>
-            <button className={authStyles.submitButton} onClick={getId}>
-              인증번호 확인
-            </button>
-          </div>
+          <Body
+            subTitle={"인증번호"}
+            inputRef={randomNumberInputRef}
+            placeHolder={"인증번호를 입력하세요"}
+            key={"randomNumber"}
+            buttonChildren={"인증번호 확인"}
+            eventHandler={getId}
+          />
         </div>
       </main>
     );
