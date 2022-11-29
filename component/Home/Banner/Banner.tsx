@@ -1,18 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
-import {BannerDataType} from "../../../pages";
+import { loader } from "../../../lib/commonFn/loader";
+import { BannerDataType } from "../../../pages";
 import styles from "./Banner.module.scss";
 
 interface BannerProps {
   carouselNumber: number;
-  bannerData: {content?: BannerDataType[]; error: boolean};
+  bannerData: { content?: BannerDataType[]; error: boolean };
 }
 
-const myLoader = ({src}: {src: string}) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_800,h_500${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
-};
-
-const Banner = ({carouselNumber, bannerData}: BannerProps) => {
+const Banner = ({ carouselNumber, bannerData }: BannerProps) => {
   if (bannerData.error) {
     return (
       <section
@@ -44,9 +41,9 @@ const Banner = ({carouselNumber, bannerData}: BannerProps) => {
                 </p>
               </div>
               <Image
-                loader={myLoader}
+                loader={loader({ width: 800, height: 500 })}
                 src={bannerData.content[carouselNumber].img}
-                alt="searchImg"
+                alt="bannerImg"
                 width="400px"
                 height="250px"
                 priority={true}
@@ -56,9 +53,8 @@ const Banner = ({carouselNumber, bannerData}: BannerProps) => {
         </Link>
       </section>
     );
-  } else {
-    return <div></div>;
   }
+  return null;
 };
 
 export default Banner;
