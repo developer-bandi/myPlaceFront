@@ -1,11 +1,11 @@
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
-import styles from "./MyComment.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import Image from "next/image";
 import { commentListState } from "./MyCommentContainer";
 import { setDateLatest } from "../../../../lib/commonFn/date";
 import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
+import Comment from "./Comment/Comment";
 
 interface PostListProps {
   commentListState: commentListState;
@@ -64,21 +64,13 @@ const MyComment = ({
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 포스트</h1>
-            {commentListState.content?.rows.map((post, index) => {
+            {commentListState.content?.rows.map((post) => {
+              post.createdAt = setDateLatest(post.createdAt);
               return (
-                <div
-                  className={styles.postBlock}
-                  onClick={() => movePostDetailPage(post.id)}
-                  key={post.id}
-                >
-                  <div className={styles.topBlock}>
-                    <div className={styles.user}>{post.nickname}</div>
-                    <div className={styles.date}>
-                      {setDateLatest(post.createdAt)}
-                    </div>
-                  </div>
-                  <p className={styles.content}>{post.content}</p>
-                </div>
+                <Comment
+                  content={post}
+                  movePostDetailPage={movePostDetailPage}
+                />
               );
             })}
             <PageNationContainer
