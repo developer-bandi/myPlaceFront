@@ -1,8 +1,10 @@
-import {RefObject} from "react";
+import { RefObject } from "react";
 import styles from "./SignupForm.module.scss";
 import authStyles from "../../../../lib/styles/auth.module.scss";
+import InputBlock from "./InputBlock/InputBlock";
+import SubmitButton from "./SubmitButton/SubmitButton";
 interface SignUpFormProps {
-  signup: (e: {key?: string; type: string}) => Promise<void>;
+  signup: (e: { key?: string; type: string }) => Promise<void>;
   idInputRef: RefObject<HTMLInputElement>;
   passwordInputRef: RefObject<HTMLInputElement>;
   passwordCheckInputRef: RefObject<HTMLInputElement>;
@@ -22,67 +24,41 @@ const SignupForm = ({
     <main className={styles.mainBlock}>
       <div className={authStyles.subBlock}>
         <h1 className={authStyles.title}>회원가입</h1>
-        <div className={authStyles.contentBlock}>
-          <h2 className={authStyles.subTitle}>아이디</h2>
-          <input
-            className={authStyles.input}
-            placeholder="아이디를 10자리 미만으로 기입하세요"
-            ref={idInputRef}
-            onKeyPress={signup}
-            data-testid="id"
-          />
-        </div>
-        <div className={authStyles.contentBlock}>
-          <h2 className={authStyles.subTitle}>비밀번호</h2>
-          <input
-            className={authStyles.input}
-            placeholder="비밀번호를 10자리 미만으로 기입하세요"
-            ref={passwordInputRef}
-            type="password"
-            onKeyPress={signup}
-            data-testid="password"
-          />
-        </div>
-        <div className={authStyles.contentBlock}>
-          <h2 className={authStyles.subTitle}>비밀번호 확인</h2>
-          <input
-            className={authStyles.input}
-            placeholder="위와 동일한 비밀번호를 입력하세요"
-            ref={passwordCheckInputRef}
-            type="password"
-            onKeyPress={signup}
-            data-testid="passwordCheck"
-          />
-        </div>
-        <div className={authStyles.contentBlock}>
-          <h2 className={authStyles.subTitle}>닉네임</h2>
-          <input
-            className={authStyles.input}
-            placeholder="닉네임을 5자리 미만으로 기입하세요"
-            ref={nicknameInputRef}
-            onKeyPress={signup}
-            data-testid="nickname"
-          />
-        </div>
-        <div className={authStyles.contentBlock}>
-          <h2 className={authStyles.subTitle}>이메일</h2>
-          <input
-            className={authStyles.input}
-            placeholder="유효한 이메일을 입력하세요"
-            ref={emailInputRef}
-            onKeyPress={signup}
-            data-testid="email"
-          />
-        </div>
-        <div className={authStyles.submitButtonBlock}>
-          <button
-            className={authStyles.submitButton}
-            onClick={signup}
-            data-testid="signup"
-          >
-            회원가입
-          </button>
-        </div>
+        <InputBlock
+          subTitle={"아이디"}
+          placeHolder={"아이디를 10자리 미만으로 기입하세요"}
+          inputRef={idInputRef}
+          eventHandler={signup}
+        />
+        <InputBlock
+          subTitle={"비밀번호"}
+          placeHolder={"비밀번호를 10자리 미만으로 기입하세요"}
+          inputRef={passwordInputRef}
+          eventHandler={signup}
+          type={"password"}
+        />
+        <InputBlock
+          subTitle={"비밀번호 확인"}
+          placeHolder={"위와 동일한 비밀번호를 입력하세요"}
+          inputRef={passwordCheckInputRef}
+          eventHandler={signup}
+          type={"password"}
+        />
+        <InputBlock
+          subTitle={"닉네임"}
+          placeHolder={"닉네임을 5자리 미만으로 기입하세요"}
+          inputRef={nicknameInputRef}
+          eventHandler={signup}
+          type={"password"}
+        />
+        <InputBlock
+          subTitle={"이메일"}
+          placeHolder={"유효한 이메일을 입력하세요"}
+          inputRef={emailInputRef}
+          eventHandler={signup}
+          type={"password"}
+        />
+        <SubmitButton eventHandler={signup}>회원가입</SubmitButton>
       </div>
     </main>
   );
