@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import React from "react";
 import styles from "./MyPageNavigation.module.scss";
 
@@ -46,9 +46,9 @@ const MyPageNavigation = () => {
 };
 
 const menuCategoryArr = [
-  {title: "장소찾기", start: 0, end: 2},
-  {title: "커뮤니티", start: 2, end: 4},
-  {title: "계정", start: 4, end: 7},
+  { title: "장소찾기", start: 0, end: 2 },
+  { title: "커뮤니티", start: 2, end: 4 },
+  { title: "계정", start: 4, end: 7 },
 ];
 
 const menuNameArr = [
@@ -59,6 +59,7 @@ const menuNameArr = [
   "내 정보",
   "회원 탈퇴",
 ];
+
 const menuRouterArr = [
   "bookmark",
   "review",
