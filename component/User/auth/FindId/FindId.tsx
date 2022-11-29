@@ -1,4 +1,4 @@
-import {RefObject} from "react";
+import { RefObject } from "react";
 import styles from "./FindId.module.scss";
 import authStyles from "../../../../lib/styles/auth.module.scss";
 
@@ -11,8 +11,8 @@ interface FindIdProps {
     | undefined;
   emailInputRef: RefObject<HTMLInputElement>;
   randomNumberInputRef: RefObject<HTMLInputElement>;
-  sendMail: (e: {key?: string; type: string}) => Promise<void>;
-  getId: (e: {key?: string; type: string}) => Promise<void>;
+  sendMail: (e: { key?: string; type: string }) => Promise<void>;
+  getId: (e: { key?: string; type: string }) => Promise<void>;
 }
 
 const FindId = ({
@@ -35,14 +35,9 @@ const FindId = ({
               placeholder="이메일을 입력하세요"
               key="email"
               onKeyPress={sendMail}
-              data-testid="email"
             />
             <div className={authStyles.submitButtonBlock}>
-              <button
-                className={authStyles.submitButton}
-                onClick={sendMail}
-                data-testid="sendMail"
-              >
+              <button className={authStyles.submitButton} onClick={sendMail}>
                 메일 전송
               </button>
             </div>
@@ -63,15 +58,10 @@ const FindId = ({
               placeholder="인증번호를 입력하세요"
               key="randomNumber"
               onKeyPress={getId}
-              data-testid="randomNumber"
             />
           </div>
           <div className={authStyles.submitButtonBlock}>
-            <button
-              className={authStyles.submitButton}
-              onClick={getId}
-              data-testid="getId"
-            >
+            <button className={authStyles.submitButton} onClick={getId}>
               인증번호 확인
             </button>
           </div>
