@@ -1,6 +1,6 @@
-@import "../../../../lib/styles/globalmixin.scss";
+@import "../../../../../lib/styles/globalmixin.scss";
 
-.bookMarkBlock {
+.mainBlock {
   position: relative;
   width: 225px;
   margin: 0px 33.3px 50px 0px;
@@ -11,10 +11,12 @@
   &.four {
     margin: 0px 0px 50px 0px;
   }
+
   @media screen and (max-width: 1200px) {
     width: calc(25% - 18.75px);
     margin: 0px 25px 50px 0px;
   }
+
   @media screen and (max-width: 1050px) {
     width: calc(33.333% - 16.7px);
     &.four {
@@ -24,6 +26,7 @@
       margin: 0px 0px 50px 0px;
     }
   }
+
   @media screen and (max-width: 767px) {
     width: calc(50% - 12.5px);
     margin: 0px 25px 30px 0px;
@@ -34,23 +37,6 @@
       margin: 0px 0px 50px 0px;
     }
   }
-}
-
-.name {
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 5px;
-}
-
-.category {
-  margin-bottom: 10px;
-}
-
-.adress {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .storeList {
@@ -75,7 +61,7 @@
   margin: 0px 0px 10px 0px;
 }
 
-.storeName {
+.name {
   font-size: 18px;
   font-weight: 500;
   margin: 0px 0px 10px 0px;

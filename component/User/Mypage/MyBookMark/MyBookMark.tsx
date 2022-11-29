@@ -1,12 +1,10 @@
-import styles from "./MyBookMark.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import Image from "next/image";
-import { GrView } from "react-icons/gr";
-import { BiBookmark, BiCommentDetail } from "react-icons/bi";
 import { bookMarkState } from "./MyBookMarkContainer";
 import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
+import Store from "./Store/Store";
 
 interface MyBookMarkProps {
   bookMarkState: bookMarkState;
@@ -22,9 +20,6 @@ interface MyBookMarkProps {
   isLabtopOrTabletOrMobile: boolean;
 }
 
-const myLoader = ({ src }: { src: string }) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_600,h_400${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
-};
 const MyBookMark = ({
   bookMarkState,
   moveTargetStore,
@@ -77,60 +72,11 @@ const MyBookMark = ({
             {bookMarkState.content !== undefined &&
               bookMarkState.content.rows.map((storeData, index) => {
                 return (
-                  <div
-                    className={`${styles.bookMarkBlock} ${
-                      (index + 1) % 2 === 0 ? styles.two : null
-                    } ${(index + 1) % 3 === 0 ? styles.three : null} ${
-                      (index + 1) % 4 === 0 ? styles.four : null
-                    }`}
-                    onClick={() =>
-                      moveTargetStore(
-                        storeData.id,
-                        storeData.name,
-                        storeData.latitude,
-                        storeData.longitude,
-                        storeData.address
-                      )
-                    }
-                    data-testid={`moveTargetStore${index}`}
-                    key={storeData.id}
-                  >
-                    {storeData.photo !== undefined ? (
-                      <div className={styles.image}>
-                        <Image
-                          loader={myLoader}
-                          src={`/${storeData.photo}`}
-                          alt="searchImg"
-                          layout="fill"
-                        />
-                      </div>
-                    ) : (
-                      <div className={styles.image}>
-                        <Image
-                          src={`/107.svg`}
-                          alt="searchImg"
-                          layout="fill"
-                          priority={true}
-                        />
-                      </div>
-                    )}
-                    <h4 className={styles.storeName}>{storeData.name}</h4>
-                    <p className={styles.address}>{storeData.address}</p>
-                    <ul className={styles.infoList}>
-                      <li className={styles.info}>
-                        <GrView />
-                        {storeData.viewCount}
-                      </li>
-                      <li className={styles.info}>
-                        <BiBookmark />
-                        {storeData.bookmark}
-                      </li>
-                      <li className={styles.info}>
-                        <BiCommentDetail />
-                        {storeData.review}
-                      </li>
-                    </ul>
-                  </div>
+                  <Store
+                    content={storeData}
+                    index={index}
+                    moveTargetStore={moveTargetStore}
+                  />
                 );
               })}
             <PageNationContainer
