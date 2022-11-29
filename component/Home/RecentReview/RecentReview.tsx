@@ -1,6 +1,6 @@
 import styles from "./RecentReview.module.scss";
-import {setDateLatest} from "../../../lib/commonFn/date";
-import {reviewRecentState} from "./RecentReviewContainer";
+import { setDateLatest } from "../../../lib/commonFn/date";
+import { reviewRecentState } from "./RecentReviewContainer";
 
 interface RecentReviewProps {
   serverData: reviewRecentState;
@@ -13,7 +13,7 @@ interface RecentReviewProps {
   ) => void;
 }
 
-const RecentReview = ({serverData, moveTargetStore}: RecentReviewProps) => {
+const RecentReview = ({ serverData, moveTargetStore }: RecentReviewProps) => {
   if (serverData.loading) {
     return (
       <section className={styles.mainBlock} data-testid="loading">
@@ -70,7 +70,7 @@ const RecentReview = ({serverData, moveTargetStore}: RecentReviewProps) => {
             </p>
           </div>
           <div className={styles.reviewList}>
-            {serverData.content.rows.map((review, index) => {
+            {serverData.content.rows.map((review) => {
               return (
                 <div className={styles.reviewBlock} key={review.id}>
                   <div className={styles.headBlock}>
@@ -90,7 +90,6 @@ const RecentReview = ({serverData, moveTargetStore}: RecentReviewProps) => {
                         review.storeAddress
                       )
                     }
-                    data-testid={`moveTargetStore${index}`}
                   >
                     {review.storeName}
                   </h4>
@@ -111,9 +110,8 @@ const RecentReview = ({serverData, moveTargetStore}: RecentReviewProps) => {
         </div>
       </section>
     );
-  } else {
-    return <div></div>;
   }
+  return null;
 };
 
 export default RecentReview;

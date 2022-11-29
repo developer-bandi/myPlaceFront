@@ -1,4 +1,4 @@
-import {axiosGetRecentReview} from "../../../lib/commonFn/api";
+import { axiosGetRecentReview } from "../../../lib/commonFn/api";
 import useGetServerData from "../../../lib/customHook/getData";
 import useMoveTargetStore from "../../../lib/customHook/moveTargetStore";
 import RecentReview from "./RecentReview";
@@ -16,14 +16,15 @@ export interface recentReviewData {
 }
 
 export interface reviewRecentState {
-  content?: {count: number; rows: recentReviewData[]};
+  content?: { count: number; rows: recentReviewData[] };
   loading: boolean;
   error: boolean;
 }
 
 const RecentReviewContainer = () => {
-  const {serverData} = useGetServerData(axiosGetRecentReview);
-  const {moveTargetStore} = useMoveTargetStore();
+  const { serverData } = useGetServerData(axiosGetRecentReview);
+  const { moveTargetStore } = useMoveTargetStore();
+
   return (
     <RecentReview
       serverData={serverData as reviewRecentState}
