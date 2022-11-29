@@ -1,6 +1,8 @@
-import {RefObject} from "react";
+import { RefObject } from "react";
 import styles from "./FindPassword.module.scss";
 import authStyles from "../../../../lib/styles/auth.module.scss";
+import InputBlock from "./InputBlock/InputBlock";
+import SubmitButton from "./SubmitButton/SubmitButton";
 
 interface FindPasswordProps {
   randomNumber:
@@ -11,12 +13,12 @@ interface FindPasswordProps {
     | undefined;
   emailInputRef: RefObject<HTMLInputElement>;
   randomNumberInputRef: RefObject<HTMLInputElement>;
-  sendMail: (e: {key?: string; type: string}) => Promise<void>;
-  checkAuthNum: (e: {key?: string; type: string}) => void;
+  sendMail: (e: { key?: string; type: string }) => Promise<void>;
+  checkAuthNum: (e: { key?: string; type: string }) => void;
   authStatus: boolean;
   passwordRef: RefObject<HTMLInputElement>;
   passwordCheckRef: RefObject<HTMLInputElement>;
-  changePassword: (e: {key?: string; type: string}) => Promise<void>;
+  changePassword: (e: { key?: string; type: string }) => Promise<void>;
 }
 
 const FindPassword = ({
@@ -36,24 +38,14 @@ const FindPassword = ({
         <div className={authStyles.subBlock}>
           <h1 className={authStyles.title}>비밀번호 찾기</h1>
           <div className={authStyles.contentBlock}>
-            <div className={authStyles.subTitle}>이메일</div>
-            <input
-              className={authStyles.input}
-              ref={emailInputRef}
-              placeholder="이메일을 입력하세요"
+            <InputBlock
+              subTitle={"이메일"}
+              placeHolder={"이메일을 입력하세요"}
               key="email"
-              onKeyPress={sendMail}
-              data-testid="email"
+              inputRef={emailInputRef}
+              eventHandler={sendMail}
             />
-            <div className={authStyles.submitButtonBlock}>
-              <button
-                className={authStyles.submitButton}
-                onClick={sendMail}
-                data-testid="sendMail"
-              >
-                메일 전송
-              </button>
-            </div>
+            <SubmitButton eventHandler={sendMail}>메일 전송</SubmitButton>
           </div>
         </div>
       </main>
@@ -64,24 +56,16 @@ const FindPassword = ({
         <div className={authStyles.subBlock}>
           <h1 className={authStyles.title}>비밀번호 찾기</h1>
           <div className={authStyles.contentBlock}>
-            <div className={authStyles.subTitle}>인증번호</div>
-            <input
-              className={authStyles.input}
-              ref={randomNumberInputRef}
-              placeholder="인증번호를 입력하세요"
+            <InputBlock
+              subTitle={"인증번호"}
+              placeHolder={"인증번호를 입력하세요"}
               key="randomNumber"
-              onKeyPress={checkAuthNum}
-              data-testid="randomNumber"
+              inputRef={randomNumberInputRef}
+              eventHandler={checkAuthNum}
             />
-          </div>
-          <div className={authStyles.submitButtonBlock}>
-            <button
-              className={authStyles.submitButton}
-              onClick={checkAuthNum}
-              data-testid="checkAuthNum"
-            >
+            <SubmitButton eventHandler={checkAuthNum}>
               인증번호 확인
-            </button>
+            </SubmitButton>
           </div>
         </div>
       </main>
@@ -92,37 +76,25 @@ const FindPassword = ({
         <div className={authStyles.subBlock}>
           <h1 className={authStyles.title}>비밀번호 찾기</h1>
           <div className={authStyles.contentBlock}>
-            <div className={authStyles.subTitle}>비밀번호</div>
-            <input
-              className={authStyles.input}
-              ref={passwordRef}
-              placeholder="새 비밀번호를 입력하세요"
+            <InputBlock
+              subTitle={"비밀번호"}
+              placeHolder={"새 비밀번호를 입력하세요"}
+              key="randomNumber"
               type="password"
-              key="newPassword"
-              onKeyPress={changePassword}
-              data-testid="newPassword"
+              inputRef={passwordRef}
+              eventHandler={changePassword}
             />
-          </div>
-          <div className={authStyles.contentBlock}>
-            <div className={authStyles.subTitle}>비밀번호 확인</div>
-            <input
-              className={authStyles.input}
-              ref={passwordCheckRef}
-              placeholder="새 비밀번호를 한번더 입력하세요"
+            <InputBlock
+              subTitle={"비밀번호 확인"}
+              placeHolder={"새 비밀번호를 한번더 입력하세요"}
               type="password"
               key="newPasswordCheck"
-              onKeyPress={changePassword}
-              data-testid="newPasswordCheck"
+              inputRef={passwordCheckRef}
+              eventHandler={changePassword}
             />
-            <div className={authStyles.submitButtonBlock}>
-              <button
-                className={authStyles.submitButton}
-                onClick={changePassword}
-                data-testid="changePassword"
-              >
-                비밀번호 변경
-              </button>
-            </div>
+            <SubmitButton eventHandler={changePassword}>
+              비밀번호 변경
+            </SubmitButton>
           </div>
         </div>
       </main>
