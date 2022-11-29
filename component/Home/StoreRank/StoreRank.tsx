@@ -22,7 +22,9 @@ const StoreRank = ({
   if (storeRankData.error) {
     return (
       <section className={styles.mainBlock}>
-        <h3 className={styles.title}>인기 Place</h3>
+        <div className={styles.titleBlock}>
+          <h3 className={styles.title}>인기 Place</h3>
+        </div>
         <p className={styles.error}>에러가 발생하였습니다</p>
       </section>
     );

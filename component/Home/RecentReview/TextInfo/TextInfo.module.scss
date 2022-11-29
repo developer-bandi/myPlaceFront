@@ -1,0 +1,45 @@
+.mainBlock {
+  padding: 30px 0px 0px 0px;
+  @media screen and (max-width: 1200px) {
+    margin: 0px 20px 0px 20px;
+    width: 400px;
+  }
+  @media screen and (max-width: 767px) {
+    margin: 0px 20px 30px 20px;
+    width: calc(100% - 40px);
+  }
+}
+
+.titleBlock {
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0px 0px 20px 0px;
+  .color {
+    color: #00aaff;
+    margin: 0 0 0 10px;
+  }
+  @media screen and (max-width: 767px) {
+    font-size: 30px;
+  }
+}
+
+.summaryBlock {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+.loadingTitle {
+  width: 300px;
+  height: 60px;
+  background: #f4f4f4;
+  margin: 0px 0px 10px 0px;
+}
+
+.loadingSummary {
+  width: 200px;
+  height: 30px;
+  background: #f4f4f4;
+  margin: 0px 0px 10px 0px;
+}

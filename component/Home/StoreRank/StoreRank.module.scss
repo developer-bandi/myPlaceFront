@@ -17,14 +17,14 @@
   }
 }
 
-.renewTime {
-  margin: 0px 0px 0px auto;
-  color: #b8b8b8;
-}
-
 .title {
   font-size: 25px;
   font-weight: 600;
+}
+
+.renewTime {
+  margin: 0px 0px 0px auto;
+  color: #b8b8b8;
 }
 
 .storeList {
@@ -36,59 +36,6 @@
     height: 600px;
     overflow-x: scroll;
     flex-wrap: nowrap;
-  }
-}
-
-.storeBlock {
-  width: 220px;
-  margin: 0px 25px 50px 0px;
-  &.end {
-    margin: 0px 0px 50px 0px;
-  }
-  cursor: pointer;
-  &:hover {
-    opacity: 0.5;
-  }
-}
-
-.image {
-  position: relative;
-  width: 220px;
-  height: 150px;
-  margin: 0px 0px 10px 0px;
-  border: 1px solid #eaeaea;
-}
-
-.storeName {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0px 0px 10px 0px;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.address {
-  font-size: 15px;
-  font-weight: 200;
-  margin: 0px 0px 10px 0px;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.infoList {
-  display: flex;
-}
-
-.info {
-  display: flex;
-  margin: 0px 15px 0px 0px;
-  align-items: center;
-  svg {
-    margin: 0px 5px 0px 0px;
   }
 }
 

@@ -39,11 +39,9 @@ const Store = ({
 }: StoreProps) => {
   return (
     <div
-      className={
-        index === 4 || index === 9
-          ? `${styles.storeBlock} ${styles.end}`
-          : styles.storeBlock
-      }
+      className={`${styles.mainBlock} ${
+        index === 4 || index === 9 ? styles.end : ""
+      }`}
       onClick={() => moveTargetStore(id, name, latitude, longitude, address)}
       key={id}
     >
@@ -59,7 +57,7 @@ const Store = ({
           layout="fill"
         />
       </div>
-      <h4 className={styles.storeName}>{name}</h4>
+      <h4 className={styles.name}>{name}</h4>
       <p className={styles.address}>{address}</p>
       <ul className={styles.infoList}>
         <li className={styles.info}>

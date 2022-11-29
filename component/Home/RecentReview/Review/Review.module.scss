@@ -1,0 +1,80 @@
+.mainBlock {
+  padding: 15px 15px 15px 15px;
+  margin: 0px 0px 20px 0px;
+  border-radius: 10px;
+  border: 1px solid #e3e4e5;
+  background-color: #f9f9f9;
+  min-height: 100px;
+
+  @media screen and (max-width: 1200px) {
+    width: 100%;
+  }
+}
+
+.loadingUser {
+  width: 50px;
+  height: 30px;
+  background: #f4f4f4;
+  margin: 0px 0px 10px 0px;
+}
+
+.loadingStoreName {
+  width: 200px;
+  height: 30px;
+  background: #f4f4f4;
+  margin: 0px 0px 10px 0px;
+}
+
+.loadingReview {
+  width: 560px;
+  height: 20px;
+  background: #f4f4f4;
+  margin: 0px 0px 10px 0px;
+}
+
+.headBlock {
+  display: flex;
+  align-items: center;
+  margin: 0px 0px 15px 0px;
+}
+
+.user {
+  color: #757171;
+  font-size: 17px;
+  margin: 0px 10px 0px 0px;
+}
+
+.time {
+  color: #d1d1d1;
+  font-size: 15px;
+}
+
+.name {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0px 0px 5px 0px;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    opacity: 0.7;
+  }
+}
+
+.review {
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.hashtagList {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0 0 0;
+  line-height: 1.5;
+}
+
+.hashtag {
+  font-size: 13px;
+  color: gray;
+  margin: 0 10px 0 0;
+}

@@ -1,45 +1,4 @@
 .mainBlock {
-  width: 100%;
-  padding: 50px 0px 30px 0px;
-  min-height: 600px;
-  @media screen and (max-width: 1200px) {
-    padding: 50px 20px 30px 20px;
-  }
-}
-
-.titleBlock {
-  width: 1200px;
-  display: flex;
-  align-items: center;
-  margin: 0px auto 20px auto;
-  @media screen and (max-width: 1200px) {
-    width: 100%;
-  }
-}
-
-.renewTime {
-  margin: 0px 0px 0px auto;
-  color: #b8b8b8;
-}
-
-.title {
-  font-size: 25px;
-  font-weight: 600;
-}
-
-.storeList {
-  display: flex;
-  width: 1200px;
-  margin: 0px auto 0px auto;
-  @media screen and (max-width: 1200px) {
-    width: 100%;
-    height: 600px;
-    overflow-x: scroll;
-    flex-wrap: nowrap;
-  }
-}
-
-.storeBlock {
   width: 220px;
   margin: 0px 25px 50px 0px;
   &.end {
@@ -59,7 +18,7 @@
   border: 1px solid #eaeaea;
 }
 
-.storeName {
+.name {
   font-size: 18px;
   font-weight: 500;
   margin: 0px 0px 10px 0px;
@@ -90,10 +49,4 @@
   svg {
     margin: 0px 5px 0px 0px;
   }
-}
-
-.error {
-  text-align: center;
-  font-size: 30px;
-  margin: 50px 0 50px 0;
 }
