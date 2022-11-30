@@ -1,7 +1,6 @@
-import {act, render, renderHook, screen, waitFor} from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import axios from "axios";
-import {useRouter} from "next/router";
-import MyReview from "./MyReview";
+import { useRouter } from "next/router";
 import useMyReview from "./MyReviewHook";
 
 jest.mock("axios");
@@ -14,6 +13,7 @@ const routerMock = {
   push: jest.fn(),
 };
 (useRouter as jest.Mock).mockReturnValue(routerMock);
+
 const axiosMock = axios as jest.Mocked<typeof axios>;
 const reviewListMock = {
   count: 1,
@@ -22,7 +22,7 @@ const reviewListMock = {
       id: "1",
       content: "testContent",
       StoreName: "testStoreName",
-      Hashtags: ["test", "test"] as [string, string],
+      Hashtags: [[1, "test"]] as [number, string][],
       photo: ["test"] as [string],
       createdAt: "testCreatedAt",
     },
@@ -34,6 +34,7 @@ describe("MyReview Hook 테스트", () => {
     window.confirm = jest.fn(() => {
       return true;
     });
+
     it("정상적으로 삭제된경우", async () => {
       axiosMock.delete.mockImplementation(() =>
         Promise.resolve({
@@ -43,9 +44,9 @@ describe("MyReview Hook 테스트", () => {
       );
       window.alert = jest.fn();
       const setServerDataMock = jest.fn();
-      const {result} = renderHook(() =>
+      const { result } = renderHook(() =>
         useMyReview({
-          serverData: {content: reviewListMock, loading: false, error: false},
+          serverData: { content: reviewListMock, loading: false, error: false },
           setServerData: setServerDataMock,
         })
       );
@@ -62,6 +63,7 @@ describe("MyReview Hook 테스트", () => {
         error: false,
       });
     });
+
     it("에러가 발생한 경우", async () => {
       axiosMock.delete.mockImplementation(() =>
         Promise.reject({
@@ -70,9 +72,9 @@ describe("MyReview Hook 테스트", () => {
         })
       );
       window.alert = jest.fn();
-      const {result} = renderHook(() =>
+      const { result } = renderHook(() =>
         useMyReview({
-          serverData: {content: reviewListMock, loading: false, error: false},
+          serverData: { content: reviewListMock, loading: false, error: false },
           setServerData: jest.fn(),
         })
       );
@@ -82,10 +84,11 @@ describe("MyReview Hook 테스트", () => {
       expect(window.alert).toBeCalledWith("에러가 발생하였습니다");
     });
   });
+
   it("moveReviewUpdatePage 함수 테스트", () => {
-    const {result} = renderHook(() =>
+    const { result } = renderHook(() =>
       useMyReview({
-        serverData: {content: reviewListMock, loading: false, error: false},
+        serverData: { content: reviewListMock, loading: false, error: false },
         setServerData: jest.fn(),
       })
     );
@@ -93,140 +96,5 @@ describe("MyReview Hook 테스트", () => {
       result.current.moveReviewUpdatePage("1");
     });
     expect(routerMock.push).toBeCalledWith("/contribute/updatereview/1");
-  });
-});
-
-describe("MyReview Presentational 테스트", () => {
-  describe("데스크톱 일 경우", () => {
-    it("로딩중", () => {
-      const utils = render(
-        <MyReview
-          reviewListState={{error: false, loading: true}}
-          deleteReview={jest.fn()}
-          moveReviewUpdatePage={jest.fn()}
-          page={1}
-          changePage={jest.fn()}
-          isLabtopOrTabletOrMobile={false}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("loading");
-    });
-    it("에러발생", () => {
-      const utils = render(
-        <MyReview
-          reviewListState={{error: true, loading: false}}
-          deleteReview={jest.fn()}
-          moveReviewUpdatePage={jest.fn()}
-          page={1}
-          changePage={jest.fn()}
-          isLabtopOrTabletOrMobile={false}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("error");
-    });
-    it("결과 없음", () => {
-      const utils = render(
-        <MyReview
-          reviewListState={{
-            content: {count: 0, rows: []},
-            error: false,
-            loading: false,
-          }}
-          deleteReview={jest.fn()}
-          moveReviewUpdatePage={jest.fn()}
-          page={1}
-          changePage={jest.fn()}
-          isLabtopOrTabletOrMobile={false}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("noResult");
-    });
-    it("정상 출력", () => {
-      const utils = render(
-        <MyReview
-          reviewListState={{
-            content: reviewListMock,
-            error: false,
-            loading: false,
-          }}
-          deleteReview={jest.fn()}
-          moveReviewUpdatePage={jest.fn()}
-          page={1}
-          changePage={jest.fn()}
-          isLabtopOrTabletOrMobile={false}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("result");
-    });
-  });
-  describe("노트북사이즈 이하일 경우", () => {
-    it("로딩중", () => {
-      const utils = render(
-        <MyReview
-          reviewListState={{error: false, loading: true}}
-          deleteReview={jest.fn()}
-          moveReviewUpdatePage={jest.fn()}
-          page={1}
-          changePage={jest.fn()}
-          isLabtopOrTabletOrMobile={true}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("loading");
-    });
-    it("에러발생", () => {
-      const utils = render(
-        <MyReview
-          reviewListState={{error: true, loading: false}}
-          deleteReview={jest.fn()}
-          moveReviewUpdatePage={jest.fn()}
-          page={1}
-          changePage={jest.fn()}
-          isLabtopOrTabletOrMobile={true}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("error");
-    });
-    it("결과 없음", () => {
-      const utils = render(
-        <MyReview
-          reviewListState={{
-            content: {count: 0, rows: []},
-            error: false,
-            loading: false,
-          }}
-          deleteReview={jest.fn()}
-          moveReviewUpdatePage={jest.fn()}
-          page={1}
-          changePage={jest.fn()}
-          isLabtopOrTabletOrMobile={true}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("noResult");
-    });
-    it("정상 출력", () => {
-      const utils = render(
-        <MyReview
-          reviewListState={{
-            content: reviewListMock,
-            error: false,
-            loading: false,
-          }}
-          deleteReview={jest.fn()}
-          moveReviewUpdatePage={jest.fn()}
-          page={1}
-          changePage={jest.fn()}
-          isLabtopOrTabletOrMobile={true}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("result");
-    });
   });
 });

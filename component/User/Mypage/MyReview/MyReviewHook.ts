@@ -1,18 +1,15 @@
-import {useRouter} from "next/router";
-import {Dispatch, SetStateAction, useEffect, useState} from "react";
-import {
-  axiosDeleteMyReview,
-  axiosGetMyReviews,
-} from "../../../../lib/commonFn/api";
-import {dataState} from "../../../../lib/customHook/mypage";
-import {ReviewListState} from "./MyReviewContainer";
+import { useRouter } from "next/router";
+import { SetStateAction } from "react";
+import { axiosDeleteMyReview } from "../../../../lib/commonFn/api";
+import { dataState } from "../../../../lib/customHook/mypage";
+import { ReviewListState } from "./MyReviewContainer";
 
 interface useMyReviewProps {
   setServerData: React.Dispatch<SetStateAction<dataState>>;
   serverData: ReviewListState;
 }
 
-const useMyReview = ({setServerData, serverData}: useMyReviewProps) => {
+const useMyReview = ({ setServerData, serverData }: useMyReviewProps) => {
   const router = useRouter();
 
   const deleteReview = async (id: string) => {

@@ -1,15 +1,11 @@
 import Image from "next/image";
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
-import styles from "./MyReview.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import { setDateYearMonthDay } from "../../../../lib/commonFn/date";
 import { ReviewListState } from "./MyReviewContainer";
 import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
-
-const myLoader = ({ src }: { src: string }) => {
-  return `${process.env.NEXT_PUBLIC_IMG_URL}/w_200,h_200${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
-};
+import Review from "./Review/Review";
 
 interface MyReviewProps {
   reviewListState: ReviewListState;
@@ -30,7 +26,7 @@ const MyReview = ({
 }: MyReviewProps) => {
   if (reviewListState.loading) {
     return (
-      <div className={mypage.mainBlock} data-testid="loading">
+      <div className={mypage.mainBlock}>
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
         <div className={mypage.subBlock}>
           <h1 className={mypage.title}>작성 후기</h1>
@@ -43,7 +39,7 @@ const MyReview = ({
   } else {
     if (reviewListState.error) {
       return (
-        <div className={mypage.mainBlock} data-testid="error">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 후기</h1>
@@ -53,7 +49,7 @@ const MyReview = ({
       );
     } else if (reviewListState.content?.count === 0) {
       return (
-        <div className={mypage.mainBlock} data-testid="noResult">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 후기</h1>
@@ -63,65 +59,19 @@ const MyReview = ({
       );
     } else {
       return (
-        <div className={mypage.mainBlock} data-testid="result">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 후기</h1>
             {reviewListState.content !== undefined &&
               reviewListState.content.rows.map((review) => {
+                review.createdAt = setDateYearMonthDay(review.createdAt);
                 return (
-                  <div className={styles.reviewBlock} key={review.id}>
-                    <div className={styles.titleBlock}>
-                      <div className={styles.titleLeftBlock}>
-                        <div className={styles.title}>{review.StoreName}</div>
-                        <div className={styles.date}>
-                          {setDateYearMonthDay(review.createdAt)}
-                        </div>
-                      </div>
-                      <div className={styles.titleRightBlock}>
-                        <div
-                          className={styles.button}
-                          onClick={() => {
-                            deleteReview(review.id);
-                          }}
-                        >
-                          삭제
-                        </div>
-                        <div
-                          className={styles.button}
-                          onClick={() => {
-                            moveReviewUpdatePage(review.id);
-                          }}
-                        >
-                          수정
-                        </div>
-                      </div>
-                    </div>
-                    <div className={styles.content}>{review.content}</div>
-                    <div className={styles.hashtagList}>
-                      {review.Hashtags.map((hashTagArr, index) => {
-                        return (
-                          <div className={styles.hashtag} key={index}>
-                            #{hashTagArr[1]}
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div className={styles.photoList}>
-                      {review.photo.map((src) => {
-                        return (
-                          <div className={styles.photoBlock} key={src}>
-                            <Image
-                              loader={myLoader}
-                              src={`/${src}`}
-                              width="100px"
-                              height="100px"
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <Review
+                    content={review}
+                    deleteReview={deleteReview}
+                    moveReviewUpdatePage={moveReviewUpdatePage}
+                  />
                 );
               })}
             <PageNationContainer
