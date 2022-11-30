@@ -1,0 +1,23 @@
+.mainBlock {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 140px;
+  border: 2px solid #cecece;
+  padding: 10px;
+  margin: 10px 0 0 0;
+}
+
+.input {
+  width: calc(100% - 75px);
+  height: 120px;
+}
+
+.button {
+  background-color: black;
+  color: white;
+  width: 65px;
+  height: 30px;
+  margin: 85px 0 0 10px;
+  border-radius: 5px;
+}

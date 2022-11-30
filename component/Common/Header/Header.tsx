@@ -1,11 +1,11 @@
 import styles from "./Header.module.scss";
 import Link from "next/link";
-import {signupState} from "../../../store/reducers/userLogin/Reducer";
-import {BiUserCircle} from "react-icons/bi";
-import {VscBell} from "react-icons/vsc";
-import {GoPrimitiveDot} from "react-icons/go";
-import NoticeContainer, {noticeListState} from "../Notice/NoticeContainer";
-import {modalStatusState} from "../../../store/reducers/modalStatus/Reducer";
+import { signupState } from "../../../store/reducers/userLogin/Reducer";
+import { BiUserCircle } from "react-icons/bi";
+import { VscBell } from "react-icons/vsc";
+import { GoPrimitiveDot } from "react-icons/go";
+import NoticeContainer, { noticeListState } from "../Notice/NoticeContainer";
+import { modalStatusState } from "../../../store/reducers/modalStatus/Reducer";
 import MyPageModalContainer from "../MyPageModal/MyPageModalContainer";
 
 interface HeaderProps {
@@ -57,13 +57,9 @@ const Header = ({
             >
               <VscBell size={25} />
               {serverData.content !== undefined &&
-              serverData.content?.filter((data: {check: boolean}) => {
-                if (data.check) {
-                  return false;
-                } else {
-                  return true;
-                }
-              }).length >= 1 ? (
+              serverData.content?.filter(
+                (data: { check: boolean }) => !data.check
+              ).length >= 1 ? (
                 <GoPrimitiveDot size={25} className={styles.dot} />
               ) : null}
             </button>

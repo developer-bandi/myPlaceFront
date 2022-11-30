@@ -1,9 +1,14 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {HYDRATE} from "next-redux-wrapper";
-import {LoginCheckType} from "../../../lib/apitype/auth";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
+import { LoginCheckType } from "../../../lib/apitype/auth";
+
+export interface userLoginContent {
+  id: number;
+  nickname: string;
+}
 
 export interface signupState {
-  content?: {id: number; nickname: string};
+  content?: { id: number; nickname: string };
   loading: boolean;
   error: boolean;
 }
@@ -22,7 +27,7 @@ const UserLoginSlice = createSlice({
 
     checkSigninSuccess(
       state,
-      action: PayloadAction<{data: LoginCheckType; status: number}>
+      action: PayloadAction<{ data: LoginCheckType; status: number }>
     ) {
       state.loading = false;
       if (action.payload.status === 200) {

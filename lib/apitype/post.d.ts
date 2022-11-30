@@ -17,27 +17,29 @@ export interface postListType {
   }[];
 }
 
-export interface postDetailType {
-  Comments: {
-    PostId: number;
-    User: {
-      id: number;
-      nickname: string;
-    };
-    UserId: number;
-    content: string;
-    createdAt: string;
+export interface postDetailCommentType {
+  PostId: number;
+  User: {
     id: number;
-    updatedAt: string;
-  }[];
-  Photos: {
-    filename: string;
-  }[];
-  User: {id: number; nickname: string};
+    nickname: string;
+  };
   UserId: number;
   content: string;
   createdAt: string;
   id: number;
+  updatedAt: string;
+}
+
+export interface postDetailType {
+  Comments: postDetailCommentType[];
+  Photos: {
+    filename: string;
+  }[];
+  User: { id: number; nickname: string };
+  UserId: number;
+  content: string;
+  createdAt: string;
+  id: string;
   likelist: number[];
   title: string;
   updatedAt: string;

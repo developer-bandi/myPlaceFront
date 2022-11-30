@@ -1,7 +1,6 @@
-import { AxiosResponse } from "axios";
 import { all, call, put, takeLeading } from "redux-saga/effects";
 import { axiosHashtagSearch, axiosNameSearch } from "../../../lib/commonFn/api";
-import { SearchResultType, storeInfoType } from "../../../lib/apitype/search";
+import { SearchResultType } from "../../../lib/apitype/search";
 import { searchStoreFailure, searchStoreSuccess } from "./Reducer";
 
 function* axiosApi(action: {

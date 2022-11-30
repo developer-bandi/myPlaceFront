@@ -33,6 +33,7 @@ describe("reducer 테스트", () => {
     loading: false,
     error: false,
   };
+
   it("initial state을 설정한 경우", () => {
     expect(SearchResultSlice(undefined, { type: "unknown" })).toEqual(
       initialState

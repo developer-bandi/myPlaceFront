@@ -1,0 +1,21 @@
+.titleBlock {
+  width: 1000px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #eaeaea;
+  padding: 0 0 10px 0;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  }
+}
+
+.icon {
+  margin: 0 5px 0 0;
+}
+
+.listBlock {
+  width: 1000px;
+  @media screen and (max-width: 1023px) {
+    width: 100%;
+  }
+}

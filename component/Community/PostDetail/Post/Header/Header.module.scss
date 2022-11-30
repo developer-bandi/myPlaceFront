@@ -1,0 +1,50 @@
+.mainBlock {
+  border-bottom: 1px solid #eaeaea;
+  padding: 0 0 10px 0;
+  width: 100%;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 500;
+  margin: 0 0 10px 0;
+  width: 100%;
+}
+
+.infoBlock {
+  display: flex;
+}
+
+.leftBlock {
+  display: flex;
+}
+
+.nickname {
+  color: #50575e;
+  margin: 0 10px 0 0;
+}
+
+.date {
+  color: #c5cec1;
+}
+
+.viewCount {
+  display: flex;
+  align-items: center;
+  margin: 0 0 0 10px;
+}
+
+.icon {
+  margin: 0 5px 0 0;
+}
+
+.rightBlock {
+  display: flex;
+  margin: 0 0 0 auto;
+}
+
+.button {
+  width: 70px;
+  margin: 0 0 0 10px;
+  cursor: pointer;
+}
