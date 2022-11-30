@@ -36,14 +36,12 @@ const Withdrawal = ({
           <button
             className={`${styles.button} ${styles.agree}`}
             onClick={withdrawalButton}
-            data-testid="withdrawalButton"
           >
             동의
           </button>
           <button
             className={`${styles.button} ${styles.disagree}`}
             onClick={disagreeButton}
-            data-testid="disagreeButton"
           >
             비동의
           </button>
