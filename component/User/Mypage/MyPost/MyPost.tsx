@@ -1,14 +1,11 @@
 import Image from "next/image";
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
-import styles from "./MyPost.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
 import { setDateYearMonthDay } from "../../../../lib/commonFn/date";
-import { postListState } from "./MyPostHook";
-import { GrView } from "react-icons/gr";
-import { FaRegComment } from "react-icons/fa";
-import { BiLike } from "react-icons/bi";
 import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
+import { postListState } from "./MyPostContainer";
+import Post from "./Post/Post";
 
 interface PostListProps {
   postListState: postListState;
@@ -27,7 +24,7 @@ const MyPost = ({
 }: PostListProps) => {
   if (postListState.loading) {
     return (
-      <div className={mypage.mainBlock} data-testid="loading">
+      <div className={mypage.mainBlock}>
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
         <div className={mypage.subBlock}>
           <h1 className={mypage.title}>작성 포스트</h1>
@@ -40,7 +37,7 @@ const MyPost = ({
   } else {
     if (postListState.content === undefined && postListState.error !== null) {
       return (
-        <div className={mypage.mainBlock} data-testid="error">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 포스트</h1>
@@ -50,7 +47,7 @@ const MyPost = ({
       );
     } else if (postListState.content?.count === 0) {
       return (
-        <div className={mypage.mainBlock} data-testid="noResult">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 포스트</h1>
@@ -60,36 +57,14 @@ const MyPost = ({
       );
     } else {
       return (
-        <div className={mypage.mainBlock} data-testid="result">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 포스트</h1>
-            {postListState.content?.rows.map((post, index) => {
+            {postListState.content?.rows.map((post) => {
+              post.createdAt = setDateYearMonthDay(post.createdAt);
               return (
-                <div
-                  className={styles.postBlock}
-                  onClick={() => movePostDetailPage(post.id)}
-                  key={post.id}
-                >
-                  <div className={styles.topBlock}>
-                    <div className={styles.user}>{post.nickname}</div>
-                    <div className={styles.date}>
-                      {setDateYearMonthDay(post.createdAt)}
-                    </div>
-                  </div>
-                  <div className={styles.title}>{post.title}</div>
-                  <p className={styles.content}>{post.content}</p>
-                  <div className={styles.bottomBlock}>
-                    <FaRegComment size="20" className={styles.bottomIcon} />
-                    <div className={styles.bottomInfo}>{post.comment}</div>
-                    <BiLike size="20" className={styles.bottomIcon} />
-                    <div className={styles.bottomInfo}>
-                      {post.postlikecount}
-                    </div>
-                    <GrView size="20" className={styles.bottomIcon} />
-                    <div className={styles.bottomInfo}>{post.viewCount}</div>
-                  </div>
-                </div>
+                <Post content={post} movePostDetailPage={movePostDetailPage} />
               );
             })}
             <PageNationContainer

@@ -1,23 +1,4 @@
-import {useRouter} from "next/router";
-import {useEffect, useState} from "react";
-import {axiosGetMyPost} from "../../../../lib/commonFn/api";
-
-export interface postListcontent {
-  id: number;
-  title: string;
-  content: string;
-  nickname: string;
-  createdAt: string;
-  viewCount: number;
-  postlikecount: number;
-  comment: number;
-}
-
-export interface postListState {
-  content?: {count: number; rows: postListcontent[]};
-  loading: boolean;
-  error: boolean;
-}
+import { useRouter } from "next/router";
 
 const useMyPost = () => {
   const router = useRouter();
@@ -25,7 +6,7 @@ const useMyPost = () => {
     router.push(`/community/postdetail/${id}`);
   };
 
-  return {movePostDetailPage};
+  return { movePostDetailPage };
 };
 
 export default useMyPost;
