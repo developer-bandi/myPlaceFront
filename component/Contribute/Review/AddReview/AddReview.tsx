@@ -1,10 +1,9 @@
 import storeReview from "../../../../lib/styles/storeReview.module.scss";
-import {AiOutlinePicture} from "react-icons/ai";
-import {HashtagAllState} from "../../../../store/reducers/hashtagAll/Reducer";
-import React, {RefObject} from "react";
-import {ImCross} from "react-icons/im";
-import Image from "next/image";
-import {storeInfoType} from "../../../../lib/apitype/search";
+import { HashtagAllState } from "../../../../store/reducers/hashtagAll/Reducer";
+import React, { RefObject } from "react";
+import { storeInfoType } from "../../../../lib/apitype/search";
+import ImageComponent from "./Image/Image";
+import Hashtag from "./Hashtag/Hashtag";
 
 interface CommentAddContainer {
   storeInfo: undefined | storeInfoType;
@@ -41,90 +40,17 @@ const AddReview = ({
           ref={textAreaRef}
           placeholder="후기를 입력하세요"
         ></textarea>
-        <ul className={storeReview.imgListBlock}>
-          <label htmlFor="fileimg" className={storeReview.fileButton}>
-            <div className={storeReview.fileIcon}>
-              <AiOutlinePicture size="40" />
-            </div>
-            <div
-              className={storeReview.fileCount}
-            >{`(${uploadImg.length}/10)`}</div>
-          </label>
-          {uploadImg.map((img, index) => {
-            return (
-              <li className={storeReview.imgBlock} key={img}>
-                <Image
-                  src={img}
-                  width={"100px"}
-                  height={"100px"}
-                  className={storeReview.img}
-                ></Image>
-                <div
-                  onClick={(e) => {
-                    deleteImg(index);
-                  }}
-                  className={storeReview.imgDeleteButton}
-                  data-testid={`deleteImg${index}`}
-                >
-                  <ImCross
-                    size={20}
-                    style={{color: "white", opacity: "1"}}
-                  ></ImCross>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-        <input
-          type="file"
-          accept="image/*"
-          id="fileimg"
-          onChange={addImg}
-          data-testid="addImg"
-          multiple
-          className={storeReview.realFileButton}
+        <ImageComponent
+          uploadImg={uploadImg}
+          deleteImg={deleteImg}
+          addImg={addImg}
         />
-        <div className={storeReview.taglistBoxBlock}>
-          <h3 className={storeReview.taglistTitle}>태그를 선택해 보세요</h3>
-          <div className={storeReview.tagListBlock}>
-            {taglist.content !== undefined
-              ? Object.keys(taglist.content[storeInfo.storeInfo.category]).map(
-                  (tagTitle) => {
-                    if (storeInfo.storeInfo !== undefined)
-                      return (
-                        <React.Fragment key={tagTitle}>
-                          <h4 className={storeReview.tagTitle}>{tagTitle}</h4>
-                          <ul className={storeReview.taglistBlock}>
-                            {taglist.content !== undefined
-                              ? taglist.content[storeInfo.storeInfo.category][
-                                  tagTitle
-                                ].map((tag, index) => {
-                                  return (
-                                    <li
-                                      className={
-                                        selectedHashtag.indexOf(tag[0]) !== -1
-                                          ? storeReview.selectedHashtag
-                                          : storeReview.hashtag
-                                      }
-                                      onClick={() => {
-                                        changeHashtag(tag[0], tag[2]);
-                                      }}
-                                      data-testid={`changeHashtag${index}`}
-                                      key={tag[0]}
-                                    >
-                                      #{tag[0]}
-                                    </li>
-                                  );
-                                })
-                              : null}
-                          </ul>
-                        </React.Fragment>
-                      );
-                  }
-                )
-              : null}
-          </div>
-        </div>
+        <Hashtag
+          category={storeInfo.storeInfo.category}
+          taglist={taglist}
+          selectedHashtag={selectedHashtag}
+          changeHashtag={changeHashtag}
+        />
         <div className={storeReview.submitButtonBlock}>
           <button
             onClick={submit}

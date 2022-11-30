@@ -1,5 +1,5 @@
-import {useRouter} from "next/router";
-import {Provider} from "react-redux";
+import { useRouter } from "next/router";
+import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import newReact from "react";
 import * as React from "react";
@@ -48,7 +48,7 @@ describe("AddReview Presentational 테스트", () => {
       }}
       taglist={{
         content: {
-          testCategory: {test: [["testHashtag1", 1, 2]]},
+          testCategory: { test: [["testHashtag1", 1, 2]] },
         },
         loading: false,
         error: false,
@@ -58,7 +58,7 @@ describe("AddReview Presentational 테스트", () => {
       uploadImg={["/test"]}
       addImg={addImgMock}
       deleteImg={deleteImgMock}
-      textAreaRef={{current: null}}
+      textAreaRef={{ current: null }}
       submit={submitMock}
       loading={false}
     />
@@ -66,7 +66,7 @@ describe("AddReview Presentational 테스트", () => {
   expect(utils.container).toMatchSnapshot();
   fireEvent.click(screen.getByTestId("changeHashtag0"));
   fireEvent.change(screen.getByTestId("addImg"), {
-    target: {value: ""},
+    target: { value: "" },
   });
   fireEvent.click(screen.getByTestId("deleteImg0"));
   fireEvent.click(screen.getByTestId("submit"));
@@ -91,16 +91,16 @@ describe("AddReview Hook 테스트", () => {
         },
       },
     },
-    userLogin: {content: "test"},
+    userLogin: { content: "test" },
   });
-  const wrapper = ({children}: {children: React.ReactNode}) => (
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={flag ? blankMockStore : submitMockStore}>
       {children}
     </Provider>
   );
   it("useEffect 테스트", () => {
     window.alert = jest.fn();
-    const {result} = renderHook(() => useAddReview(), {wrapper});
+    const { result } = renderHook(() => useAddReview(), { wrapper });
     expect(window.alert).toBeCalledWith(
       "장소가 없습니다. 장소를 다시 선택해 접근해주세요"
     );
@@ -110,7 +110,7 @@ describe("AddReview Hook 테스트", () => {
   describe("changeHashtag함수 테스트", () => {
     it("해시태그를 선택하는 경우", () => {
       window.alert = jest.fn();
-      const {result} = renderHook(() => useAddReview(), {wrapper});
+      const { result } = renderHook(() => useAddReview(), { wrapper });
       act(() => {
         result.current.changeHashtag("testHashtag", 1);
       });
@@ -119,7 +119,7 @@ describe("AddReview Hook 테스트", () => {
     });
     it("해시태그 선택을 해제하는 경우", () => {
       window.alert = jest.fn();
-      const {result} = renderHook(() => useAddReview(), {wrapper});
+      const { result } = renderHook(() => useAddReview(), { wrapper });
       act(() => {
         result.current.setSelectedHashtag(["testHashtag"]);
         result.current.setSelectedHashtagNumber([1]);
@@ -135,7 +135,7 @@ describe("AddReview Hook 테스트", () => {
   describe("sumbmit함수 테스트", () => {
     it("로그인을 안한경우", async () => {
       window.alert = jest.fn();
-      const {result} = renderHook(() => useAddReview(), {wrapper});
+      const { result } = renderHook(() => useAddReview(), { wrapper });
       await act(async () => {
         await result.current.submit();
       });
@@ -146,12 +146,12 @@ describe("AddReview Hook 테스트", () => {
       flag = false;
       jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       window.alert = jest.fn();
       mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({status: 200, data: "test"})
+        Promise.resolve({ status: 200, data: "test" })
       );
-      const {result} = renderHook(() => useAddReview(), {wrapper});
+      const { result } = renderHook(() => useAddReview(), { wrapper });
       await act(async () => {
         await result.current.submit();
       });
@@ -162,12 +162,12 @@ describe("AddReview Hook 테스트", () => {
     it("에러가 발생한 경우", async () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: ""}});
+        .mockReturnValue({ current: { value: "" } });
       mockedAxios.post.mockImplementation(() =>
-        Promise.reject({status: 500, data: "error"})
+        Promise.reject({ status: 500, data: "error" })
       );
       window.alert = jest.fn();
-      const {result} = renderHook(() => useAddReview(), {wrapper});
+      const { result } = renderHook(() => useAddReview(), { wrapper });
       await act(async () => {
         await result.current.submit();
       });
