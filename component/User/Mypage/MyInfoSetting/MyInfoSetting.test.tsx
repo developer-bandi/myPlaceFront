@@ -1,9 +1,8 @@
-import {act, render, renderHook, screen, waitFor} from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import axios from "axios";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import * as React from "react";
 import newReact from "react";
-import MyInfoSetting from "./MyInfoSetting";
 import useMyInfoSetting from "./MyInfoSettingHook";
 
 jest.mock("axios");
@@ -19,96 +18,17 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 const mockedUserInfo = {
   localId: "testLocalId",
   nickname: "testNickname",
-  provider: "testProvider",
+  provider: "local",
   createdAt: "testCreatedAt",
   email: "testEmail",
 };
-
-describe("MyInfoSetting Presentational Test", () => {
-  describe("데스크톱 일경우", () => {
-    it("로딩중", () => {
-      const utils = render(
-        <MyInfoSetting
-          serverData={{loading: true, error: false}}
-          changeNickname={jest.fn()}
-          nicknameInputRef={{current: null}}
-          isLabtopOrTabletOrMobile={false}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("loading");
-    });
-    it("에러발생", () => {
-      const utils = render(
-        <MyInfoSetting
-          serverData={{loading: false, error: true}}
-          changeNickname={jest.fn()}
-          nicknameInputRef={{current: null}}
-          isLabtopOrTabletOrMobile={false}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("error");
-    });
-    it("정상 출력", () => {
-      const utils = render(
-        <MyInfoSetting
-          serverData={{content: mockedUserInfo, loading: false, error: false}}
-          changeNickname={jest.fn()}
-          nicknameInputRef={{current: null}}
-          isLabtopOrTabletOrMobile={false}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("result");
-    });
-  });
-  describe("노트북 이하일 경우", () => {
-    it("로딩중", () => {
-      const utils = render(
-        <MyInfoSetting
-          serverData={{loading: true, error: false}}
-          changeNickname={jest.fn()}
-          nicknameInputRef={{current: null}}
-          isLabtopOrTabletOrMobile={true}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("loading");
-    });
-    it("에러발생", () => {
-      const utils = render(
-        <MyInfoSetting
-          serverData={{loading: false, error: true}}
-          changeNickname={jest.fn()}
-          nicknameInputRef={{current: null}}
-          isLabtopOrTabletOrMobile={true}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("error");
-    });
-    it("정상 출력", () => {
-      const utils = render(
-        <MyInfoSetting
-          serverData={{content: mockedUserInfo, loading: false, error: false}}
-          changeNickname={jest.fn()}
-          nicknameInputRef={{current: null}}
-          isLabtopOrTabletOrMobile={true}
-        />
-      );
-      expect(utils.container).toMatchSnapshot();
-      screen.getByTestId("result");
-    });
-  });
-});
 
 describe("MyInfoSetting Hook 테스트", () => {
   describe("changeNickname 함수 테스트", () => {
     it("정상적으로 변경되는 경우", async () => {
       jest
         .spyOn(newReact, "useRef")
-        .mockReturnValueOnce({current: {value: ""}});
+        .mockReturnValueOnce({ current: { value: "" } });
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
       mockedAxios.patch.mockImplementation(() =>
@@ -117,7 +37,7 @@ describe("MyInfoSetting Hook 테스트", () => {
           data: mockedUserInfo,
         })
       );
-      const {result} = renderHook(() =>
+      const { result } = renderHook(() =>
         useMyInfoSetting({
           content: mockedUserInfo,
           loading: false,
@@ -132,7 +52,7 @@ describe("MyInfoSetting Hook 테스트", () => {
     it("에러가 발생한 경우", async () => {
       jest
         .spyOn(newReact, "useRef")
-        .mockReturnValueOnce({current: {value: ""}});
+        .mockReturnValueOnce({ current: { value: "" } });
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
       mockedAxios.patch.mockImplementation(() =>
@@ -141,7 +61,7 @@ describe("MyInfoSetting Hook 테스트", () => {
           data: "data",
         })
       );
-      const {result} = renderHook(() =>
+      const { result } = renderHook(() =>
         useMyInfoSetting({
           content: mockedUserInfo,
           loading: false,
