@@ -1,7 +1,7 @@
 import Image from "next/image";
-import {RefObject} from "react";
-import {AiOutlinePicture} from "react-icons/ai";
-import {ImCross} from "react-icons/im";
+import { RefObject } from "react";
+import { AiOutlinePicture } from "react-icons/ai";
+import { ImCross } from "react-icons/im";
 import styles from "./WritePost.module.scss";
 
 interface WritePostProps {
@@ -52,11 +52,10 @@ const WritePost = ({
               <div
                 className={styles.imgDeleteButton}
                 onClick={() => deleteImg(index)}
-                data-testid={`deleteImg${index}`}
               >
                 <ImCross
                   size={20}
-                  style={{color: "white", opacity: "1"}}
+                  style={{ color: "white", opacity: "1" }}
                 ></ImCross>
               </div>
             </li>
@@ -70,7 +69,6 @@ const WritePost = ({
         onChange={addImg}
         multiple
         className={styles.realFileButton}
-        data-testid="addImg"
       />
       <div className={styles.contentBlock}>
         <textarea
@@ -80,11 +78,7 @@ const WritePost = ({
         />
       </div>
       <div className={styles.ButtonBlock}>
-        <button
-          className={styles.submitButton}
-          onClick={submit}
-          data-testid="submit"
-        >
+        <button className={styles.submitButton} onClick={submit}>
           등록
         </button>
       </div>

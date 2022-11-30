@@ -1,17 +1,9 @@
-import {
-  act,
-  cleanup,
-  fireEvent,
-  render,
-  renderHook,
-  screen,
-} from "@testing-library/react";
+import { act, cleanup, renderHook } from "@testing-library/react";
 import axios from "axios";
-import {useRouter} from "next/router";
-import React, {ReactNode} from "react";
-import {Provider} from "react-redux";
+import { useRouter } from "next/router";
+import React, { ReactNode } from "react";
+import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import WritePost from "./WritePost";
 import useWritePost from "./WritePostHook";
 jest.mock("axios");
 jest.mock("next/router", () => ({
@@ -28,7 +20,7 @@ describe("writePost Hook test", () => {
     const mockStore = configureMockStore();
     const loginStoreMock = mockStore({
       userLogin: {
-        content: {id: 1, nickname: "test"},
+        content: { id: 1, nickname: "test" },
         loading: false,
         error: false,
       },
@@ -39,7 +31,7 @@ describe("writePost Hook test", () => {
         error: false,
       },
     });
-    const wrapper = ({children}: {children: ReactNode}) => (
+    const wrapper = ({ children }: { children: ReactNode }) => (
       <Provider store={loginStatus ? loginStoreMock : logoutStoreMock}>
         {children}
       </Provider>
@@ -47,8 +39,8 @@ describe("writePost Hook test", () => {
 
     it("로그인 하지 않은 경우", async () => {
       window.alert = jest.fn();
-      jest.spyOn(React, "useRef").mockReturnValueOnce({current: "test"});
-      const {result} = renderHook(() => useWritePost(), {
+      jest.spyOn(React, "useRef").mockReturnValueOnce({ current: "test" });
+      const { result } = renderHook(() => useWritePost(), {
         wrapper,
       });
       await act(async () => {
@@ -64,12 +56,12 @@ describe("writePost Hook test", () => {
         push: jest.fn(),
       };
       (useRouter as jest.Mock).mockReturnValue(mockRouter);
-      jest.spyOn(React, "useRef").mockReturnValue({current: "test"});
+      jest.spyOn(React, "useRef").mockReturnValue({ current: "test" });
 
       mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({status: 200, data: "test"})
+        Promise.resolve({ status: 200, data: "test" })
       );
-      const {result} = renderHook(() => useWritePost(), {
+      const { result } = renderHook(() => useWritePost(), {
         wrapper,
       });
       await act(async () => {
@@ -83,11 +75,11 @@ describe("writePost Hook test", () => {
       window.alert = jest.fn();
       const useRefSpy = jest
         .spyOn(React, "useRef")
-        .mockReturnValueOnce({current: "test"});
+        .mockReturnValueOnce({ current: "test" });
       mockedAxios.post.mockImplementation(() =>
-        Promise.reject({status: 500, data: "에러발생"})
+        Promise.reject({ status: 500, data: "에러발생" })
       );
-      const {result} = renderHook(() => useWritePost(), {
+      const { result } = renderHook(() => useWritePost(), {
         wrapper,
         initialProps: {
           login: false,
@@ -99,30 +91,4 @@ describe("writePost Hook test", () => {
       expect(window.alert).toBeCalledWith("에러가 발생하였습니다");
     });
   });
-});
-
-describe("WritePost Presentational Test", () => {
-  const addImgMock = jest.fn();
-  const deleteImgMock = jest.fn();
-  const submitMock = jest.fn();
-  const utils = render(
-    <WritePost
-      addImg={addImgMock}
-      deleteImg={deleteImgMock}
-      uploadImg={["http://test"]}
-      titleRef={{current: null}}
-      contentRef={{current: null}}
-      submit={submitMock}
-    />
-  );
-  expect(utils.container).toMatchSnapshot();
-  fireEvent.click(screen.getByTestId("deleteImg0"));
-  fireEvent.change(screen.getByTestId("addImg"), {
-    target: {value: ""},
-  });
-  fireEvent.click(screen.getByTestId("submit"));
-
-  expect(addImgMock).toBeCalledTimes(1);
-  expect(deleteImgMock).toBeCalledTimes(1);
-  expect(submitMock).toBeCalledTimes(1);
 });
