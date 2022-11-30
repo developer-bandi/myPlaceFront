@@ -1,10 +1,10 @@
 import storeReview from "../../../../lib/styles/storeReview.module.scss";
-import {AiOutlinePicture} from "react-icons/ai";
-import {HashtagAllState} from "../../../../store/reducers/hashtagAll/Reducer";
-import React, {RefObject} from "react";
+import { HashtagAllState } from "../../../../store/reducers/hashtagAll/Reducer";
+import React, { RefObject } from "react";
 import Image from "next/image";
-import {ImCross} from "react-icons/im";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
+import HashTag from "./HashTag/HashTag";
+import ImageComponent from "./Image/Image";
 
 interface CommentAddContainer {
   storeInfo:
@@ -28,9 +28,11 @@ interface CommentAddContainer {
   loading: boolean;
   uploadLoading: boolean;
 }
-const myLoader = ({src}: {src: string}) => {
+
+const myLoader = ({ src }: { src: string }) => {
   return `${process.env.NEXT_PUBLIC_IMG_URL}/w_200,h_200${process.env.NEXT_PUBLIC_IMG_ID}/${src}`;
 };
+
 const UpdateReview = ({
   storeInfo,
   existImg,
@@ -64,115 +66,19 @@ const UpdateReview = ({
           className={storeReview.reviewInput}
           ref={textAreaRef}
         ></textarea>
-        <ul className={storeReview.imgListBlock}>
-          <label htmlFor="fileimg" className={storeReview.fileButton}>
-            <div className={storeReview.fileIcon}>
-              <AiOutlinePicture size="40" />
-            </div>
-            <div className={storeReview.fileCount}>{`(${
-              uploadImg.length + Number(existImg?.length)
-            }/10)`}</div>
-          </label>
-          {existImg &&
-            existImg.map((src, index) => {
-              return (
-                <div className={storeReview.imgBlock} key={src}>
-                  <Image
-                    loader={myLoader}
-                    src={`/${src}`}
-                    className={storeReview.img}
-                    width="100px"
-                    height="100px"
-                  />
-                  <div
-                    onClick={(e) => {
-                      deleteExistImg(index);
-                    }}
-                    className={storeReview.imgDeleteButton}
-                    data-testid={`deleteExistImg${index}`}
-                  >
-                    <ImCross
-                      size={20}
-                      style={{color: "white", opacity: "1"}}
-                    ></ImCross>
-                  </div>
-                </div>
-              );
-            })}
-          {uploadImg.map((img, index) => {
-            return (
-              <li className={storeReview.imgBlock} key={img}>
-                <Image
-                  src={img}
-                  width={"100px"}
-                  height={"100px"}
-                  className={storeReview.img}
-                ></Image>
-                <div
-                  onClick={(e) => {
-                    deleteUploadImg(index);
-                  }}
-                  className={storeReview.imgDeleteButton}
-                  data-testid={`deleteUploadImg${index}`}
-                >
-                  <ImCross
-                    size={20}
-                    style={{color: "white", opacity: "1"}}
-                  ></ImCross>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-        <input
-          type="file"
-          accept="image/*"
-          id="fileimg"
-          onChange={addImg}
-          multiple
-          className={storeReview.realFileButton}
-          data-testid="addImg"
+        <ImageComponent
+          uploadImg={uploadImg}
+          existImg={existImg}
+          deleteExistImg={deleteExistImg}
+          deleteUploadImg={deleteUploadImg}
+          addImg={addImg}
         />
-        <div className={storeReview.taglistBoxBlock}>
-          <h3 className={storeReview.taglistTitle}>태그를 선택해 보세요</h3>
-          <div className={storeReview.tagListBlock}>
-            {taglist.content !== undefined &&
-              storeInfo !== undefined &&
-              Object.keys(taglist.content[storeInfo.category]).map(
-                (tagTitle) => {
-                  if (storeInfo !== undefined)
-                    return (
-                      <React.Fragment key={tagTitle}>
-                        <h3 className={storeReview.tagTitle}>{tagTitle}</h3>
-                        <ul className={storeReview.taglistBlock}>
-                          {taglist.content !== undefined &&
-                            taglist.content[storeInfo.category][tagTitle].map(
-                              (tag, index) => {
-                                return (
-                                  <li
-                                    className={
-                                      selectedHashtag.indexOf(tag[0]) !== -1
-                                        ? storeReview.selectedHashtag
-                                        : storeReview.hashtag
-                                    }
-                                    onClick={() => {
-                                      changeHashtag(tag[0], tag[2]);
-                                    }}
-                                    data-testid={`changeHashtag${index}`}
-                                    key={tag[0]}
-                                  >
-                                    #{tag[0]}
-                                  </li>
-                                );
-                              }
-                            )}
-                        </ul>
-                      </React.Fragment>
-                    );
-                }
-              )}
-          </div>
-        </div>
+        <HashTag
+          taglist={taglist}
+          storeInfo={storeInfo}
+          selectedHashtag={selectedHashtag}
+          changeHashtag={changeHashtag}
+        />
         <div className={storeReview.submitButtonBlock}>
           <button
             onClick={submit}
