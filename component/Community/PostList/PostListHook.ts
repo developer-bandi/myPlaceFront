@@ -1,24 +1,26 @@
-import {useRouter} from "next/router";
-import {useEffect, useRef, useState} from "react";
-import {useSelector} from "react-redux";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import {
   axiosGetPostList,
   axiosGetSearchPostList,
 } from "../../../lib/commonFn/api";
-import {RootReducer} from "../../../store";
+import { RootReducer } from "../../../store";
+
+export interface postListContentRow {
+  id: number;
+  title: string;
+  content: string;
+  viewCount: number;
+  createdAt: string;
+  nickname: string;
+  comment: number;
+  postlikecount: number;
+}
 
 export interface postListContent {
   count: number;
-  rows: {
-    id: number;
-    title: string;
-    content: string;
-    viewCount: number;
-    createdAt: string;
-    nickname: string;
-    comment: number;
-    postlikecount: number;
-  }[];
+  rows: postListContentRow[];
 }
 
 export interface postListState {
@@ -97,7 +99,7 @@ const usePostList = (serverSideData: postListContent) => {
     }
   };
 
-  const searchPost = async (e: {key?: string; type: string}) => {
+  const searchPost = async (e: { key?: string; type: string }) => {
     if (
       (e.type === "click" && e.key === undefined) ||
       (e.type === "keypress" && e.key === "Enter")

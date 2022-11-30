@@ -1,0 +1,22 @@
+.mainBlock {
+  display: flex;
+  width: 200px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+  }
+}
+
+.sortName {
+  margin-left: 10px;
+  color: gray;
+  &:hover {
+    color: black;
+    font-weight: 700;
+  }
+}
+
+.selectedSortName {
+  margin-left: 10px;
+  color: black;
+  font-weight: 700;
+}

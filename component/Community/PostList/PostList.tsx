@@ -1,21 +1,22 @@
 import styles from "./PostList.module.scss";
-import {FcLike} from "react-icons/fc";
-import {GrView} from "react-icons/gr";
-import {BiCommentDetail, BiSearchAlt2} from "react-icons/bi";
-import {RefObject, SetStateAction} from "react";
+import { RefObject } from "react";
 import Image from "next/image";
-import {setDateLatest} from "../../../lib/commonFn/date";
-import PageNation from "../../Common/PageNation/PageNation";
-import {postListState} from "./PostListHook";
+import { setDateLatest } from "../../../lib/commonFn/date";
+import { postListState } from "./PostListHook";
+import searchResultLoading from "../../../public/searchResultLoading.gif";
+import PageNationContainer from "../../Common/PageNation/PageNationContainer";
+import Post from "./Post/Post";
+import Search from "./Search/Search";
+import Sort from "./Sort/Sort";
 
 interface PostListProps {
   page: number;
   postList: postListState;
   changeSort: (sort: string) => Promise<void>;
-  changePage: (page: number) => Promise<void>;
   selectedSort: string;
+  changePage: (page: number) => Promise<void>;
   searchRef: RefObject<HTMLInputElement>;
-  searchPost: (e: {key?: string; type: string}) => Promise<void>;
+  searchPost: (e: { key?: string; type: string }) => Promise<void>;
   initializeSearch: () => void;
   moveWritePage: () => void;
   movePostDetailPage: (id: number) => void;
@@ -38,69 +39,21 @@ const PostList = ({
       <main className={styles.mainBlock}>
         <h1 className={styles.title}>커뮤니티</h1>
         <div className={styles.sortBlock}>
-          <ul className={styles.sortList}>
-            {[
-              {kr: "최신순", en: "createdAt"},
-              {kr: "좋아요순", en: "likeCount"},
-              {kr: "조회수순", en: "viewCount"},
-            ].map((sortNameObj) => {
-              return (
-                <li
-                  className={
-                    selectedSort === sortNameObj.en
-                      ? styles.selectedSortName
-                      : styles.sortName
-                  }
-                  onClick={() => {
-                    changeSort(sortNameObj.en);
-                  }}
-                  key={sortNameObj.kr}
-                  data-testid={`${sortNameObj.en}sortButton`}
-                >
-                  {sortNameObj.kr}
-                </li>
-              );
-            })}
-          </ul>
-          <div className={styles.rightBlock}>
-            <div className={styles.searchBlock}>
-              <button
-                className={styles.searchButton}
-                onClick={searchPost}
-                aria-label="searchButton"
-              >
-                <BiSearchAlt2 size={"20"} />
-              </button>
-              <input
-                className={styles.searchInput}
-                ref={searchRef}
-                onKeyPress={searchPost}
-                aria-label="searchInput"
-              />
-            </div>
-            <button
-              onClick={initializeSearch}
-              className={styles.initializeSearch}
-            >
-              초기화
-            </button>
-            <button
-              className={styles.writeButton}
-              onClick={moveWritePage}
-              data-testid="writeButton"
-            >
-              글쓰기
-            </button>
-          </div>
+          <Sort selectedSort={selectedSort} changeSort={changeSort} />
+          <Search
+            searchPost={searchPost}
+            searchRef={searchRef}
+            initializeSearch={initializeSearch}
+            moveWritePage={moveWritePage}
+          />
         </div>
         <div className={styles.loadingBlock}>
           <Image
-            src="/searchResultLoading.gif"
-            alt="searchImg"
+            src={searchResultLoading}
+            alt="loading"
             layout="fill"
             objectFit="contain"
             priority={true}
-            data-testid="loading"
           ></Image>
         </div>
       </main>
@@ -117,60 +70,13 @@ const PostList = ({
       <main className={styles.mainBlock}>
         <h1>커뮤니티</h1>
         <div className={styles.sortBlock}>
-          <ul className={styles.sortList}>
-            {[
-              {kr: "최신순", en: "createdAt"},
-              {kr: "좋아요순", en: "likeCount"},
-              {kr: "조회수순", en: "viewCount"},
-            ].map((sortNameObj) => {
-              return (
-                <li
-                  className={
-                    selectedSort === sortNameObj.en
-                      ? styles.selectedSortName
-                      : styles.sortName
-                  }
-                  onClick={() => {
-                    changeSort(sortNameObj.en);
-                  }}
-                  key={sortNameObj.kr}
-                  data-testid={`${sortNameObj.en}sortButton`}
-                >
-                  {sortNameObj.kr}
-                </li>
-              );
-            })}
-          </ul>
-          <div className={styles.rightBlock}>
-            <div className={styles.searchBlock}>
-              <button
-                className={styles.searchButton}
-                onClick={searchPost}
-                aria-label="searchButton"
-              >
-                <BiSearchAlt2 size={"20"} />
-              </button>
-              <input
-                className={styles.searchInput}
-                ref={searchRef}
-                onKeyPress={searchPost}
-                aria-label="searchInput"
-              />
-            </div>
-            <button
-              onClick={initializeSearch}
-              className={styles.initializeSearch}
-            >
-              초기화
-            </button>
-            <button
-              className={styles.writeButton}
-              onClick={moveWritePage}
-              data-testid="writeButton"
-            >
-              글쓰기
-            </button>
-          </div>
+          <Sort selectedSort={selectedSort} changeSort={changeSort} />
+          <Search
+            searchPost={searchPost}
+            searchRef={searchRef}
+            initializeSearch={initializeSearch}
+            moveWritePage={moveWritePage}
+          />
         </div>
         <p className={styles.message}>포스트가 존재하지 않습니다</p>
       </main>
@@ -180,106 +86,30 @@ const PostList = ({
       <main className={styles.mainBlock}>
         <h1 className={styles.title}>커뮤니티</h1>
         <div className={styles.sortBlock}>
-          <ul className={styles.sortList}>
-            {[
-              {kr: "최신순", en: "createdAt"},
-              {kr: "좋아요순", en: "likeCount"},
-              {kr: "조회수순", en: "viewCount"},
-            ].map((sortNameObj) => {
-              return (
-                <li
-                  className={
-                    selectedSort === sortNameObj.en
-                      ? styles.selectedSortName
-                      : styles.sortName
-                  }
-                  onClick={() => {
-                    changeSort(sortNameObj.en);
-                  }}
-                  key={sortNameObj.kr}
-                  data-testid={`${sortNameObj.en}sortButton`}
-                >
-                  {sortNameObj.kr}
-                </li>
-              );
-            })}
-          </ul>
-          <div className={styles.rightBlock}>
-            <div className={styles.searchBlock}>
-              <button
-                className={styles.searchButton}
-                onClick={searchPost}
-                data-testid="searchButton"
-                aria-label="searchButton"
-              >
-                <BiSearchAlt2 size={"20"} />
-              </button>
-              <input
-                className={styles.searchInput}
-                ref={searchRef}
-                onKeyPress={searchPost}
-                aria-label="searchInput"
-              />
-            </div>
-            <button
-              onClick={initializeSearch}
-              className={styles.initializeSearch}
-              data-testid="initializeButton"
-            >
-              초기화
-            </button>
-            <button
-              className={styles.writeButton}
-              onClick={moveWritePage}
-              data-testid="writeButton"
-            >
-              글쓰기
-            </button>
-          </div>
+          <Sort selectedSort={selectedSort} changeSort={changeSort} />
+          <Search
+            searchPost={searchPost}
+            searchRef={searchRef}
+            initializeSearch={initializeSearch}
+            moveWritePage={moveWritePage}
+          />
         </div>
-
         <div className={styles.postListBlock}>
           {postList.content !== undefined &&
-            postList.content.rows.map((post, index) => {
+            postList.content.rows.map((post) => {
+              post.createdAt = setDateLatest(post.createdAt);
               return (
-                <article
-                  className={styles.postBlock}
-                  onClick={() => movePostDetailPage(post.id)}
-                  data-testid={`articleButton${index}`}
-                  key={index}
-                >
-                  <div className={styles.postTopBlock}>
-                    <h2 className={styles.postTitle}>{post.title}</h2>
-                    <div className={styles.postUser}>{post.nickname}</div>
-                    <div className={styles.postWritedAt}>
-                      {setDateLatest(post.createdAt)}
-                    </div>
-                  </div>
-                  <p className={styles.postContent}>{post.content}</p>
-                  <ul className={styles.postBottomBlock}>
-                    <li className={styles.postBottomInfo}>
-                      <GrView className={styles.postIcon} />
-                      {post.viewCount}
-                    </li>
-                    <li className={styles.postBottomInfo}>
-                      <FcLike className={styles.postIcon} />
-                      {post.postlikecount}
-                    </li>
-                    <li className={styles.postBottomInfo}>
-                      <BiCommentDetail className={styles.postIcon} />
-                      {post.comment}
-                    </li>
-                  </ul>
-                </article>
+                <Post content={post} movePostDetailPage={movePostDetailPage} />
               );
             })}
         </div>
-        <PageNation
+        <PageNationContainer
           page={page}
           changePage={changePage}
-          totalCount={postList.content?.count as number}
+          totalAmount={postList.content?.count as number}
           addStyle={"margin"}
-          unit={10}
+          contentUnit={10}
+          pageUnit={5}
         />
       </main>
     );

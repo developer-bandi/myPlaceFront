@@ -1,0 +1,67 @@
+@import "../../../../lib/styles/globalmixin.scss";
+
+.mainBlock {
+  display: flex;
+  margin-left: auto;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    margin: 20px 0px 0px 0px;
+  }
+}
+
+.searchBlock {
+  display: flex;
+  align-items: center;
+  border: 1px solid #c9c9c9;
+  border-radius: 20px;
+  height: 35px;
+  width: 260px;
+  margin: 0px 10px 0px 0px;
+  &:focus {
+    border: 1px solid #00aaff;
+  }
+  @media screen and (max-width: 767px) {
+    width: calc(100% - 125px);
+  }
+}
+
+.searchInput {
+  width: 200px;
+  height: 30px;
+  font-size: 20px;
+  @media screen and (max-width: 767px) {
+    width: 140px;
+  }
+}
+
+.searchButton {
+  margin: 0px 5px 0px 10px;
+  display: flex;
+  align-items: center;
+}
+
+.initializeSearch {
+  border-radius: 5px;
+  padding: 3px;
+  cursor: pointer;
+  background-color: gray;
+  color: white;
+  width: 50px;
+  @include centerSort();
+  margin: 0px 10px 0px 0px;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.writeButton {
+  background-color: #3e4042;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+  }
+}

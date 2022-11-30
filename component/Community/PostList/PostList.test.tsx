@@ -1,18 +1,9 @@
-import {
-  act,
-  cleanup,
-  fireEvent,
-  render,
-  renderHook,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { act, cleanup, renderHook, waitFor } from "@testing-library/react";
 import axios from "axios";
 import { Provider } from "react-redux";
 import usePostList from "./PostListHook";
 import configureMockStore from "redux-mock-store";
 import { useRouter } from "next/router";
-import PostList from "./PostList";
 import { ReactNode } from "react";
 
 jest.mock("axios");
@@ -37,78 +28,6 @@ const postListMock = {
     },
   ],
 };
-
-// describe("PostList Presentational Test", () => {
-//   it("로딩중", () => {
-//     const utils = render(
-//       <PostList
-//         page={1}
-//         postList={{loading: true, error: false}}
-//         changeSort={jest.fn()}
-//         changePage={jest.fn()}
-//         selectedSort={"char"}
-//         searchRef={{current: null}}
-//         searchPost={jest.fn()}
-//         initializeSearch={jest.fn()}
-//         moveWritePage={jest.fn()}
-//         movePostDetailPage={jest.fn()}
-//       />
-//     );
-//     expect(utils.container).toMatchSnapshot();
-//     screen.getByTestId("loading");
-//   });
-//   it("에러 발생", () => {
-//     const utils = render(
-//       <PostList
-//         page={1}
-//         postList={{loading: false, error: true}}
-//         changeSort={jest.fn()}
-//         changePage={jest.fn()}
-//         selectedSort={"char"}
-//         searchRef={{current: null}}
-//         searchPost={jest.fn()}
-//         initializeSearch={jest.fn()}
-//         moveWritePage={jest.fn()}
-//         movePostDetailPage={jest.fn()}
-//       />
-//     );
-//     expect(utils.container).toMatchSnapshot();
-//     screen.getByText("서버에 에러가 발생하였습니다");
-//   });
-//   it("정상출력", () => {
-//     const changeSortMock = jest.fn();
-//     const searchPostMock = jest.fn();
-//     const initializeSearchMock = jest.fn();
-//     const moveWritePageMock = jest.fn();
-//     const movePostDetailPageMock = jest.fn();
-
-//     const utils = render(
-//       <PostList
-//         page={1}
-//         postList={{content: postListMock, loading: false, error: false}}
-//         changeSort={changeSortMock}
-//         changePage={jest.fn()}
-//         selectedSort={"char"}
-//         searchRef={{current: null}}
-//         searchPost={searchPostMock}
-//         initializeSearch={initializeSearchMock}
-//         moveWritePage={moveWritePageMock}
-//         movePostDetailPage={movePostDetailPageMock}
-//       />
-//     );
-//     expect(utils.container).toMatchSnapshot();
-//     fireEvent.click(screen.getByTestId("searchButton"));
-//     fireEvent.click(screen.getByTestId("initializeButton"));
-//     fireEvent.click(screen.getByTestId("createdAtsortButton"));
-//     fireEvent.click(screen.getByTestId("writeButton"));
-//     fireEvent.click(screen.getByTestId("articleButton0"));
-//     expect(searchPostMock).toBeCalledTimes(1);
-//     expect(initializeSearchMock).toBeCalledTimes(1);
-//     expect(changeSortMock).toBeCalledTimes(1);
-//     expect(moveWritePageMock).toBeCalledTimes(1);
-//     expect(movePostDetailPageMock).toBeCalledTimes(1);
-//   });
-// });
 
 describe("PostList Hook test", () => {
   afterEach(cleanup);
