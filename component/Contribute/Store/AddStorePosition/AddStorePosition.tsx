@@ -1,4 +1,4 @@
-import {RefObject} from "react";
+import { RefObject } from "react";
 import storePosition from "../../../../lib/styles/storePosition.module.scss";
 interface SideMapProps {
   mapref: RefObject<HTMLDivElement>;
@@ -22,8 +22,8 @@ const AddStorePosition = ({
         ref={mapref}
         style={
           isTabletOrMobile
-            ? {width: "100%", height: "400px"}
-            : {width: "800px", height: "800px"}
+            ? { width: "100%", height: "400px" }
+            : { width: "800px", height: "800px" }
         }
         className={storePosition.map}
       ></div>
@@ -38,7 +38,6 @@ const AddStorePosition = ({
           onClick={() => {
             setAddress();
           }}
-          data-testid="setAddress"
         >
           주소 설정
         </button>
@@ -49,7 +48,6 @@ const AddStorePosition = ({
           onClick={() => {
             moveSetpage();
           }}
-          data-testid="moveSetpage"
         >
           이 위치로 장소 설정후 다음단계로 이동
         </button>

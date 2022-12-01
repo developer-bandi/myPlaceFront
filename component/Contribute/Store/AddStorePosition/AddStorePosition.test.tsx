@@ -1,17 +1,10 @@
-import {
-  act,
-  fireEvent,
-  render,
-  renderHook,
-  screen,
-} from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import useAddStorePosition from "./AddStorePositionHook";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import newReact from "react";
 import * as React from "react";
-import {useRouter} from "next/router";
-import AddStorePosition from "./AddStorePosition";
+import { useRouter } from "next/router";
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -21,25 +14,6 @@ const mockRouter = {
   push: jest.fn(),
 };
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
-
-describe("AddStorePosition Presentational 테스트", () => {
-  const setAddressMock = jest.fn();
-  const moveSetpageMock = jest.fn();
-  const utils = render(
-    <AddStorePosition
-      mapref={{current: null}}
-      addressInputRef={{current: null}}
-      setAddress={setAddressMock}
-      moveSetpage={moveSetpageMock}
-      isTabletOrMobile={false}
-    />
-  );
-  expect(utils.container).toMatchSnapshot();
-  fireEvent.click(screen.getByTestId("setAddress"));
-  fireEvent.click(screen.getByTestId("moveSetpage"));
-  expect(setAddressMock).toBeCalled();
-  expect(moveSetpageMock).toBeCalled();
-});
 
 describe("AddStorePosition Hook 테스트", () => {
   let infoBlank = true;
@@ -58,7 +32,7 @@ describe("AddStorePosition Hook 테스트", () => {
       latitude: "testLatitude",
     },
   });
-  const wrapper = ({children}: {children: React.ReactNode}) => (
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider
       store={infoBlank ? StorePositionMockStore : SettedStorePositionMockStore}
     >
@@ -69,14 +43,14 @@ describe("AddStorePosition Hook 테스트", () => {
     it("정보를 제대로 찾은 경우", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "ok");
+                  callback([{ x: "testx", y: "testy" }], "ok");
                 },
               };
             }),
@@ -93,7 +67,7 @@ describe("AddStorePosition Hook 테스트", () => {
       const setPositionMock = jest.fn();
       const setMapMock = jest.fn();
       const setCenterMock = jest.fn();
-      const {result} = renderHook(() => useAddStorePosition(), {wrapper});
+      const { result } = renderHook(() => useAddStorePosition(), { wrapper });
       act(() => {
         result.current.setMarker({
           setPosition: setPositionMock,
@@ -120,14 +94,14 @@ describe("AddStorePosition Hook 테스트", () => {
     it("결과가 없는 경우", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "zero_result");
+                  callback([{ x: "testx", y: "testy" }], "zero_result");
                 },
               };
             }),
@@ -145,7 +119,7 @@ describe("AddStorePosition Hook 테스트", () => {
       const setPositionMock = jest.fn();
       const setMapMock = jest.fn();
       const setCenterMock = jest.fn();
-      const {result} = renderHook(() => useAddStorePosition(), {wrapper});
+      const { result } = renderHook(() => useAddStorePosition(), { wrapper });
       act(() => {
         result.current.setMarker({
           setPosition: setPositionMock,
@@ -169,20 +143,20 @@ describe("AddStorePosition Hook 테스트", () => {
           longitude: "",
         },
       });
-      expect(result.current.addressInputRef.current).toEqual({value: ""});
+      expect(result.current.addressInputRef.current).toEqual({ value: "" });
       expect(setMapMock.mock.calls[0][0]).toBe(null);
     });
     it("에러 발생", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "error");
+                  callback([{ x: "testx", y: "testy" }], "error");
                 },
               };
             }),
@@ -197,7 +171,7 @@ describe("AddStorePosition Hook 테스트", () => {
       };
       window.kakao = kakao as any;
       window.alert = jest.fn();
-      const {result} = renderHook(() => useAddStorePosition(), {wrapper});
+      const { result } = renderHook(() => useAddStorePosition(), { wrapper });
       act(() => {
         result.current.setAddress();
       });
@@ -209,8 +183,8 @@ describe("AddStorePosition Hook 테스트", () => {
       infoBlank = false;
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
-      const {result} = renderHook(() => useAddStorePosition(), {wrapper});
+        .mockReturnValue({ current: { value: "test" } });
+      const { result } = renderHook(() => useAddStorePosition(), { wrapper });
       act(() => {
         result.current.moveSetpage();
       });
@@ -220,9 +194,9 @@ describe("AddStorePosition Hook 테스트", () => {
       infoBlank = true;
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       window.alert = jest.fn();
-      const {result} = renderHook(() => useAddStorePosition(), {
+      const { result } = renderHook(() => useAddStorePosition(), {
         wrapper,
       });
       act(() => {
