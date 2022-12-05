@@ -1,0 +1,23 @@
+.mainBlock {
+  display: flex;
+  margin: 15px 0 15px 0;
+}
+
+.category {
+  padding: 5px;
+  border-radius: 10px;
+  color: black;
+  border: 1px solid #e5e5e5;
+  font-size: 17px;
+  margin-right: 10px;
+  padding: 5px 15px 5px 15px;
+  &:hover {
+    background: #87cefa;
+    border: 1px solid #87cefa;
+  }
+}
+
+.selected {
+  background: #87cefa;
+  border: 1px solid #87cefa;
+}

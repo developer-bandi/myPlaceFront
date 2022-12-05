@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import AddStoreInfo from "./AddStoreInfo";
-import { action } from "@storybook/addon-actions";
-import { useIsTabletOrMobile } from "../../../../lib/customHook/mediaQuery";
 
 export default {
   title: "Contribute/Store/AddStoreInfo",
@@ -10,7 +8,6 @@ export default {
 } as ComponentMeta<typeof AddStoreInfo>;
 
 const Template: ComponentStory<typeof AddStoreInfo> = (arg) => {
-  const isTabletOrMobile = useIsTabletOrMobile();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

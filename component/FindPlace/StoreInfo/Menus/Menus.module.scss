@@ -1,0 +1,21 @@
+.mainBlock {
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin-right: 250px;
+  margin-bottom: 15px;
+}
+
+.menuBlock {
+  width: 350px;
+  display: flex;
+  overflow-x: scroll;
+}
+
+.menuImgBlock {
+  flex: 0 0 auto;
+  margin-right: 10px;
+}

@@ -1,0 +1,51 @@
+.commentBlock {
+  border-bottom: 2px solid #f6f8f9;
+  padding-top: 10px;
+}
+.commentInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.date {
+  color: #a1a1a1;
+  margin-left: 10px;
+  font-size: 14px;
+}
+.nickname {
+  font-weight: 600;
+}
+.tagListBlock {
+  margin-top: 5px;
+}
+
+.imgBlock {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.imgs {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+.commentContent {
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #424242;
+}
+
+.tagListBlock {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px 0 10px 0;
+}
+
+.commentTag {
+  font-size: 12px;
+  color: gray;
+}

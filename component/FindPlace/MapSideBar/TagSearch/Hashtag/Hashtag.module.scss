@@ -1,0 +1,30 @@
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px 0 15px 0;
+}
+
+.hashtagListBlock {
+  margin-bottom: 15px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.hashtag {
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 7px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
+.selected {
+  background: #87cefa;
+  border: 1px solid #87cefa;
+  color: white;
+}

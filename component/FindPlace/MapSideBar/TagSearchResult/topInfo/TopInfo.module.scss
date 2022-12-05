@@ -1,0 +1,39 @@
+.topBlock {
+  border-bottom: 1px solid #e5e5e5;
+  padding: 20px 0 10px 0;
+}
+
+.titleBlock {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 20px 20px;
+}
+
+.title {
+  color: #00aaff;
+}
+
+.movesearch {
+  height: 30px;
+  border-radius: 10px;
+  color: white;
+  padding: 5px;
+  background-color: skyblue;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.selecttaglistBlock {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 20px;
+  color: gray;
+  overflow-x: scroll;
+}
+
+.selecttag {
+  margin-right: 10px;
+  margin-bottom: 10px;
+}

@@ -11,7 +11,7 @@ export interface storeInfoType {
     latitude: string;
     longitude: string;
   };
-  Reviews?: {
+  Reviews: {
     content: string;
     user: string;
     date: string;

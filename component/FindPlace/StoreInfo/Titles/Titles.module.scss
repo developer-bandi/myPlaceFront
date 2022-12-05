@@ -1,0 +1,28 @@
+.titleBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.moveList {
+  position: absolute;
+  left: 0;
+  margin-left: 10px;
+}
+
+.storeName {
+}
+
+.category {
+  color: #a1a1a1;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.bookmarkIcon {
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+}
