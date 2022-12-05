@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./MyPageModal.module.scss";
 import Link from "next/link";
-import {GrClose} from "react-icons/gr";
+import { GrClose } from "react-icons/gr";
 
 interface MyPageModalProps {
   userLogout: () => void;
@@ -19,14 +19,13 @@ const MyPageModal = ({
       <nav className={styles.subBlock}>
         <ul className={styles.navListBlock}>
           {isMobile ? (
-            <li className={styles.titleBlock} data-testid="mobile">
+            <li className={styles.titleBlock}>
               <div className={styles.title}>마이페이지</div>
               <GrClose
                 className={styles.closeIcon}
                 onClick={() => {
                   modalActvieChange();
                 }}
-                data-testid="modalActvieChange"
               />
             </li>
           ) : null}
@@ -36,7 +35,6 @@ const MyPageModal = ({
                 className={styles.nav}
                 key={menuObj.name}
                 onClick={modalActvieChange}
-                data-testid={`modalActvieChange${index}`}
               >
                 <Link href={`/user/mypage/${menuObj.router}`}>
                   {menuObj.name}
@@ -44,12 +42,7 @@ const MyPageModal = ({
               </li>
             );
           })}
-          <li
-            className={styles.logout}
-            onClick={userLogout}
-            key={"로그아웃"}
-            data-testid="userLogout"
-          >
+          <li className={styles.logout} onClick={userLogout} key={"로그아웃"}>
             로그아웃
           </li>
         </ul>

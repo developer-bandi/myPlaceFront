@@ -34,7 +34,6 @@ const Comment = ({
           <button
             className={styles.button}
             onClick={() => dispatchDeleteComment({ commentId: id, userId })}
-            data-testid="deleteComment"
           >
             삭제
           </button>

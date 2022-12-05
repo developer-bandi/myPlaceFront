@@ -46,7 +46,6 @@ const HashTag = ({
                               onClick={() => {
                                 changeHashtag(tag[0], tag[2]);
                               }}
-                              data-testid={`changeHashtag${index}`}
                               key={tag[0]}
                             >
                               #{tag[0]}

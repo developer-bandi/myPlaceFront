@@ -12,10 +12,7 @@ interface BannerProps {
 const Banner = ({ carouselNumber, bannerData }: BannerProps) => {
   if (bannerData.error) {
     return (
-      <section
-        className={`${styles.mainBlock} ${styles.gray}`}
-        data-testid={`carousel${carouselNumber}`}
-      >
+      <section className={`${styles.mainBlock} ${styles.gray}`}>
         <div className={styles.subBlock}>
           <h3 className={styles.error}>에러가 발생하였습니다</h3>
         </div>
@@ -29,7 +26,6 @@ const Banner = ({ carouselNumber, bannerData }: BannerProps) => {
             className={`${styles.mainBlock} ${
               styles[bannerData.content[carouselNumber].backgroundColor]
             }`}
-            data-testid={`carousel${carouselNumber}`}
           >
             <div className={styles.subBlock}>
               <div className={styles.infoBlock}>

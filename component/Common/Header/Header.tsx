@@ -43,7 +43,7 @@ const Header = ({
               })}
         </ul>
         {loginedUser.content ? (
-          <div className={styles.userBlock} data-testid="login">
+          <div className={styles.userBlock}>
             <p className={styles.userInfo}>
               {loginedUser.content.nickname}님 반갑습니다
             </p>
@@ -52,7 +52,6 @@ const Header = ({
               onClick={() => {
                 changeNoticeModal();
               }}
-              data-testid="changeNoticeModal"
               aria-label="notice"
             >
               <VscBell size={25} />
@@ -68,20 +67,19 @@ const Header = ({
               onClick={() => {
                 changePageModal();
               }}
-              data-testid="changePageModal"
               aria-label="mypage"
             >
               <BiUserCircle size={25} />
             </button>
           </div>
         ) : (
-          <button className={styles.signin} data-testid="logout">
+          <button className={styles.signin}>
             <Link href={"/user/auth/signin"}>로그인/회원가입</Link>
           </button>
         )}
       </div>
       {isMobile ? (
-        <div className={styles.subBlock} data-testid="mobile">
+        <div className={styles.subBlock}>
           <ul className={styles.bottomNavigationBlock}>
             {menuList.map((menuObj) => {
               return (

@@ -59,7 +59,6 @@ const ImageBlock = ({
                     deleteExistImg(index);
                   }}
                   className={storeInfo.imgDeleteButton}
-                  data-testid={`deleteExistMenuImg${index}`}
                 >
                   <ImCross
                     size={20}
@@ -84,7 +83,6 @@ const ImageBlock = ({
                 deleteImg(index);
               }}
               className={storeInfo.imgDeleteButton}
-              data-testid={`deleteMenuImg${index}`}
             >
               <ImCross
                 size={20}

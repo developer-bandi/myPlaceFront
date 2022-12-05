@@ -1,4 +1,4 @@
-import {RefObject} from "react";
+import { RefObject } from "react";
 import storePosition from "../../../../lib/styles/storePosition.module.scss";
 
 interface UpdateStorePositionProps {
@@ -23,8 +23,8 @@ const UpdateStorePosition = ({
         ref={mapref}
         style={
           isTabletOrMobile
-            ? {width: "100%", height: "400px"}
-            : {width: "800px", height: "800px"}
+            ? { width: "100%", height: "400px" }
+            : { width: "800px", height: "800px" }
         }
         className={storePosition.map}
       ></div>
@@ -35,7 +35,6 @@ const UpdateStorePosition = ({
           onClick={() => {
             changeAddress();
           }}
-          data-testid="changeAddress"
         >
           주소 설정
         </button>
@@ -46,7 +45,6 @@ const UpdateStorePosition = ({
           onClick={() => {
             changePosition();
           }}
-          data-testid="changePosition"
         >
           이 위치로 장소 수정
         </button>

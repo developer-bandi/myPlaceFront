@@ -17,11 +17,7 @@ const CommentInput = ({
         ref={textareaRef}
         aria-label="commentTextarea"
       />
-      <button
-        className={styles.button}
-        onClick={dispatchPostComment}
-        data-testid="postComment"
-      >
+      <button className={styles.button} onClick={dispatchPostComment}>
         등록
       </button>
     </div>

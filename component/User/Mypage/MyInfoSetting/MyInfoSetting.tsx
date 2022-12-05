@@ -1,12 +1,12 @@
-import {RefObject} from "react";
+import { RefObject } from "react";
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import styles from "./MyInfoSetting.module.scss";
 import mypage from "../../../../lib/styles/mypage.module.scss";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import Image from "next/image";
-import {setDateYearMonthDay} from "../../../../lib/commonFn/date";
+import { setDateYearMonthDay } from "../../../../lib/commonFn/date";
 import Link from "next/link";
-import {userInfoDataState} from "./MyInfoSettingContainer";
+import { userInfoDataState } from "./MyInfoSettingContainer";
 
 interface PostListProps {
   serverData: userInfoDataState;
@@ -23,7 +23,7 @@ const MyInfoSetting = ({
 }: PostListProps) => {
   if (serverData.loading) {
     return (
-      <div className={mypage.mainBlock} data-testid="loading">
+      <div className={mypage.mainBlock}>
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
         <div className={mypage.subBlock}>
           <h1 className={mypage.title}>내 정보</h1>
@@ -35,7 +35,7 @@ const MyInfoSetting = ({
     );
   } else if (serverData.error) {
     return (
-      <div className={mypage.mainBlock} data-testid="error">
+      <div className={mypage.mainBlock}>
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
         <div className={mypage.subBlock}>
           <h1 className={mypage.title}>내 정보</h1>
@@ -45,7 +45,7 @@ const MyInfoSetting = ({
     );
   } else {
     return (
-      <div className={mypage.mainBlock} data-testid="result">
+      <div className={mypage.mainBlock}>
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
         <div className={mypage.subBlock}>
           <h1 className={mypage.title}>내 정보</h1>
@@ -53,7 +53,7 @@ const MyInfoSetting = ({
             <div className={styles.subTitle}>소셜</div>
             <div className={styles.content}>
               {serverData.content !== undefined
-                ? {kakao: "카카오", naver: "네이버", local: "연결안됨"}[
+                ? { kakao: "카카오", naver: "네이버", local: "연결안됨" }[
                     serverData.content.provider
                   ]
                 : null}

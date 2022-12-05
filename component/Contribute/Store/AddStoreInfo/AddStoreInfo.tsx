@@ -84,11 +84,7 @@ const AddStoreInfo = ({
         deleteImg={deleteMenuImg}
       />
       <div className={storeInfo.submitButtonBlock}>
-        <button
-          onClick={submit}
-          data-testid="submit"
-          className={storeInfo.submitButton}
-        >
+        <button onClick={submit} className={storeInfo.submitButton}>
           등록
         </button>
       </div>

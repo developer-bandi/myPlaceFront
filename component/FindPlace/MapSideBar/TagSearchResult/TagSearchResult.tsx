@@ -27,17 +27,13 @@ const TagSearchResult = ({
       />
       <div className={styles.storeListBlock}>
         {searchResult.loading ? (
-          <div className={styles.loading} data-testid="loading">
+          <div className={styles.loading}>
             <Image src={searchResultLoading} alt="loading"></Image>
           </div>
         ) : searchResult.error ? (
-          <p className={styles.ectStatus} data-testid="error">
-            에러가 발생하였습니다
-          </p>
+          <p className={styles.ectStatus}>에러가 발생하였습니다</p>
         ) : searchResult.content?.length === 0 ? (
-          <p className={styles.ectStatus} data-testid="noResult">
-            검색결과가 없습니다
-          </p>
+          <p className={styles.ectStatus}>검색결과가 없습니다</p>
         ) : (
           <StoreBox
             searchResult={searchResult.content}

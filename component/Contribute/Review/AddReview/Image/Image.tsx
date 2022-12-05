@@ -35,7 +35,6 @@ const ImageComponent = ({ uploadImg, deleteImg, addImg }: ImageProps) => {
                   deleteImg(index);
                 }}
                 className={storeReview.imgDeleteButton}
-                data-testid={`deleteImg${index}`}
               >
                 <ImCross
                   size={20}
@@ -51,7 +50,6 @@ const ImageComponent = ({ uploadImg, deleteImg, addImg }: ImageProps) => {
         accept="image/*"
         id="fileimg"
         onChange={addImg}
-        data-testid="addImg"
         multiple
         className={storeReview.realFileButton}
       />

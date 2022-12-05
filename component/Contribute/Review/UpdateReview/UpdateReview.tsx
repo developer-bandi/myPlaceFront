@@ -80,11 +80,7 @@ const UpdateReview = ({
           changeHashtag={changeHashtag}
         />
         <div className={storeReview.submitButtonBlock}>
-          <button
-            onClick={submit}
-            data-testid="submit"
-            className={storeReview.submitButton}
-          >
+          <button onClick={submit} className={storeReview.submitButton}>
             리뷰 수정하기
           </button>
         </div>

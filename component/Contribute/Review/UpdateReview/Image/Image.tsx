@@ -69,7 +69,6 @@ const ImageComponent = ({
                   deleteUploadImg(index);
                 }}
                 className={storeReview.imgDeleteButton}
-                data-testid={`deleteUploadImg${index}`}
               >
                 <ImCross
                   size={20}

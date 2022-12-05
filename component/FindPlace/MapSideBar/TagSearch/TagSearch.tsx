@@ -49,7 +49,6 @@ const TagSearch = ({
         onClick={() => {
           dispatchSearchStore();
         }}
-        data-testid="dispatchSearchStore"
       >
         검색하기
       </button>

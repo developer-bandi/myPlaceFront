@@ -24,7 +24,7 @@ const MyComment = ({
 }: PostListProps) => {
   if (commentListState.loading) {
     return (
-      <div className={mypage.mainBlock} data-testid="loading">
+      <div className={mypage.mainBlock}>
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
         <div className={mypage.subBlock}>
           <h1 className={mypage.title}>작성 댓글</h1>
@@ -40,7 +40,7 @@ const MyComment = ({
       commentListState.error !== null
     ) {
       return (
-        <div className={mypage.mainBlock} data-testid="error">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 댓글</h1>
@@ -50,7 +50,7 @@ const MyComment = ({
       );
     } else if (commentListState.content?.count === 0) {
       return (
-        <div className={mypage.mainBlock} data-testid="noResult">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 댓글</h1>
@@ -60,7 +60,7 @@ const MyComment = ({
       );
     } else {
       return (
-        <div className={mypage.mainBlock} data-testid="result">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>작성 포스트</h1>

@@ -33,7 +33,7 @@ const MyBookMark = ({
         {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
         <div className={mypage.subBlock}>
           <h1 className={mypage.title}>북마크</h1>
-          <div className={mypage.loading} data-testid="loading">
+          <div className={mypage.loading}>
             <Image src={searchResultLoading} alt="loading"></Image>
           </div>
         </div>
@@ -42,7 +42,7 @@ const MyBookMark = ({
   } else {
     if (bookMarkState.content === undefined && bookMarkState.error) {
       return (
-        <div className={mypage.mainBlock} data-testid="error">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>북마크</h1>
@@ -55,7 +55,7 @@ const MyBookMark = ({
       bookMarkState.content.count === 0
     ) {
       return (
-        <div className={mypage.mainBlock} data-testid="noResult">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>북마크</h1>
@@ -65,7 +65,7 @@ const MyBookMark = ({
       );
     } else {
       return (
-        <div className={mypage.mainBlock} data-testid="result">
+        <div className={mypage.mainBlock}>
           {isLabtopOrTabletOrMobile ? null : <MyPageNavigation />}
           <div className={mypage.subBlock}>
             <h1 className={mypage.title}>북마크</h1>

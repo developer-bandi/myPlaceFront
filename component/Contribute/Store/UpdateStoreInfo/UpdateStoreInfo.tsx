@@ -90,11 +90,7 @@ const UpdateStoreInfo = ({
         />
       </div>
       <div className={storeInfo.submitButtonBlock}>
-        <button
-          className={storeInfo.submitButton}
-          onClick={submit}
-          data-testid="submit"
-        >
+        <button className={storeInfo.submitButton} onClick={submit}>
           수정하기
         </button>
       </div>

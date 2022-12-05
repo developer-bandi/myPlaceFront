@@ -14,11 +14,7 @@ const LikeButton = ({
   likedLength,
 }: LikeButtonProps) => {
   return (
-    <button
-      className={styles.mainBlock}
-      onClick={dispatchUpdateLike}
-      data-testid="deleteOrPostLikecount"
-    >
+    <button className={styles.mainBlock} onClick={dispatchUpdateLike}>
       {liked === "up" ? (
         <FcLike className={styles.icon} />
       ) : (

@@ -48,7 +48,6 @@ const Header = ({
               onClick={() =>
                 dispatchDeletePost({ postId: id, userId: userId as number })
               }
-              data-testid="deletePost"
             >
               삭제하기
             </button>
