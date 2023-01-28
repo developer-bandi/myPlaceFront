@@ -21,7 +21,7 @@ const postDetailSlice = createSlice({
   name: "postDetail",
   initialState,
   reducers: {
-    getPost(state, action: PayloadAction<number>) {
+    getPost(state, action: PayloadAction<string>) {
       state.loading = true;
     },
 
@@ -89,8 +89,13 @@ const postDetailSlice = createSlice({
   },
 
   extraReducers: {
-    [HYDRATE]: (state) => {
-      return state;
+    [HYDRATE]: (state, action) => {
+      const serverData = action.payload.postDetail;
+      if (serverData.error) {
+        return state;
+      } else {
+        return serverData;
+      }
     },
   },
 });

@@ -1,14 +1,14 @@
-import {useEffect, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducer} from "../../../../../store";
+import { useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootReducer } from "../../../../store";
 import {
   setCategory,
   addHashTag,
   deleteHashTag,
   setPosition,
-} from "../../../../../store/reducers/searchCondition/Reducer";
-import {searchStore} from "../../../../../store/reducers/searchResult/Reducer";
-import {setSearchType} from "../../../../../store/reducers/searhType/Reducer";
+} from "../../../../store/reducers/searchCondition/Reducer";
+import { searchStore } from "../../../../store/reducers/searchResult/Reducer";
+import { setSearchType } from "../../../../store/reducers/searhType/Reducer";
 
 const useTagSearch = () => {
   const dispatch = useDispatch();
@@ -43,7 +43,7 @@ const useTagSearch = () => {
 
   const dispatchAddress = () => {
     if (inputRef.current !== null) {
-      dispatch(setPosition({address: inputRef.current.value}));
+      dispatch(setPosition({ address: inputRef.current.value }));
     }
   };
 

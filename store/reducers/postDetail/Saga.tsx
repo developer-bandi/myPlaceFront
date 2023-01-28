@@ -22,11 +22,11 @@ import {
 } from "../../../lib/apitype/post";
 import { NextRouter } from "next/router";
 
-function* getPostSaga(action: { type: string; payload: { id: string } }) {
+function* getPostSaga(action: { type: string; payload: string }) {
   try {
     const response: { data: postDetailType } = yield call(
       axiosGetPostDetail,
-      action.payload.id
+      action.payload
     );
     yield put(getPostSuccess(response.data));
   } catch (error) {

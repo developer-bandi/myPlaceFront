@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof MyReview> = (arg) => {
 };
 
 const makeUrl = loader({ width: 200, height: 200 });
-
+makeUrl({ src: "/place/16625346494021491388606" });
 const nomarlContent = {
   count: 10,
   rows: new Array(10).fill(0).map((data, index) => {

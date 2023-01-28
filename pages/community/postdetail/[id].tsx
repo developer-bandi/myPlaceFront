@@ -1,11 +1,13 @@
-import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { END } from "redux-saga";
 import Footer from "../../../component/Common/Footer/Footer";
 import HeaderContainer from "../../../component/Common/Header/HeaderContainer";
-import PostDetailContainer from "../../../component/Community/PostDetail/PostDetailContainer";
+import PostDetail from "../../../component/Community/PostDetail/PostDetail";
 import { postDetailType } from "../../../lib/apitype/post";
 import { axiosGetPostDetail } from "../../../lib/commonFn/api";
+import { wrapper } from "../../../store";
+import { getPost } from "../../../store/reducers/postDetail/Reducer";
 
 interface PostDetailPageProps {
   serverSideData: postDetailType;
@@ -34,18 +36,22 @@ const PostDetailPage = ({ serverSideData }: PostDetailPageProps) => {
         />
       </Head>
       <HeaderContainer />
-      <PostDetailContainer serverSideData={serverSideData} />
+      <PostDetail />
       <Footer />
     </>
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.params !== undefined && context.params.id;
-  const res = await axiosGetPostDetail(id as string);
-
-  // Pass data to the page via props
-  return { props: { serverSideData: res.data } };
-};
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (ctx) => {
+    const id = ctx.params !== undefined && ctx.params.id;
+    console.log(id);
+    const res = await axiosGetPostDetail(id as string);
+    store.dispatch(getPost(id as string));
+    store.dispatch(END);
+    await store.sagaTask?.toPromise();
+    return { props: { serverSideData: res.data } };
+  }
+);
 
 export default PostDetailPage;
