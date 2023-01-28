@@ -3,10 +3,8 @@ import { useRouter } from "next/router";
 import Footer from "../../component/Common/Footer/Footer";
 import HeaderContainer from "../../component/Common/Header/HeaderContainer";
 import UpdateStoreInfoContainer from "../../component/Contribute/Store/UpdateStoreInfo/UpdateStoreInfoContainer";
-import { useLogin } from "../../lib/customHook/loginCheck";
 
 const UpdateStoreinfo = () => {
-  useLogin();
   const router = useRouter();
   return (
     <>

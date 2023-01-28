@@ -15,6 +15,7 @@ interface HeaderProps {
   serverData: noticeListState;
   modalStatus: modalStatusState;
   isMobile: boolean;
+  moveContributePage: () => void;
 }
 
 const Header = ({
@@ -24,6 +25,7 @@ const Header = ({
   serverData,
   modalStatus,
   isMobile,
+  moveContributePage,
 }: HeaderProps) => {
   return (
     <header className={styles.mainBlock}>
@@ -37,7 +39,11 @@ const Header = ({
             : menuList.map((menuObj) => {
                 return (
                   <li key={menuObj.name} className={styles.navigationName}>
-                    <Link href={menuObj.router}>{menuObj.name}</Link>
+                    {menuObj.name === "기여하기" ? (
+                      <div onClick={moveContributePage}>{menuObj.name}</div>
+                    ) : (
+                      <Link href={menuObj.router}>{menuObj.name}</Link>
+                    )}
                   </li>
                 );
               })}
@@ -84,7 +90,11 @@ const Header = ({
             {menuList.map((menuObj) => {
               return (
                 <li key={menuObj.name} className={styles.navigationName}>
-                  <Link href={menuObj.router}>{menuObj.name}</Link>
+                  {menuObj.name === "기여하기" ? (
+                    <div onClick={moveContributePage}>{menuObj.name}</div>
+                  ) : (
+                    <Link href={menuObj.router}>{menuObj.name}</Link>
+                  )}
                 </li>
               );
             })}

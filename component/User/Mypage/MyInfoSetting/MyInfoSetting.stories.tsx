@@ -38,6 +38,7 @@ export const isLoading = Template.bind({});
 isLoading.args = {
   serverData: { loading: true, error: false },
 };
+
 export const isError = Template.bind({});
 isError.args = {
   serverData: { loading: false, error: true },

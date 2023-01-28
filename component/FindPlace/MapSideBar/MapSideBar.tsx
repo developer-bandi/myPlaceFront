@@ -1,8 +1,8 @@
 import styles from "./MapSideBar.module.scss";
-import TagSearchContainer from "./component/TagSearch/TagSearchContainer";
-import TagSearchResultContainer from "./component/TagSearchResult/TagSearchResultContainer";
+import TagSearchContainer from "./TagSearch/TagSearchContainer";
+import TagSearchResultContainer from "./TagSearchResult/TagSearchResultContainer";
 import NameSearchContainer from "./NameSearch/NameSearchContainer";
-import NameSearchResultContainer from "./component/NameSearchResult/NameSearchResultContainer";
+import NameSearchResultContainer from "./NameSearchResult/NameSearchResultContainer";
 import { SideBarFoldState } from "../../../store/reducers/sideBarFold/Reducer";
 import Header from "./Header/Header";
 
