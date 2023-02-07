@@ -25,6 +25,7 @@ generalType.args = {
       latitude: "testLatitude",
       longitude: "testLongitude",
     },
+    Reviews: [],
   },
   taglist: {
     content: {
