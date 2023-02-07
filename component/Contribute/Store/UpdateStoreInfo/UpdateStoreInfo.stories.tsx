@@ -25,6 +25,7 @@ generalType.args = {
       latitude: "test",
       longitude: "test",
     },
+    Reviews: [],
   },
   uploadMenuImg: [],
   uploadMainImg: [],
