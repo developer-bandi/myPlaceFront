@@ -11,9 +11,6 @@
   background-color: #ebebe9;
   color: #c0c0c0;
   cursor: pointer;
-  & + & {
-    border-left: 1px solid black;
-  }
   @media screen and (max-width: 767px) {
     width: 50%;
   }
