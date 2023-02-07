@@ -44,7 +44,6 @@ const usePostList = (serverSideData: postListContent) => {
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  console.log(postList);
   useEffect(() => {
     window.scrollTo({
       top: 0,

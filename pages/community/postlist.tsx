@@ -12,7 +12,6 @@ interface PostListPageProps {
 }
 
 const PostListPage = ({ serverSideData }: PostListPageProps) => {
-  console.log("ssr", serverSideData);
   const router = useRouter();
   return (
     <>
