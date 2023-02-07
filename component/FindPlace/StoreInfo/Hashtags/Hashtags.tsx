@@ -20,7 +20,7 @@ const Hashtags = ({ hashtags }: HashtagsProps) => {
             })
             .map((tag) => {
               return (
-                <div className={styles.tag}>
+                <div className={styles.tag} key={tag}>
                   #{tag}
                   <span className={styles.tagCount}>
                     {hashtags !== undefined ? hashtags[tag] : null}

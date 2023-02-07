@@ -6,7 +6,6 @@ interface HeaderProps {
 }
 
 const Header = ({ searchType, changeSidebarStatus }: HeaderProps) => {
-  console.log(searchType);
   return (
     <div className={styles.mainBlock}>
       {[

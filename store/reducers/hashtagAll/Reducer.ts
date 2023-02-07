@@ -1,10 +1,10 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {HYDRATE} from "next-redux-wrapper";
-import {HashTagType} from "../../../lib/apitype/hashtag";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
+import { HashTagType } from "../../../lib/apitype/hashtag";
 
 export interface HashtagAllState {
   content?: {
-    [index: string]: {[index: string]: [string, number, number][]};
+    [index: string]: { [index: string]: [string, number, number][] };
   };
   loading: boolean;
   error: boolean;
@@ -25,9 +25,9 @@ const HashtagAllSlice = createSlice({
     },
 
     getHashtagAllSuccess(state, action: PayloadAction<HashTagType[]>) {
-      state.content = {카페: {}, 식당: {}, 주점: {}};
+      state.content = { 카페: {}, 식당: {}, 주점: {} };
       for (let i = 0; i < action.payload.length; i++) {
-        const {id, category, subject, name, viewCount} = action.payload[i];
+        const { id, category, subject, name, viewCount } = action.payload[i];
         if (state.content[category][subject] === undefined) {
           state.content[category][subject] = [];
         }
@@ -45,7 +45,7 @@ const HashtagAllSlice = createSlice({
   extraReducers: {
     [HYDRATE]: (state, action) => {
       const serverData = action.payload.hashtagAll;
-      if (serverData.error) {
+      if (serverData.error || serverData.content === undefined) {
         return state;
       } else {
         return serverData;
@@ -54,7 +54,7 @@ const HashtagAllSlice = createSlice({
   },
 });
 
-export const {getHashtagAll, getHashtagAllSuccess, getHashtagAllFailure} =
+export const { getHashtagAll, getHashtagAllSuccess, getHashtagAllFailure } =
   HashtagAllSlice.actions;
 
 export default HashtagAllSlice.reducer;

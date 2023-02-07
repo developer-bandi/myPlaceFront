@@ -96,10 +96,14 @@ const PostList = ({
         </div>
         <div className={styles.postListBlock}>
           {postList.content !== undefined &&
-            postList.content.rows.map((post) => {
+            postList.content.rows.map((post, index) => {
               post.createdAt = setDateLatest(post.createdAt);
               return (
-                <Post content={post} movePostDetailPage={movePostDetailPage} />
+                <Post
+                  content={post}
+                  movePostDetailPage={movePostDetailPage}
+                  key={index}
+                />
               );
             })}
         </div>

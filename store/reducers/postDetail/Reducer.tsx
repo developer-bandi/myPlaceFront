@@ -91,7 +91,7 @@ const postDetailSlice = createSlice({
   extraReducers: {
     [HYDRATE]: (state, action) => {
       const serverData = action.payload.postDetail;
-      if (serverData.error) {
+      if (serverData.error || serverData.content === undefined) {
         return state;
       } else {
         return serverData;

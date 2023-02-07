@@ -14,7 +14,7 @@ const Menus = ({ menus }: MenusProps) => {
       <div className={styles.menuBlock}>
         {menus.map((src) => {
           return (
-            <div className={styles.menuImgBlock}>
+            <div className={styles.menuImgBlock} key={src}>
               <Image
                 loader={loader({ width: 200, height: 200 })}
                 src={src}

@@ -45,7 +45,6 @@ const PostDetailPage = ({ serverSideData }: PostDetailPageProps) => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const id = ctx.params !== undefined && ctx.params.id;
-    console.log(id);
     const res = await axiosGetPostDetail(id as string);
     store.dispatch(getPost(id as string));
     store.dispatch(END);

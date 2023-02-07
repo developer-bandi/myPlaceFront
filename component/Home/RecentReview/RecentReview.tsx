@@ -28,6 +28,7 @@ const RecentReview = ({ serverData, moveTargetStore }: RecentReviewProps) => {
                   loading={true}
                   moveTargetStore={moveTargetStore}
                   index={index}
+                  key={index}
                 />
               );
             })}
@@ -55,6 +56,7 @@ const RecentReview = ({ serverData, moveTargetStore }: RecentReviewProps) => {
                   content={review}
                   moveTargetStore={moveTargetStore}
                   index={index}
+                  key={index}
                 />
               );
             })}

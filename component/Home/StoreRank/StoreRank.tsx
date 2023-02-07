@@ -47,6 +47,7 @@ const StoreRank = ({
                         {...storeData}
                         moveTargetStore={moveTargetStore}
                         index={secondIndex}
+                        key={secondIndex}
                       />
                     );
                   }

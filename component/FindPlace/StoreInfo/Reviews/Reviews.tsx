@@ -31,7 +31,7 @@ const Reviews = ({ reviews }: ReviewsProps) => {
                 <div className={styles.imgBlock}>
                   {review.photos.map((src) => {
                     return (
-                      <div className={styles.imgs}>
+                      <div className={styles.imgs} key={src}>
                         <Image
                           loader={loader({ width: 200, height: 200 })}
                           src={src}
@@ -47,7 +47,9 @@ const Reviews = ({ reviews }: ReviewsProps) => {
               <div className={styles.tagListBlock}>
                 {review.Hashtags.map((hashtagName: string) => {
                   return (
-                    <div className={styles.commentTag}>#{hashtagName}</div>
+                    <div className={styles.commentTag} key={hashtagName}>
+                      #{hashtagName}
+                    </div>
                   );
                 })}
               </div>
