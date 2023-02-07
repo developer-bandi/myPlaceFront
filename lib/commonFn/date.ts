@@ -1,4 +1,5 @@
 export const setDateLatest = (dateData: string) => {
+  if (isNaN(new Date(dateData).getTime())) return dateData;
   const nowTime = new Date().getTime();
   const writeTime = new Date(dateData).getTime();
   const timeDiff = (nowTime - writeTime) / 60000;
@@ -16,6 +17,7 @@ export const setDateLatest = (dateData: string) => {
   } else {
     newDate = `${Math.floor(timeDiff / 525600)}년 전`;
   }
+
   return newDate;
 };
 
