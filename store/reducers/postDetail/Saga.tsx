@@ -36,16 +36,16 @@ function* getPostSaga(action: { type: string; payload: string }) {
 
 function* updateLikeCountSaga(action: {
   type: string;
-  payload: { id: number; type: string };
+  payload: { postId: string; userId: number; type: string };
 }) {
   try {
-    if (action.payload.type === "up") {
-      yield call(axiosPostlikecount, action.payload.id);
-      yield put(upLikeCount(action.payload.id));
-    }
     if (action.payload.type === "down") {
-      yield call(axiosDeletelikecount, action.payload.id);
-      yield put(downLikeCount(action.payload.id));
+      yield call(axiosPostlikecount, action.payload.postId);
+      yield put(upLikeCount(action.payload.userId));
+    }
+    if (action.payload.type === "up") {
+      yield call(axiosDeletelikecount, action.payload.postId);
+      yield put(downLikeCount(action.payload.userId));
     }
   } catch (error) {
     yield put(requestFailure());

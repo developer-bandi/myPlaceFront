@@ -12,6 +12,7 @@ interface PostListPageProps {
 }
 
 const PostListPage = ({ serverSideData }: PostListPageProps) => {
+  console.log("ssr", serverSideData);
   const router = useRouter();
   return (
     <>
@@ -38,6 +39,7 @@ const PostListPage = ({ serverSideData }: PostListPageProps) => {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const res = await axiosGetPostList(1, "createdAt");
+
   return { props: { serverSideData: res.data } };
 };
 

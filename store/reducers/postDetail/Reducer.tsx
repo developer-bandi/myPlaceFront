@@ -31,7 +31,7 @@ const postDetailSlice = createSlice({
 
     updateLikeCount(
       state,
-      action: PayloadAction<{ id: number; type: string }>
+      action: PayloadAction<{ postId: string; userId: number; type: string }>
     ) {},
 
     upLikeCount(state, action: PayloadAction<number>) {

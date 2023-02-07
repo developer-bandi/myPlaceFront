@@ -44,6 +44,7 @@ const usePostList = (serverSideData: postListContent) => {
   const searchRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
+  console.log(postList);
   useEffect(() => {
     window.scrollTo({
       top: 0,
@@ -138,6 +139,13 @@ const usePostList = (serverSideData: postListContent) => {
     if (searchRef.current !== null) {
       searchRef.current.value = "";
     }
+    setPostList({
+      content: serverSideData,
+      loading: false,
+      error: false,
+    });
+    setSelectedSort("createdAt");
+    setPage(1);
   };
 
   const moveWritePage = () => {

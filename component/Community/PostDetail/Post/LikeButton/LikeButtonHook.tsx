@@ -15,7 +15,7 @@ const useLikeButton = () => {
 
   const checkLike = () => {
     if (loginedId === undefined) return "noLogin";
-    if (postDetail.likelist.indexOf(loginedId) === -1) return "up";
+    if (postDetail.likelist.indexOf(loginedId) !== -1) return "up";
     return "down";
   };
 
@@ -23,7 +23,13 @@ const useLikeButton = () => {
     if (loginedId === undefined) {
       alert("로그인을 진행해 주세요");
     } else {
-      dispatch(updateLikeCount({ id: loginedId, type: checkLike() }));
+      dispatch(
+        updateLikeCount({
+          postId: postDetail.id,
+          userId: loginedId,
+          type: checkLike(),
+        })
+      );
     }
   };
 
