@@ -73,10 +73,6 @@ const menuList = [
     router: "infosetting",
   },
   {
-    name: "비밀번호 변경",
-    router: "password",
-  },
-  {
     name: "회원탈퇴",
     router: "withdrawal",
   },
