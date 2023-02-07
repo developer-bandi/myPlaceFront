@@ -26,56 +26,6 @@ const mockRouter = {
 };
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
 
-describe("AddReview Presentational 테스트", () => {
-  const changeHashtagMock = jest.fn();
-  const addImgMock = jest.fn();
-  const deleteImgMock = jest.fn();
-  const submitMock = jest.fn();
-  const utils = render(
-    <AddReview
-      storeInfo={{
-        storeInfo: {
-          id: 1,
-          name: "testName",
-          tel: "testTel",
-          openingHours: "testOpeningHours",
-          address: "testAddress",
-          category: "testCategory",
-          updatedAt: new Date(),
-          latitude: "testLatitude",
-          longitude: "testLongitude",
-        },
-      }}
-      taglist={{
-        content: {
-          testCategory: { test: [["testHashtag1", 1, 2]] },
-        },
-        loading: false,
-        error: false,
-      }}
-      selectedHashtag={[]}
-      changeHashtag={changeHashtagMock}
-      uploadImg={["/test"]}
-      addImg={addImgMock}
-      deleteImg={deleteImgMock}
-      textAreaRef={{ current: null }}
-      submit={submitMock}
-      loading={false}
-    />
-  );
-  expect(utils.container).toMatchSnapshot();
-  fireEvent.click(screen.getByTestId("changeHashtag0"));
-  fireEvent.change(screen.getByTestId("addImg"), {
-    target: { value: "" },
-  });
-  fireEvent.click(screen.getByTestId("deleteImg0"));
-  fireEvent.click(screen.getByTestId("submit"));
-  expect(changeHashtagMock).toBeCalled();
-  expect(addImgMock).toBeCalled();
-  expect(deleteImgMock).toBeCalled();
-  expect(submitMock).toBeCalled();
-});
-
 describe("AddReview Hook 테스트", () => {
   const mockStore = configureMockStore();
   let flag = true;

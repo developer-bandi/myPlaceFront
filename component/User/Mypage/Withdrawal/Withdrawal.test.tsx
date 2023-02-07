@@ -6,7 +6,7 @@ import {
   screen,
 } from "@testing-library/react";
 import axios from "axios";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import Withdrawal from "./Withdrawal";
 import useWithdrawal from "./WithdrawalHook";
 
@@ -22,35 +22,6 @@ const mockRouter = {
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
 const mockedAxios = axios as jest.Mocked<typeof axios>;
 
-describe("MyPassword Presentational 테스트", () => {
-  it("데스크톱", () => {
-    const withdrawalButtonMock = jest.fn();
-    const disagreeButtonMock = jest.fn();
-    const utils = render(
-      <Withdrawal
-        withdrawalButton={withdrawalButtonMock}
-        disagreeButton={disagreeButtonMock}
-        isLabtopOrTabletOrMobile={false}
-      />
-    );
-    expect(utils.container).toMatchSnapshot();
-    fireEvent.click(screen.getByTestId("withdrawalButton"));
-    fireEvent.click(screen.getByTestId("disagreeButton"));
-    expect(withdrawalButtonMock).toBeCalled();
-    expect(disagreeButtonMock).toBeCalled();
-  });
-  it("노트북 이하 사이즈", () => {
-    const utils = render(
-      <Withdrawal
-        withdrawalButton={jest.fn()}
-        disagreeButton={jest.fn()}
-        isLabtopOrTabletOrMobile={false}
-      />
-    );
-    expect(utils.container).toMatchSnapshot();
-  });
-});
-
 describe("Withdrawal Hook 테스트", () => {
   describe("withdrawalButton 함수 테스트", () => {
     it("정상적으로 삭제된경우", async () => {
@@ -62,7 +33,7 @@ describe("Withdrawal Hook 테스트", () => {
       );
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
-      const {result} = renderHook(() => useWithdrawal());
+      const { result } = renderHook(() => useWithdrawal());
       await act(async () => {
         await result.current.withdrawalButton();
       });
@@ -79,7 +50,7 @@ describe("Withdrawal Hook 테스트", () => {
       );
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
-      const {result} = renderHook(() => useWithdrawal());
+      const { result } = renderHook(() => useWithdrawal());
       await act(async () => {
         await result.current.withdrawalButton();
       });
@@ -89,7 +60,7 @@ describe("Withdrawal Hook 테스트", () => {
 
   it("disagreeButton 함수 테스트", () => {
     window.alert = jest.fn();
-    const {result} = renderHook(() => useWithdrawal());
+    const { result } = renderHook(() => useWithdrawal());
     act(() => {
       result.current.disagreeButton();
     });

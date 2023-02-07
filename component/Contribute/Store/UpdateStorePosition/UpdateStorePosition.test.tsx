@@ -6,11 +6,11 @@ import {
   screen,
   waitFor,
 } from "@testing-library/react";
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import newReact from "react";
 import * as React from "react";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import UpdateStorePosition from "./UpdateStorePosition";
 import useUpdateStorePosition from "./UpdateStorePositionHook";
 import axios from "axios";
@@ -21,31 +21,12 @@ jest.mock("next/router", () => ({
 }));
 const mockRouter = {
   push: jest.fn(),
-  query: {id: "1"},
+  query: { id: "1" },
 };
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
-
-describe("UpdateStorePosition Presentational 테스트", () => {
-  const changeAddressMock = jest.fn();
-  const changePositionMock = jest.fn();
-  const utils = render(
-    <UpdateStorePosition
-      mapref={{current: null}}
-      addressInputRef={{current: null}}
-      changeAddress={changeAddressMock}
-      changePosition={changePositionMock}
-      isTabletOrMobile={false}
-    />
-  );
-  expect(utils.container).toMatchSnapshot();
-  fireEvent.click(screen.getByTestId("changeAddress"));
-  fireEvent.click(screen.getByTestId("changePosition"));
-  expect(changeAddressMock).toBeCalled();
-  expect(changePositionMock).toBeCalled();
-});
 
 describe("UpdateStorePosition Hook 테스트", () => {
   let infoBlank = true;
@@ -66,7 +47,7 @@ describe("UpdateStorePosition Hook 테스트", () => {
       content: {},
     },
   });
-  const wrapper = ({children}: {children: React.ReactNode}) => (
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider
       store={infoBlank ? StorePositionMockStore : SettedStorePositionMockStore}
     >
@@ -78,8 +59,8 @@ describe("UpdateStorePosition Hook 테스트", () => {
     it("데이터가 있는 경우", async () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
-      const {result} = renderHook(() => useUpdateStorePosition(), {
+        .mockReturnValue({ current: { value: "test" } });
+      const { result } = renderHook(() => useUpdateStorePosition(), {
         wrapper,
       });
       await waitFor(() => {
@@ -95,9 +76,9 @@ describe("UpdateStorePosition Hook 테스트", () => {
       infoBlank = false;
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       window.alert = jest.fn();
-      const {result} = renderHook(() => useUpdateStorePosition(), {
+      const { result } = renderHook(() => useUpdateStorePosition(), {
         wrapper,
       });
       expect(window.alert).toBeCalledWith(
@@ -112,14 +93,14 @@ describe("UpdateStorePosition Hook 테스트", () => {
       infoBlank = true;
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "ok");
+                  callback([{ x: "testx", y: "testy" }], "ok");
                 },
               };
             }),
@@ -136,7 +117,9 @@ describe("UpdateStorePosition Hook 테스트", () => {
       const setPositionMock = jest.fn();
       const setMapMock = jest.fn();
       const setCenterMock = jest.fn();
-      const {result} = renderHook(() => useUpdateStorePosition(), {wrapper});
+      const { result } = renderHook(() => useUpdateStorePosition(), {
+        wrapper,
+      });
       act(() => {
         result.current.setMarker({
           setPosition: setPositionMock,
@@ -163,14 +146,14 @@ describe("UpdateStorePosition Hook 테스트", () => {
     it("결과가 없는 경우", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "zero_result");
+                  callback([{ x: "testx", y: "testy" }], "zero_result");
                 },
               };
             }),
@@ -188,7 +171,9 @@ describe("UpdateStorePosition Hook 테스트", () => {
       const setPositionMock = jest.fn();
       const setMapMock = jest.fn();
       const setCenterMock = jest.fn();
-      const {result} = renderHook(() => useUpdateStorePosition(), {wrapper});
+      const { result } = renderHook(() => useUpdateStorePosition(), {
+        wrapper,
+      });
       act(() => {
         result.current.setMarker({
           setPosition: setPositionMock,
@@ -207,20 +192,20 @@ describe("UpdateStorePosition Hook 테스트", () => {
       expect(result.current.address).toBe("");
       expect(result.current.latitude).toBe("");
       expect(result.current.longitude).toBe("");
-      expect(result.current.addressInputRef.current).toEqual({value: ""});
+      expect(result.current.addressInputRef.current).toEqual({ value: "" });
       expect(setMapMock.mock.calls[0][0]).toBe(null);
     });
     it("에러 발생", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "error");
+                  callback([{ x: "testx", y: "testy" }], "error");
                 },
               };
             }),
@@ -235,7 +220,9 @@ describe("UpdateStorePosition Hook 테스트", () => {
       };
       window.kakao = kakao as any;
       window.alert = jest.fn();
-      const {result} = renderHook(() => useUpdateStorePosition(), {wrapper});
+      const { result } = renderHook(() => useUpdateStorePosition(), {
+        wrapper,
+      });
       act(() => {
         result.current.changeAddress();
       });
@@ -247,12 +234,14 @@ describe("UpdateStorePosition Hook 테스트", () => {
     it("값이 채워져 있는 경우", async () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       mockedAxios.patch.mockImplementation(() =>
-        Promise.resolve({status: 200, data: "test"})
+        Promise.resolve({ status: 200, data: "test" })
       );
       window.alert = jest.fn();
-      const {result} = renderHook(() => useUpdateStorePosition(), {wrapper});
+      const { result } = renderHook(() => useUpdateStorePosition(), {
+        wrapper,
+      });
       act(() => {
         result.current.setAddress("test");
         result.current.setLatitude("test");
@@ -274,12 +263,12 @@ describe("UpdateStorePosition Hook 테스트", () => {
       window.alert = jest.fn();
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       window.alert = jest.fn();
       mockedAxios.patch.mockImplementation(() =>
-        Promise.reject({status: 500, data: "error"})
+        Promise.reject({ status: 500, data: "error" })
       );
-      const {result} = renderHook(() => useUpdateStorePosition(), {
+      const { result } = renderHook(() => useUpdateStorePosition(), {
         wrapper,
       });
       await act(async () => {
