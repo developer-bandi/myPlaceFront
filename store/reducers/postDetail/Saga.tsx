@@ -1,4 +1,11 @@
-import { all, call, put, takeLeading } from "redux-saga/effects";
+import {
+  all,
+  call,
+  delay,
+  put,
+  takeLatest,
+  takeLeading,
+} from "redux-saga/effects";
 import {
   axiosDeleteComment,
   axiosDeletelikecount,
@@ -36,18 +43,37 @@ function* getPostSaga(action: { type: string; payload: string }) {
 
 function* updateLikeCountSaga(action: {
   type: string;
-  payload: { postId: string; userId: number; type: string };
+  payload: {
+    postId: string;
+    userId: number;
+    type: string;
+    serverLike: number[];
+  };
 }) {
+  if (action.payload.type === "down") {
+    yield put(upLikeCount(action.payload.userId));
+  } else {
+    yield put(downLikeCount(action.payload.userId));
+  }
+  yield delay(500);
   try {
     if (action.payload.type === "down") {
-      yield call(axiosPostlikecount, action.payload.postId);
-      yield put(upLikeCount(action.payload.userId));
+      if (action.payload.serverLike.indexOf(action.payload.userId) !== -1) {
+        yield call(axiosPostlikecount, action.payload.postId);
+      }
     }
     if (action.payload.type === "up") {
-      yield call(axiosDeletelikecount, action.payload.postId);
-      yield put(downLikeCount(action.payload.userId));
+      if (action.payload.serverLike.indexOf(action.payload.userId) === -1) {
+        yield call(axiosDeletelikecount, action.payload.postId);
+      }
     }
   } catch (error) {
+    if (action.payload.type === "up") {
+      yield put(upLikeCount(action.payload.userId));
+    }
+    if (action.payload.type === "down") {
+      yield put(downLikeCount(action.payload.userId));
+    }
     yield put(requestFailure());
   }
 }
@@ -57,6 +83,7 @@ function* postCommentSaga(action: {
   payload: { content: string; id: number };
 }) {
   try {
+    action.type;
     const response: { data: postDetailCommentType } = yield call(
       axiosPostComment,
       action.payload.id,
@@ -106,7 +133,7 @@ export function* watchGetPostDetail() {
 }
 
 export function* watchUpdateLikeCountSaga() {
-  yield all([takeLeading("postDetail/updateLikeCount", updateLikeCountSaga)]);
+  yield all([takeLatest("postDetail/updateLikeCount", updateLikeCountSaga)]);
 }
 
 export function* watchPostCommentSaga() {

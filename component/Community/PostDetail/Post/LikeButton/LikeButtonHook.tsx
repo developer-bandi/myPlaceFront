@@ -11,6 +11,7 @@ const useLikeButton = () => {
   const postDetail = useSelector(
     (state: RootReducer) => state.postDetail.content as postDetailType
   );
+  const { serverLike } = useSelector((state: RootReducer) => state.postDetail);
   const dispatch = useDispatch();
 
   const checkLike = () => {
@@ -28,6 +29,7 @@ const useLikeButton = () => {
           postId: postDetail.id,
           userId: loginedId,
           type: checkLike(),
+          serverLike: serverLike as number[],
         })
       );
     }

@@ -8,6 +8,7 @@ import {
 
 export interface HashtagAllState {
   content?: postDetailType;
+  serverLike?: number[];
   loading: boolean;
   error: boolean;
 }
@@ -27,11 +28,17 @@ const postDetailSlice = createSlice({
 
     getPostSuccess(state, action: PayloadAction<postDetailType>) {
       state.content = action.payload;
+      state.serverLike = action.payload.likelist;
     },
 
     updateLikeCount(
       state,
-      action: PayloadAction<{ postId: string; userId: number; type: string }>
+      action: PayloadAction<{
+        postId: string;
+        userId: number;
+        type: string;
+        serverLike: number[];
+      }>
     ) {},
 
     upLikeCount(state, action: PayloadAction<number>) {
