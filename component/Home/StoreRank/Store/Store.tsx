@@ -49,7 +49,7 @@ const Store = ({
         <Image
           loader={
             photo !== undefined
-              ? loader({ width: 440, height: 300 })
+              ? loader({ width: 4400, height: 3000 })
               : undefined
           }
           src={photo !== undefined ? `${photo}` : `/107.svg`}
