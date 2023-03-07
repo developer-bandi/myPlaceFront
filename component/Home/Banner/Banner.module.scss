@@ -1,65 +1,36 @@
 .mainBlock {
   width: 100%;
   height: 300px;
-  &.purple {
-    background-color: #446eff;
-  }
-  &.green {
-    background-color: #00c471;
-  }
-  &.blue {
-    background-color: #086394;
-  }
-  &.gray {
-    background-color: #c8c8c8;
-  }
+  position: relative;
+  overflow: hidden;
 }
 
 .subBlock {
-  display: flex;
-  justify-content: space-between;
-  width: 1200px;
+  width: 100%;
   height: 300px;
-  margin: 0px auto 0px auto;
-  @media screen and (max-width: 1200px) {
-    padding: 0px 0px 0px 20px;
-    width: 100%;
-  }
-  @media screen and (max-width: 767px) {
-    padding: 0px 0px 0px 0px;
-    position: relative;
-    justify-content: center;
-    align-items: baseline;
+  display: flex;
+  position: absolute;
+  &.width {
+    width: 200%;
   }
 }
 
-.infoBlock {
-  padding: 60px 0px 0px 0px;
-  white-space: pre-line;
-}
-
-.title {
-  color: white;
-  font-size: 30px;
-  font-weight: 600;
-  line-height: 1.5;
-  margin: 0px 0px 20px 0px;
-  @media screen and (max-width: 767px) {
-    padding: 0px 0px 0px 20px;
-    font-size: 18px;
-    font-weight: 600;
-    position: absolute;
-    bottom: 0;
-    left: 20px;
+.button {
+  position: absolute;
+  font-weight: 700;
+  font-size: 20px;
+  top: calc(50% - 12.5px);
+  &.left {
+    left: calc((100% - 1200px) / 2 - 60px);
+    @media screen and (max-width: 1200px) {
+      left: 10px;
+    }
   }
-}
-
-.summary {
-  color: white;
-  font-size: 15px;
-  line-height: 1.7;
-  @media screen and (max-width: 767px) {
-    display: none;
+  &.right {
+    right: calc((100% - 1200px) / 2 - 60px);
+    @media screen and (max-width: 1200px) {
+      right: 10px;
+    }
   }
 }
 

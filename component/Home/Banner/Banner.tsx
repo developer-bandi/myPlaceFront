@@ -1,15 +1,27 @@
 import Image from "next/image";
-import Link from "next/link";
-import { loader } from "../../../lib/commonFn/loader";
+import { RefObject } from "react";
 import { BannerDataType } from "../../../pages";
 import styles from "./Banner.module.scss";
-
+import BannerImage from "./BannerImage/BannerImage";
 interface BannerProps {
   carouselNumber: number;
   bannerData: { content?: BannerDataType[]; error: boolean };
+  left: number | null;
+  right: number | null;
+  wrapRef: RefObject<HTMLDivElement>;
+  moveLeft: () => void;
+  moveRight: () => void;
 }
 
-const Banner = ({ carouselNumber, bannerData }: BannerProps) => {
+const Banner = ({
+  carouselNumber,
+  bannerData,
+  left,
+  right,
+  wrapRef,
+  moveLeft,
+  moveRight,
+}: BannerProps) => {
   if (bannerData.error) {
     return (
       <section className={`${styles.mainBlock} ${styles.gray}`}>
@@ -20,34 +32,46 @@ const Banner = ({ carouselNumber, bannerData }: BannerProps) => {
     );
   } else if (bannerData.content !== undefined) {
     return (
-      <section>
-        <Link href={bannerData.content[carouselNumber].router}>
-          <div
-            className={`${styles.mainBlock} ${
-              styles[bannerData.content[carouselNumber].backgroundColor]
-            }`}
-          >
-            <div className={styles.subBlock}>
-              <div className={styles.infoBlock}>
-                <h3 className={styles.title}>
-                  {bannerData.content[carouselNumber].title}
-                </h3>
-                <p className={styles.summary}>
-                  {bannerData.content[carouselNumber].summary}
-                </p>
-              </div>
-              <Image
-                loader={loader({ width: 800, height: 500 })}
-                src={bannerData.content[carouselNumber].img}
-                alt="bannerImg"
-                width="400px"
-                height="250px"
-                priority={true}
-              />
-            </div>
-          </div>
-        </Link>
-      </section>
+      <div className={styles.mainBlock}>
+        <section
+          className={`${styles.subBlock} ${
+            left !== null || right !== null ? styles.width : undefined
+          }`}
+          ref={wrapRef}
+        >
+          {left !== null ? (
+            <BannerImage {...bannerData.content[left]} key={0} />
+          ) : null}
+          <BannerImage {...bannerData.content[carouselNumber]} key={1} />
+          {right !== null ? (
+            <BannerImage {...bannerData.content[right]} key={2} />
+          ) : null}
+        </section>
+        <button
+          className={`${styles.button} ${styles.left}`}
+          onClick={moveLeft}
+        >
+          <Image
+            src={`/leftArrow.svg`}
+            alt="leftArrow"
+            width={25}
+            height={25}
+            priority={true}
+          />
+        </button>
+        <button
+          className={`${styles.button} ${styles.right}`}
+          onClick={moveRight}
+        >
+          <Image
+            src={`/rightArrow.svg`}
+            alt="rightArrow"
+            width={25}
+            height={25}
+            priority={true}
+          />
+        </button>
+      </div>
     );
   }
   return null;
