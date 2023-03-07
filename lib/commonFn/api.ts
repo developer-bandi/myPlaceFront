@@ -13,8 +13,10 @@ export const axiosGetStoreRank = () => {
   return axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/home/store`);
 };
 
-export const axiosGetRecentReview = () => {
-  return axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/home/review`);
+export const axiosGetRecentReview = (page: number) => {
+  return axios.get(
+    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/home/review?page=${page}`
+  );
 };
 
 export const axiosLocalSignup = (userData: {

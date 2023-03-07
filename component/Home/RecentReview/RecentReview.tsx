@@ -1,11 +1,26 @@
 import styles from "./RecentReview.module.scss";
 import { setDateLatest } from "../../../lib/commonFn/date";
-import { reviewRecentState } from "./RecentReviewContainer";
 import Review from "./Review/Review";
 import TextInfo from "./TextInfo/TextInfo";
+import {
+  Dispatch,
+  RefObject,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { reviewRecentState } from "./RecentReviewHook";
 
 interface RecentReviewProps {
+  serverDataStatus: {
+    loading: boolean;
+    fetching: boolean;
+    error: boolean;
+  };
   serverData: reviewRecentState;
+  setPage: Dispatch<SetStateAction<number>>;
+  listRef: RefObject<HTMLDivElement>;
   moveTargetStore: (
     id: number,
     name: string,
@@ -13,10 +28,23 @@ interface RecentReviewProps {
     longitude: string,
     address: string
   ) => void;
+  checkBoxRef: RefObject<HTMLDivElement>;
+  containerRef: RefObject<HTMLDivElement>;
+  visibleRef: RefObject<HTMLDivElement>;
+  startNode: number;
 }
 
-const RecentReview = ({ serverData, moveTargetStore }: RecentReviewProps) => {
-  if (serverData.loading) {
+const RecentReview = ({
+  serverDataStatus,
+  serverData,
+  listRef,
+  moveTargetStore,
+  checkBoxRef,
+  containerRef,
+  visibleRef,
+  startNode,
+}: RecentReviewProps) => {
+  if (serverDataStatus.loading) {
     return (
       <section className={styles.mainBlock}>
         <div className={styles.subBlock}>
@@ -32,40 +60,50 @@ const RecentReview = ({ serverData, moveTargetStore }: RecentReviewProps) => {
                 />
               );
             })}
+            <div className={styles.lastCheckbox} ref={checkBoxRef}></div>
           </div>
         </div>
       </section>
     );
-  } else if (serverData.error) {
+  } else if (serverDataStatus.error) {
     return (
       <section className={styles.mainBlock}>
         <p className={styles.error}>에러가 발생하였습니다</p>
       </section>
     );
-  } else if (serverData.content !== undefined) {
+  } else {
     return (
       <section className={styles.mainBlock}>
         <div className={styles.subBlock}>
-          <TextInfo loading={true} length={serverData.content.count} />
-          <div className={styles.reviewList}>
-            {serverData.content.rows.map((review, index) => {
-              review.createdAt = setDateLatest(review.createdAt);
-              return (
-                <Review
-                  loading={false}
-                  content={review}
-                  moveTargetStore={moveTargetStore}
-                  index={index}
-                  key={index}
-                />
-              );
-            })}
+          <TextInfo loading={true} length={serverData.count} />
+          <div className={styles.reviewListContainer} ref={containerRef}>
+            <div className={styles.reviewList} ref={listRef}>
+              <div ref={visibleRef}>
+                {serverData.rows
+                  .slice(startNode, startNode + 5)
+                  .map((review, index) => {
+                    review.createdAt = setDateLatest(review.createdAt);
+                    return (
+                      <Review
+                        loading={false}
+                        content={review}
+                        moveTargetStore={moveTargetStore}
+                        index={index}
+                        key={review.id}
+                      />
+                    );
+                  })}
+                {serverDataStatus.fetching ? (
+                  <div className={styles.reviewListLoading}>로딩중...</div>
+                ) : null}
+              </div>
+              <div className={styles.lastCheckbox} ref={checkBoxRef}></div>
+            </div>
           </div>
         </div>
       </section>
     );
   }
-  return null;
 };
 
 export default RecentReview;

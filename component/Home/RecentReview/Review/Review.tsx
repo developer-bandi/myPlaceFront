@@ -1,4 +1,5 @@
-import { recentReviewData } from "../RecentReviewContainer";
+import { RefObject } from "react";
+import { recentReviewData } from "../RecentReviewHook";
 import styles from "./Review.module.scss";
 
 interface ReviewProps {
