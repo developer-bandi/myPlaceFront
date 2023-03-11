@@ -16,37 +16,33 @@ const Template: ComponentStory<typeof RecentReview> = (arg) => {
 
 export const isLoading = Template.bind({});
 isLoading.args = {
-  serverData: { loading: true, error: false },
+  serverDataStatus: { loading: true, error: false, fetching: false },
   moveTargetStore: action("moveTargetStore"),
 };
 
 export const isError = Template.bind({});
 isError.args = {
-  serverData: { loading: false, error: true },
+  serverDataStatus: { loading: true, error: true, fetching: false },
   moveTargetStore: action("moveTargetStore"),
 };
 
 export const isNormal = Template.bind({});
 isNormal.args = {
   serverData: {
-    content: {
-      count: 15,
-      rows: new Array(10).fill(0).map((data, index) => {
-        return {
-          id: index + 1,
-          content: "testContent",
-          createdAt: "testCreatedAt",
-          storeName: "testStoreName",
-          storeAddress: "testStoreAddress",
-          storeLatitude: "testStoreLatitude",
-          storeLongitude: "testStoreLongitude",
-          nickname: "testNickname",
-          hashtag: ["testHashtag"],
-        };
-      }),
-    },
-    loading: false,
-    error: false,
+    count: 15,
+    rows: new Array(10).fill(0).map((data, index) => {
+      return {
+        id: index + 1,
+        content: "testContent",
+        createdAt: "testCreatedAt",
+        storeName: "testStoreName",
+        storeAddress: "testStoreAddress",
+        storeLatitude: "testStoreLatitude",
+        storeLongitude: "testStoreLongitude",
+        nickname: "testNickname",
+        hashtag: ["testHashtag"],
+      };
+    }),
   },
   moveTargetStore: action("moveTargetStore"),
 };
