@@ -28,7 +28,26 @@ function MyApp({ Component, pageProps }: AppProps) {
       Router.events.off("routeChangeError", end);
     };
   }, []);
-  return <>{loading ? <h1>Loading...</h1> : <Component {...pageProps} />}</>;
+
+  return (
+    <>
+      {loading ? (
+        <div
+          style={{
+            width: "100%",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <h1>Loading...</h1>
+        </div>
+      ) : (
+        <Component {...pageProps} />
+      )}
+    </>
+  );
 }
 
 export default wrapper.withRedux(MyApp);
