@@ -231,15 +231,16 @@ const useMap = () => {
             longitude: neLatLng.Ma,
           },
         };
-
+        console.log(mapRange);
+        console.log(searchResult);
         const gridSize = { width: 7, height: 5 };
         const sortCondtionFn = (a: any, b: any) => a.id - b.id;
         return mapCluster.clustering(
           mapRange,
           gridSize,
           searchResult?.map(({ latitude, longitude, id, name }) => ({
-            longitude: Number(longitude),
-            latitude: Number(latitude),
+            longitude: Number(latitude),
+            latitude: Number(longitude),
             name,
             level: id,
           })) as contentType[],
@@ -293,8 +294,8 @@ const useMap = () => {
 
         content.appendChild(info);
         const position = new window.kakao.maps.LatLng(
-          place.avg.latitude,
-          place.avg.longitude
+          place.avg.longitude,
+          place.avg.latitude
         );
 
         const marker = new window.kakao.maps.CustomOverlay({
@@ -315,6 +316,7 @@ const useMap = () => {
         });
         const markers: unknown[] = [];
         const clusteredData = excuteCluster();
+        console.log(clusteredData);
         for (let i = 0; i < clusteredData.length; i++) {
           displayMarker(clusteredData[i], markers);
         }
