@@ -1,13 +1,13 @@
 const CryptoJS = require("crypto-js");
-import {useRouter} from "next/router";
-import {useRef} from "react";
-import {axiosLocalSignin} from "../../../../lib/commonFn/api";
+import { useRouter } from "next/router";
+import { useRef } from "react";
+import { axiosLocalSignin } from "../../../../lib/commonFn/api";
 
 const useSigninForm = () => {
   const idInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
-  const checkLogin = async (e: {key?: string; type: string}) => {
+  const checkLogin = async (e: { key?: string; type: string }) => {
     if (
       (e.type === "click" && e.key === undefined) ||
       (e.type === "keypress" && e.key === "Enter")

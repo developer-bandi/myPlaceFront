@@ -1,12 +1,14 @@
-import {useEffect, useState, useRef} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducer} from "../../../store";
-import {setPosition} from "../../../store/reducers/searchCondition/Reducer";
+import { mapCluster } from "map-cluster";
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { SearchResultType } from "../../../lib/apitype/search";
+import { RootReducer } from "../../../store";
+import { setPosition } from "../../../store/reducers/searchCondition/Reducer";
 import {
   setClicked,
   setClickPossible,
 } from "../../../store/reducers/standardMarker/Reducer";
-import {getStoreInfo} from "../../../store/reducers/storeInfo/Reducer";
+import { getStoreInfo } from "../../../store/reducers/storeInfo/Reducer";
 
 declare global {
   interface Window {
@@ -21,7 +23,7 @@ const useMap = () => {
   const searchResult = useSelector(
     (state: RootReducer) => state.searchResult.content
   );
-  const {clickPossible, clicked} = useSelector(
+  const { clickPossible, clicked } = useSelector(
     (state: RootReducer) => state.standardMarker
   );
   const [loading, setLoading] = useState(false);
@@ -29,16 +31,18 @@ const useMap = () => {
   const [standardMarker, setStandardMarker] = useState<any>();
   const [searchResultMarker, setSearchResultMarker] = useState<any>([]);
   const mapRef = useRef<HTMLDivElement>(null);
-  const clickHandeler = useRef<
-    (mouseEvent: {
-      latLng: {
-        Ma: string;
-        La: string;
-        getLng: () => void;
-        getLat: () => void;
-      };
-    }) => void
-  >();
+  const mapChangeHandler = useRef<() => void>();
+  const clickHandeler =
+    useRef<
+      (mouseEvent: {
+        latLng: {
+          Ma: string;
+          La: string;
+          getLng: () => void;
+          getLat: () => void;
+        };
+      }) => void
+    >();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -82,11 +86,11 @@ const useMap = () => {
       }) => {
         const geocoder = new window.kakao.maps.services.Geocoder();
         const searchDetailAddrFromCoords = (
-          coords: {getLng: () => void; getLat: () => void},
+          coords: { getLng: () => void; getLat: () => void },
           callback: (
             result: {
-              road_address: {address_name: string};
-              address: {address_name: string};
+              road_address: { address_name: string };
+              address: { address_name: string };
             }[],
             status: string
           ) => void
@@ -97,8 +101,8 @@ const useMap = () => {
           mouseEvent.latLng,
           function (
             result: {
-              road_address: {address_name: string};
-              address: {address_name: string};
+              road_address: { address_name: string };
+              address: { address_name: string };
             }[],
             status: string
           ) {
@@ -177,7 +181,7 @@ const useMap = () => {
                 status === window.kakao.maps.services.Status.ZERO_RESULT
               ) {
                 alert("주소를 정확하게 입력해주세요");
-                dispatch(setPosition({address: ""}));
+                dispatch(setPosition({ address: "" }));
               } else {
                 alert("서버에 에러가 발생하였습니다");
               }
@@ -192,38 +196,105 @@ const useMap = () => {
   //사이드바에 주소가 입력될 경우 지도에 마커를 표시하는 함수
 
   useEffect(() => {
+    type contentType = {
+      longitude: number;
+      latitude: number;
+      name: string;
+      level: number;
+    };
     if (searchResult === undefined && searchResultMarker.length !== 0) {
       searchResultMarker.map((data: any) => {
         data.setMap(null);
       });
+      if (mapChangeHandler.current !== undefined) {
+        window.kakao.maps.event.removeListener(
+          mapObj,
+          "click",
+          mapChangeHandler.current
+        );
+      }
     }
     //검색결과가 초기화 될때 지도에 표기된 마커를 삭제
 
     if (searchResult !== undefined && searchResult.length !== 0 && loading) {
-      const markers: unknown[] = [];
+      const excuteCluster = () => {
+        const bounds = mapObj.getBounds();
+        const swLatLng = bounds.getSouthWest();
+        const neLatLng = bounds.getNorthEast();
+        const mapRange = {
+          southWest: {
+            latitude: swLatLng.La,
+            longitude: swLatLng.Ma,
+          },
+          northEast: {
+            latitude: neLatLng.La,
+            longitude: neLatLng.Ma,
+          },
+        };
 
-      const displayMarker = (place: {
-        latitude: string;
-        longitude: string;
-        name: string;
-        id: number;
-      }) => {
+        const gridSize = { width: 7, height: 5 };
+        const sortCondtionFn = (a: any, b: any) => a.id - b.id;
+        return mapCluster.clustering(
+          mapRange,
+          gridSize,
+          searchResult?.map(({ latitude, longitude, id, name }) => ({
+            longitude: Number(longitude),
+            latitude: Number(latitude),
+            name,
+            level: id,
+          })) as contentType[],
+          sortCondtionFn
+        );
+      };
+      const displayMarker = (
+        place: {
+          avg: { latitude: number; longitude: number };
+          list: contentType[];
+        },
+        markers: unknown[]
+      ) => {
         const dispatchStoreInfo = (storeId: number) => {
           dispatch(getStoreInfo(storeId));
         };
         const content = document.createElement("div");
         const info = document.createElement("div");
+
         content.className = "overlaybox";
         info.className = "boxtitle";
-        info.innerText = place.name;
-        content.onclick = () => {
-          dispatchStoreInfo(place.id);
-        };
-        content.appendChild(info);
+        info.innerText = place.list[0].name;
+        if (place.list.length > 1) {
+          const listbox = document.createElement("ul");
+          listbox.className = "overlayListBox";
+          listbox.style.display = "none";
+          for (let i = 0; i < place.list.length; i++) {
+            const list = document.createElement("li");
+            list.className = "overlayList";
+            list.innerHTML = place.list[i].name;
+            list.onclick = () => {
+              dispatchStoreInfo(place.list[i].level);
+              listbox.style.display = "none";
+            };
+            listbox.appendChild(list);
+          }
+          content.onclick = () => {
+            console.log(listbox.style.display);
+            if (listbox.style.display === "none") {
+              listbox.style.display = "inline";
+            } else {
+              listbox.style.display = "none";
+            }
+          };
+          content.appendChild(listbox);
+        } else {
+          content.onclick = () => {
+            dispatchStoreInfo(place.list[0].level);
+          };
+        }
 
+        content.appendChild(info);
         const position = new window.kakao.maps.LatLng(
-          place.latitude,
-          place.longitude
+          place.avg.latitude,
+          place.avg.longitude
         );
 
         const marker = new window.kakao.maps.CustomOverlay({
@@ -235,10 +306,23 @@ const useMap = () => {
         markers.push(marker);
       };
 
-      for (let i = 0; i < searchResult.length; i++) {
-        displayMarker(searchResult[i]);
-      }
-      setSearchResultMarker(markers);
+      const makeNewMarkers = () => {
+        setSearchResultMarker((prev: any) => {
+          prev.map((data: any) => {
+            data.setMap(null);
+          });
+          return prev;
+        });
+        const markers: unknown[] = [];
+        const clusteredData = excuteCluster();
+        for (let i = 0; i < clusteredData.length; i++) {
+          displayMarker(clusteredData[i], markers);
+        }
+        setSearchResultMarker(markers);
+      };
+      mapChangeHandler.current = makeNewMarkers;
+      window.kakao.maps.event.addListener(mapObj, "idle", makeNewMarkers);
+      makeNewMarkers();
       dispatch(setClickPossible(false));
     }
   }, [searchResult, loading]);
