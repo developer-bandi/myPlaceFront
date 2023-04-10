@@ -1,8 +1,8 @@
 import Image from "next/image";
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
-import mypage from "../../../../lib/styles/mypage.module.scss";
-import { setDateYearMonthDay } from "../../../../lib/commonFn/date";
+import mypage from "../../../../styles/mypage.module.scss";
+import { setDateYearMonthDay } from "../../../../lib/date";
 import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
 import { postListState } from "./MyPostContainer";
 import Post from "./Post/Post";

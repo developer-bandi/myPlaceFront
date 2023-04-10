@@ -1,7 +1,6 @@
 import { mapCluster } from "map-cluster";
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { SearchResultType } from "../../../lib/apitype/search";
 import { RootReducer } from "../../../store";
 import { setPosition } from "../../../store/reducers/searchCondition/Reducer";
 import {

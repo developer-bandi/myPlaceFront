@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { loader } from "../../../../../lib/commonFn/loader";
+import { loader } from "../../../../../lib/loader";
 import Store from "./Store";
 
 export default {

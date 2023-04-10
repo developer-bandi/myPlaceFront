@@ -1,4 +1,4 @@
-import useMoveTargetStore from "../../../lib/customHook/moveTargetStore";
+import useMoveTargetStore from "../../../hooks/moveTargetStore";
 import RecentReview from "./RecentReview";
 import useRecentReview from "./RecentReviewHook";
 

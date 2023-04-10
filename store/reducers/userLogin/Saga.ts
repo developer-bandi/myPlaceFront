@@ -1,17 +1,21 @@
 import { all, call, put, takeLeading } from "redux-saga/effects";
-import { axiosCheckSignin, axiosLogout } from "../../../lib/commonFn/api";
-import { LoginCheckType } from "../../../lib/apitype/auth";
 import {
   checkSigninSuccess,
   checkSigninFailure,
   logoutSuccess,
   logoutFailure,
+  checkSignin,
+  logout,
 } from "./Reducer";
 
-function* axiosApi1() {
+import { checkSignin as checkSigninApi } from "../../../api/auth";
+import { checkSigninRes } from "../../../type/auth";
+import { AxiosResponse } from "axios";
+
+function* loginCheckSaga() {
   try {
-    const loginedUser: { data: LoginCheckType; status: number } = yield call(
-      axiosCheckSignin
+    const loginedUser: AxiosResponse<checkSigninRes> = yield call(
+      checkSigninApi
     );
     yield put(checkSigninSuccess(loginedUser));
   } catch (err) {
@@ -20,12 +24,12 @@ function* axiosApi1() {
 }
 
 export function* userLoginSaga() {
-  yield all([takeLeading("userLogin/checkSignin", axiosApi1)]);
+  yield all([takeLeading("userLogin/checkSignin", loginCheckSaga)]);
 }
 
-function* axiosApi2() {
+function* logoutSaga() {
   try {
-    yield call(axiosLogout);
+    yield call(logout);
     yield put(logoutSuccess());
   } catch (err) {
     yield put(logoutFailure());
@@ -33,5 +37,5 @@ function* axiosApi2() {
 }
 
 export function* userLogoutSaga() {
-  yield all([takeLeading("userLogin/logout", axiosApi2)]);
+  yield all([takeLeading("userLogin/logout", logoutSaga)]);
 }

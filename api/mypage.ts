@@ -1,20 +1,36 @@
+import {
+  deleteMyReviewRes,
+  getMyBookMarkRes,
+  getMyCommentRes,
+  getMyInfoRes,
+  getMyPostRes,
+  getMyReviewRes,
+  getMyReviewsRes,
+  updateMyNicknameRes,
+} from "../type/mypage";
 import axiosInstance from "./core";
 
-axiosInstance.defaults.baseURL += "mypage/";
+export const getMyBookMark = (page: number) =>
+  axiosInstance.get<getMyBookMarkRes>(`mypage/bookmark?page=${page}`);
 
-const mypageApi = {
-  getMyBookMark: (page: number) => axiosInstance.get(`bookmark?page=${page}`),
-  getMyReviews: (page: number) => axiosInstance.get(`reviews?page=${page}`),
-  deleteMyReview: (id: string) =>
-    axiosInstance.delete("review", { data: { id } }),
-  getMyReview: (id: string) => axiosInstance.get(`review?id=${id}`),
-  getMyPost: (page: number) => axiosInstance.get(`post?page=${page}`),
-  getMyComment: (page: number) => axiosInstance.get(`comment?page=${page}`),
-  getMyInfo: () => axiosInstance.get("info"),
-  patchMyNickname: (nickname: string) =>
-    axiosInstance.patch("nickname", {
-      nickname,
-    }),
-};
+export const getMyReviews = (page: number) =>
+  axiosInstance.get<getMyReviewsRes>(`mypage/reviews?page=${page}`);
 
-export default mypageApi;
+export const deleteMyReview = (id: string) =>
+  axiosInstance.delete<deleteMyReviewRes>("mypage/review", { data: { id } });
+
+export const getMyReview = (id: string) =>
+  axiosInstance.get<getMyReviewRes>(`mypage/review?id=${id}`);
+
+export const getMyPost = (page: number) =>
+  axiosInstance.get<getMyPostRes>(`mypage/post?page=${page}`);
+
+export const getMyComment = (page: number) =>
+  axiosInstance.get<getMyCommentRes>(`mypage/comment?page=${page}`);
+
+export const getMyInfo = () => axiosInstance.get<getMyInfoRes>("mypage/info");
+
+export const updateMyNickname = (nickname: string) =>
+  axiosInstance.patch<updateMyNicknameRes>("mypage/nickname", {
+    nickname,
+  });

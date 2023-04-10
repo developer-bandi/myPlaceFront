@@ -1,7 +1,6 @@
-import {useEffect, useRef, useState} from "react";
-import {axiosPatchMyNickname} from "../../../../lib/commonFn/api";
-import {useIsLabtopOrTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
-import {userInfoDataState} from "./MyInfoSettingContainer";
+import { useEffect, useRef } from "react";
+import { updateMyNickname } from "../../../../api/mypage";
+import { userInfoDataState } from "./MyInfoSettingContainer";
 
 const useMyInfoSetting = (serverData: userInfoDataState) => {
   const nicknameInputRef = useRef<HTMLInputElement>(null);
@@ -16,7 +15,7 @@ const useMyInfoSetting = (serverData: userInfoDataState) => {
     try {
       const confirm = window.confirm("수정하시겠습니까?");
       if (nicknameInputRef.current !== null && confirm) {
-        await axiosPatchMyNickname(nicknameInputRef.current.value);
+        await updateMyNickname(nicknameInputRef.current.value);
       }
       alert("수정되었습니다");
     } catch (error) {
@@ -24,7 +23,7 @@ const useMyInfoSetting = (serverData: userInfoDataState) => {
     }
   };
 
-  return {changeNickname, nicknameInputRef};
+  return { changeNickname, nicknameInputRef };
 };
 
 export default useMyInfoSetting;

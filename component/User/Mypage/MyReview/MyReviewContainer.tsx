@@ -1,5 +1,5 @@
-import { useIsLabtopOrTabletOrMobile } from "../../../../lib/customHook/mediaQuery";
-import useMypage from "../../../../lib/customHook/mypage";
+import { useIsLabtopOrTabletOrMobile } from "../../../../hooks/mediaQuery";
+import useMypage from "../../../../hooks/mypage";
 import MyReview from "./MyReview";
 import useMyReview from "./MyReviewHook";
 

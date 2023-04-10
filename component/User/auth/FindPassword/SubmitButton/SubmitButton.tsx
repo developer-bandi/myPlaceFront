@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import authStyles from "../../../../../lib/styles/auth.module.scss";
+import authStyles from "../../../../../styles/auth.module.scss";
 
 interface SubmitButton {
   eventHandler: (e: { key?: string; type: string }) => Promise<void> | void;

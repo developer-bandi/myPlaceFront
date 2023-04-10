@@ -1,12 +1,13 @@
-import {useRouter} from "next/router";
-import {useDispatch} from "react-redux";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
 import {
   setPosition,
   setKeyword,
-} from "../../store/reducers/searchCondition/Reducer";
-import {searchStore} from "../../store/reducers/searchResult/Reducer";
-import {setSearchType} from "../../store/reducers/searhType/Reducer";
-import {getStoreInfo} from "../../store/reducers/storeInfo/Reducer";
+} from "../store/reducers/searchCondition/Reducer";
+
+import { setSearchType } from "../store/reducers/searhType/Reducer";
+import { getStoreInfo } from "../store/reducers/storeInfo/Reducer";
+import { searchStore } from "../store/reducers/searchResult/Reducer";
 
 const useMoveTargetStore = () => {
   const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const useMoveTargetStore = () => {
     dispatch(setSearchType("keywordSearch"));
     router.push("/findplace");
   };
-  return {moveTargetStore};
+  return { moveTargetStore };
 };
 
 export default useMoveTargetStore;

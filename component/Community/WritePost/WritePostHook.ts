@@ -1,12 +1,9 @@
-import {useRouter} from "next/router";
-import {useCallback, useRef, useState} from "react";
-import {useSelector} from "react-redux";
-import {axiosPostDetail} from "../../../lib/commonFn/api";
-import {
-  addImgWrapper,
-  deleteUploadImgWrapper,
-} from "../../../lib/commonFn/imgFn";
-import {RootReducer} from "../../../store";
+import { useRouter } from "next/router";
+import { useCallback, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { addPostDetail, getPostDetail } from "../../../api/post";
+import { addImgWrapper, deleteUploadImgWrapper } from "../../../lib/imgFn";
+import { RootReducer } from "../../../store";
 
 const useWritePost = () => {
   const titleRef = useRef<HTMLInputElement>(null);
@@ -34,11 +31,11 @@ const useWritePost = () => {
     } else {
       if (contentRef.current !== null && titleRef.current !== null) {
         try {
-          await axiosPostDetail(
-            titleRef.current.value,
-            contentRef.current.value,
-            imgfile
-          );
+          await addPostDetail({
+            title: titleRef.current.value,
+            content: contentRef.current.value,
+            imgs: imgfile,
+          });
           alert("게시글 등록이 완료되었습니다");
           router.push("/community/postlist");
         } catch (error) {

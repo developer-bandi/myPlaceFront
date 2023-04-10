@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
-import { HashTagType } from "../../../lib/apitype/hashtag";
+import { getHashTagRes } from "../../../type/hashtag";
 
 export interface HashtagAllState {
   content?: {
@@ -24,7 +24,7 @@ const HashtagAllSlice = createSlice({
       state.loading = true;
     },
 
-    getHashtagAllSuccess(state, action: PayloadAction<HashTagType[]>) {
+    getHashtagAllSuccess(state, action: PayloadAction<getHashTagRes>) {
       state.content = { 카페: {}, 식당: {}, 주점: {} };
       for (let i = 0; i < action.payload.length; i++) {
         const { id, category, subject, name, viewCount } = action.payload[i];

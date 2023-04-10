@@ -1,15 +1,15 @@
-import {useRouter} from "next/router";
-import {useCallback, useDebugValue, useEffect, useRef, useState} from "react";
-import {useDispatch} from "react-redux";
-import {useSelector} from "react-redux";
-import {axiosUpdateStoreInfo} from "../../../../lib/commonFn/api";
+import { useRouter } from "next/router";
+import { useCallback, useDebugValue, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { updateStoreDetail } from "../../../../api/contribute";
 import {
   addImgWrapper,
   deleteExistImgWrapper,
   deleteUploadImgWrapper,
-} from "../../../../lib/commonFn/imgFn";
-import {RootReducer} from "../../../../store";
-import {getStoreInfo} from "../../../../store/reducers/storeInfo/Reducer";
+} from "../../../../lib/imgFn";
+import { RootReducer } from "../../../../store";
+import { getStoreInfo } from "../../../../store/reducers/storeInfo/Reducer";
 
 const useUpdateStoreInfo = () => {
   const existInfo = useSelector(
@@ -133,16 +133,16 @@ const useUpdateStoreInfo = () => {
               deletedImg.push(existInfo.mainPhoto);
             }
             setLoading(true);
-            await axiosUpdateStoreInfo(
-              existInfo.storeInfo.id,
-              storeNameInputRef.current.value,
-              telRef.current.value,
-              openninghourTextareaRef.current.value,
-              categorySelectRef.current.value,
-              mainImgFile,
-              menuImgfile,
-              deletedImg
-            );
+            await updateStoreDetail({
+              id: existInfo.storeInfo.id,
+              name: storeNameInputRef.current.value,
+              tel: telRef.current.value,
+              openingHours: openninghourTextareaRef.current.value,
+              category: categorySelectRef.current.value,
+              mainImg: mainImgFile,
+              menuImg: menuImgfile,
+              deletedImg: deletedImg,
+            });
             dispatch(getStoreInfo(existInfo.storeInfo.id));
             setLoading(false);
             alert("정상적으로 수정되었습니다");

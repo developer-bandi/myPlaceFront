@@ -49,6 +49,33 @@ export const axiosLogout = () => {
   return axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/logout`);
 };
 
+export const axiosDeleteUser = () => {
+  return axios.delete(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/user`);
+};
+
+export const axiosPostId = (email: string) => {
+  return axios.post(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/id`, {
+    email,
+  });
+};
+
+export const axiosPostPassword = (email: string, newPassword: string) => {
+  return axios.post(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/password`, {
+    email,
+    newPassword,
+  });
+};
+
+export const axiosGetNotice = () => {
+  return axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/notice`);
+};
+
+export const axiosUpdateNotice = (noticeId: number) => {
+  return axios.patch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/notice`, {
+    noticeId,
+  });
+};
+
 export const axiosHashtagSearch = (
   latitude: string,
   longitude: string,
@@ -75,6 +102,20 @@ export const axiosStoreInfo = (storeId: string) => {
   return axios.post(
     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/search/storeInfo`,
     { storeId }
+  );
+};
+
+export const axiosPostBookMark = (StoreId: number) => {
+  return axios.post(
+    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/search/bookmark`,
+    { StoreId }
+  );
+};
+
+export const axiosDeleteBookMark = (StoreId: number) => {
+  return axios.delete(
+    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/search/bookmark`,
+    { data: { StoreId } }
   );
 };
 
@@ -219,6 +260,36 @@ export const axiosUpdateStoreInfo = (
   );
 };
 
+export const axiosPatchMyReview = (
+  deleteHashtag: string[],
+  addHashtag: string[],
+  deleteImg: string[],
+  imgfile: Blob[],
+  id: string,
+  content: string
+) => {
+  const formData = new FormData();
+  formData.append("id", String(id));
+  formData.append("content", content);
+  for (let i = 0; i < imgfile.length; i++) {
+    formData.append("imgs[]", imgfile[i]);
+  }
+  for (let i = 0; i < deleteHashtag.length; i++) {
+    formData.append("deleteHashtag[]", deleteHashtag[i]);
+  }
+  for (let i = 0; i < addHashtag.length; i++) {
+    formData.append("addHashtag[]", addHashtag[i]);
+  }
+  for (let i = 0; i < deleteImg.length; i++) {
+    formData.append("deleteImg[]", deleteImg[i]);
+  }
+
+  return axios.patch(
+    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/contribute/review`,
+    formData
+  );
+};
+
 export const axiosGetPostList = (page: number, order: string) => {
   return axios.get(
     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/post/list?page=${page}&order=${order}`
@@ -297,20 +368,6 @@ export const axiosPostDetail = (
   );
 };
 
-export const axiosPostBookMark = (StoreId: number) => {
-  return axios.post(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/search/bookmark`,
-    { StoreId }
-  );
-};
-
-export const axiosDeleteBookMark = (StoreId: number) => {
-  return axios.delete(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/search/bookmark`,
-    { data: { StoreId } }
-  );
-};
-
 export const axiosGetMyBookMark = (page: number) => {
   return axios.get(
     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/mypage/bookmark?page=${page}`
@@ -333,36 +390,6 @@ export const axiosDeleteMyReview = (id: string) => {
 export const axiosGetMyReview = (id: string) => {
   return axios.get(
     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/mypage/review?id=${id}`
-  );
-};
-
-export const axiosPatchMyReview = (
-  deleteHashtag: string[],
-  addHashtag: string[],
-  deleteImg: string[],
-  imgfile: Blob[],
-  id: string,
-  content: string
-) => {
-  const formData = new FormData();
-  formData.append("id", String(id));
-  formData.append("content", content);
-  for (let i = 0; i < imgfile.length; i++) {
-    formData.append("imgs[]", imgfile[i]);
-  }
-  for (let i = 0; i < deleteHashtag.length; i++) {
-    formData.append("deleteHashtag[]", deleteHashtag[i]);
-  }
-  for (let i = 0; i < addHashtag.length; i++) {
-    formData.append("addHashtag[]", addHashtag[i]);
-  }
-  for (let i = 0; i < deleteImg.length; i++) {
-    formData.append("deleteImg[]", deleteImg[i]);
-  }
-
-  return axios.patch(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/contribute/review`,
-    formData
   );
 };
 
@@ -389,38 +416,4 @@ export const axiosPatchMyNickname = (nickname: string) => {
       nickname,
     }
   );
-};
-
-export const axiosPatchPassword = (password: string, newPassword: string) => {
-  return axios.patch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/password`, {
-    password,
-    newPassword,
-  });
-};
-
-export const axiosDeleteUser = () => {
-  return axios.delete(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/user`);
-};
-
-export const axiosPostId = (email: string) => {
-  return axios.post(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/id`, {
-    email,
-  });
-};
-
-export const axiosPostPassword = (email: string, newPassword: string) => {
-  return axios.post(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/password`, {
-    email,
-    newPassword,
-  });
-};
-
-export const axiosGetNotice = () => {
-  return axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/notice`);
-};
-
-export const axiosUpdateNotice = (noticeId: number) => {
-  return axios.patch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/auth/notice`, {
-    noticeId,
-  });
 };

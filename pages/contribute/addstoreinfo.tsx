@@ -1,7 +1,7 @@
 import AddStoreInfoContainer from "../../component/Contribute/Store/AddStoreInfo/AddStoreInfoContainer";
 import Footer from "../../component/Common/Footer/Footer";
 import HeaderContainer from "../../component/Common/Header/HeaderContainer";
-import { useLogin } from "../../lib/customHook/loginCheck";
+import { useLogin } from "../../hooks/loginCheck";
 import Head from "next/head";
 import { useRouter } from "next/router";
 

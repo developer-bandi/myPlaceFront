@@ -1,13 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { NextRouter } from "next/router";
-import {
-  postDetailCommentType,
-  postDetailType,
-} from "../../../lib/apitype/post";
+import { postDetailCommentType } from "../../../lib/apitype/post";
+import { getPostDetailRes } from "../../../type/post";
 
 export interface HashtagAllState {
-  content?: postDetailType;
+  content?: getPostDetailRes;
   serverLike?: number[];
   loading: boolean;
   error: boolean;
@@ -26,7 +24,7 @@ const postDetailSlice = createSlice({
       state.loading = true;
     },
 
-    getPostSuccess(state, action: PayloadAction<postDetailType>) {
+    getPostSuccess(state, action: PayloadAction<getPostDetailRes>) {
       state.content = action.payload;
       state.serverLike = action.payload.likelist;
     },

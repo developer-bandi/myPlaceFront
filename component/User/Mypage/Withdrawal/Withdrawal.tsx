@@ -1,6 +1,6 @@
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
 import styles from "./Withdrawal.module.scss";
-import mypage from "../../../../lib/styles/mypage.module.scss";
+import mypage from "../../../../styles/mypage.module.scss";
 interface WithdrawalProps {
   withdrawalButton: () => void;
   disagreeButton: () => void;

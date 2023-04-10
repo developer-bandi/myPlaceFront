@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import AddStorePosition from "./AddStorePosition";
 import { action } from "@storybook/addon-actions";
-import { useIsTabletOrMobile } from "../../../../lib/customHook/mediaQuery";
+import { useIsTabletOrMobile } from "../../../../hooks/mediaQuery";
 
 export default {
   title: "Contribute/Store/AddStorePosition",

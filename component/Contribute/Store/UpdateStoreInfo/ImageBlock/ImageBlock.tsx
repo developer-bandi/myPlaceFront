@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { AiOutlinePicture } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
-import { loader } from "../../../../../lib/commonFn/loader";
-import storeInfo from "../../../../../lib/styles/storeInfo.module.scss";
+import { loader } from "../../../../../lib/loader";
+import storeInfo from "../../../../../styles/storeInfo.module.scss";
 
 interface ImageBlockProps {
   title: string;

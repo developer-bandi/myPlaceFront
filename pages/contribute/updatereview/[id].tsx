@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Footer from "../../../component/Common/Footer/Footer";
 import HeaderContainer from "../../../component/Common/Header/HeaderContainer";
 import UpdateReviewContainer from "../../../component/Contribute/Review/UpdateReview/UpdateReviewContainer";
-import { useLogin } from "../../../lib/customHook/loginCheck";
+import { useLogin } from "../../../hooks/loginCheck";
 
 const UpdateReview = () => {
   useLogin();

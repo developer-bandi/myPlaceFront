@@ -1,9 +1,9 @@
 import MyPageNavigation from "../Common/navigation/MyPageNavigation";
-import mypage from "../../../../lib/styles/mypage.module.scss";
+import mypage from "../../../../styles/mypage.module.scss";
 import searchResultLoading from "../../../../public/searchResultLoading.gif";
 import Image from "next/image";
 import { commentListState } from "./MyCommentContainer";
-import { setDateLatest } from "../../../../lib/commonFn/date";
+import { setDateLatest } from "../../../../lib/date";
 import PageNationContainer from "../../../Common/PageNation/PageNationContainer";
 import Comment from "./Comment/Comment";
 

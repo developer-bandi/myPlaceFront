@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import useCommentInput from "./CommentInputHook";
-import * as customHook from "../../../../lib/customHook/useInNotLogin";
+import * as customHook from "../../../../hooks/useInNotLogin";
 
 describe("CommentInput Hook 테스트", () => {
   let loginStatus = true;

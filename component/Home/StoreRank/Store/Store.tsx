@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { BiBookmark, BiCommentDetail } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
-import { loader } from "../../../../lib/commonFn/loader";
+import { loader } from "../../../../lib/loader";
 import styles from "./Store.module.scss";
 
 interface StoreProps {
@@ -49,7 +49,7 @@ const Store = ({
         <Image
           loader={
             photo !== undefined
-              ? loader({ width: 4400, height: 3000 })
+              ? loader({ width: 440, height: 300 })
               : undefined
           }
           src={photo !== undefined ? `${photo}` : `/107.svg`}

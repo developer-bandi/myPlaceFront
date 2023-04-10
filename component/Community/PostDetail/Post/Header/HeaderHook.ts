@@ -2,21 +2,21 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { postDetailType } from "../../../../../lib/apitype/post";
-import { setDateLatest } from "../../../../../lib/commonFn/date";
+import { setDateLatest } from "../../../../../lib/date";
 import { RootReducer } from "../../../../../store";
 import { deletePost } from "../../../../../store/reducers/postDetail/Reducer";
+import { getPostDetailRes } from "../../../../../type/post";
 
 const useHeader = () => {
   const loginedUser = useSelector((state: RootReducer) => state.userLogin);
   const {
     id,
     title,
-    User: { nickname },
-    UserId,
+    User: { nickname, id: userId },
     createdAt: date,
     viewCount,
   } = useSelector(
-    (state: RootReducer) => state.postDetail.content as postDetailType
+    (state: RootReducer) => state.postDetail.content as getPostDetailRes
   );
   const router = useRouter();
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const useHeader = () => {
     }
   };
 
-  const isMyPost = () => loginedUser.content?.id === UserId;
+  const isMyPost = () => loginedUser.content?.id === userId;
 
   return {
     dispatchDeletePost,

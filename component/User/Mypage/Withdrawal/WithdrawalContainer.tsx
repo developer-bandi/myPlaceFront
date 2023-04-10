@@ -1,10 +1,10 @@
-import {useIsLabtopOrTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
+import { useIsLabtopOrTabletOrMobile } from "../../../../hooks/mediaQuery";
 import Withdrawal from "./Withdrawal";
 import useWithdrawal from "./WithdrawalHook";
 
 const WithdrawalContainer = () => {
   const isLabtopOrTabletOrMobile = useIsLabtopOrTabletOrMobile();
-  const {withdrawalButton, disagreeButton} = useWithdrawal();
+  const { withdrawalButton, disagreeButton } = useWithdrawal();
   return (
     <Withdrawal
       withdrawalButton={withdrawalButton}

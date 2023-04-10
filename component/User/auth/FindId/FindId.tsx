@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import styles from "./FindId.module.scss";
-import authStyles from "../../../../lib/styles/auth.module.scss";
+import authStyles from "../../../../styles/auth.module.scss";
 import Body from "./Body/Body";
 
 interface FindIdProps {

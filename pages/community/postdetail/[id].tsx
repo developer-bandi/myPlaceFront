@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { END } from "redux-saga";
+import { getPostDetail } from "../../../api/post";
 import Footer from "../../../component/Common/Footer/Footer";
 import HeaderContainer from "../../../component/Common/Header/HeaderContainer";
 import PostDetail from "../../../component/Community/PostDetail/PostDetail";
 import { postDetailType } from "../../../lib/apitype/post";
-import { axiosGetPostDetail } from "../../../lib/commonFn/api";
 import { wrapper } from "../../../store";
 import { getPost } from "../../../store/reducers/postDetail/Reducer";
 
@@ -45,7 +45,7 @@ const PostDetailPage = ({ serverSideData }: PostDetailPageProps) => {
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (ctx) => {
     const id = ctx.params !== undefined && ctx.params.id;
-    const res = await axiosGetPostDetail(id as string);
+    const res = await getPostDetail(id as string);
     store.dispatch(getPost(id as string));
     store.dispatch(END);
     await store.sagaTask?.toPromise();

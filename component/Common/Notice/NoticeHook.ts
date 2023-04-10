@@ -1,7 +1,7 @@
-import {useRouter} from "next/router";
-import {useDispatch} from "react-redux";
-import {axiosUpdateNotice} from "../../../lib/commonFn/api";
-import {setNotice} from "../../../store/reducers/modalStatus/Reducer";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { changeNoticeStatus } from "../../../api/auth";
+import { setNotice } from "../../../store/reducers/modalStatus/Reducer";
 
 const useNotice = () => {
   const router = useRouter();
@@ -9,7 +9,7 @@ const useNotice = () => {
 
   const checkNotice = async (noticeId: number, postId: number) => {
     try {
-      await axiosUpdateNotice(noticeId);
+      await changeNoticeStatus(noticeId);
       router.push(`/community/postdetail/${postId}`);
       dispatch(setNotice());
     } catch (error) {
@@ -21,7 +21,7 @@ const useNotice = () => {
     router.push(`/community/postdetail/${postId}`);
     dispatch(setNotice());
   };
-  return {checkNotice, movePost};
+  return { checkNotice, movePost };
 };
 
 export default useNotice;

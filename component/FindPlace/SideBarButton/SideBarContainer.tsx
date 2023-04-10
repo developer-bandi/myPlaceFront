@@ -1,7 +1,7 @@
-import {useDispatch} from "react-redux";
-import {useSelector} from "react-redux";
-import {useIsMobile} from "../../../lib/customHook/mediaQuery";
-import {RootReducer} from "../../../store";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useIsMobile } from "../../../hooks/mediaQuery";
+import { RootReducer } from "../../../store";
 import {
   setDesktopSearch,
   setMobileSearchStoreInfo,

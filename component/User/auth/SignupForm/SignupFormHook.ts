@@ -1,6 +1,6 @@
-import {useRouter} from "next/router";
-import {useRef} from "react";
-import {axiosLocalSignup} from "../../../../lib/commonFn/api";
+import { useRouter } from "next/router";
+import { useRef } from "react";
+import { localSignup } from "../../../../api/auth";
 const CryptoJS = require("crypto-js");
 
 const useSignupForm = () => {
@@ -11,7 +11,7 @@ const useSignupForm = () => {
   const emailInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const signup = async (e: {key?: string; type: string}) => {
+  const signup = async (e: { key?: string; type: string }) => {
     if (
       (e.type === "click" && e.key === undefined) ||
       (e.type === "keypress" && e.key === "Enter")
@@ -63,7 +63,7 @@ const useSignupForm = () => {
                 nickname: nicknameInputRef.current.value,
                 email: emailInputRef.current.value,
               };
-              const message = await axiosLocalSignup(signupUser);
+              const message = await localSignup(signupUser);
               if (message.status === 203) {
                 alert(message.data);
               } else {

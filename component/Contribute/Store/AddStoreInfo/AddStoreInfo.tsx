@@ -1,8 +1,5 @@
-import Image from "next/image";
 import { RefObject } from "react";
-import { AiOutlinePicture } from "react-icons/ai";
-import storeInfo from "../../../../lib/styles/storeInfo.module.scss";
-import { ImCross } from "react-icons/im";
+import storeInfo from "../../../../styles/storeInfo.module.scss";
 import ImageBlock from "./ImageBlock/ImageBlock";
 
 interface AddStoreProps {

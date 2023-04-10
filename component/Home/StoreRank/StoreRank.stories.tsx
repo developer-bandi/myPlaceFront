@@ -1,7 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import StoreRank from "./StoreRank";
 import { action } from "@storybook/addon-actions";
-import { loader } from "../../../lib/commonFn/loader";
+import { loader } from "../../../lib/loader";
 
 export default {
   title: "Home/StoreRank",

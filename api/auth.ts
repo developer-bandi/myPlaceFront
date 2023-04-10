@@ -1,7 +1,15 @@
+import {
+  checkSigninRes,
+  logoutApiRes,
+  localSigninRes,
+  localSignupRes,
+  deleteUserRes,
+  searchIdRes,
+  findAndChangePasswordRes,
+  getNoticeListRes,
+  changeNoticeStatusRes,
+} from "../type/auth";
 import axiosInstance from "./core";
-
-axiosInstance.defaults.baseURL += "auth/";
-
 interface signinInfo {
   localId: string;
   password: string;
@@ -11,52 +19,41 @@ interface signupInfo extends signinInfo {
   nickname: string;
   email: string;
 }
-
-interface changePasswordInfo {
-  password: string;
-  newPassword: string;
-}
-
 interface findAndChangePasswordInfo {
   email: string;
   newPassword: string;
 }
 
-const authApi = {
-  localSignup: (userData: signupInfo) => axiosInstance.post("join", userData),
+export const localSignup = (userData: signupInfo) =>
+  axiosInstance.post<localSignupRes>("auth/join", userData);
 
-  localSignin: (userData: signinInfo) => axiosInstance.post("login", userData),
+export const localSignin = (userData: signinInfo) =>
+  axiosInstance.post<localSigninRes>("auth/login", userData);
 
-  checkSignin: () => axiosInstance.get("logincheck"),
+export const checkSignin = () =>
+  axiosInstance.get<checkSigninRes>("auth/logincheck");
 
-  logout: () => axiosInstance.get("logout"),
+export const logout = () => axiosInstance.get<logoutApiRes>("logout");
 
-  changePassword: (passwordInfo: changePasswordInfo) =>
-    axiosInstance.patch("password", passwordInfo),
+export const deleteUser = () =>
+  axiosInstance.delete<deleteUserRes>("auth/user");
 
-  deleteUser: () => axiosInstance.delete("user"),
+export const searchId = (email: string) =>
+  axiosInstance.post<searchIdRes>("auth/id", {
+    email,
+  });
 
-  searchId: (email: string) =>
-    axiosInstance.post("id", {
-      email,
-    }),
+export const findAndChangePassword = (
+  findAndChangePasswordInfo: findAndChangePasswordInfo
+) =>
+  axiosInstance.post<findAndChangePasswordRes>("auth/password", {
+    findAndChangePasswordInfo,
+  });
 
-  findAndChangePassword: (
-    findAndChangePasswordInfo: findAndChangePasswordInfo
-  ) =>
-    axiosInstance.post("password", {
-      findAndChangePasswordInfo,
-    }),
+export const getNoticeList = () =>
+  axiosInstance.get<getNoticeListRes>("auth/notice");
 
-  getNoticeList: (findAndChangePasswordInfo: findAndChangePasswordInfo) =>
-    axiosInstance.post("notice", {
-      findAndChangePasswordInfo,
-    }),
-
-  changeNoticeStatus: (noticeId: number) =>
-    axiosInstance.post("notice", {
-      noticeId,
-    }),
-};
-
-export default authApi;
+export const changeNoticeStatus = (noticeId: number) =>
+  axiosInstance.patch<changeNoticeStatusRes>("auth/notice", {
+    noticeId,
+  });

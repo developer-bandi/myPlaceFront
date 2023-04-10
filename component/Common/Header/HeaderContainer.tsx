@@ -1,6 +1,6 @@
-import { axiosGetNotice } from "../../../lib/commonFn/api";
-import useGetServerData from "../../../lib/customHook/getData";
-import { useIsMobile } from "../../../lib/customHook/mediaQuery";
+import { getNoticeList } from "../../../api/auth";
+import useGetServerData from "../../../hooks/getData";
+import { useIsMobile } from "../../../hooks/mediaQuery";
 import { noticeListState } from "../Notice/NoticeContainer";
 import Header from "./Header";
 import useHeader from "./HeaderHook";
@@ -13,7 +13,7 @@ const HeaderContainer = () => {
     modalStatus,
     moveContributePage,
   } = useHeader();
-  const { serverData } = useGetServerData(axiosGetNotice);
+  const { serverData } = useGetServerData(getNoticeList);
   const isMobile = useIsMobile();
 
   return (

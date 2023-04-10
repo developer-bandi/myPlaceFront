@@ -1,6 +1,6 @@
-import {axiosGetMyInfo} from "../../../../lib/commonFn/api";
-import useGetServerData from "../../../../lib/customHook/getData";
-import {useIsLabtopOrTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
+import { getMyInfo } from "../../../../api/mypage";
+import useGetServerData from "../../../../hooks/getData";
+import { useIsLabtopOrTabletOrMobile } from "../../../../hooks/mediaQuery";
 import MyInfoSetting from "./MyInfoSetting";
 import useMyInfoSetting from "./MyInfoSettingHook";
 
@@ -18,8 +18,8 @@ export interface userInfoDataState {
   error: boolean;
 }
 const MyInfoSettingContainer = () => {
-  const {serverData} = useGetServerData(axiosGetMyInfo);
-  const {changeNickname, nicknameInputRef} = useMyInfoSetting(
+  const { serverData } = useGetServerData(getMyInfo);
+  const { changeNickname, nicknameInputRef } = useMyInfoSetting(
     serverData as userInfoDataState
   );
   const isLabtopOrTabletOrMobile = useIsLabtopOrTabletOrMobile();

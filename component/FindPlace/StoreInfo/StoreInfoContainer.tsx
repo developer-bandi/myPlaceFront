@@ -1,9 +1,9 @@
-import {useIsMobile} from "../../../lib/customHook/mediaQuery";
+import { useIsMobile } from "../../../hooks/mediaQuery";
 import StoreInfo from "./StoreInfo";
 import useStoreInfo from "./StoreInfoHook";
 
 const StoreInfoContainer = () => {
-  const {store, postBookMark, deleteBookMark, deleteStoreTab, modalStatus} =
+  const { store, postBookMark, deleteBookMark, deleteStoreTab, modalStatus } =
     useStoreInfo();
   const isMobile = useIsMobile();
   return (

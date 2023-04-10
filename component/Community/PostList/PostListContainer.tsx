@@ -1,9 +1,10 @@
+import { getPostListRes } from "../../../type/post";
 import PostList from "./PostList";
-import usePostList, {postListContent} from "./PostListHook";
+import usePostList from "./PostListHook";
 interface PostListContainerProps {
-  serverSideData: postListContent;
+  serverSideData: getPostListRes;
 }
-const PostListContainer = ({serverSideData}: PostListContainerProps) => {
+const PostListContainer = ({ serverSideData }: PostListContainerProps) => {
   const {
     page,
     postList,

@@ -1,5 +1,5 @@
-import {axiosGetNotice} from "../../../lib/commonFn/api";
-import useGetServerData from "../../../lib/customHook/getData";
+import { getNoticeList } from "../../../api/auth";
+import useGetServerData from "../../../hooks/getData";
 import Notion from "./Notice";
 import useNotice from "./NoticeHook";
 
@@ -20,8 +20,8 @@ export interface noticeListState {
 }
 
 const NoticeContainer = () => {
-  const {serverData} = useGetServerData(axiosGetNotice);
-  const {checkNotice, movePost} = useNotice();
+  const { serverData } = useGetServerData(getNoticeList);
+  const { checkNotice, movePost } = useNotice();
 
   return (
     <Notion

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Footer from "../../component/Common/Footer/Footer";
 import HeaderContainer from "../../component/Common/Header/HeaderContainer";
 import AddStorePositionContainer from "../../component/Contribute/Store/AddStorePosition/AddStorePositionContainer";
-import { useLogin } from "../../lib/customHook/loginCheck";
+import { useLogin } from "../../hooks/loginCheck";
 
 const addStorePositionPage = () => {
   const router = useRouter();

@@ -1,14 +1,14 @@
-import {all, call, put, takeLeading} from "redux-saga/effects";
-import {axiosStoreInfo} from "../../../lib/commonFn/api";
-import {storeInfoType} from "../../../lib/apitype/search";
-import {getStoreInfoSuccess, getStoreInfoFailure} from "./Reducer";
-import {setDesktopStoreInfo} from "../sideBarFold/Reducer";
+import { all, call, put, takeLeading } from "redux-saga/effects";
+import { storeInfoType } from "../../../lib/apitype/search";
+import { getStoreInfoSuccess, getStoreInfoFailure } from "./Reducer";
+import { setDesktopStoreInfo } from "../sideBarFold/Reducer";
+import { getStoreDetailInfo } from "../../../api/search";
 
-function* axiosApi(action: {type: string; payload: string}) {
+function* axiosApi(action: { type: string; payload: number }) {
   try {
     yield put(setDesktopStoreInfo(true));
-    const searchResult: {data: storeInfoType} = yield call(
-      axiosStoreInfo,
+    const searchResult: { data: storeInfoType } = yield call(
+      getStoreDetailInfo,
       action.payload
     );
     yield put(getStoreInfoSuccess(searchResult.data));

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { useIsNotLogin } from "../../../../lib/customHook/useInNotLogin";
+import { useIsNotLogin } from "../../../../hooks/useInNotLogin";
 import { RootReducer } from "../../../../store";
 import { postComment } from "../../../../store/reducers/postDetail/Reducer";
 

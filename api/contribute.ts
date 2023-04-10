@@ -1,13 +1,18 @@
+import {
+  addReviewRes,
+  addStoreRes,
+  updateReviewRes,
+  updateStoreDetailRes,
+  updateStorePositionRes,
+} from "../type/contribute";
 import axiosInstance from "./core";
 import makeForm from "./lib/makeForm";
-
-axiosInstance.defaults.baseURL += "contribute/";
 
 interface reviewInfo {
   [key: string]: unknown;
   StoreId: number;
   content: string;
-  hashtags: string[];
+  hashtags: number[];
   imgs: Blob[];
 }
 
@@ -45,41 +50,56 @@ interface storePositionUpdate extends storePosition {
 }
 
 interface storeDetailUpdate extends storeDetail {
-  id: string;
+  id: number;
   deletedImg: string[];
 }
 
-const contributeApi = {
-  addReview: (reviewInfo: reviewInfo) => {
-    return axiosInstance.post("writereview", makeForm(reviewInfo), {
+export const addReview = (reviewInfo: reviewInfo) => {
+  return axiosInstance.post<addReviewRes>(
+    "contribute/writereview",
+    makeForm(reviewInfo),
+    {
       headers: { "Content-Type": `multipart/form-data` },
-    });
-  },
-  addStore: (storeInfo: addStore) => {
-    return axiosInstance.post("writestore", makeForm(storeInfo), {
-      headers: { "Content-Type": `multipart/form-data` },
-    });
-  },
-  updateReview: (reviewInfo: reviewInfo) => {
-    return axiosInstance.patch("review", makeForm(reviewInfo), {
-      headers: { "Content-Type": `multipart/form-data` },
-    });
-  },
-  updateStorePosition: (storePosition: storePositionUpdate) => {
-    return axiosInstance.patch("storeposition", makeForm(storePosition), {
-      headers: { "Content-Type": `multipart/form-data` },
-    });
-  },
-  updateStoreDetail: (storeDetail: storeDetailUpdate) => {
-    return axiosInstance.patch("storeinfo", makeForm(storeDetail), {
-      headers: { "Content-Type": `multipart/form-data` },
-    });
-  },
-  axiosPatchMyReview: (reviewInfo: updateReviewInfo) => {
-    return axiosInstance.patch("review", makeForm(reviewInfo), {
-      headers: { "Content-Type": `multipart/form-data` },
-    });
-  },
+    }
+  );
 };
 
-export default contributeApi;
+export const addStore = (storeInfo: addStore) => {
+  return axiosInstance.post<addStoreRes>(
+    "contribute/writestore",
+    makeForm(storeInfo),
+    {
+      headers: { "Content-Type": `multipart/form-data` },
+    }
+  );
+};
+
+export const updateReview = (updateReviewInfo: updateReviewInfo) => {
+  return axiosInstance.patch<updateReviewRes>(
+    "contribute/review",
+    makeForm(updateReviewInfo),
+    {
+      headers: { "Content-Type": `multipart/form-data` },
+    }
+  );
+};
+
+export const updateStorePosition = (storePosition: storePositionUpdate) => {
+  return axiosInstance.patch<updateStorePositionRes>(
+    "contribute/storeposition",
+    makeForm(storePosition),
+    {
+      headers: { "Content-Type": `multipart/form-data` },
+    }
+  );
+};
+
+export const updateStoreDetail = (storeDetail: storeDetailUpdate) => {
+  return axiosInstance.patch<updateStoreDetailRes>(
+    "contribute/storeinfo",
+    makeForm(storeDetail),
+    {
+      headers: { "Content-Type": `multipart/form-data` },
+    }
+  );
+};

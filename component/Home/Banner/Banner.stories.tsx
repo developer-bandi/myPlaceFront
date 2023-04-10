@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Banner from "./Banner";
-import { loader } from "../../../lib/commonFn/loader";
+import { loader } from "../../../lib/loader";
 
 export default {
   title: "Home/Banner",

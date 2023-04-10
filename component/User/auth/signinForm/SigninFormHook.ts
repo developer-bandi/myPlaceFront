@@ -1,7 +1,7 @@
 const CryptoJS = require("crypto-js");
 import { useRouter } from "next/router";
 import { useRef } from "react";
-import { axiosLocalSignin } from "../../../../lib/commonFn/api";
+import { localSignin } from "../../../../api/auth";
 
 const useSigninForm = () => {
   const idInputRef = useRef<HTMLInputElement>(null);
@@ -14,7 +14,7 @@ const useSigninForm = () => {
     ) {
       if (idInputRef.current !== null && passwordInputRef.current !== null) {
         try {
-          const message = await axiosLocalSignin({
+          const message = await localSignin({
             localId: idInputRef.current.value,
             password: CryptoJS.AES.encrypt(
               JSON.stringify(passwordInputRef.current.value),

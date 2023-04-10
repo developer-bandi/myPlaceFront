@@ -1,6 +1,6 @@
 import styles from "./Images.module.scss";
 import Image from "next/image";
-import { loader } from "../../../../../lib/commonFn/loader";
+import { loader } from "../../../../../lib/loader";
 interface ImagesProps {
   images: { filename: string }[];
 }

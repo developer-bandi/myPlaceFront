@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { setDateLatest } from "../../../../lib/commonFn/date";
-import { loader } from "../../../../lib/commonFn/loader";
+import { setDateLatest } from "../../../../lib/date";
+import { loader } from "../../../../lib/loader";
 import styles from "./Reviews.module.scss";
 
 interface ReviewsProps {

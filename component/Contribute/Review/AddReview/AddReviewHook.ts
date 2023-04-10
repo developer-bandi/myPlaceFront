@@ -1,14 +1,11 @@
-import {useCallback, useEffect, useRef, useState} from "react";
-import {useSelector} from "react-redux";
-import {RootReducer} from "../../../../store";
-import {axiosAddComment} from "../../../../lib/commonFn/api";
-import {
-  addImgWrapper,
-  deleteUploadImgWrapper,
-} from "../../../../lib/commonFn/imgFn";
-import {useRouter} from "next/router";
-import {useDispatch} from "react-redux";
-import {getStoreInfo} from "../../../../store/reducers/storeInfo/Reducer";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootReducer } from "../../../../store";
+import { addImgWrapper, deleteUploadImgWrapper } from "../../../../lib/imgFn";
+import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { getStoreInfo } from "../../../../store/reducers/storeInfo/Reducer";
+import { addReview } from "../../../../api/contribute";
 
 const useAddReview = () => {
   const storeInfo = useSelector(
@@ -73,12 +70,12 @@ const useAddReview = () => {
           textAreaRef.current !== null
         ) {
           setLoading(true);
-          await axiosAddComment(
-            storeInfo.storeInfo.id,
-            textAreaRef.current.value,
-            selectedHashtagNumber,
-            imgfile
-          );
+          await addReview({
+            StoreId: storeInfo.storeInfo.id,
+            content: textAreaRef.current.value,
+            hashtags: selectedHashtagNumber,
+            imgs: imgfile,
+          });
           dispatch(getStoreInfo(storeInfo.storeInfo.id));
           setLoading(false);
           alert("성공적으로 등록되었습니다");

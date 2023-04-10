@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import styles from "./SignupForm.module.scss";
-import authStyles from "../../../../lib/styles/auth.module.scss";
+import authStyles from "../../../../styles/auth.module.scss";
 import InputBlock from "./InputBlock/InputBlock";
 import SubmitButton from "./SubmitButton/SubmitButton";
 interface SignUpFormProps {

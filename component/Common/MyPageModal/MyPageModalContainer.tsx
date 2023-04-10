@@ -1,9 +1,9 @@
-import {useIsMobile} from "../../../lib/customHook/mediaQuery";
+import { useIsMobile } from "../../../hooks/mediaQuery";
 import MyPageModal from "./MyPageModal";
 import useMyPageModal from "./MyPageModalHook";
 
 const MyPageModalContainer = () => {
-  const {userLogout, modalActvieChange} = useMyPageModal();
+  const { userLogout, modalActvieChange } = useMyPageModal();
   const isMobile = useIsMobile();
 
   return (

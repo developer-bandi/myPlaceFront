@@ -1,10 +1,10 @@
-import {useRouter} from "next/router";
-import {useEffect, useRef, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {axiosUpdateStorePosition} from "../../../../lib/commonFn/api";
-import {RootReducer} from "../../../../store";
-import {setPosition} from "../../../../store/reducers/AddStorePosition/Reducer";
-import {getStoreInfo} from "../../../../store/reducers/storeInfo/Reducer";
+import { useRouter } from "next/router";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateStorePosition } from "../../../../api/contribute";
+import { RootReducer } from "../../../../store";
+import { setPosition } from "../../../../store/reducers/AddStorePosition/Reducer";
+import { getStoreInfo } from "../../../../store/reducers/storeInfo/Reducer";
 declare global {
   interface Window {
     kakao: any;
@@ -22,7 +22,7 @@ const useUpdateStorePosition = () => {
 
   const dispatch = useDispatch();
   const router = useRouter();
-  const {id} = router.query;
+  const { id } = router.query;
   const existPosition = useSelector(
     (state: RootReducer) => state.storeInfo.content?.storeInfo
   );
@@ -82,11 +82,11 @@ const useUpdateStorePosition = () => {
         const geocoder = new window.kakao.maps.services.Geocoder();
 
         const searchDetailAddrFromCoords = (
-          coords: {getLng: () => void; getLat: () => void},
+          coords: { getLng: () => void; getLat: () => void },
           callback: (
             result: {
-              road_address: {address_name: string};
-              address: {address_name: string};
+              road_address: { address_name: string };
+              address: { address_name: string };
             }[],
             status: string
           ) => void
@@ -97,8 +97,8 @@ const useUpdateStorePosition = () => {
           mouseEvent.latLng,
           function (
             result: {
-              road_address: {address_name: string};
-              address: {address_name: string};
+              road_address: { address_name: string };
+              address: { address_name: string };
             }[],
             status: string
           ) {
@@ -145,7 +145,7 @@ const useUpdateStorePosition = () => {
       const geocoder = new window.kakao.maps.services.Geocoder();
       geocoder.addressSearch(
         addressInputRef.current.value,
-        function (result: {x: string; y: string}[], status: string) {
+        function (result: { x: string; y: string }[], status: string) {
           if (
             status === window.kakao.maps.services.Status.OK &&
             addressInputRef.current !== null
@@ -186,7 +186,12 @@ const useUpdateStorePosition = () => {
       typeof address === "string"
     ) {
       try {
-        await axiosUpdateStorePosition(id, latitude, longitude, address);
+        await updateStorePosition({
+          id,
+          latitude,
+          longitude,
+          address,
+        });
         dispatch(getStoreInfo(Number(id)));
         alert("정상적으로 수정되었습니다");
         router.push("/findplace");

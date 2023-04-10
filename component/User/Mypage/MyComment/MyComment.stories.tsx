@@ -1,6 +1,6 @@
 import { action } from "@storybook/addon-actions";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { useIsLabtopOrTabletOrMobile } from "../../../../lib/customHook/mediaQuery";
+import { useIsLabtopOrTabletOrMobile } from "../../../../hooks/mediaQuery";
 import MyComment from "./MyComment";
 
 export default {

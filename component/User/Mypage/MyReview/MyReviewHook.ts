@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { SetStateAction } from "react";
-import { axiosDeleteMyReview } from "../../../../lib/commonFn/api";
-import { dataState } from "../../../../lib/customHook/mypage";
+import { deleteMyReview } from "../../../../api/mypage";
+import { dataState } from "../../../../hooks/mypage";
 import { ReviewListState } from "./MyReviewContainer";
 
 interface useMyReviewProps {
@@ -15,7 +15,7 @@ const useMyReview = ({ setServerData, serverData }: useMyReviewProps) => {
   const deleteReview = async (id: string) => {
     if (window.confirm("삭제하시겠습니까?")) {
       try {
-        await axiosDeleteMyReview(id);
+        await deleteMyReview(id);
         if (serverData.content !== undefined)
           setServerData({
             content: {

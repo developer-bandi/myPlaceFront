@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { BiBookmark, BiCommentDetail } from "react-icons/bi";
 import { GrView } from "react-icons/gr";
-import { loader } from "../../../../../lib/commonFn/loader";
+import { loader } from "../../../../../lib/loader";
 import { bookMarkContentRow } from "../MyBookMarkContainer";
 import styles from "./Store.module.scss";
 

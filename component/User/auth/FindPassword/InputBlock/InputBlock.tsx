@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import authStyles from "../../../../../lib/styles/auth.module.scss";
+import authStyles from "../../../../../styles/auth.module.scss";
 
 interface InputBlockProps {
   subTitle: string;

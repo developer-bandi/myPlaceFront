@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import storePosition from "../../../../lib/styles/storePosition.module.scss";
+import storePosition from "../../../../styles/storePosition.module.scss";
 
 interface UpdateStorePositionProps {
   mapref: RefObject<HTMLDivElement>;

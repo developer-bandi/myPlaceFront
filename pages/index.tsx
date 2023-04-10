@@ -1,13 +1,13 @@
-import type {GetStaticProps} from "next";
+import type { GetStaticProps } from "next";
 import Footer from "../component/Common/Footer/Footer";
 import HeaderContainer from "../component/Common/Header/HeaderContainer";
 import Head from "next/head";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import BannerContainer from "../component/Home/Banner/BannerContainer";
 import StoreRankContainer from "../component/Home/StoreRank/StoreRankContainer";
 import RecentReviewContainer from "../component/Home/RecentReview/RecentReviewContainer";
-import axios from "axios";
-import {setDateYearMonthDayHour} from "../lib/commonFn/date";
+import { setDateYearMonthDayHour } from "../lib/date";
+import { getBanner, getStorePopular } from "../api/home";
 
 export interface BannerDataType {
   backgroundColor: string;
@@ -30,11 +30,11 @@ export interface storeRankDataType {
 }
 
 interface HomeProps {
-  bannerData: {content?: BannerDataType[]; error: boolean};
-  storeRankData: {content?: storeRankDataType[]; error: boolean};
+  bannerData: { content?: BannerDataType[]; error: boolean };
+  storeRankData: { content?: storeRankDataType[]; error: boolean };
   renewTime: string;
 }
-const Home = ({bannerData, storeRankData, renewTime}: HomeProps) => {
+const Home = ({ bannerData, storeRankData, renewTime }: HomeProps) => {
   const router = useRouter();
   return (
     <>
@@ -73,14 +73,12 @@ const Home = ({bannerData, storeRankData, renewTime}: HomeProps) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const res = await axios.all([
-      axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/home/banner`),
-      axios.get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/home/store`),
-    ]);
+    const [{ data: bannerContent }, { data: storeRankContent }] =
+      await Promise.all([getBanner(), getStorePopular()]);
     return {
       props: {
-        bannerData: {content: res[0].data, error: false},
-        storeRankData: {content: res[1].data, error: false},
+        bannerData: { content: bannerContent, error: false },
+        storeRankData: { content: storeRankContent, error: false },
         renewTime: setDateYearMonthDayHour(new Date()),
       },
       revalidate: 86400,
@@ -88,8 +86,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   } catch (err) {
     return {
       props: {
-        bannerData: {error: true},
-        storeRankData: {error: true},
+        bannerData: { error: true },
+        storeRankData: { error: true },
       },
       revalidate: 3600,
     };

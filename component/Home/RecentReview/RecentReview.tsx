@@ -1,5 +1,5 @@
 import styles from "./RecentReview.module.scss";
-import { setDateLatest } from "../../../lib/commonFn/date";
+import { setDateLatest } from "../../../lib/date";
 import Review from "./Review/Review";
 import TextInfo from "./TextInfo/TextInfo";
 import {

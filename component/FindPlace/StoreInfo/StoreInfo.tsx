@@ -3,7 +3,7 @@ import Image from "next/image";
 import { storeInfoState } from "../../../store/reducers/storeInfo/Reducer";
 import { SideBarFoldState } from "../../../store/reducers/sideBarFold/Reducer";
 import searchResultLoading from "../../../public/searchResultLoading.gif";
-import { loader } from "../../../lib/commonFn/loader";
+import { loader } from "../../../lib/loader";
 import Titles from "./Titles/Titles";
 import Buttons from "./Buttons/Buttons";
 import Infos from "./Infos/Infos";

@@ -1,6 +1,6 @@
-import { useIsLabtopOrTabletOrMobile } from "../../../../lib/customHook/mediaQuery";
-import useMoveTargetStore from "../../../../lib/customHook/moveTargetStore";
-import useMypage from "../../../../lib/customHook/mypage";
+import { useIsLabtopOrTabletOrMobile } from "../../../../hooks/mediaQuery";
+import useMoveTargetStore from "../../../../hooks/moveTargetStore";
+import useMypage from "../../../../hooks/mypage";
 import MyPageBookMark from "./MyBookMark";
 
 export interface bookMarkContentRow {

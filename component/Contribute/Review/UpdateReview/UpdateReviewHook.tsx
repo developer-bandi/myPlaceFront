@@ -1,18 +1,16 @@
-import {useRouter} from "next/router";
-import {useCallback, useEffect, useRef, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {ReviewType} from "../../../../lib/apitype/contribute";
-import {
-  axiosGetMyReview,
-  axiosPatchMyReview,
-} from "../../../../lib/commonFn/api";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateReview } from "../../../../api/contribute";
+import { getMyReview } from "../../../../api/mypage";
+import { ReviewType } from "../../../../lib/apitype/contribute";
 import {
   addImgWrapper,
   deleteExistImgWrapper,
   deleteUploadImgWrapper,
-} from "../../../../lib/commonFn/imgFn";
-import {RootReducer} from "../../../../store";
-import {getHashtagAll} from "../../../../store/reducers/hashtagAll/Reducer";
+} from "../../../../lib/imgFn";
+import { RootReducer } from "../../../../store";
+import { getHashtagAll } from "../../../../store/reducers/hashtagAll/Reducer";
 
 const useUpdateReview = () => {
   const taglist = useSelector((state: RootReducer) => state.hashtagAll);
@@ -20,11 +18,12 @@ const useUpdateReview = () => {
   const [existInfo, setExistInfo] = useState<ReviewType>();
   const [selectedHashtag, setSelectedHashtag] = useState<string[]>([]);
   const [existImg, setExistImg] = useState<string[] | undefined>();
-  const [storeInfo, setStoreInfo] = useState<{
-    name: string;
-    category: string;
-    address: string;
-  }>();
+  const [storeInfo, setStoreInfo] =
+    useState<{
+      name: string;
+      category: string;
+      address: string;
+    }>();
   const [uploadImg, setUploadImg] = useState<string[]>([]);
   const [imgfile, setImgfile] = useState<Blob[]>([]);
   const [error, setError] = useState(false);
@@ -54,7 +53,7 @@ const useUpdateReview = () => {
     }
     const asyncTempFunc = async () => {
       try {
-        const res = await axiosGetMyReview(router.query.id as string);
+        const res = await getMyReview(router.query.id as string);
         setStoreInfo(res.data.storeInfo);
         setSelectedHashtag(res.data.Hashtags);
         setExistImg(res.data.photo);
@@ -110,14 +109,14 @@ const useUpdateReview = () => {
       try {
         if (textAreaRef.current !== null) {
           setUploadLoading(true);
-          await axiosPatchMyReview(
+          await updateReview({
             deleteHashtag,
             addHashtag,
             deleteImg,
-            imgfile,
-            router.query.id as string,
-            textAreaRef.current.value
-          );
+            imgs: imgfile,
+            id: router.query.id as string,
+            content: textAreaRef.current.value,
+          });
           setUploadLoading(false);
           alert("정상적으로 수정되었습니다");
           router.push("/user/mypage/review");

@@ -1,14 +1,14 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { getPostList } from "../../api/post";
 import Footer from "../../component/Common/Footer/Footer";
 import HeaderContainer from "../../component/Common/Header/HeaderContainer";
 import PostListContainer from "../../component/Community/PostList/PostListContainer";
-import { postListContent } from "../../component/Community/PostList/PostListHook";
-import { axiosGetPostList } from "../../lib/commonFn/api";
+import { getPostListRes } from "../../type/post";
 
 interface PostListPageProps {
-  serverSideData: postListContent;
+  serverSideData: getPostListRes;
 }
 
 const PostListPage = ({ serverSideData }: PostListPageProps) => {
@@ -37,9 +37,9 @@ const PostListPage = ({ serverSideData }: PostListPageProps) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = await axiosGetPostList(1, "createdAt");
+  const { data } = await getPostList({ page: 1, order: "createdAt" });
 
-  return { props: { serverSideData: res.data } };
+  return { props: { serverSideData: data } };
 };
 
 export default PostListPage;

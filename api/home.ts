@@ -1,11 +1,12 @@
+import {
+  getBannerRes,
+  getStorePopularRes,
+  getReviewRecentRes,
+} from "../type/home";
 import axiosInstance from "./core";
 
-axiosInstance.defaults.baseURL += "home/";
-
-const homeApi = {
-  getBanner: () => axiosInstance.get("banner"),
-  getStoreRank: () => axiosInstance.get("store"),
-  getRecentReview: (page: number) => axiosInstance.get(`review?page=${page}`),
-};
-
-export default homeApi;
+export const getBanner = () => axiosInstance.get<getBannerRes>("home/banner");
+export const getStorePopular = () =>
+  axiosInstance.get<getStorePopularRes>("home/store");
+export const getReviewRecent = (page: number) =>
+  axiosInstance.get<getReviewRecentRes>(`home/review?page=${page}`);

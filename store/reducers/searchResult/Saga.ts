@@ -1,9 +1,9 @@
 import { all, call, put, takeLeading } from "redux-saga/effects";
-import { axiosHashtagSearch, axiosNameSearch } from "../../../lib/commonFn/api";
 import { SearchResultType } from "../../../lib/apitype/search";
 import { searchStoreFailure, searchStoreSuccess } from "./Reducer";
+import { hashtagSearch, nameSearch } from "../../../api/search";
 
-function* axiosApi(action: {
+function* getSearchResult(action: {
   type: string;
   payload: {
     latitude: string;
@@ -16,18 +16,16 @@ function* axiosApi(action: {
     const { latitude, longitude } = action.payload;
     const searchResult: { data: SearchResultType[] } =
       action.payload.selectedHashtag !== undefined
-        ? yield call(
-            axiosHashtagSearch,
+        ? yield call(hashtagSearch, {
             latitude,
             longitude,
-            action.payload.selectedHashtag
-          )
-        : yield call(
-            axiosNameSearch,
+            selectedHashtag: action.payload.selectedHashtag,
+          })
+        : yield call(nameSearch, {
             latitude,
             longitude,
-            action.payload.searchKeyword as string
-          );
+            searchKeyword: action.payload.searchKeyword as string,
+          });
 
     yield put(searchStoreSuccess(searchResult.data));
   } catch (err) {
@@ -36,5 +34,5 @@ function* axiosApi(action: {
 }
 
 export function* searchResultSaga() {
-  yield all([takeLeading("searchResult/searchStore", axiosApi)]);
+  yield all([takeLeading("searchResult/searchStore", getSearchResult)]);
 }

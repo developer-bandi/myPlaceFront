@@ -1,6 +1,6 @@
-import {useRouter} from "next/router";
-import {useRef, useState} from "react";
-import {axiosPostId, axiosPostPassword} from "../../../../lib/commonFn/api";
+import { useRouter } from "next/router";
+import { useRef, useState } from "react";
+import { findAndChangePassword, searchId } from "../../../../api/auth";
 const CryptoJS = require("crypto-js");
 
 const useFindPassword = () => {
@@ -10,30 +10,33 @@ const useFindPassword = () => {
   const passwordCheckRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const [email, setEmail] = useState("");
-  const [randomNumber, setRandomNumber] = useState<{
-    number: string;
-    id: string;
-  }>();
+  const [randomNumber, setRandomNumber] =
+    useState<{
+      number: string;
+      id: string;
+    }>();
   const [authStatus, setAuthStatus] = useState(false);
 
-  const sendMail = async (e: {key?: string; type: string}) => {
+  const sendMail = async (e: { key?: string; type: string }) => {
     if (
       (e.type === "click" && e.key === undefined) ||
       (e.type === "keypress" && e.key === "Enter")
     ) {
       try {
         if (emailInputRef.current !== null) {
-          const authResult = await axiosPostId(emailInputRef.current.value);
+          const authResult = await searchId(emailInputRef.current.value);
           if (authResult.status === 203) {
-            alert("이메일이 존재하지 않습니다");
+            alert(authResult.data as string);
           } else {
-            setEmail(emailInputRef.current.value);
-            setRandomNumber({
-              number: authResult.data.number,
-              id: authResult.data.id,
-            });
-            setAuthStatus(false);
-            alert("인증번호를 발송하였습니다");
+            if (typeof authResult.data !== "string") {
+              setEmail(emailInputRef.current.value);
+              setRandomNumber({
+                number: authResult.data.number,
+                id: authResult.data.id,
+              });
+              setAuthStatus(false);
+              alert("인증번호를 발송하였습니다");
+            }
           }
         }
       } catch (error) {
@@ -42,7 +45,7 @@ const useFindPassword = () => {
     }
   };
 
-  const checkAuthNum = (e: {key?: string; type: string}) => {
+  const checkAuthNum = (e: { key?: string; type: string }) => {
     if (
       (e.type === "click" && e.key === undefined) ||
       (e.type === "keypress" && e.key === "Enter")
@@ -64,7 +67,7 @@ const useFindPassword = () => {
     }
   };
 
-  const changePassword = async (e: {key?: string; type: string}) => {
+  const changePassword = async (e: { key?: string; type: string }) => {
     if (
       (e.type === "click" && e.key === undefined) ||
       (e.type === "keypress" && e.key === "Enter")
@@ -82,13 +85,13 @@ const useFindPassword = () => {
           alert("두 비밀번호가 일치하지 않습니다");
         } else {
           try {
-            await axiosPostPassword(
+            await findAndChangePassword({
               email,
-              CryptoJS.AES.encrypt(
+              newPassword: CryptoJS.AES.encrypt(
                 JSON.stringify(passwordRef.current.value),
                 process.env.NEXT_PUBLIC_PASSWORD_SECRET
-              ).toString()
-            );
+              ).toString(),
+            });
             alert("변경되었습니다");
             router.push("/user/auth/signin");
           } catch (error) {

@@ -1,23 +1,36 @@
+import {
+  addBookMarkRes,
+  deleteBookMarkRes,
+  getStoreDetailInfoRes,
+  hashtagSearchRes,
+  nameSearchRes,
+} from "../type/search";
 import axiosInstance from "./core";
 
-axiosInstance.defaults.baseURL += "search/";
-
-interface searchCondition {
+interface commonCondition {
   latitude: string;
   longitude: string;
+}
+interface hashtagSearchCondition extends commonCondition {
   selectedHashtag: string[];
 }
+interface nameSearchCondition extends commonCondition {
+  searchKeyword: string;
+}
 
-const searchApi = {
-  hashtagSearch: (searchCondition: searchCondition) =>
-    axiosInstance.post("hashtagsearch", searchCondition),
-  nameSearch: (searchCondition: searchCondition) =>
-    axiosInstance.post("namesearch", searchCondition),
-  getRecentReview: (storeId: string) =>
-    axiosInstance.post("storeInfo", { storeId }),
-  addBookMark: (StoreId: string) => axiosInstance.post("bookmark", { StoreId }),
-  deleteBookMark: (StoreId: string) =>
-    axiosInstance.delete("bookmark", { data: { StoreId } }),
-};
+export const hashtagSearch = (searchCondition: hashtagSearchCondition) =>
+  axiosInstance.post<hashtagSearchRes>("search/hashtagsearch", searchCondition);
 
-export default searchApi;
+export const nameSearch = (searchCondition: nameSearchCondition) =>
+  axiosInstance.post<nameSearchRes>("search/namesearch", searchCondition);
+
+export const getStoreDetailInfo = (storeId: number) =>
+  axiosInstance.post<getStoreDetailInfoRes>("search/storeInfo", { storeId });
+
+export const addBookMark = (storeId: number) =>
+  axiosInstance.post<addBookMarkRes>("search/bookmark", { storeId });
+
+export const deleteBookMark = (storeId: number) =>
+  axiosInstance.delete<deleteBookMarkRes>("search/bookmark", {
+    data: { storeId },
+  });

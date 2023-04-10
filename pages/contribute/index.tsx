@@ -1,9 +1,9 @@
 import Head from "next/head";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import Footer from "../../component/Common/Footer/Footer";
 import HeaderContainer from "../../component/Common/Header/HeaderContainer";
 import ChoiceButton from "../../component/Contribute/ChoiceButton/ChoiceButton";
-import {useLogin} from "../../lib/customHook/loginCheck";
+import { useLogin } from "../../hooks/loginCheck";
 
 const addStorePositionPage = () => {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import React from "react";
 import { HashtagAllState } from "../../../../../store/reducers/hashtagAll/Reducer";
-import storeReview from "../../../../../lib/styles/storeReview.module.scss";
+import storeReview from "../../../../../styles/storeReview.module.scss";
 
 interface HashtagProps {
   category: string;

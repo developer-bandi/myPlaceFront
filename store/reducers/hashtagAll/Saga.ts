@@ -1,17 +1,18 @@
 import { all, call, put, takeLeading } from "redux-saga/effects";
-import { axiosGetHashTags } from "../../../lib/commonFn/api";
-import { HashTagType } from "../../../lib/apitype/hashtag";
 import { getHashtagAllFailure, getHashtagAllSuccess } from "./Reducer";
+import { getHashTag } from "../../../api/hashtag";
+import { AxiosResponse } from "axios";
+import { HashTagList } from "../../../type/hashtag";
 
-function* axiosApi() {
+function* getHashtagSaga() {
   try {
-    const hashtagDatas: { data: HashTagType[] } = yield call(axiosGetHashTags);
-    yield put(getHashtagAllSuccess(hashtagDatas.data));
+    const { data }: AxiosResponse<HashTagList> = yield call(getHashTag);
+    yield put(getHashtagAllSuccess(data));
   } catch (error) {
     yield put(getHashtagAllFailure());
   }
 }
 
 export function* hashtagAllSaga() {
-  yield all([takeLeading("hashtagAll/getHashtagAll", axiosApi)]);
+  yield all([takeLeading("hashtagAll/getHashtagAll", getHashtagSaga)]);
 }

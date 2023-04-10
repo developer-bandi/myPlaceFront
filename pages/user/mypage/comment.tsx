@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Footer from "../../../component/Common/Footer/Footer";
 import HeaderContainer from "../../../component/Common/Header/HeaderContainer";
 import MyCommentContainer from "../../../component/User/Mypage/MyComment/MyCommentContainer";
-import { useLogin } from "../../../lib/customHook/loginCheck";
+import { useLogin } from "../../../hooks/loginCheck";
 
 const Comment = () => {
   useLogin();

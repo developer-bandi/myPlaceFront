@@ -1,8 +1,5 @@
-import Image from "next/image";
 import styles from "./SigninForm.module.scss";
-import kakaologo from "../../../../public/새 프로젝트.png";
-import authStyles from "../../../../lib/styles/auth.module.scss";
-import Link from "next/link";
+import authStyles from "../../../../styles/auth.module.scss";
 import { RefObject } from "react";
 import SocialLogin from "./SocialLogin/SocialLogin";
 import LocalLogin from "./LocalLogin/LocalLogin";

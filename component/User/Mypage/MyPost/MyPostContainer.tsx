@@ -1,5 +1,5 @@
-import {useIsLabtopOrTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
-import useMypage from "../../../../lib/customHook/mypage";
+import { useIsLabtopOrTabletOrMobile } from "../../../../hooks/mediaQuery";
+import useMypage from "../../../../hooks/mypage";
 import PostList from "./MyPost";
 import useMyPost from "./MyPostHook";
 
@@ -15,15 +15,15 @@ export interface postListcontent {
 }
 
 export interface postListState {
-  content?: {count: number; rows: postListcontent[]};
+  content?: { count: number; rows: postListcontent[] };
   loading: boolean;
   error: boolean;
 }
 
 const MyPostContainer = () => {
   const isLabtopOrTabletOrMobile = useIsLabtopOrTabletOrMobile();
-  const {movePostDetailPage} = useMyPost();
-  const {serverData, changePage, page} = useMypage("post");
+  const { movePostDetailPage } = useMyPost();
+  const { serverData, changePage, page } = useMypage("post");
   return (
     <PostList
       postListState={serverData as postListState}

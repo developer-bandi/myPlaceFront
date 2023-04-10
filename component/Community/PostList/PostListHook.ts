@@ -1,35 +1,16 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import {
-  axiosGetPostList,
-  axiosGetSearchPostList,
-} from "../../../lib/commonFn/api";
+import { getPostList, getSearchPostList } from "../../../api/post";
 import { RootReducer } from "../../../store";
-
-export interface postListContentRow {
-  id: number;
-  title: string;
-  content: string;
-  viewCount: number;
-  createdAt: string;
-  nickname: string;
-  comment: number;
-  postlikecount: number;
-}
-
-export interface postListContent {
-  count: number;
-  rows: postListContentRow[];
-}
-
+import { getPostListRes } from "../../../type/post";
 export interface postListState {
-  content?: postListContent;
+  content?: getPostListRes;
   loading: boolean;
   error: boolean;
 }
 
-const usePostList = (serverSideData: postListContent) => {
+const usePostList = (serverSideData: getPostListRes) => {
   const loginedUser = useSelector(
     (state: RootReducer) => state.userLogin.content
   );
@@ -59,8 +40,8 @@ const usePostList = (serverSideData: postListContent) => {
       setSelectedSort(sort);
       const postListData =
         keyword === ""
-          ? await axiosGetPostList(1, sort)
-          : await axiosGetSearchPostList(keyword, 1, sort);
+          ? await getPostList({ page: 1, order: sort })
+          : await getSearchPostList({ keyword, page: 1, order: sort });
       setPostList({
         content: postListData.data,
         loading: false,
@@ -83,8 +64,8 @@ const usePostList = (serverSideData: postListContent) => {
       });
       const postListData =
         keyword === ""
-          ? await axiosGetPostList(page, selectedSort)
-          : await axiosGetSearchPostList(keyword, page, selectedSort);
+          ? await getPostList({ page, order: selectedSort })
+          : await getSearchPostList({ keyword, page, order: selectedSort });
       setPostList({
         content: postListData.data,
         loading: false,
@@ -111,11 +92,11 @@ const usePostList = (serverSideData: postListContent) => {
           loading: true,
           error: false,
         });
-        const postListData = await axiosGetSearchPostList(
-          searchKeyword,
-          1,
-          "createdAt"
-        );
+        const postListData = await getSearchPostList({
+          keyword: searchKeyword,
+          page: 1,
+          order: "createdAt",
+        });
         setKeyword(searchKeyword);
         setSelectedSort("createdAt");
         setPostList({

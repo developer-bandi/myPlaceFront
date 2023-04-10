@@ -6,13 +6,9 @@ import SearchResultSlice, {
 import { expectSaga } from "redux-saga-test-plan";
 import { call } from "redux-saga/effects";
 import { throwError } from "redux-saga-test-plan/providers";
-import {
-  axiosGetHashTagRank,
-  axiosHashtagSearch,
-  axiosNameSearch,
-} from "../../../lib/commonFn/api";
 import { HYDRATE } from "next-redux-wrapper";
 import { searchResultSaga } from "./Saga";
+import { hashtagSearch, nameSearch } from "../../../api/search";
 
 const apiData = new Array(10).fill(0).map(() => {
   return {
@@ -72,7 +68,7 @@ describe("reducer 테스트", () => {
 });
 
 describe("saga 테스트", () => {
-  describe("hashtagRankSaga가 의도한대로 작동하는지", () => {
+  describe("getSearchResult가 의도한대로 작동하는지", () => {
     const payloadData = {
       latitude: "testLatitude",
       longitude: "testLongitude",
@@ -81,17 +77,7 @@ describe("saga 테스트", () => {
     };
     it("hashtag로 검색한 결과를 성공적으로 받아와 액션을 발생시킨 경우", () => {
       return expectSaga(searchResultSaga)
-        .provide([
-          [
-            call(
-              axiosHashtagSearch,
-              payloadData.latitude,
-              payloadData.longitude,
-              payloadData.selectedHashtag
-            ),
-            { data: apiData },
-          ],
-        ])
+        .provide([[call(hashtagSearch, payloadData), { data: apiData }]])
         .put({ type: "searchResult/searchStoreSuccess", payload: apiData })
         .dispatch({
           type: "searchResult/searchStore",
@@ -105,17 +91,7 @@ describe("saga 테스트", () => {
     });
     it("keyword로 검색한 결과를 성공적으로 받아와 액션을 발생시킨 경우", () => {
       return expectSaga(searchResultSaga)
-        .provide([
-          [
-            call(
-              axiosNameSearch,
-              payloadData.latitude,
-              payloadData.longitude,
-              payloadData.searchKeyword
-            ),
-            { data: apiData },
-          ],
-        ])
+        .provide([[call(nameSearch, payloadData), { data: apiData }]])
         .put({ type: "searchResult/searchStoreSuccess", payload: apiData })
         .dispatch({
           type: "searchResult/searchStore",
@@ -129,7 +105,9 @@ describe("saga 테스트", () => {
     });
     it("에러가 발생한 경우", () => {
       return expectSaga(searchResultSaga)
-        .provide([[call(axiosGetHashTagRank), throwError(new Error("Whoops"))]])
+        .provide([
+          [call(hashtagSearch, payloadData), throwError(new Error("Whoops"))],
+        ])
         .put({ type: "searchResult/searchStoreFailure", payload: undefined })
         .dispatch({ type: "searchResult/searchStore" })
         .silentRun();

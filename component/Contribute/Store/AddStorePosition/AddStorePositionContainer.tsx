@@ -1,10 +1,10 @@
-import {useIsTabletOrMobile} from "../../../../lib/customHook/mediaQuery";
+import { useIsTabletOrMobile } from "../../../../hooks/mediaQuery";
 import AddStorePosition from "./AddStorePosition";
 import useAddStorePosition from "./AddStorePositionHook";
 
 const AddStorePositionContainer = () => {
   const isTabletOrMobile = useIsTabletOrMobile();
-  const {mapref, addressInputRef, setAddress, moveSetpage} =
+  const { mapref, addressInputRef, setAddress, moveSetpage } =
     useAddStorePosition();
 
   return (

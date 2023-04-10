@@ -1,7 +1,7 @@
 import styles from "./PostList.module.scss";
 import { RefObject } from "react";
 import Image from "next/image";
-import { setDateLatest } from "../../../lib/commonFn/date";
+import { setDateLatest } from "../../../lib/date";
 import { postListState } from "./PostListHook";
 import searchResultLoading from "../../../public/searchResultLoading.gif";
 import PageNationContainer from "../../Common/PageNation/PageNationContainer";

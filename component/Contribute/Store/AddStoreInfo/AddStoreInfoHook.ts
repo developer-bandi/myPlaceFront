@@ -1,12 +1,9 @@
-import {useRouter} from "next/router";
-import {useCallback, useEffect, useRef, useState} from "react";
-import {useSelector} from "react-redux";
-import {axiosAddStore} from "../../../../lib/commonFn/api";
-import {
-  addImgWrapper,
-  deleteUploadImgWrapper,
-} from "../../../../lib/commonFn/imgFn";
-import {RootReducer} from "../../../../store";
+import { useRouter } from "next/router";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { addStore } from "../../../../api/contribute";
+import { addImgWrapper, deleteUploadImgWrapper } from "../../../../lib/imgFn";
+import { RootReducer } from "../../../../store";
 
 const useAddStoreInfo = () => {
   const position = useSelector((state: RootReducer) => state.addStorePosition);
@@ -83,17 +80,17 @@ const useAddStoreInfo = () => {
       } else {
         try {
           setLoading(true);
-          await axiosAddStore(
-            storeNameInputRef.current.value,
-            telRef.current.value,
-            openninghourTextareaRef.current.value,
-            position.address,
-            position.latitude,
-            position.longitude,
-            categorySelectRef.current.value,
-            mainImgfile,
-            menuImgfile
-          );
+          await addStore({
+            name: storeNameInputRef.current.value,
+            tel: telRef.current.value,
+            openingHours: openninghourTextareaRef.current.value,
+            address: position.address,
+            latitude: position.latitude,
+            longitude: position.longitude,
+            category: categorySelectRef.current.value,
+            mainImg: mainImgfile,
+            menuImg: menuImgfile,
+          });
           setLoading(false);
           alert("성공적으로 등록되었습니다");
           router.push("/");

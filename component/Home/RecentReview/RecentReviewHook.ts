@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { axiosGetRecentReview } from "../../../lib/commonFn/api";
-
+import { getReviewRecent } from "../../../api/home";
 export interface recentReviewData {
   id: number;
   content: string;
@@ -116,10 +115,7 @@ const useRecentReview = () => {
           fetching: serverData.count !== 0 ? true : false,
           error: false,
         });
-        const [_, { data }] = await Promise.all([
-          delay,
-          axiosGetRecentReview(page),
-        ]);
+        const [_, { data }] = await Promise.all([delay, getReviewRecent(page)]);
         setserverData({
           count: data.count,
           rows: [...serverData.rows, ...data.rows],

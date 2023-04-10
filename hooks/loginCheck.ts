@@ -1,7 +1,7 @@
-import {useRouter} from "next/router";
-import {useEffect} from "react";
-import {useSelector} from "react-redux";
-import {RootReducer} from "../../store";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootReducer } from "../store";
 
 export const useLogin = () => {
   const user = useSelector((state: RootReducer) => state.userLogin);

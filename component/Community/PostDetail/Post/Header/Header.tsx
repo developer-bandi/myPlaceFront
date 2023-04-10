@@ -1,5 +1,4 @@
 import { GrView } from "react-icons/gr";
-import { setDateLatest } from "../../../../../lib/commonFn/date";
 import styles from "./Header.module.scss";
 
 interface HeaderProps {

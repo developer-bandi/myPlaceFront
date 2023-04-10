@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Reviews from "./Reviews";
-import { loader } from "../../../../lib/commonFn/loader";
+import { loader } from "../../../../lib/loader";
 
 export default {
   title: "FindPlace/StoreInfo/Reviews",

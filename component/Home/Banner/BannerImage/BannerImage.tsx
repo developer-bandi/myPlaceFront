@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { loader } from "../../../../lib/commonFn/loader";
+import { loader } from "../../../../lib/loader";
 import styles from "./BannerImage.module.scss";
 
 interface BannerImageProps {

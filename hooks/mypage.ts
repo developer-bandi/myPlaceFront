@@ -1,21 +1,20 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import {
-  axiosGetMyBookMark,
-  axiosGetMyComment,
-  axiosGetMyPost,
-  axiosGetMyReviews,
-} from "../commonFn/api";
-
+  getMyBookMark,
+  getMyComment,
+  getMyPost,
+  getMyReviews,
+} from "../api/mypage";
 export interface dataState {
-  content?: {count: number; rows: unknown};
+  content?: { count: number; rows: unknown };
   error: boolean;
   loading: boolean;
 }
-const axiosObj: {[index: string]: Function} = {
-  bookmark: axiosGetMyBookMark,
-  review: axiosGetMyReviews,
-  post: axiosGetMyPost,
-  comment: axiosGetMyComment,
+const axiosObj: { [index: string]: Function } = {
+  bookmark: getMyBookMark,
+  review: getMyReviews,
+  post: getMyPost,
+  comment: getMyComment,
 };
 const useMypage = (pageType: string) => {
   const [serverData, setServerData] = useState<dataState>({
@@ -34,7 +33,7 @@ const useMypage = (pageType: string) => {
           error: false,
         });
       } catch (err) {
-        setServerData({loading: false, error: true});
+        setServerData({ loading: false, error: true });
       }
     };
     asyncTempFunc();
@@ -50,11 +49,11 @@ const useMypage = (pageType: string) => {
       });
       setPage(page);
     } catch (err) {
-      setServerData({loading: false, error: true});
+      setServerData({ loading: false, error: true });
     }
   };
 
-  return {serverData, changePage, page, setServerData};
+  return { serverData, changePage, page, setServerData };
 };
 
 export default useMypage;

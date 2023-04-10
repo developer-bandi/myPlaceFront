@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { loader } from "../../../../lib/commonFn/loader";
+import { loader } from "../../../../lib/loader";
 import styles from "./Menus.module.scss";
 
 interface MenusProps {

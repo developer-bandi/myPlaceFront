@@ -1,4 +1,4 @@
-import { setDateLatest } from "../../../../../lib/commonFn/date";
+import { setDateLatest } from "../../../../../lib/date";
 import Comment from "./Comment";
 import useComment from "./CommentHook";
 

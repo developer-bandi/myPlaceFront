@@ -1,6 +1,6 @@
 import { AiOutlinePicture } from "react-icons/ai";
 import { ImCross } from "react-icons/im";
-import storeReview from "../../../../../lib/styles/storeReview.module.scss";
+import storeReview from "../../../../../styles/storeReview.module.scss";
 import Image from "next/image";
 
 interface ImageProps {

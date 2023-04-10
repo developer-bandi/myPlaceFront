@@ -1,7 +1,7 @@
 import { action } from "@storybook/addon-actions";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { useEffect, useRef } from "react";
-import { useIsLabtopOrTabletOrMobile } from "../../../../lib/customHook/mediaQuery";
+import { useIsLabtopOrTabletOrMobile } from "../../../../hooks/mediaQuery";
 import MyInfoSetting from "./MyInfoSetting";
 
 export default {

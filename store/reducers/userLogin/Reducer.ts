@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AxiosResponse } from "axios";
 import { HYDRATE } from "next-redux-wrapper";
-import { LoginCheckType } from "../../../lib/apitype/auth";
+import { checkSigninRes } from "../../../type/auth";
 
 export interface userLoginContent {
   id: number;
@@ -14,7 +15,7 @@ export interface signupState {
 }
 
 const initialState: signupState = {
-  loading: true,
+  loading: false,
   error: false,
 };
 
@@ -23,14 +24,19 @@ const UserLoginSlice = createSlice({
   initialState,
 
   reducers: {
-    checkSignin() {},
+    checkSignin(state) {
+      state.loading = true;
+    },
 
     checkSigninSuccess(
       state,
-      action: PayloadAction<{ data: LoginCheckType; status: number }>
+      action: PayloadAction<AxiosResponse<checkSigninRes>>
     ) {
       state.loading = false;
-      if (action.payload.status === 200) {
+      if (
+        action.payload.status === 200 &&
+        typeof action.payload.data !== "string"
+      ) {
         state.content = action.payload.data;
       }
     },
@@ -56,7 +62,7 @@ const UserLoginSlice = createSlice({
   },
 
   extraReducers: {
-    [HYDRATE]: (state, action) => {
+    [HYDRATE]: (state) => {
       return state;
     },
   },

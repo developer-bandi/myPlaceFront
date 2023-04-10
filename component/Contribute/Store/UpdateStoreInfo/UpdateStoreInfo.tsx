@@ -1,5 +1,5 @@
 import { RefObject } from "react";
-import storeInfo from "../../../../lib/styles/storeInfo.module.scss";
+import storeInfo from "../../../../styles/storeInfo.module.scss";
 import { storeInfoType } from "../../../../lib/apitype/search";
 import ImageBlock from "./ImageBlock/ImageBlock";
 

@@ -1,4 +1,4 @@
-import storeReview from "../../../../lib/styles/storeReview.module.scss";
+import storeReview from "../../../../styles/storeReview.module.scss";
 import { HashtagAllState } from "../../../../store/reducers/hashtagAll/Reducer";
 import React, { RefObject } from "react";
 import Image from "next/image";

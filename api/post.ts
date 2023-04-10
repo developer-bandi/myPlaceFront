@@ -1,32 +1,35 @@
+import {
+  addCommentRes,
+  addLikecountRes,
+  addPostDetailRes,
+  deleteCommentRes,
+  deleteLikecountRes,
+  deletePostDetailRes,
+  getPostDetailRes,
+  getPostListRes,
+  getSearchPostListRes,
+} from "../type/post";
 import axiosInstance from "./core";
 import makeForm from "./lib/makeForm";
-
-axiosInstance.defaults.baseURL += "post/";
-
 interface postListCondition {
   page: number;
   order: string;
 }
-
 interface searchPostListCondition extends postListCondition {
   keyword: string;
 }
-
 interface addCommentInfo {
   PostId: number;
   content: string;
 }
-
 interface deleteCommentInfo {
   CommentId: number;
   UserId: number;
 }
-
 interface deletePostInfo {
-  CommentId: number;
+  PostId: number;
   UserId: number;
 }
-
 interface addPostInfo {
   [key: string]: unknown;
   title: string;
@@ -34,34 +37,45 @@ interface addPostInfo {
   imgs: Blob[];
 }
 
-const postApi = {
-  getPostList: ({ page, order }: postListCondition) =>
-    axiosInstance.get(`list?page=${page}&order=${order}`),
-  getSearchPostList: ({ keyword, page, order }: searchPostListCondition) =>
-    axiosInstance.get(`search?keyword=${keyword}&page=${page}&order=${order}`),
-  getPostDetail: (id: string) => axiosInstance.get(`detail?id=${id}`),
-  addComment: (commentInfo: addCommentInfo) =>
-    axiosInstance.post("comment", commentInfo),
-  deleteComment: (commentInfo: deleteCommentInfo) =>
-    axiosInstance.delete("comment", {
-      data: commentInfo,
-    }),
-  addLikecount: (PostId: string) =>
-    axiosInstance.post("likecount", {
-      PostId,
-    }),
-  deleteLikecount: (PostId: string) =>
-    axiosInstance.post("likecount", {
-      data: {
-        PostId,
-      },
-    }),
-  addPostDetail: (info: addPostInfo) =>
-    axiosInstance.post("detail", makeForm(info)),
-  deletePostDetail: (postInfo: deletePostInfo) =>
-    axiosInstance.delete("detail", {
-      data: postInfo,
-    }),
-};
+export const getPostList = ({ page, order }: postListCondition) =>
+  axiosInstance.get<getPostListRes>(`post/list?page=${page}&order=${order}`);
 
-export default postApi;
+export const getSearchPostList = ({
+  keyword,
+  page,
+  order,
+}: searchPostListCondition) =>
+  axiosInstance.get<getSearchPostListRes>(
+    `post/search?keyword=${keyword}&page=${page}&order=${order}`
+  );
+
+export const getPostDetail = (id: string) =>
+  axiosInstance.get<getPostDetailRes>(`post/detail?id=${id}`);
+
+export const addPostDetail = (info: addPostInfo) =>
+  axiosInstance.post<addPostDetailRes>("post/detail", makeForm(info));
+
+export const deletePostDetail = (postInfo: deletePostInfo) =>
+  axiosInstance.delete<deletePostDetailRes>("post/detail", {
+    data: postInfo,
+  });
+
+export const addComment = (commentInfo: addCommentInfo) =>
+  axiosInstance.post<addCommentRes>("post/comment", commentInfo);
+
+export const deleteComment = (commentInfo: deleteCommentInfo) =>
+  axiosInstance.delete<deleteCommentRes>("post/comment", {
+    data: commentInfo,
+  });
+
+export const addLikecount = (PostId: string) =>
+  axiosInstance.post<addLikecountRes>("post/likecount", {
+    PostId,
+  });
+
+export const deleteLikecount = (PostId: string) =>
+  axiosInstance.delete<deleteLikecountRes>("post/likecount", {
+    data: {
+      PostId,
+    },
+  });

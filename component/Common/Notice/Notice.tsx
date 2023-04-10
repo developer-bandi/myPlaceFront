@@ -1,7 +1,7 @@
-import {noticeListState} from "./NoticeContainer";
+import { noticeListState } from "./NoticeContainer";
 import styles from "./Notice.module.scss";
-import {GoPrimitiveDot} from "react-icons/go";
-import {setDateLatest} from "../../../lib/commonFn/date";
+import { GoPrimitiveDot } from "react-icons/go";
+import { setDateLatest } from "../../../lib/date";
 import Image from "next/image";
 import loadingImg from "../../../public/searchResultLoading.gif";
 
@@ -11,7 +11,7 @@ interface NoticeProps {
   movePost: (postId: number) => void;
 }
 
-const Notice = ({serverData, checkNotice, movePost}: NoticeProps) => {
+const Notice = ({ serverData, checkNotice, movePost }: NoticeProps) => {
   if (serverData.loading) {
     return (
       <div className={styles.mainBlock}>
