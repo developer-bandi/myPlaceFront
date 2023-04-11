@@ -1,6 +1,6 @@
 import styles from "./ChoiceButton.module.scss";
-import first from "../../../public/51.svg";
-import second from "../../../public/64.svg";
+import first from "../../../public/placeRegistration.svg";
+import second from "../../../public/reviewRegistration.svg";
 import Button from "./Button/Button";
 
 const ChoiceButton = () => {

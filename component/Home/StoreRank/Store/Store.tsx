@@ -52,7 +52,7 @@ const Store = ({
               ? loader({ width: 440, height: 300 })
               : undefined
           }
-          src={photo !== undefined ? `${photo}` : `/107.svg`}
+          src={photo !== undefined ? `${photo}` : `/emptyPlace.svg`}
           alt="searchImg"
           layout="fill"
         />

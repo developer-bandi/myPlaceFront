@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Button from "./Button";
-import first from "../../../../public/51.svg";
+import first from "../../../../public/placeRegistration.svg";
 
 export default {
   title: "Contribute/ChoiceButton/Button",

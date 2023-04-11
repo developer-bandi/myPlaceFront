@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./SocialLogin.module.scss";
-import kakaologo from "../../../../../public/새 프로젝트.png";
+import kakaologo from "../../../../../public/kakaoIcon.png";
 
 const SocialLogin = () => {
   return (

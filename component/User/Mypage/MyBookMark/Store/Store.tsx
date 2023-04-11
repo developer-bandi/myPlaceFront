@@ -48,7 +48,7 @@ const Store = ({ index, content, moveTargetStore }: StoreProps) => {
       ) : (
         <div className={styles.image}>
           <Image
-            src={`/107.svg`}
+            src={`/emptyPlace.svg`}
             alt="searchImg"
             layout="fill"
             priority={true}
