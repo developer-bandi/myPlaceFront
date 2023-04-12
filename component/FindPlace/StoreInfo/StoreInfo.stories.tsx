@@ -56,6 +56,7 @@ export const normal = Template.bind({});
 normal.args = {
   store: {
     content: {
+      bookmark: false,
       storeInfo: {
         id: 1,
         name: "상점",
@@ -64,7 +65,7 @@ normal.args = {
           "월 : 휴무\n화 : 10:00~19:00\n수 : 10:00~19:00\n목 : 10:00~19:00\n금 : 10:00~19:00\n토 : 10:00~19:00\n일 : 10:00~19:00",
         address: "부산광역시 금정구 장전동",
         category: "카페",
-        updatedAt: new Date(),
+        updatedAt: "테스트날짜",
         latitude: "testLatitude",
         longitude: "testLongitude",
       },
@@ -89,6 +90,7 @@ normal.args = {
           src: "/place/16625346494021491388606",
         }),
       ],
+      hashtags: { test: 1 },
     },
     loading: false,
     error: false,
