@@ -14,7 +14,7 @@ import {
 import { checkSigninRes } from "../../../type/auth";
 import { AxiosResponse } from "axios";
 
-function* loginCheckSaga() {
+function* userLoginSagaCallback() {
   try {
     const loginedUser: AxiosResponse<checkSigninRes> = yield call(
       checkSigninApi
@@ -26,10 +26,10 @@ function* loginCheckSaga() {
 }
 
 export function* userLoginSaga() {
-  yield all([takeLeading("userLogin/checkSignin", loginCheckSaga)]);
+  yield all([takeLeading("userLogin/checkSignin", userLoginSagaCallback)]);
 }
 
-function* logoutSaga() {
+function* userLogoutSagaCallback() {
   try {
     yield call(logoutApi);
     yield put(logoutSuccess());
@@ -39,5 +39,5 @@ function* logoutSaga() {
 }
 
 export function* userLogoutSaga() {
-  yield all([takeLeading("userLogin/logout", logoutSaga)]);
+  yield all([takeLeading("userLogin/logout", userLogoutSagaCallback)]);
 }

@@ -4,7 +4,7 @@ import { setDesktopStoreInfo } from "../sideBarFold/Reducer";
 import { getStoreDetailInfo } from "../../../api/search";
 import { getStoreDetailInfoRes } from "../../../type/search";
 
-function* axiosApi(action: { type: string; payload: number }) {
+function* storeInfoSagaCallback(action: { type: string; payload: number }) {
   try {
     yield put(setDesktopStoreInfo(true));
     const searchResult: { data: getStoreDetailInfoRes } = yield call(
@@ -18,5 +18,5 @@ function* axiosApi(action: { type: string; payload: number }) {
 }
 
 export function* storeInfoSaga() {
-  yield all([takeLeading("storeInfo/getStoreInfo", axiosApi)]);
+  yield all([takeLeading("storeInfo/getStoreInfo", storeInfoSagaCallback)]);
 }

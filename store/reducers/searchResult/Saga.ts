@@ -3,7 +3,7 @@ import { searchStoreFailure, searchStoreSuccess } from "./Reducer";
 import { hashtagSearch, nameSearch } from "../../../api/search";
 import { store } from "../../../type/search";
 
-function* getSearchResult(action: {
+function* searchResultSagaCallback(action: {
   type: string;
   payload: {
     latitude: string;
@@ -35,5 +35,7 @@ function* getSearchResult(action: {
 }
 
 export function* searchResultSaga() {
-  yield all([takeLeading("searchResult/searchStore", getSearchResult)]);
+  yield all([
+    takeLeading("searchResult/searchStore", searchResultSagaCallback),
+  ]);
 }

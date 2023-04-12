@@ -2,11 +2,11 @@ import { all, call, put, takeLeading } from "redux-saga/effects";
 import { getHashtagAllFailure, getHashtagAllSuccess } from "./Reducer";
 import { getHashTag } from "../../../api/hashtag";
 import { AxiosResponse } from "axios";
-import { HashTagList } from "../../../type/hashtag";
+import { getHashTagRes } from "../../../type/hashtag";
 
-function* getHashtagSaga() {
+function* hashtagAllSagaCallback() {
   try {
-    const { data }: AxiosResponse<HashTagList> = yield call(getHashTag);
+    const { data }: AxiosResponse<getHashTagRes> = yield call(getHashTag);
     yield put(getHashtagAllSuccess(data));
   } catch (error) {
     yield put(getHashtagAllFailure());
@@ -14,5 +14,5 @@ function* getHashtagSaga() {
 }
 
 export function* hashtagAllSaga() {
-  yield all([takeLeading("hashtagAll/getHashtagAll", getHashtagSaga)]);
+  yield all([takeLeading("hashtagAll/getHashtagAll", hashtagAllSagaCallback)]);
 }
