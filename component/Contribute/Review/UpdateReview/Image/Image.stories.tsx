@@ -1,7 +1,7 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import ImageComponent from "./Image";
-import img from "../../../../../public/vercel.svg";
+import img from "../../../../../public/emptyPlace.svg";
 import { action } from "@storybook/addon-actions";
 
 export default {
