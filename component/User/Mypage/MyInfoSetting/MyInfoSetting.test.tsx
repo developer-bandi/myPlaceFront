@@ -5,7 +5,40 @@ import * as React from "react";
 import newReact from "react";
 import useMyInfoSetting from "./MyInfoSettingHook";
 
-jest.mock("axios");
+let status = {
+  patch: 200,
+};
+const mockedUserInfo = {
+  localId: "testLocalId",
+  nickname: "testNickname",
+  provider: "local",
+  createdAt: "testCreatedAt",
+  email: "testEmail",
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      patch: jest.fn(() => {
+        if (status.patch === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: mockedUserInfo,
+          });
+        }
+        if (status.patch === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "에러 발생",
+          });
+        }
+      }),
+    }),
+  };
+});
 jest.mock("next/router", () => ({
   __esModule: true,
   useRouter: jest.fn(),
@@ -14,14 +47,6 @@ const mockRouter = {
   pathname: "",
 };
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
-const mockedAxios = axios as jest.Mocked<typeof axios>;
-const mockedUserInfo = {
-  localId: "testLocalId",
-  nickname: "testNickname",
-  provider: "local",
-  createdAt: "testCreatedAt",
-  email: "testEmail",
-};
 
 describe("MyInfoSetting Hook 테스트", () => {
   describe("changeNickname 함수 테스트", () => {
@@ -31,12 +56,6 @@ describe("MyInfoSetting Hook 테스트", () => {
         .mockReturnValueOnce({ current: { value: "" } });
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
-      mockedAxios.patch.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: mockedUserInfo,
-        })
-      );
       const { result } = renderHook(() =>
         useMyInfoSetting({
           content: mockedUserInfo,
@@ -55,12 +74,7 @@ describe("MyInfoSetting Hook 테스트", () => {
         .mockReturnValueOnce({ current: { value: "" } });
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
-      mockedAxios.patch.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "data",
-        })
-      );
+      status.patch = 500;
       const { result } = renderHook(() =>
         useMyInfoSetting({
           content: mockedUserInfo,

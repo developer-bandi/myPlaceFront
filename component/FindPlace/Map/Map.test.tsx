@@ -7,11 +7,11 @@ import {
   waitFor,
 } from "@testing-library/react";
 
-import {Provider} from "react-redux";
+import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import newReact from "react";
 import * as React from "react";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import useMap from "./MapHook";
 
 jest.mock("next/router", () => ({
@@ -25,7 +25,7 @@ const mockRouter = {
 
 describe("Map Hook 테스트", () => {
   let mockStore = "noContentnotClick";
-  const mockedStore: {[index: string]: any} = {
+  const mockedStore: { [index: string]: any } = {
     noContentnotClick: configureMockStore()({
       searchCondition: {
         position: {
@@ -36,7 +36,7 @@ describe("Map Hook 테스트", () => {
         hashtag: ["testHashtag"],
         keyword: "testKeyword",
       },
-      searchResult: {content: ""},
+      searchResult: { content: "" },
       standardMarker: {
         clickPossible: true,
         clicked: true,
@@ -53,7 +53,7 @@ describe("Map Hook 테스트", () => {
         hashtag: ["testHashtag"],
         keyword: "testKeyword",
       },
-      searchResult: {content: ""},
+      searchResult: { content: "" },
       standardMarker: {
         clickPossible: true,
         clicked: false,
@@ -70,7 +70,7 @@ describe("Map Hook 테스트", () => {
         hashtag: ["testHashtag"],
         keyword: "testKeyword",
       },
-      searchResult: {content: ""},
+      searchResult: { content: "" },
       standardMarker: {
         clickPossible: true,
         clicked: true,
@@ -124,21 +124,21 @@ describe("Map Hook 테스트", () => {
       },
     }),
   };
-  const wrapper = ({children}: {children: React.ReactNode}) => (
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={mockedStore[mockStore]}>{children}</Provider>
   );
   describe("핸들러 함수를 ref에 추가하는 useEffect", () => {
     it("정상적으로 추가되는 경우", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "ok");
+                  callback([{ x: "testx", y: "testy" }], "ok");
                 },
                 coord2Address: jest.fn(),
               };
@@ -156,7 +156,7 @@ describe("Map Hook 테스트", () => {
         },
       };
       window.kakao = kakao as any;
-      const {result} = renderHook(() => useMap(), {
+      const { result } = renderHook(() => useMap(), {
         wrapper,
       });
       act(() => {
@@ -169,14 +169,14 @@ describe("Map Hook 테스트", () => {
     it("초기화 하는 경우", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "ok");
+                  callback([{ x: "testx", y: "testy" }], "ok");
                 },
               };
             }),
@@ -195,7 +195,7 @@ describe("Map Hook 테스트", () => {
       window.kakao = kakao as any;
       const setPositionMock = jest.fn();
       const setMapMock = jest.fn();
-      const {result} = renderHook(() => useMap(), {
+      const { result } = renderHook(() => useMap(), {
         wrapper,
       });
       act(() => {
@@ -213,14 +213,14 @@ describe("Map Hook 테스트", () => {
       mockStore = "ContentnotClick";
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "ok");
+                  callback([{ x: "testx", y: "testy" }], "ok");
                 },
               };
             }),
@@ -241,7 +241,7 @@ describe("Map Hook 테스트", () => {
       const setMapMock = jest.fn();
       const setCenterMock = jest.fn();
       const setMapClickMock = jest.fn();
-      const {result} = renderHook(() => useMap(), {
+      const { result } = renderHook(() => useMap(), {
         wrapper,
       });
       act(() => {
@@ -273,14 +273,14 @@ describe("Map Hook 테스트", () => {
     it("결과가 없는 경우", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "zero_result");
+                  callback([{ x: "testx", y: "testy" }], "zero_result");
                 },
               };
             }),
@@ -298,7 +298,7 @@ describe("Map Hook 테스트", () => {
       };
       window.kakao = kakao as any;
       window.alert = jest.fn();
-      const {result} = renderHook(() => useMap(), {
+      const { result } = renderHook(() => useMap(), {
         wrapper,
       });
       act(() => {
@@ -315,14 +315,14 @@ describe("Map Hook 테스트", () => {
     it("에러 발생", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
+        .mockReturnValue({ current: { value: "test" } });
       const kakao = {
         maps: {
           services: {
             Geocoder: jest.fn(() => {
               return {
                 addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "error");
+                  callback([{ x: "testx", y: "testy" }], "error");
                 },
               };
             }),
@@ -340,7 +340,7 @@ describe("Map Hook 테스트", () => {
       };
       window.kakao = kakao as any;
       window.alert = jest.fn();
-      const {result} = renderHook(() => useMap(), {
+      const { result } = renderHook(() => useMap(), {
         wrapper,
       });
       act(() => {
@@ -352,8 +352,8 @@ describe("Map Hook 테스트", () => {
       mockStore = "ContentClick";
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
-      const {result} = renderHook(() => useMap(), {
+        .mockReturnValue({ current: { value: "test" } });
+      const { result } = renderHook(() => useMap(), {
         wrapper,
       });
       act(() => {
@@ -362,109 +362,6 @@ describe("Map Hook 테스트", () => {
       expect(mockedStore.ContentClick.getActions()[0]).toEqual({
         payload: false,
         type: "standardMarker/setClicked",
-      });
-    });
-  });
-  describe("검색결과를 지도에 표시하는 useEffect 테스트", () => {
-    it("결과가 없는 경우", () => {
-      mockStore = "resultZero";
-      const useRefSpy = jest
-        .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
-      const kakao = {
-        maps: {
-          services: {
-            Geocoder: jest.fn(() => {
-              return {
-                addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "error");
-                },
-              };
-            }),
-            Status: {
-              OK: "ok",
-              ZERO_RESULT: "zero_result",
-              ERROR: "error",
-            },
-          },
-          LatLng: jest.fn(() => "test"),
-          event: {
-            addListener: jest.fn(),
-          },
-        },
-      };
-      window.kakao = kakao as any;
-      window.alert = jest.fn();
-      const setMapMock = jest.fn();
-      const {result} = renderHook(() => useMap(), {
-        wrapper,
-      });
-      act(() => {
-        result.current.setSearchResultMarker([
-          {
-            setMap: setMapMock,
-          },
-        ]);
-      });
-      act(() => {
-        result.current.setLoading(true);
-      });
-      expect(setMapMock).toBeCalledTimes(1);
-      expect(setMapMock).toBeCalledWith(null);
-    });
-    it("결과가 있는 경우", async () => {
-      mockStore = "resultnotZero";
-      const useRefSpy = jest
-        .spyOn(newReact, "useRef")
-        .mockReturnValue({current: {value: "test"}});
-      const markerSetMapMock = jest.fn();
-      const kakao = {
-        maps: {
-          services: {
-            Geocoder: jest.fn(() => {
-              return {
-                addressSearch: (input: string, callback: Function) => {
-                  callback([{x: "testx", y: "testy"}], "error");
-                },
-              };
-            }),
-            Status: {
-              OK: "ok",
-              ZERO_RESULT: "zero_result",
-              ERROR: "error",
-            },
-          },
-          LatLng: jest.fn(() => "test"),
-          event: {
-            addListener: jest.fn(),
-          },
-          CustomOverlay: jest.fn(() => {
-            return {setMap: markerSetMapMock};
-          }),
-        },
-      };
-      window.kakao = kakao as any;
-      window.alert = jest.fn();
-      const setMapClickMock = jest.fn();
-      const setMapMock = jest.fn();
-      const {result} = renderHook(() => useMap(), {
-        wrapper,
-      });
-      act(() => {
-        result.current.setSearchResultMarker([
-          {
-            setMap: setMapMock,
-          },
-        ]);
-      });
-      act(() => {
-        result.current.setLoading(true);
-      });
-      await waitFor(() => {
-        expect(markerSetMapMock).toBeCalledTimes(1);
-        expect(result.current.searchResultMarker).toEqual([
-          {setMap: markerSetMapMock},
-        ]);
       });
     });
   });

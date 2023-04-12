@@ -5,8 +5,42 @@ import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import useStoreInfo from "./StoreInfoHook";
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+let status = {
+  post: 200,
+  delete: 200,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      post: jest.fn(() => {
+        if (status.post === 200) {
+          return Promise.resolve({ status: 200, data: "test" });
+        }
+        if (status.post === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "error",
+          });
+        }
+      }),
+      delete: jest.fn(() => {
+        if (status.delete === 200) {
+          return Promise.resolve({ status: 200, data: "test" });
+        }
+        if (status.delete === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "error",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -48,9 +82,6 @@ describe("StoreInfo Hook 테스트", () => {
     });
     it("정상적으로 반영된 경우", async () => {
       login = true;
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({ status: 200, data: "test" })
-      );
       const { result } = renderHook(() => useStoreInfo(), { wrapper });
       await act(async () => {
         result.current.postBookMark(111111);
@@ -61,9 +92,7 @@ describe("StoreInfo Hook 테스트", () => {
       });
     });
     it("에러가 발생한 경우", async () => {
-      mockedAxios.post.mockImplementation(() =>
-        Promise.reject({ status: 500, data: "error" })
-      );
+      status.post = 500;
       const { result } = renderHook(() => useStoreInfo(), { wrapper });
       await act(async () => {
         result.current.postBookMark(111111);
@@ -83,9 +112,6 @@ describe("StoreInfo Hook 테스트", () => {
     });
     it("정상적으로 반영된 경우", async () => {
       login = true;
-      mockedAxios.delete.mockImplementation(() =>
-        Promise.resolve({ status: 200, data: "test" })
-      );
       const { result } = renderHook(() => useStoreInfo(), { wrapper });
       await act(async () => {
         result.current.deleteBookMark(111111);
@@ -96,24 +122,26 @@ describe("StoreInfo Hook 테스트", () => {
       });
     });
     it("에러가 발생한 경우", async () => {
-      mockedAxios.delete.mockImplementation(() =>
-        Promise.reject({ status: 500, data: "error" })
-      );
+      status.delete = 500;
       const { result } = renderHook(() => useStoreInfo(), { wrapper });
       await act(async () => {
         result.current.deleteBookMark(111111);
       });
+      console.log(loginMockStore.getActions());
       expect(alertMock.mock.calls[3][0]).toBe("에러가 발생하였습니다");
     });
   });
-  it("deleteStoreTab 함수 테스트", () => {
-    const { result } = renderHook(() => useStoreInfo(), { wrapper });
-    act(() => {
-      result.current.deleteStoreTab();
-    });
-    expect(loginMockStore.getActions()[2]).toEqual({
-      payload: undefined,
-      type: "storeInfo/initializeStoreInfo",
+  describe("deleteStoreTab 함수 테스트", () => {
+    it("일반적인 동작 테스트", () => {
+      const { result } = renderHook(() => useStoreInfo(), { wrapper });
+      act(() => {
+        result.current.deleteStoreTab();
+      });
+
+      expect(loginMockStore.getActions()[2]).toEqual({
+        payload: undefined,
+        type: "storeInfo/initializeStoreInfo",
+      });
     });
   });
 });

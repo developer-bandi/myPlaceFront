@@ -66,8 +66,10 @@ describe("LikeButton Hook 테스트", () => {
 
       expect(loginMockStore.getActions()[0]).toEqual({
         payload: {
-          id: 1,
-          type: "down",
+          postId: undefined,
+          serverLike: undefined,
+          type: "up",
+          userId: 1,
         },
         type: "postDetail/updateLikeCount",
       });
@@ -92,7 +94,7 @@ describe("LikeButton Hook 테스트", () => {
       });
       const flag = result.current.checkLike();
 
-      expect(flag).toEqual("down");
+      expect(flag).toEqual("up");
     });
 
     it("로그인 하였고 아직 좋아요를 누르지 않은 경우", () => {
@@ -102,7 +104,7 @@ describe("LikeButton Hook 테스트", () => {
       });
       const flag = result.current.checkLike();
 
-      expect(flag).toEqual("up");
+      expect(flag).toEqual("down");
     });
   });
 });

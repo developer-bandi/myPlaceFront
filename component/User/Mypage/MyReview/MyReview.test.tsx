@@ -3,7 +3,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import useMyReview from "./MyReviewHook";
 
-jest.mock("axios");
 jest.mock("next/router", () => ({
   __esModule: true,
   useRouter: jest.fn(),
@@ -13,8 +12,32 @@ const routerMock = {
   push: jest.fn(),
 };
 (useRouter as jest.Mock).mockReturnValue(routerMock);
+let status = {
+  delete: false,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      delete: jest.fn(() => {
+        if (status.delete) {
+          return Promise.reject({
+            status: 500,
+            data: "error",
+          });
+        }
+        return Promise.resolve({
+          status: 200,
+          data: "data",
+        });
+      }),
+    }),
+  };
+});
 
-const axiosMock = axios as jest.Mocked<typeof axios>;
 const reviewListMock = {
   count: 1,
   rows: [
@@ -36,12 +59,6 @@ describe("MyReview Hook 테스트", () => {
     });
 
     it("정상적으로 삭제된경우", async () => {
-      axiosMock.delete.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: "data",
-        })
-      );
       window.alert = jest.fn();
       const setServerDataMock = jest.fn();
       const { result } = renderHook(() =>
@@ -65,12 +82,7 @@ describe("MyReview Hook 테스트", () => {
     });
 
     it("에러가 발생한 경우", async () => {
-      axiosMock.delete.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "error",
-        })
-      );
+      status.delete = true;
       window.alert = jest.fn();
       const { result } = renderHook(() =>
         useMyReview({

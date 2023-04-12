@@ -3,19 +3,9 @@ import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import newReact from "react";
 import * as React from "react";
-import {
-  act,
-  fireEvent,
-  render,
-  renderHook,
-  screen,
-} from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import axios from "axios";
-import UpdateStoreInfo from "./UpdateStoreInfo";
 import useUpdateStoreInfo from "./UpdateStoreInfoHook";
-
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -25,6 +15,34 @@ const mockRouter = {
   push: jest.fn(),
 };
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
+
+let status = {
+  patch: 200,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      patch: jest.fn(() => {
+        if (status.patch === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: "test",
+          });
+        }
+        if (status.patch === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "에러 발생",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 describe("UpdateStoreInfo Hook 테스트", () => {
   let blank = false;
@@ -117,9 +135,6 @@ describe("UpdateStoreInfo Hook 테스트", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.patch.mockImplementation(() =>
-        Promise.resolve({ status: 200, data: "test" })
-      );
       window.alert = jest.fn();
       const { result } = renderHook(() => useUpdateStoreInfo(), { wrapper });
       await act(async () => {
@@ -137,9 +152,7 @@ describe("UpdateStoreInfo Hook 테스트", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.patch.mockImplementation(() =>
-        Promise.reject({ status: 500, data: "error" })
-      );
+      status.patch = 500;
       window.alert = jest.fn();
       const { result } = renderHook(() => useUpdateStoreInfo(), { wrapper });
       await act(async () => {

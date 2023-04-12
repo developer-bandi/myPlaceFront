@@ -13,7 +13,10 @@ import { HYDRATE } from "next-redux-wrapper";
 import { userLoginSaga, userLogoutSaga } from "./Saga";
 import { AxiosResponse } from "axios";
 import { checkSigninRes } from "../../../type/auth";
-
+import {
+  checkSignin as checkSigninApi,
+  logout as logoutApi,
+} from "../../../api/auth";
 const mockUser = { id: 1, nickname: "test" };
 
 const checkSigninResMock = {
@@ -23,7 +26,7 @@ const checkSigninResMock = {
 
 describe("reducer 테스트", () => {
   const initialState = {
-    loading: true,
+    loading: false,
     error: false,
   };
   it("initial state을 설정한 경우", () => {
@@ -32,7 +35,10 @@ describe("reducer 테스트", () => {
     );
   });
   it("checkSignin 액션이 발생한 경우", () => {
-    expect(UserLoginSlice(initialState, checkSignin())).toEqual(initialState);
+    expect(UserLoginSlice(initialState, checkSignin())).toEqual({
+      ...initialState,
+      loading: true,
+    });
   });
   it("checkSigninSuccess 액션이 발생한 경우", () => {
     const actual = UserLoginSlice(
@@ -80,7 +86,7 @@ describe("reducer 테스트", () => {
   it("HYDRATE 테스트", () => {
     const actual = UserLoginSlice(initialState, { type: HYDRATE });
     expect(actual.content).toEqual(undefined);
-    expect(actual.loading).toEqual(true);
+    expect(actual.loading).toEqual(false);
     expect(actual.error).toEqual(false);
   });
 });
@@ -89,7 +95,7 @@ describe("saga 테스트", () => {
   describe("userLoginSaga 의도한대로 작동하는지", () => {
     it("api를 성공적으로 받아와 액션을 발생시킨 경우", () => {
       return expectSaga(userLoginSaga)
-        .provide([[call(checkSignin), { data: checkSigninResMock }]])
+        .provide([[call(checkSigninApi), { data: checkSigninResMock }]])
         .put({
           type: "userLogin/checkSigninSuccess",
           payload: { data: checkSigninResMock },
@@ -101,7 +107,7 @@ describe("saga 테스트", () => {
     });
     it("에러가 발생한 경우", () => {
       return expectSaga(userLoginSaga)
-        .provide([[call(checkSignin), throwError(new Error("Whoops"))]])
+        .provide([[call(checkSigninApi), throwError(new Error("Whoops"))]])
         .put({ type: "userLogin/checkSigninFailure", payload: undefined })
         .dispatch({ type: "userLogin/checkSignin" })
         .silentRun();
@@ -110,14 +116,14 @@ describe("saga 테스트", () => {
   describe("userLogoutSaga 의도한대로 작동하는지", () => {
     it("api를 성공적으로 받아와 액션을 발생시킨 경우", () => {
       return expectSaga(userLogoutSaga)
-        .provide([[call(logout), undefined]])
+        .provide([[call(logoutApi), undefined]])
         .put({ type: "userLogin/logoutSuccess", payload: undefined })
         .dispatch({ type: "userLogin/logout" })
         .silentRun();
     });
     it("에러가 발생한 경우", () => {
       return expectSaga(userLogoutSaga)
-        .provide([[call(logout), throwError(new Error("Whoops"))]])
+        .provide([[call(logoutApi), throwError(new Error("Whoops"))]])
         .put({ type: "userLogin/logoutFailure", payload: undefined })
         .dispatch({ type: "userLogin/logout" })
         .silentRun();

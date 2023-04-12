@@ -7,8 +7,53 @@ import { act, renderHook, waitFor } from "@testing-library/react";
 import axios from "axios";
 import useUpdateReview from "./UpdateReviewHook";
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+let status = {
+  get: 200,
+  patch: 200,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      get: jest.fn(() => {
+        if (status.get === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: {
+              storeInfo: { name: "testName", category: "testCategory" },
+              Hashtags: [],
+              photo: [],
+              content: "test",
+            },
+          });
+        }
+        if (status.get === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "에러 발생",
+          });
+        }
+      }),
+      patch: jest.fn(() => {
+        if (status.patch === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: "test",
+          });
+        }
+        if (status.patch === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "에러 발생",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -33,17 +78,6 @@ describe("UpdateReview Hook 테스트", () => {
         .spyOn(newReact, "useRef")
         .mockReturnValueOnce({ current: { value: "" } })
         .mockReturnValueOnce({ current: { value: "" } });
-      mockedAxios.get.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: {
-            storeInfo: { name: "testName", category: "testCategory" },
-            Hashtags: [],
-            photo: [],
-            content: "test",
-          },
-        })
-      );
 
       const { result } = renderHook(() => useUpdateReview(), { wrapper });
       await waitFor(() => {
@@ -69,12 +103,7 @@ describe("UpdateReview Hook 테스트", () => {
       });
     });
     it("에러가 발생한 경우", async () => {
-      mockedAxios.get.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "error",
-        })
-      );
+      status.get = 500;
       const { result } = renderHook(() => useUpdateReview(), { wrapper });
       await waitFor(() => {
         expect(result.current.error).toBe(true);
@@ -117,19 +146,17 @@ describe("UpdateReview Hook 테스트", () => {
       jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.patch.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: "test",
-        })
-      );
       window.alert = jest.fn();
 
       const { result } = renderHook(() => useUpdateReview(), { wrapper });
       act(() => {
         result.current.setExistInfo({
           id: 1,
-          storeInfo: { name: "testName", category: "testCategory" },
+          storeInfo: {
+            name: "testName",
+            category: "testCategory",
+            address: "testAddress",
+          },
           Hashtags: [],
           photo: [],
           content: "test",
@@ -148,16 +175,18 @@ describe("UpdateReview Hook 테스트", () => {
       jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.patch.mockImplementation(() =>
-        Promise.reject({ status: 500, data: "error" })
-      );
+      status.patch = 500;
       window.alert = jest.fn();
 
       const { result } = renderHook(() => useUpdateReview(), { wrapper });
       act(() => {
         result.current.setExistInfo({
           id: 1,
-          storeInfo: { name: "testName", category: "testCategory" },
+          storeInfo: {
+            name: "testName",
+            category: "testCategory",
+            address: "testAddress",
+          },
           Hashtags: [],
           photo: [],
           content: "test",

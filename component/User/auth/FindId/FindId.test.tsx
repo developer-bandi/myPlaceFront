@@ -5,9 +5,40 @@ import { useRouter } from "next/router";
 import useFindIdHook from "./FindIdHook";
 const CryptoJS = require("crypto-js");
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+let status = {
+  post: 203,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      post: jest.fn(() => {
+        if (status.post === 203) {
+          return Promise.resolve({
+            status: 203,
+            data: "이메일이 존재하지 않습니다",
+          });
+        }
+        if (status.post === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: { id: "testId", number: "testNumber" },
+          });
+        }
 
+        if (status.post === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "error",
+          });
+        }
+      }),
+    }),
+  };
+});
 jest.mock("next/router", () => ({
   __esModule: true,
   useRouter: jest.fn(),
@@ -26,12 +57,6 @@ describe("FindId Hook 테스트", () => {
       jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({
-          status: 203,
-          data: "아이디 중복",
-        })
-      );
       const { result } = renderHook(() => useFindIdHook());
       await act(async () => {
         await result.current.sendMail({ type: "click" });
@@ -42,12 +67,7 @@ describe("FindId Hook 테스트", () => {
       jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: { id: "testId", number: "testNumber" },
-        })
-      );
+      status.post = 200;
       const { result } = renderHook(() => useFindIdHook());
       await act(async () => {
         await result.current.sendMail({ type: "click" });
@@ -62,12 +82,7 @@ describe("FindId Hook 테스트", () => {
       jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "error",
-        })
-      );
+      status.post = 500;
       const { result } = renderHook(() => useFindIdHook());
       await act(async () => {
         await result.current.sendMail({ type: "click" });

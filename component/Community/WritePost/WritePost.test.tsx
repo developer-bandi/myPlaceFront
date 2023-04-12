@@ -5,13 +5,36 @@ import React, { ReactNode } from "react";
 import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import useWritePost from "./WritePostHook";
-jest.mock("axios");
+
 jest.mock("next/router", () => ({
   __esModule: true,
   useRouter: jest.fn(),
 }));
 
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+let status = {
+  post: 200,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      post: jest.fn(() => {
+        if (status.post === 200) {
+          return Promise.resolve({ status: 200, data: "test" });
+        }
+        if (status.post === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "error",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 describe("writePost Hook test", () => {
   describe("submit 함수 test", () => {
@@ -57,10 +80,6 @@ describe("writePost Hook test", () => {
       };
       (useRouter as jest.Mock).mockReturnValue(mockRouter);
       jest.spyOn(React, "useRef").mockReturnValue({ current: "test" });
-
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({ status: 200, data: "test" })
-      );
       const { result } = renderHook(() => useWritePost(), {
         wrapper,
       });
@@ -76,9 +95,7 @@ describe("writePost Hook test", () => {
       const useRefSpy = jest
         .spyOn(React, "useRef")
         .mockReturnValueOnce({ current: "test" });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.reject({ status: 500, data: "에러발생" })
-      );
+      status.post = 500;
       const { result } = renderHook(() => useWritePost(), {
         wrapper,
         initialProps: {

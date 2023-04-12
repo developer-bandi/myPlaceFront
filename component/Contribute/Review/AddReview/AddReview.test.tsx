@@ -3,19 +3,37 @@ import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import newReact from "react";
 import * as React from "react";
-import {
-  act,
-  fireEvent,
-  render,
-  renderHook,
-  screen,
-} from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import axios from "axios";
-import AddReview from "./AddReview";
 import useAddReview from "./AddReviewHook";
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+let status = {
+  post: 200,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      post: jest.fn(() => {
+        if (status.post === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: "data",
+          });
+        }
+        if (status.post === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "에러 발생",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -98,9 +116,6 @@ describe("AddReview Hook 테스트", () => {
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "test" } });
       window.alert = jest.fn();
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({ status: 200, data: "test" })
-      );
       const { result } = renderHook(() => useAddReview(), { wrapper });
       await act(async () => {
         await result.current.submit();
@@ -113,9 +128,7 @@ describe("AddReview Hook 테스트", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.reject({ status: 500, data: "error" })
-      );
+      status.post = 500;
       window.alert = jest.fn();
       const { result } = renderHook(() => useAddReview(), { wrapper });
       await act(async () => {

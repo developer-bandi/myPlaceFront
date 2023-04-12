@@ -16,11 +16,11 @@ const apiData = {
   storeInfo: {
     id: 1,
     name: "test",
-    tel: null,
-    openingHours: null,
+    tel: "000-000-0000",
+    openingHours: "test",
     address: "test",
     category: "test",
-    updatedAt: new Date(),
+    updatedAt: "test",
     latitude: "test",
     longitude: "test",
   },
@@ -36,6 +36,7 @@ const apiData = {
   hashtags: {
     test: 1,
   },
+  mainPhoto: "test",
   Menus: ["test"],
 };
 
@@ -96,7 +97,7 @@ describe("saga 테스트", () => {
         .put({ type: "storeInfo/getStoreInfoSuccess", payload: apiData })
         .dispatch({
           type: "storeInfo/getStoreInfo",
-          payload: "1",
+          payload: 1,
         })
         .silentRun();
     });

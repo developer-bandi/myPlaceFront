@@ -4,11 +4,13 @@ import {
   checkSigninFailure,
   logoutSuccess,
   logoutFailure,
-  checkSignin,
   logout,
 } from "./Reducer";
 
-import { checkSignin as checkSigninApi } from "../../../api/auth";
+import {
+  checkSignin as checkSigninApi,
+  logout as logoutApi,
+} from "../../../api/auth";
 import { checkSigninRes } from "../../../type/auth";
 import { AxiosResponse } from "axios";
 
@@ -29,7 +31,7 @@ export function* userLoginSaga() {
 
 function* logoutSaga() {
   try {
-    yield call(logout);
+    yield call(logoutApi);
     yield put(logoutSuccess());
   } catch (err) {
     yield put(logoutFailure());

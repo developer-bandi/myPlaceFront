@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addBookMark } from "../../../api/search";
+import {
+  addBookMark,
+  deleteBookMark as deleteBookMarkApi,
+} from "../../../api/search";
 import { RootReducer } from "../../../store";
 import {
   initializeStoreInfo,
@@ -32,7 +35,7 @@ const useStoreInfo = () => {
       alert("로그인을 해주세요");
     } else {
       try {
-        await deleteBookMark(storeId);
+        await deleteBookMarkApi(storeId);
         dispatch(setBookmark(false));
       } catch (err) {
         alert("에러가 발생하였습니다");

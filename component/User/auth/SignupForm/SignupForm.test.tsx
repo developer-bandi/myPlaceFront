@@ -6,8 +6,40 @@ import { useRouter } from "next/router";
 import useSignupForm from "./SignupFormHook";
 const CryptoJS = require("crypto-js");
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+let status = {
+  post: 203,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      post: jest.fn(() => {
+        if (status.post === 203) {
+          return Promise.resolve({
+            status: 203,
+            data: "아이디 중복",
+          });
+        }
+        if (status.post === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: "회원가입 성공",
+          });
+        }
+
+        if (status.post === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "error",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -105,12 +137,7 @@ describe("SignupForm Hook 테스트", () => {
         .mockReturnValueOnce({ current: { value: "test" } })
         .mockReturnValueOnce({ current: { value: "test" } })
         .mockReturnValueOnce({ current: { value: "test@tmail.com" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({
-          status: 203,
-          data: "아이디 중복",
-        })
-      );
+
       const { result } = renderHook(() => useSignupForm());
       await act(async () => {
         await result.current.signup({ type: "click" });
@@ -127,12 +154,7 @@ describe("SignupForm Hook 테스트", () => {
         .mockReturnValueOnce({ current: { value: "test" } })
         .mockReturnValueOnce({ current: { value: "test" } })
         .mockReturnValueOnce({ current: { value: "test@tmail.com" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: "아이디 중복",
-        })
-      );
+      status.post = 200;
       const { result } = renderHook(() => useSignupForm());
       await act(async () => {
         await result.current.signup({ type: "click" });
@@ -150,12 +172,7 @@ describe("SignupForm Hook 테스트", () => {
         .mockReturnValueOnce({ current: { value: "test" } })
         .mockReturnValueOnce({ current: { value: "test" } })
         .mockReturnValueOnce({ current: { value: "test@tmail.com" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "에러 발생",
-        })
-      );
+      status.post = 500;
       const { result } = renderHook(() => useSignupForm());
       await act(async () => {
         await result.current.signup({ type: "click" });

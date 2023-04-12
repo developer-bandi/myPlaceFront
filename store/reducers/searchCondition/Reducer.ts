@@ -1,12 +1,7 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {HYDRATE} from "next-redux-wrapper";
-
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 export interface hashtagSearchConditionState {
-  position: {
-    address?: string;
-    longitude?: string;
-    latitude?: string;
-  };
+  position: { [index: string]: string | undefined };
   category?: string;
   hashtag?: string[];
   keyword?: string;
@@ -31,6 +26,7 @@ const hashtagSearchConditionSlice = createSlice({
         latitude?: string;
       }>
     ) {
+      state.position;
       state.position.address = action.payload.address;
       state.position.longitude = action.payload.longitude;
       state.position.latitude = action.payload.latitude;

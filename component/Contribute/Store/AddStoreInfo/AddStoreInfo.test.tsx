@@ -7,8 +7,33 @@ import { act, renderHook } from "@testing-library/react";
 import useAddStoreInfo from "./AddStoreInfoHook";
 import axios from "axios";
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+let status = {
+  post: 200,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      post: jest.fn(() => {
+        if (status.post === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: "test",
+          });
+        }
+        if (status.post === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "에러 발생",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -68,9 +93,6 @@ describe("AddStoreInfo Hook 테스트", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({ status: 200, data: "test" })
-      );
       window.alert = jest.fn();
       const { result } = renderHook(() => useAddStoreInfo(), { wrapper });
       await act(async () => {
@@ -83,9 +105,7 @@ describe("AddStoreInfo Hook 테스트", () => {
       const useRefSpy = jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.reject({ status: 500, data: "error" })
-      );
+      status.post = 500;
       window.alert = jest.fn();
       const { result } = renderHook(() => useAddStoreInfo(), { wrapper });
       await act(async () => {

@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { HYDRATE } from "next-redux-wrapper";
 import { NextRouter } from "next/router";
-import { postDetailCommentType } from "../../../lib/apitype/post";
-import { getPostDetailRes } from "../../../type/post";
+import { addCommentRes, getPostDetailRes } from "../../../type/post";
 
 export interface HashtagAllState {
   content?: getPostDetailRes;
@@ -57,7 +56,7 @@ const postDetailSlice = createSlice({
       action: PayloadAction<{ id: string; content: string }>
     ) {},
 
-    postCommentSuccess(state, action: PayloadAction<postDetailCommentType>) {
+    postCommentSuccess(state, action: PayloadAction<addCommentRes>) {
       state.content?.Comments.push(action.payload);
     },
 

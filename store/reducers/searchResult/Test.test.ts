@@ -69,44 +69,45 @@ describe("reducer 테스트", () => {
 
 describe("saga 테스트", () => {
   describe("getSearchResult가 의도한대로 작동하는지", () => {
-    const payloadData = {
+    const payloadDataHashtag = {
       latitude: "testLatitude",
       longitude: "testLongitude",
       selectedHashtag: ["test"],
+    };
+
+    const payloadDataKeyword = {
+      latitude: "testLatitude",
+      longitude: "testLongitude",
       searchKeyword: "testKeyword",
     };
+
     it("hashtag로 검색한 결과를 성공적으로 받아와 액션을 발생시킨 경우", () => {
       return expectSaga(searchResultSaga)
-        .provide([[call(hashtagSearch, payloadData), { data: apiData }]])
+        .provide([[call(hashtagSearch, payloadDataHashtag), { data: apiData }]])
         .put({ type: "searchResult/searchStoreSuccess", payload: apiData })
         .dispatch({
           type: "searchResult/searchStore",
-          payload: {
-            latitude: payloadData.latitude,
-            longitude: payloadData.longitude,
-            selectedHashtag: payloadData.selectedHashtag,
-          },
+          payload: payloadDataHashtag,
         })
         .silentRun();
     });
     it("keyword로 검색한 결과를 성공적으로 받아와 액션을 발생시킨 경우", () => {
       return expectSaga(searchResultSaga)
-        .provide([[call(nameSearch, payloadData), { data: apiData }]])
+        .provide([[call(nameSearch, payloadDataKeyword), { data: apiData }]])
         .put({ type: "searchResult/searchStoreSuccess", payload: apiData })
         .dispatch({
           type: "searchResult/searchStore",
-          payload: {
-            latitude: payloadData.latitude,
-            longitude: payloadData.longitude,
-            searchKeyword: payloadData.searchKeyword,
-          },
+          payload: payloadDataKeyword,
         })
         .silentRun();
     });
     it("에러가 발생한 경우", () => {
       return expectSaga(searchResultSaga)
         .provide([
-          [call(hashtagSearch, payloadData), throwError(new Error("Whoops"))],
+          [
+            call(hashtagSearch, payloadDataHashtag),
+            throwError(new Error("Whoops")),
+          ],
         ])
         .put({ type: "searchResult/searchStoreFailure", payload: undefined })
         .dispatch({ type: "searchResult/searchStore" })

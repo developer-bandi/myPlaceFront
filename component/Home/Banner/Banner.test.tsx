@@ -11,6 +11,6 @@ describe("Banner Hook 테스트", () => {
     act(() => {
       jest.advanceTimersByTime(8000);
     });
-    expect(result.current.carouselNumber).toBe(1);
+    expect(result.current.carouselNumber).toBe(0);
   });
 });

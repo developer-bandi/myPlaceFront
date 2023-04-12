@@ -3,7 +3,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateReview } from "../../../../api/contribute";
 import { getMyReview } from "../../../../api/mypage";
-import { ReviewType } from "../../../../lib/apitype/contribute";
 import {
   addImgWrapper,
   deleteExistImgWrapper,
@@ -11,11 +10,12 @@ import {
 } from "../../../../lib/imgFn";
 import { RootReducer } from "../../../../store";
 import { getHashtagAll } from "../../../../store/reducers/hashtagAll/Reducer";
+import { getMyReviewRes } from "../../../../type/mypage";
 
 const useUpdateReview = () => {
   const taglist = useSelector((state: RootReducer) => state.hashtagAll);
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  const [existInfo, setExistInfo] = useState<ReviewType>();
+  const [existInfo, setExistInfo] = useState<getMyReviewRes>();
   const [selectedHashtag, setSelectedHashtag] = useState<string[]>([]);
   const [existImg, setExistImg] = useState<string[] | undefined>();
   const [storeInfo, setStoreInfo] =

@@ -1,16 +1,36 @@
-import {
-  act,
-  fireEvent,
-  render,
-  renderHook,
-  screen,
-} from "@testing-library/react";
+import { act, renderHook } from "@testing-library/react";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Withdrawal from "./Withdrawal";
 import useWithdrawal from "./WithdrawalHook";
 
-jest.mock("axios");
+let status = {
+  delete: 200,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      delete: jest.fn(() => {
+        if (status.delete === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: "data",
+          });
+        }
+        if (status.delete === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "에러 발생",
+          });
+        }
+      }),
+    }),
+  };
+});
+
 jest.mock("next/router", () => ({
   __esModule: true,
   useRouter: jest.fn(),
@@ -20,17 +40,10 @@ const mockRouter = {
   push: jest.fn(),
 };
 (useRouter as jest.Mock).mockReturnValue(mockRouter);
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe("Withdrawal Hook 테스트", () => {
   describe("withdrawalButton 함수 테스트", () => {
     it("정상적으로 삭제된경우", async () => {
-      mockedAxios.delete.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: "data",
-        })
-      );
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
       const { result } = renderHook(() => useWithdrawal());
@@ -42,12 +55,7 @@ describe("Withdrawal Hook 테스트", () => {
     });
 
     it("에러가 발생한 경우", async () => {
-      mockedAxios.delete.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "error",
-        })
-      );
+      status.delete = 500;
       window.confirm = jest.fn(() => true);
       window.alert = jest.fn();
       const { result } = renderHook(() => useWithdrawal());

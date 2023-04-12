@@ -16,6 +16,7 @@ const useMyReview = ({ setServerData, serverData }: useMyReviewProps) => {
     if (window.confirm("삭제하시겠습니까?")) {
       try {
         await deleteMyReview(id);
+
         if (serverData.content !== undefined)
           setServerData({
             content: {
@@ -32,6 +33,7 @@ const useMyReview = ({ setServerData, serverData }: useMyReviewProps) => {
           });
         alert("삭제되었습니다");
       } catch (err) {
+        console.log(err);
         alert("에러가 발생하였습니다");
       }
     }

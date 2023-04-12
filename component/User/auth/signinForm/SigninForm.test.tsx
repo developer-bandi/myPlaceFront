@@ -6,8 +6,39 @@ import { useRouter } from "next/router";
 import useSigninForm from "./SigninFormHook";
 const CryptoJS = require("crypto-js");
 
-jest.mock("axios");
-const mockedAxios = axios as jest.Mocked<typeof axios>;
+let status = {
+  post: 202,
+};
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      post: jest.fn(() => {
+        if (status.post === 202) {
+          return Promise.resolve({
+            status: 202,
+            data: "비밀번호 혹은 아이디를 잘못입력하였습니다",
+          });
+        }
+        if (status.post === 200) {
+          return Promise.resolve({
+            status: 200,
+            data: "로그인 성공",
+          });
+        }
+        if (status.post === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "에러 발생",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -29,12 +60,7 @@ describe("SigninForm Hook 테스트", () => {
       jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({
-          status: 202,
-          data: "비밀번호 혹은 아이디를 잘못입력하였습니다",
-        })
-      );
+
       const { result } = renderHook(() => useSigninForm());
       await act(async () => {
         await result.current.checkLogin({ type: "click" });
@@ -47,12 +73,7 @@ describe("SigninForm Hook 테스트", () => {
       jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.resolve({
-          status: 200,
-          data: "로그인 성공",
-        })
-      );
+      status.post = 200;
       const { result } = renderHook(() => useSigninForm());
       await act(async () => {
         await result.current.checkLogin({ type: "click" });
@@ -64,12 +85,7 @@ describe("SigninForm Hook 테스트", () => {
       jest
         .spyOn(newReact, "useRef")
         .mockReturnValue({ current: { value: "" } });
-      mockedAxios.post.mockImplementation(() =>
-        Promise.reject({
-          status: 500,
-          data: "에러 발생",
-        })
-      );
+      status.post = 500;
       const { result } = renderHook(() => useSigninForm());
       await act(async () => {
         await result.current.checkLogin({ type: "click" });

@@ -1,9 +1,9 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {HYDRATE} from "next-redux-wrapper";
-import {storeInfoType} from "../../../lib/apitype/search";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
+import { getStoreDetailInfoRes } from "../../../type/search";
 
 export interface storeInfoState {
-  content?: storeInfoType;
+  content?: getStoreDetailInfoRes;
   loading: boolean;
   error: boolean;
 }
@@ -21,7 +21,7 @@ const storeInfoSlice = createSlice({
       state.loading = true;
     },
 
-    getStoreInfoSuccess(state, action: PayloadAction<storeInfoType>) {
+    getStoreInfoSuccess(state, action: PayloadAction<getStoreDetailInfoRes>) {
       state.content = action.payload;
       state.loading = false;
     },

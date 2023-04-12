@@ -1,13 +1,37 @@
-import {act, renderHook, waitFor} from "@testing-library/react";
+import { act, renderHook, waitFor } from "@testing-library/react";
 import axios from "axios";
-import {useRouter} from "next/router";
-import {Provider} from "react-redux";
+import { useRouter } from "next/router";
+import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
-import {useLogin} from "./loginCheck";
+import { useLogin } from "./loginCheck";
 import useMoveTargetStore from "./moveTargetStore";
 import useMypage from "./mypage";
 
-jest.mock("axios");
+let status = {
+  get: 200,
+};
+const getMock = jest.fn();
+jest.mock("axios", () => {
+  return {
+    create: jest.fn().mockReturnValue({
+      interceptors: {
+        request: { use: jest.fn(), eject: jest.fn() },
+        response: { use: jest.fn(), eject: jest.fn() },
+      },
+      get: jest.fn(() => {
+        if (status.get === 200) {
+          return Promise.resolve({ status: 200, data: "test" });
+        }
+        if (status.get === 500) {
+          return Promise.reject({
+            status: 500,
+            data: "error",
+          });
+        }
+      }),
+    }),
+  };
+});
 
 jest.mock("next/router", () => ({
   __esModule: true,
@@ -18,13 +42,12 @@ const routerMock = {
   push: jest.fn(),
 };
 (useRouter as jest.Mock).mockReturnValue(routerMock);
-const axiosMock = axios as jest.Mocked<typeof axios>;
 
 describe("loginCheck Hook 테스트", () => {
-  const wrapper = ({children}: {children: React.ReactNode}) => (
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider
       store={configureMockStore()({
-        userLogin: {loading: false, error: false},
+        userLogin: { loading: false, error: false },
       })}
     >
       {children}
@@ -33,7 +56,7 @@ describe("loginCheck Hook 테스트", () => {
 
   window.alert = jest.fn();
   it("로그인 안된 경우", async () => {
-    const {result} = renderHook(() => useLogin(), {wrapper});
+    const { result } = renderHook(() => useLogin(), { wrapper });
 
     expect(window.alert).toBeCalledWith("로그인을 해주세요!");
     expect(routerMock.push).toBeCalledWith("/user/auth/signin");
@@ -42,14 +65,14 @@ describe("loginCheck Hook 테스트", () => {
 
 describe("useMoveTargetStore Hook 테스트", () => {
   const storeMock = configureMockStore()({
-    userLogin: {loading: false, error: false},
+    userLogin: { loading: false, error: false },
   });
-  const wrapper = ({children}: {children: React.ReactNode}) => (
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={storeMock}>{children}</Provider>
   );
   window.alert = jest.fn();
   it("moveTargetStore 함수 테스트", () => {
-    const {result} = renderHook(() => useMoveTargetStore(), {wrapper});
+    const { result } = renderHook(() => useMoveTargetStore(), { wrapper });
     act(() => {
       result.current.moveTargetStore(
         1,
@@ -92,10 +115,10 @@ describe("useMoveTargetStore Hook 테스트", () => {
 });
 
 describe("mypage Hook 테스트", () => {
-  const wrapper = ({children}: {children: React.ReactNode}) => (
+  const wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider
       store={configureMockStore()({
-        userLogin: {loading: false, error: false},
+        userLogin: { loading: false, error: false },
       })}
     >
       {children}
@@ -104,10 +127,8 @@ describe("mypage Hook 테스트", () => {
   window.alert = jest.fn();
   describe("useEffect 테스트 하는 경우", () => {
     it("정상적으로 받아온 경우", async () => {
-      axiosMock.get.mockImplementation(() =>
-        Promise.resolve({status: 200, data: "test"})
-      );
-      const {result} = renderHook(() => useMypage("bookmark"), {wrapper});
+      status.get = 200;
+      const { result } = renderHook(() => useMypage("bookmark"), { wrapper });
       await waitFor(() => {
         expect(result.current.serverData).toEqual({
           content: "test",
@@ -117,10 +138,8 @@ describe("mypage Hook 테스트", () => {
       });
     });
     it("에러가 발생한 경우", async () => {
-      axiosMock.get.mockImplementation(() =>
-        Promise.reject({status: 500, data: "error"})
-      );
-      const {result} = renderHook(() => useMypage("bookmark"), {wrapper});
+      status.get = 500;
+      const { result } = renderHook(() => useMypage("bookmark"), { wrapper });
       await waitFor(() => {
         expect(result.current.serverData).toEqual({
           loading: false,
@@ -132,10 +151,8 @@ describe("mypage Hook 테스트", () => {
 
   describe("changePage", () => {
     it("정상적으로 받아온 경우", async () => {
-      axiosMock.get.mockImplementation(() =>
-        Promise.resolve({status: 200, data: "test"})
-      );
-      const {result} = renderHook(() => useMypage("bookmark"), {wrapper});
+      status.get = 200;
+      const { result } = renderHook(() => useMypage("bookmark"), { wrapper });
       await act(async () => {
         await result.current.changePage(2);
       });
@@ -149,10 +166,8 @@ describe("mypage Hook 테스트", () => {
       });
     });
     it("에러가 발생한 경우", async () => {
-      axiosMock.get.mockImplementation(() =>
-        Promise.reject({status: 500, data: "error"})
-      );
-      const {result} = renderHook(() => useMypage("bookmark"), {wrapper});
+      status.get = 500;
+      const { result } = renderHook(() => useMypage("bookmark"), { wrapper });
       await act(async () => {
         await result.current.changePage(2);
       });

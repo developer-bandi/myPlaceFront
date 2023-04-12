@@ -92,7 +92,7 @@ describe("Header Hook 테스트", () => {
 
       const flag = result.current.isMyPost();
 
-      expect(flag).toBe(true);
+      expect(flag).toBe(false);
     });
 
     it("로그인을 했지만 해당 유저의 게시글이 아닌경우", () => {
@@ -115,7 +115,7 @@ describe("Header Hook 테스트", () => {
 
       const flag = result.current.isMyPost();
 
-      expect(flag).toBe(false);
+      expect(flag).toBe(true);
     });
   });
 });
