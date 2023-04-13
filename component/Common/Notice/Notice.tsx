@@ -4,7 +4,6 @@ import { GoPrimitiveDot } from "react-icons/go";
 import { setDateLatest } from "../../../lib/date";
 import Image from "next/image";
 import loadingImg from "../../../public/searchResultLoading.gif";
-
 interface NoticeProps {
   serverData: noticeListState;
   checkNotice: (noticeId: number, postId: number) => Promise<void>;
@@ -68,6 +67,7 @@ const Notice = ({ serverData, checkNotice, movePost }: NoticeProps) => {
                     ? movePost(notion.PostId)
                     : checkNotice(notion.id, notion.PostId);
                 }}
+                key={notion.content}
               >
                 <GoPrimitiveDot
                   color={notion.check ? "gray" : "red"}
