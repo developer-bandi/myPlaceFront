@@ -1,8 +1,11 @@
-import {AxiosResponse} from "axios";
-import {useEffect, useState} from "react";
+import { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootReducer } from "../store";
+import { signupState } from "../store/reducers/userLogin/Reducer";
 
 export interface ServerDataState {
-  content?: {count: number; rows: unknown};
+  content?: { count: number; rows: unknown };
   error: boolean;
   loading: boolean;
 }
@@ -12,6 +15,7 @@ const useGetServerData = (api: () => Promise<AxiosResponse>) => {
     loading: true,
     error: false,
   });
+  const loginedUser = useSelector((state: RootReducer) => state.userLogin);
 
   useEffect(() => {
     const asyncWrapFn = async () => {
@@ -29,10 +33,12 @@ const useGetServerData = (api: () => Promise<AxiosResponse>) => {
         });
       }
     };
-    asyncWrapFn();
+    if (loginedUser.content !== undefined) {
+      asyncWrapFn();
+    }
   }, []);
 
-  return {serverData, setserverData};
+  return { serverData, setserverData };
 };
 
 export default useGetServerData;
