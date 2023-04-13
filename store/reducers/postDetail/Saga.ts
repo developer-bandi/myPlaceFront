@@ -14,8 +14,9 @@ import {
   postCommentSuccess,
   deleteCommentSuccess,
   deletePostSuccess,
+  upServerLikeCount,
+  downServerLikeCount,
 } from "./Reducer";
-import { postDetailCommentType } from "../../../lib/apitype/post";
 import { NextRouter } from "next/router";
 import {
   addComment,
@@ -26,7 +27,7 @@ import {
   deleteLikecount,
 } from "../../../api/post";
 import { AxiosResponse } from "axios";
-import { getPostDetailRes } from "../../../type/post";
+import { addCommentRes, getPostDetailRes } from "../../../type/post";
 
 function* getPostSaga(action: { type: string; payload: string }) {
   try {
@@ -56,14 +57,17 @@ function* updateLikeCountSaga(action: {
   }
   yield delay(500);
   try {
+    yield console.log(action.payload);
     if (action.payload.type === "down") {
-      if (action.payload.serverLike.indexOf(action.payload.userId) !== -1) {
+      if (action.payload.serverLike.indexOf(action.payload.userId) === -1) {
         yield call(addLikecount, action.payload.postId);
+        yield put(upServerLikeCount(action.payload.userId));
       }
     }
     if (action.payload.type === "up") {
-      if (action.payload.serverLike.indexOf(action.payload.userId) === -1) {
+      if (action.payload.serverLike.indexOf(action.payload.userId) !== -1) {
         yield call(deleteLikecount, action.payload.postId);
+        yield put(downServerLikeCount(action.payload.userId));
       }
     }
   } catch (error) {
@@ -83,7 +87,7 @@ function* postCommentSaga(action: {
 }) {
   try {
     action.type;
-    const response: { data: postDetailCommentType } = yield call(addComment, {
+    const response: { data: addCommentRes } = yield call(addComment, {
       PostId: action.payload.id,
       content: action.payload.content,
     });

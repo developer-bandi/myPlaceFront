@@ -31,7 +31,7 @@ const postDetailSlice = createSlice({
     updateLikeCount(
       state,
       action: PayloadAction<{
-        postId: string;
+        postId: number;
         userId: number;
         type: string;
         serverLike: number[];
@@ -46,6 +46,18 @@ const postDetailSlice = createSlice({
     downLikeCount(state, action: PayloadAction<number>) {
       if (state.content !== undefined) {
         state.content.likelist = state.content.likelist.filter(
+          (id: number) => !(id === action.payload)
+        );
+      }
+    },
+
+    upServerLikeCount(state, action: PayloadAction<number>) {
+      if (state.serverLike !== undefined) state.serverLike.push(action.payload);
+    },
+
+    downServerLikeCount(state, action: PayloadAction<number>) {
+      if (state.serverLike !== undefined) {
+        state.serverLike = state.serverLike.filter(
           (id: number) => !(id === action.payload)
         );
       }
@@ -110,6 +122,8 @@ export const {
   updateLikeCount,
   upLikeCount,
   downLikeCount,
+  upServerLikeCount,
+  downServerLikeCount,
   postComment,
   postCommentSuccess,
   deleteComment,

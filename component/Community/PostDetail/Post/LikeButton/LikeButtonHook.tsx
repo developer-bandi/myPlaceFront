@@ -1,15 +1,15 @@
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { postDetailType } from "../../../../../lib/apitype/post";
 import { RootReducer } from "../../../../../store";
 import { updateLikeCount } from "../../../../../store/reducers/postDetail/Reducer";
+import { getPostDetailRes } from "../../../../../type/post";
 
 const useLikeButton = () => {
   const loginedId = useSelector(
     (state: RootReducer) => state.userLogin.content?.id
   );
   const postDetail = useSelector(
-    (state: RootReducer) => state.postDetail.content as postDetailType
+    (state: RootReducer) => state.postDetail.content as getPostDetailRes
   );
   const { serverLike } = useSelector((state: RootReducer) => state.postDetail);
   const dispatch = useDispatch();
