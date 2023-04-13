@@ -49,14 +49,12 @@ const SignupForm = ({
           placeHolder={"닉네임을 5자리 미만으로 기입하세요"}
           inputRef={nicknameInputRef}
           eventHandler={signup}
-          type={"password"}
         />
         <InputBlock
           subTitle={"이메일"}
           placeHolder={"유효한 이메일을 입력하세요"}
           inputRef={emailInputRef}
           eventHandler={signup}
-          type={"password"}
         />
         <SubmitButton eventHandler={signup}>회원가입</SubmitButton>
       </div>
