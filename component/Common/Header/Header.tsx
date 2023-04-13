@@ -91,7 +91,12 @@ const Header = ({
               return (
                 <li key={menuObj.name} className={styles.navigationName}>
                   {menuObj.name === "기여하기" ? (
-                    <div onClick={moveContributePage}>{menuObj.name}</div>
+                    <div
+                      className={styles.navigationName}
+                      onClick={moveContributePage}
+                    >
+                      {menuObj.name}
+                    </div>
                   ) : (
                     <Link href={menuObj.router}>{menuObj.name}</Link>
                   )}
