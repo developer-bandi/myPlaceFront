@@ -2,14 +2,7 @@ import styles from "./RecentReview.module.scss";
 import { setDateLatest } from "../../../lib/date";
 import Review from "./Review/Review";
 import TextInfo from "./TextInfo/TextInfo";
-import {
-  Dispatch,
-  RefObject,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { Dispatch, RefObject, SetStateAction } from "react";
 import { reviewRecentState } from "./RecentReviewHook";
 
 interface RecentReviewProps {
@@ -49,18 +42,20 @@ const RecentReview = ({
       <section className={styles.mainBlock}>
         <div className={styles.subBlock}>
           <TextInfo loading={true} />
-          <div className={styles.reviewList}>
-            {new Array(3).fill(0).map((data, index) => {
-              return (
-                <Review
-                  loading={true}
-                  moveTargetStore={moveTargetStore}
-                  index={index}
-                  key={index}
-                />
-              );
-            })}
-            <div className={styles.lastCheckbox} ref={checkBoxRef}></div>
+          <div className={styles.reviewListContainer}>
+            <div className={styles.reviewList}>
+              {new Array(3).fill(0).map((data, index) => {
+                return (
+                  <Review
+                    loading={true}
+                    moveTargetStore={moveTargetStore}
+                    index={index}
+                    key={index}
+                  />
+                );
+              })}
+              <div className={styles.lastCheckbox} ref={checkBoxRef}></div>
+            </div>
           </div>
         </div>
       </section>
