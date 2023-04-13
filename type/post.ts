@@ -5,7 +5,7 @@ interface user {
   nickname: string;
 }
 
-interface post {
+export interface post {
   id: number;
   title: string;
   content: string;

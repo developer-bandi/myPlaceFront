@@ -17,7 +17,7 @@ const PostListContainer = ({ serverSideData }: PostListContainerProps) => {
     moveWritePage,
     movePostDetailPage,
   } = usePostList(serverSideData);
-
+  console.log(postList);
   return (
     <PostList
       page={page}

@@ -2,6 +2,7 @@ import styles from "./Post.module.scss";
 import LikeButtonContainer from "./LikeButton/LikeButtonContainer";
 import Images from "./Images/Images";
 import HeaderContainer from "./Header/HeaderContainer";
+import textEdit from "../../../../lib/textedit";
 
 interface PostProps {
   images: { filename: string }[];
@@ -13,7 +14,14 @@ const Post = ({ images, content }: PostProps) => {
     <div>
       <HeaderContainer />
       <Images images={images} />
-      <p className={styles.content}>{content}</p>
+      <p className={styles.content}>
+        {textEdit(content).map((line) => (
+          <span key={line}>
+            {line}
+            <br />
+          </span>
+        ))}
+      </p>
       <LikeButtonContainer />
     </div>
   );
