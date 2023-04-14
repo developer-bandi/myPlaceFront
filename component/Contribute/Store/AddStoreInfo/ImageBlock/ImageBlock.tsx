@@ -20,7 +20,7 @@ const ImageBlock = ({
 }: ImageBlockProps) => {
   return (
     <ul className={storeInfo.menuBlock}>
-      <label htmlFor="img" className={storeInfo.fileButton}>
+      <label htmlFor={title} className={storeInfo.fileButton}>
         <div className={storeInfo.imgButtonTitle}>{title}</div>
         <div className={storeInfo.fileIcon}>
           <AiOutlinePicture size="40" />
@@ -32,7 +32,7 @@ const ImageBlock = ({
       <input
         type="file"
         accept="image/*"
-        id="img"
+        id={title}
         multiple
         onChange={addImg}
         className={storeInfo.realFileButton}

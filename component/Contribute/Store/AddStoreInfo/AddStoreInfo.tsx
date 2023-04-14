@@ -72,13 +72,15 @@ const AddStoreInfo = ({
         images={uploadMainImg}
         addImg={addMainImg}
         deleteImg={deleteMainImg}
+        key={"대표사진 추가"}
       />
       <ImageBlock
         title={"메뉴판 추가"}
-        maxLength={1}
+        maxLength={3}
         images={uploadMenuImg}
         addImg={addMenuImg}
         deleteImg={deleteMenuImg}
+        key={"메뉴판 추가"}
       />
       <div className={storeInfo.submitButtonBlock}>
         <button onClick={submit} className={storeInfo.submitButton}>

@@ -16,9 +16,10 @@ const useAddStoreInfo = () => {
   const [uploadMainImg, setUploadMainImg] = useState<string[]>([]);
   const [mainImgfile, setMainImgfile] = useState<Blob[]>([]);
   const [loading, setLoading] = useState(false);
+  console.log(mainImgfile, uploadMainImg);
   const addMenuImg = useCallback(
     addImgWrapper(
-      10,
+      3,
       uploadMenuImg,
       menuImgfile,
       setUploadMenuImg,
