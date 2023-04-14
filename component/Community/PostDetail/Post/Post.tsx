@@ -2,7 +2,7 @@ import styles from "./Post.module.scss";
 import LikeButtonContainer from "./LikeButton/LikeButtonContainer";
 import Images from "./Images/Images";
 import HeaderContainer from "./Header/HeaderContainer";
-import textEdit from "../../../../lib/textedit";
+import textEdit from "../../../../lib/textEdit";
 
 interface PostProps {
   images: { filename: string }[];
