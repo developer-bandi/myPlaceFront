@@ -1,20 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { getReviewRecent } from "../../../api/home";
-export interface recentReviewData {
-  id: number;
-  content: string;
-  createdAt: string;
-  storeName: string;
-  storeAddress: string;
-  storeLatitude: string;
-  storeLongitude: string;
-  nickname: string;
-  hashtag: string[];
-}
+import { reviewRecent } from "../../../type/home";
 
 export interface reviewRecentState {
   count: number;
-  rows: recentReviewData[];
+  rows: reviewRecent[];
 }
 
 const useRecentReview = () => {

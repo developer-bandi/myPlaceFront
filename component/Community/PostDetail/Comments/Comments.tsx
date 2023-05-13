@@ -1,9 +1,9 @@
 import { BiCommentDetail } from "react-icons/bi";
-import { postDetailCommentType } from "../../../../lib/apitype/post";
+import { comment } from "../../../../type/post";
 import CommentContainer from "./Comment/CommentContainer";
 import styles from "./Comments.module.scss";
 
-const Comments = ({ comments }: { comments: postDetailCommentType[] }) => {
+const Comments = ({ comments }: { comments: comment[] }) => {
   return (
     <div>
       <div className={styles.titleBlock}>

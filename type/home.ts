@@ -20,7 +20,7 @@ interface storePopular {
   longitude: string;
 }
 
-interface reviewRecent {
+export interface reviewRecent {
   id: number;
   content: string;
   createdAt: string;
@@ -36,4 +36,4 @@ export type getBannerRes = banner[];
 
 export type getStorePopularRes = storePopular[];
 
-export type getReviewRecentRes = pagenationList<reviewRecent[]>;
+export type getReviewRecentRes = pagenationList<reviewRecent>;

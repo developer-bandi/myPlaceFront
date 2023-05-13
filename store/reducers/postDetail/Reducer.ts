@@ -65,7 +65,7 @@ const postDetailSlice = createSlice({
 
     postComment(
       state,
-      action: PayloadAction<{ id: string; content: string }>
+      action: PayloadAction<{ id: number; content: string }>
     ) {},
 
     postCommentSuccess(state, action: PayloadAction<addCommentRes>) {
@@ -88,7 +88,7 @@ const postDetailSlice = createSlice({
     deletePost(
       state,
       action: PayloadAction<{
-        postId: string;
+        postId: number;
         userId: number;
         router: NextRouter;
       }>

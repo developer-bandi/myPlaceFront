@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux";
-import { postDetailType } from "../../../../lib/apitype/post";
 import { RootReducer } from "../../../../store";
+import { postDetail } from "../../../../type/post";
 
 const usePost = () => {
   const { Photos, content } = useSelector(
-    (state: RootReducer) => state.postDetail.content as postDetailType
+    (state: RootReducer) => state.postDetail.content as postDetail
   );
 
   return { images: Photos, content };

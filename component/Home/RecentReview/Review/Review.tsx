@@ -1,11 +1,10 @@
-import { RefObject } from "react";
-import { recentReviewData } from "../RecentReviewHook";
+import { reviewRecent } from "../../../../type/home";
 import styles from "./Review.module.scss";
 
 interface ReviewProps {
   loading: boolean;
   index: number;
-  content?: recentReviewData;
+  content?: reviewRecent;
   moveTargetStore: (
     id: number,
     name: string,

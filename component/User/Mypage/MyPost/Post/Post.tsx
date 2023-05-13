@@ -1,7 +1,6 @@
 import { BiLike } from "react-icons/bi";
 import { FaRegComment } from "react-icons/fa";
 import { GrView } from "react-icons/gr";
-import textEdit from "../../../../../lib/textedit";
 import { postListcontent } from "../MyPostContainer";
 import styles from "./Post.module.scss";
 
@@ -21,8 +20,8 @@ const Post = ({ content, movePostDetailPage }: PostProps) => {
         <div className={styles.user}>{content.nickname}</div>
         <div className={styles.date}>{content.createdAt}</div>
       </div>
-      <div className={styles.title}>{textEdit(content.title)}</div>
-      <p className={styles.content}>{textEdit(content.content)}</p>
+      <div className={styles.title}>{content.title}</div>
+      <p className={styles.content}>{content.content}</p>
       <div className={styles.bottomBlock}>
         <FaRegComment size="20" className={styles.bottomIcon} />
         <div className={styles.bottomInfo}>{content.comment}</div>

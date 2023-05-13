@@ -9,7 +9,7 @@ const useCommentInput = () => {
   const loginedUser = useSelector((state: RootReducer) => state.userLogin);
   const postId = useSelector(
     (state: RootReducer) => state.postDetail.content?.id
-  ) as string;
+  ) as number;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const { nextAction } = useIsNotLogin();
   const dispatch = useDispatch();

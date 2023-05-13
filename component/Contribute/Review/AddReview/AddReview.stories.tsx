@@ -21,11 +21,15 @@ generalType.args = {
       openingHours: "testOpeningHours",
       address: "부산광역시 금정구 장전동 11-11",
       category: "testCategory",
-      updatedAt: new Date(),
+      updatedAt: "2022-01-01",
       latitude: "testLatitude",
       longitude: "testLongitude",
     },
+    bookmark: false,
     Reviews: [],
+    hashtags: { hashtag: 2 },
+    mainPhoto: "test",
+    Menus: ["menu"],
   },
   taglist: {
     content: {

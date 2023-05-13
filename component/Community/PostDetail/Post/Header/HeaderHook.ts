@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { postDetailType } from "../../../../../lib/apitype/post";
 import { setDateLatest } from "../../../../../lib/date";
 import { RootReducer } from "../../../../../store";
 import { deletePost } from "../../../../../store/reducers/postDetail/Reducer";
@@ -25,7 +24,7 @@ const useHeader = () => {
     postId,
     userId,
   }: {
-    postId: string;
+    postId: number;
     userId: number;
   }) => {
     if (window.confirm("포스트를 삭제하시겠습니까?")) {

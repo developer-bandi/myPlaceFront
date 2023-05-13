@@ -5,12 +5,12 @@ import { getPostDetail } from "../../../api/post";
 import Footer from "../../../component/Common/Footer/Footer";
 import HeaderContainer from "../../../component/Common/Header/HeaderContainer";
 import PostDetail from "../../../component/Community/PostDetail/PostDetail";
-import { postDetailType } from "../../../lib/apitype/post";
 import { wrapper } from "../../../store";
 import { getPost } from "../../../store/reducers/postDetail/Reducer";
+import { postDetail } from "../../../type/post";
 
 interface PostDetailPageProps {
-  serverSideData: postDetailType;
+  serverSideData: postDetail;
 }
 
 const PostDetailPage = ({ serverSideData }: PostDetailPageProps) => {

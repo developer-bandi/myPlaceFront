@@ -1,10 +1,10 @@
 import { RefObject } from "react";
 import storeInfo from "../../../../styles/storeInfo.module.scss";
-import { storeInfoType } from "../../../../lib/apitype/search";
+import { storeDetail } from "../../../../type/search";
 import ImageBlock from "./ImageBlock/ImageBlock";
 
 interface UpdateStoreInfoProps {
-  existInfo: storeInfoType | undefined;
+  existInfo: storeDetail | undefined;
   addMenuImg: (e: React.ChangeEvent<HTMLInputElement>) => void;
   deleteExistMenuImg: (deleteindex: number) => void;
   deleteMenuImg: (deleteindex: number) => void;

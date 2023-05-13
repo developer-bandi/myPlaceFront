@@ -23,7 +23,7 @@ const Template: ComponentStory<typeof Header> = (arg) => (
 
 export const myPost = Template.bind({});
 myPost.args = {
-  id: "1",
+  id: 1,
   title: "테스트 제목",
   nickname: "me",
   date: new Date("2022-11-10").toDateString(),
@@ -34,7 +34,7 @@ myPost.args = {
 
 export const otherPost = Template.bind({});
 otherPost.args = {
-  id: "1",
+  id: 1,
   title: "테스트 제목",
   nickname: "me",
   date: new Date("2022-11-10").toDateString(),

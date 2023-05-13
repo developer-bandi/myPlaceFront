@@ -1,12 +1,12 @@
 import storeReview from "../../../../styles/storeReview.module.scss";
 import { HashtagAllState } from "../../../../store/reducers/hashtagAll/Reducer";
 import React, { RefObject } from "react";
-import { storeInfoType } from "../../../../lib/apitype/search";
 import ImageComponent from "./Image/Image";
 import Hashtag from "./Hashtag/Hashtag";
+import { storeDetail } from "../../../../type/search";
 
 interface CommentAddContainer {
-  storeInfo: undefined | storeInfoType;
+  storeInfo: undefined | storeDetail;
   taglist: HashtagAllState;
   selectedHashtag: string[];
   changeHashtag: (hashtag: string, id: number) => void;

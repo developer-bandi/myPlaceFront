@@ -8,7 +8,7 @@ export type store = {
   hashtag: { [index: string]: number };
 };
 
-type storeDetail = {
+export type storeDetail = {
   bookmark: boolean;
   storeInfo: {
     id: number;

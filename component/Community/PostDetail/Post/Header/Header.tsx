@@ -1,9 +1,8 @@
 import { GrView } from "react-icons/gr";
-import textEdit from "../../../../../lib/textedit";
 import styles from "./Header.module.scss";
 
 interface HeaderProps {
-  id: string;
+  id: number;
   title: string;
   nickname: string;
   date: string;
@@ -13,7 +12,7 @@ interface HeaderProps {
     postId,
     userId,
   }: {
-    postId: string;
+    postId: number;
     userId: number;
   }) => void;
   isMyPost: boolean;
@@ -31,7 +30,7 @@ const Header = ({
 }: HeaderProps) => {
   return (
     <div className={styles.mainBlock}>
-      <h3 className={styles.title}>{textEdit(title)}</h3>
+      <h3 className={styles.title}>{title}</h3>
       <div className={styles.infoBlock}>
         <ul className={styles.leftBlock}>
           <li className={styles.nickname}>{nickname}</li>

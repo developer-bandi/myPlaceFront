@@ -16,17 +16,16 @@ export interface post {
   postlikecount: number;
 }
 
-interface comment {
+export interface comment {
   id: number;
   content: string;
   createdAt: string;
   User: user;
 }
-
-interface postDetail
+export interface postDetail
   extends Omit<post, "comment" | "postlikecount" | "nickname"> {
   Comments: comment[];
-  Photos: string[];
+  Photos: { filename: string }[];
   likelist: number[];
   User: user;
 }

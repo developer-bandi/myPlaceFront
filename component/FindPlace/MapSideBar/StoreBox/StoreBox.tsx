@@ -1,9 +1,9 @@
 import React from "react";
-import { SearchResultType } from "../../../../lib/apitype/search";
+import { store } from "../../../../type/search";
 import styles from "./StoreBox.module.scss";
 
 interface StoreBoxProps {
-  searchResult: SearchResultType[] | undefined;
+  searchResult: store[] | undefined;
   showStoreInfo: (storeId: number) => void;
 }
 
@@ -23,7 +23,9 @@ const StoreBox = ({ searchResult, showStoreInfo }: StoreBoxProps) => {
               <h3 className={styles.name}>{storeInfo.name}</h3>
               <p className={styles.category}>{storeInfo.category}</p>
             </div>
-            <p className={styles.adress}>{storeInfo.dist / 1000}km</p>
+            <p className={styles.adress}>
+              {storeInfo.dist || Infinity / 1000}km
+            </p>
             <ul className={styles.taglist}>
               {Object.keys(storeInfo.hashtag)
                 .sort(function (a, b) {
